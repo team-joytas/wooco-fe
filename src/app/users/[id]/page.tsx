@@ -91,8 +91,6 @@ export default function page() {
           코스
         </div>
       </div>
-
-      {/* 정렬 및 내용 섹션 */}
       <div className='mt-[20px] flex justify-between'>
         <div className='flex gap-[5px] items-center'>
           <span className='text-[14px]'>전체</span>
