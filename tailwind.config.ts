@@ -14,14 +14,17 @@ const config: Config = {
       },
       spacing: {
         10: '10px',
+        16: '16px',
         20: '20px',
         24: '24px',
         25: '25px',
+        32: '32px',
         40: '40px',
         50: '50px',
+        60: '60px',
       },
       boxShadow: {
-        custom: '0 -2px 4px rgba(0, 0, 0, 0.1)', // 위쪽 그림자 추가
+        custom: '0 -2px 4px rgba(0, 0, 0, 0.05)',
       },
     },
   },

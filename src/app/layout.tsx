@@ -17,8 +17,9 @@ export default function RootLayout({
     <html lang='kr' className='h-full'>
       <body className='h-full flex items-center flex-col'>
         <Header />
-        <div className='mx-auto flex-1 text-black w-full max-w-[500px]'>
+        <div className='mx-auto flex-1 text-black w-full max-w-[375px]'>
           {children}
+          <div className='h-[50px]'></div>
         </div>
         <Footer />
       </body>
