@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'i.namu.wiki',
       },
+      {
+        protocol: 'https',
+        hostname: 'img.choroc.com',
+      },
     ],
   },
 }
