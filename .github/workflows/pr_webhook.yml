@@ -1,0 +1,53 @@
+name: pr-webhook
+
+on:
+  pull_request:
+    types: [opened, reopened, closed]
+
+jobs:
+  notify-discord:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Notification to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          REPO="${{ github.repository }}"
+          PR_ACTION="${{ github.event.action }}"
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          PR_URL="${{ github.event.pull_request.html_url }}"
+          SENDER_NAME="${{ github.event.sender.login }}"
+          SENDER_AVATAR="${{ github.event.sender.avatar_url }}"
+
+          PR_BODY_ESCAPED=$(echo "${PR_BODY}" | jq -Rs .)
+
+          JSON_PAYLOAD=$(jq -n \
+            --arg content "**WOOCO FE PULL REQUEST (<@&${{ secrets.DISCORD_MENTION_ID }}>)**" \
+            --arg title "[${REPO}] ${PR_ACTION}: (#${PR_NUMBER}) ${PR_TITLE}" \
+            --arg description "${PR_BODY}" \
+            --arg url "${PR_URL}" \
+            --arg username "${SENDER_NAME}" \
+            --arg avatar_url "${SENDER_AVATAR}" \
+            --argjson color 1376000 \
+            '{
+              content: $content,
+              embeds: [
+                {
+                  title: $title,
+                  description: $description,
+                  url: $url,
+                  color: $color
+                }
+              ],
+              username: $username,
+              avatar_url: $avatar_url
+            }'
+          )
+
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -d "${JSON_PAYLOAD}" \
+            "$DISCORD_WEBHOOK_URL"
