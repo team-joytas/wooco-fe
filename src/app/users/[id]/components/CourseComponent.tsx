@@ -40,9 +40,7 @@ export default function CourseComponent({ data }: { data: CourseData }) {
         </div>
         <div className='mt-[8px] flex gap-[5px]'>
           <ProfileImage
-            src={
-              'https://i.namu.wiki/i/XBTITffPBgbYeUbLBGJ8fhHnVk96KPtUzCgaF_65AoYtHio-mwd5Jzc7m-LGeFCWG-NWu3KgCXv4_VtAkQYBIf4ndOeq9GDs-XLu80Zx_ALXckL0poDLSP79ZLVJkuNv1E1cQweVsGN3IG7IAgBAVw.webp'
-            }
+            src={'https://img.choroc.com/newshop/goods/009179/009179_1.jpg'}
             size={15}
           />
           <span>홍인데요</span>

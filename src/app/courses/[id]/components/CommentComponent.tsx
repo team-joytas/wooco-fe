@@ -75,8 +75,8 @@ export default function CommentComponent(data: ComponentProps) {
       <div className='flex flex-col gap-[20px]'>
         {data.comments.comments.map((comment) => {
           return (
-            <div className='flex flex-col gap-[10px]'>
-              <span className='flex gap-[10px]' key={comment.id}>
+            <div key={comment.id} className='flex flex-col gap-[10px]'>
+              <span className='flex gap-[10px]'>
                 <ProfileImage size={36} src={comment.user.profile_url} />
                 <span className='flex flex-col'>
                   <p className='text-[12px]'>{comment.user.name}</p>

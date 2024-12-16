@@ -58,7 +58,7 @@ export default function Page() {
   }
 
   return (
-    <div className='pt-[20px] pb-[32px] px-[16px] w-full h-[90%] flex flex-col justify-between'>
+    <div className='pt-[20px] pb-[32px] px-[16px] w-full flex flex-col justify-between'>
       <div className='w-full  flex flex-col items-end'>
         <p className='m-auto border-b font-semibold text-[18px]'>코스 작성</p>
         <div className='w-full mt-[20px] flex flex-col gap-[5px]'>
@@ -146,7 +146,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <button className='w-full rounded-[5px] mt-[30px] h-[40px] flex items-center justify-center bg-blue-100'>
+      <button className='w-full rounded-[5px] mt-[30px] text-[12px] h-[40px] flex items-center justify-center bg-blue-100'>
         완료
       </button>
     </div>

@@ -3,8 +3,7 @@ export default function getData() {
     id: 1,
     user: {
       isLike: false,
-      profile_url:
-        'https://i.namu.wiki/i/XBTITffPBgbYeUbLBGJ8fhHnVk96KPtUzCgaF_65AoYtHio-mwd5Jzc7m-LGeFCWG-NWu3KgCXv4_VtAkQYBIf4ndOeq9GDs-XLu80Zx_ALXckL0poDLSP79ZLVJkuNv1E1cQweVsGN3IG7IAgBAVw.webp',
+      profile_url: 'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
       name: '어쩔건데',
     },
     name: '강남 맛집 리스트',
@@ -12,8 +11,7 @@ export default function getData() {
     categories: ['SNS 핫플', '맛집투어', '쇼핑'],
     content:
       '금강산도에서 즐길만한 SNS 핫플, 맛집, 쇼핑, 맛집투어, 쇼핑, 쇼핑, 쇼핑, 쇼핑, 쇼핑, 쇼핑, 쇼핑, 쇼핑, 쇼핑, 쇼핑',
-    image:
-      'https://i.namu.wiki/i/XBTITffPBgbYeUbLBGJ8fhHnVk96KPtUzCgaF_65AoYtHio-mwd5Jzc7m-LGeFCWG-NWu3KgCXv4_VtAkQYBIf4ndOeq9GDs-XLu80Zx_ALXckL0poDLSP79ZLVJkuNv1E1cQweVsGN3IG7IAgBAVw.webp',
+    image: 'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
 
     created_at: '2024.12.16',
     likes: 200,
@@ -27,7 +25,7 @@ export default function getData() {
           user: {
             id: 1,
             profile_url:
-              'https://i.namu.wiki/i/XBTITffPBgbYeUbLBGJ8fhHnVk96KPtUzCgaF_65AoYtHio-mwd5Jzc7m-LGeFCWG-NWu3KgCXv4_VtAkQYBIf4ndOeq9GDs-XLu80Zx_ALXckL0poDLSP79ZLVJkuNv1E1cQweVsGN3IG7IAgBAVw.webp',
+              'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
             name: '어쩔건데',
           },
           created_at: '2024.11.29',
@@ -38,7 +36,7 @@ export default function getData() {
           user: {
             id: 1,
             profile_url:
-              'https://i.namu.wiki/i/XBTITffPBgbYeUbLBGJ8fhHnVk96KPtUzCgaF_65AoYtHio-mwd5Jzc7m-LGeFCWG-NWu3KgCXv4_VtAkQYBIf4ndOeq9GDs-XLu80Zx_ALXckL0poDLSP79ZLVJkuNv1E1cQweVsGN3IG7IAgBAVw.webp',
+              'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
             name: '어쩔건데',
           },
           created_at: '2024.11.29',
@@ -49,7 +47,7 @@ export default function getData() {
           user: {
             id: 1,
             profile_url:
-              'https://i.namu.wiki/i/XBTITffPBgbYeUbLBGJ8fhHnVk96KPtUzCgaF_65AoYtHio-mwd5Jzc7m-LGeFCWG-NWu3KgCXv4_VtAkQYBIf4ndOeq9GDs-XLu80Zx_ALXckL0poDLSP79ZLVJkuNv1E1cQweVsGN3IG7IAgBAVw.webp',
+              'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
             name: '어쩔건데',
           },
           created_at: '2024.11.29',
@@ -60,7 +58,7 @@ export default function getData() {
           user: {
             id: 1,
             profile_url:
-              'https://i.namu.wiki/i/XBTITffPBgbYeUbLBGJ8fhHnVk96KPtUzCgaF_65AoYtHio-mwd5Jzc7m-LGeFCWG-NWu3KgCXv4_VtAkQYBIf4ndOeq9GDs-XLu80Zx_ALXckL0poDLSP79ZLVJkuNv1E1cQweVsGN3IG7IAgBAVw.webp',
+              'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
             name: '어쩔건데',
           },
           created_at: '2024.11.29',

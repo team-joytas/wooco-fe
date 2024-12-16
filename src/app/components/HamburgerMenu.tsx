@@ -8,8 +8,6 @@ interface HamburgerMenuProps {
   // setMenuOpen: Dispatch<SetStateAction<boolean>>
 }
 
-export default function HamburgerMenu({}: // menuOpen,
-// setMenuOpen,
-HamburgerMenuProps) {
+export default function HamburgerMenu() {
   return <Hamburger color='black' size={20} />
 }

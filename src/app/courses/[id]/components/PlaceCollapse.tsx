@@ -1,4 +1,4 @@
-import { Collapse, Carousel } from 'antd'
+import { Collapse } from 'antd'
 import Image from 'next/image'
 import Link from 'next/link'
 import CoursePlaceCarousel from './CoursePlaceCarousel'
@@ -106,7 +106,7 @@ export default function PlaceCollapse() {
         </div>
         <Link
           className='w-full flex items-center justify-center py-[5px] border rounded-[5px] mt-[10px]'
-          href={`places/${place.id}`}
+          href={`/places/${place.id}`}
         >
           장소 전체 리뷰 바로가기
         </Link>
