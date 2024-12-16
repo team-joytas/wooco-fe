@@ -9,7 +9,7 @@ export default function ProfileImage({
 }) {
   return (
     <Image
-      className='rounded-full border border-black'
+      className='rounded-full border-gray border-[0.5px]'
       alt='프로필이미지'
       src={src}
       width={size}
