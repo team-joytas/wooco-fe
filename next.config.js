@@ -4,10 +4,6 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'i.namu.wiki',
-      },
-      {
-        protocol: 'https',
         hostname: 'img.choroc.com',
       },
     ],

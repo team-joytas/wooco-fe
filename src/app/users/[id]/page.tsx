@@ -30,7 +30,7 @@ interface Course {
   views: number
 }
 
-export default function page() {
+export default function Page() {
   const data = getData()
   const [type, setType] = useState('장소')
   const [order, setOrder] = useState('recent')

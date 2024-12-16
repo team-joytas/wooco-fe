@@ -6,14 +6,20 @@ import getData from './getData'
 import PlaceCollapse from './components/PlaceCollapse'
 import CommentComponent from './components/CommentComponent'
 
-export default function page({ params }: { params: { id: number } }) {
+export default function Page({ params }: { params: { id: number } }) {
   const courseId = params.id
   const data = getData()
   return (
     <div className='w-full pt-[20px] pb-[32px] px-[16px] flex flex-col'>
-      <section className='justify-between flex'>
-        <Image alt='back' src={back} width={20} height={20} />
-        <p className='font-semibold text-[18px]'>{data.name}</p>
+      <section className='justify-between items-center flex'>
+        <Image
+          alt='back'
+          src={back}
+          width={20}
+          height={10}
+          className='w-[20px] h-[18px]'
+        />
+        <p className='border-b font-semibold text-[18px]'>{data.name}</p>
         <Image alt='toggle' src={toggle} width={20} height={20} />
       </section>
       <section className='w-full flex mt-[20px] gap-[10px]'>
