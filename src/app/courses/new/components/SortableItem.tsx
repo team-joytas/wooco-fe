@@ -13,6 +13,7 @@ export default function SortableItem({ id, place, onEdit, onDelete }: any) {
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
+        touchAction: 'none',
       }}
       className='flex items-center justify-between gap-[10px] h-[40px] px-[10px] py-[10px] border text-[15px] rounded-[5px] bg-white'
     >

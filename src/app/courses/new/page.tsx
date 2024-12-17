@@ -125,7 +125,7 @@ export default function Page() {
           </button>
           <Drawer
             title='장소 검색'
-            size={'large'}
+            height={600}
             placement={'bottom'}
             className='w-full rounded-[10px]'
             onClose={onClose}
