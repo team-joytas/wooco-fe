@@ -1,12 +1,15 @@
 'use client'
 
 import { useState } from 'react'
-import { Input, Button, Drawer, Radio, Space } from 'antd'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-import PlaceListComponent from './components/PlaceListComponent'
-import type { DrawerProps, RadioChangeEvent } from 'antd'
-import dragIcon from '@images/drag_icon.png'
-import Image from 'next/image'
+import { Input, Drawer } from 'antd'
+import { DndContext, closestCenter } from '@dnd-kit/core'
+import {
+  SortableContext,
+  arrayMove,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable'
+import SortableItem from './components/SortableItem'
+import SearchPlace from './components/SearchPlace'
 
 export default function Page() {
   const [clickedCategory, setClickedCategory] = useState<number[]>([])
@@ -16,7 +19,6 @@ export default function Page() {
     { id: 3, name: '미도인 강남' },
     { id: 4, name: '정돈 강남점' },
   ])
-
   const [open, setOpen] = useState(false)
 
   const showDrawer = () => {
@@ -27,6 +29,34 @@ export default function Page() {
     setOpen(false)
   }
 
+  const handleCategoryClick = (id: number) => {
+    setClickedCategory((prev) =>
+      prev.includes(id)
+        ? prev.filter((categoryId) => categoryId !== id)
+        : [...prev, id]
+    )
+  }
+
+  const handleDragEnd = (event: any) => {
+    const { active, over } = event
+
+    if (active.id !== over.id) {
+      setPlaces((items) => {
+        const oldIndex = items.findIndex((item) => item.id === active.id)
+        const newIndex = items.findIndex((item) => item.id === over.id)
+        return arrayMove(items, oldIndex, newIndex)
+      })
+    }
+  }
+
+  const handleDelete = (id: number) => {
+    setPlaces((prev) => prev.filter((place) => place.id !== id))
+  }
+
+  const handleEdit = (id: number) => {
+    alert(`${id}번 장소를 수정합니다.`)
+  }
+
   const categories = [
     { id: 1, value: '맛집' },
     { id: 2, value: '액티비티' },
@@ -35,31 +65,9 @@ export default function Page() {
     { id: 5, value: '기타' },
   ]
 
-  const handleCategoryClick = (id: number) => {
-    setClickedCategory((prev) => {
-      if (prev.includes(id)) {
-        return prev.filter((categoryId) => categoryId !== id)
-      } else {
-        return [...prev, id]
-      }
-    })
-  }
-
-  const handleOnDragEnd = (result: any) => {
-    const { source, destination } = result
-
-    if (!destination) return
-
-    const reorderedPlaces = Array.from(places)
-    const [removed] = reorderedPlaces.splice(source.index, 1)
-    reorderedPlaces.splice(destination.index, 0, removed)
-
-    setPlaces(reorderedPlaces)
-  }
-
   return (
     <div className='pt-[20px] pb-[32px] px-[16px] w-full flex flex-col justify-between'>
-      <div className='w-full  flex flex-col items-end'>
+      <div className='w-full flex flex-col items-end'>
         <p className='m-auto border-b font-semibold text-[18px]'>코스 작성</p>
         <div className='w-full mt-[20px] flex flex-col gap-[5px]'>
           <span className='text-[15px]'>코스 이름</span>
@@ -90,63 +98,45 @@ export default function Page() {
         <div className='w-full mt-[20px] mb-[20px] h-[2px] bg-gray-100' />
         <div className='w-full flex flex-col gap-[10px]'>
           <span className='text-[15px]'>코스 내 장소 정보</span>
-          <div className='flex flex-col gap-[10px]'>
-            <DragDropContext onDragEnd={handleOnDragEnd}>
-              <Droppable droppableId='droppable'>
-                {(provided) => (
-                  <div
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                    className='flex flex-col gap-[10px]'
-                  >
-                    {places.map((place, index) => (
-                      <Draggable
-                        draggableId={`${place.id}`}
-                        key={`${index}`}
-                        index={place.id}
-                      >
-                        {(provided) => (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            className='flex items-center gap-[10px] h-[40px] px-[10px] py-[10px] border text-[15px] rounded-[5px] bg-white'
-                          >
-                            <Image
-                              src={dragIcon}
-                              width={20}
-                              height={15}
-                              className='w-[20px] h-[15px]'
-                              alt='드래그'
-                            />
-                            <span className='text-[13px]'>{place.name}</span>
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            </DragDropContext>
-            <button
-              onClick={showDrawer}
-              className='w-full h-[40px] text-[15px] rounded-[5px] border border-blue-100 flex items-center justify-center'
+          <DndContext
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext
+              items={places}
+              strategy={verticalListSortingStrategy}
             >
-              +
-            </button>
-            <Drawer
-              title='추가할 장소 검색'
-              size={'large'}
-              placement={'bottom'}
-              className='w-[375px] rounded-[10px]'
-              onClose={onClose}
-              open={open}
-            ></Drawer>
-          </div>
+              {places.map((place) => (
+                <SortableItem
+                  key={place.id}
+                  id={place.id}
+                  place={place}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                />
+              ))}
+            </SortableContext>
+          </DndContext>
+          <button
+            onClick={showDrawer}
+            className='w-full h-[40px] text-[15px] rounded-[5px] border border-blue-100 flex items-center justify-center'
+          >
+            +
+          </button>
+          <Drawer
+            title='장소 검색'
+            height={600}
+            placement={'bottom'}
+            className='w-full rounded-[10px]'
+            onClose={onClose}
+            open={open}
+            mask={true}
+          >
+            <SearchPlace />
+          </Drawer>
         </div>
       </div>
-      <button className='w-full rounded-[5px] mt-[30px] text-[12px] h-[40px] flex items-center justify-center bg-blue-100'>
+      <button className='w-full rounded-[5px] mt-[40px] text-[12px] h-[40px] flex items-center justify-center bg-blue-100'>
         완료
       </button>
     </div>
