@@ -8,14 +8,12 @@ export default function SortableItem({ id, place, onEdit, onDelete }: any) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id })
 
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  }
-
   return (
     <div
-      style={style}
+      style={{
+        transform: CSS.Transform.toString(transform),
+        transition,
+      }}
       className='flex items-center justify-between gap-[10px] h-[40px] px-[10px] py-[10px] border text-[15px] rounded-[5px] bg-white'
     >
       <div className='flex items-center gap-[10px]'>
