@@ -10,6 +10,7 @@ import {
 } from '@dnd-kit/sortable'
 import SortableItem from './components/SortableItem'
 import SearchPlace from './components/SearchPlace'
+import { categories } from '@/types/Categories'
 
 export default function Page() {
   const [clickedCategory, setClickedCategory] = useState<number[]>([])
@@ -57,14 +58,6 @@ export default function Page() {
     alert(`${id}번 장소를 수정합니다.`)
   }
 
-  const categories = [
-    { id: 1, value: '맛집' },
-    { id: 2, value: '액티비티' },
-    { id: 3, value: 'SNS 핫플' },
-    { id: 4, value: '문화/예술' },
-    { id: 5, value: '기타' },
-  ]
-
   return (
     <div className='pt-[20px] pb-[32px] px-[16px] w-full flex flex-col justify-between'>
       <div className='w-full flex flex-col items-end'>
@@ -83,7 +76,7 @@ export default function Page() {
             {categories.map((category) => (
               <button
                 key={category.id}
-                className={`text-[12px] py-[5px] px-[13px] border rounded-[10px] transition-all duration-200 ${
+                className={`text-[12px] py-[5px] px-[13px] border rounded-[10px] transition-all duration-200 cursor-pointer ${
                   clickedCategory.includes(category.id)
                     ? 'bg-blue-100 border-blue-100'
                     : 'border-gray-300'
