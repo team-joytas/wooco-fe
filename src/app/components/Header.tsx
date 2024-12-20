@@ -5,14 +5,21 @@ import Image from 'next/image'
 import HamburgerMenu from '@components/HamburgerMenu'
 import { useState } from 'react'
 import Menu from './Menu'
+import { useRouter } from 'next/navigation'
 
 export default function Header() {
+  const router = useRouter()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
     <>
       <header className='max-w-[375px] bg-white w-full h-[50px] min-h-[50px] flex justify-between items-center px-4'>
-        <p className='text-blue-800 text-3xl font-bold'>WOOCO</p>
+        <p
+          className='text-blue-800 text-3xl font-bold cursor-pointer'
+          onClick={() => router.push('/')}
+        >
+          WOOCO
+        </p>
         <div className='flex items-center right-[10px]'>
           <button>
             <Image alt='notification' src={noti} className='w-24 h-auto' />
