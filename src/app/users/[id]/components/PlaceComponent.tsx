@@ -36,7 +36,7 @@ export default function PlaceComponent({ data }: PlaceData) {
           </span>
         ))}
       </div>
-      <div className='rounded-[20px] mt-[10px] flex gap-[4px] overflow-auto'>
+      <div className='rounded-[20px] mt-[10px] flex gap-[4px] overflow-x-hidden'>
         {data.images.map((image, index) => {
           return (
             <Image
