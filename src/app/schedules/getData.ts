@@ -1,7 +1,7 @@
 import { Place } from '../components/SearchPlace'
 
 export interface Course {
-  id: number
+  id: string
   location: string
   places: Place[]
   created_at: string
@@ -19,28 +19,32 @@ export default function getData() {
     user_name: '홍인데유',
     courses: [
       {
-        id: 1,
+        id: '1',
         location: '강남구',
         places: [
           {
+            id: '1',
             place_name: '알베르',
             address_name: '서울 강남구 강남대로102길 34',
             x: '127.028098',
             y: '37.50304',
           },
           {
+            id: '2',
             place_name: '땀땀 본점',
             address_name: '서울 강남구 강남대로98길 12-5',
             x: '127.027992',
             y: '37.500398',
           },
           {
+            id: '3',
             place_name: '마녀주방',
             address_name: '서울 강남구 강남대로94길 9',
             x: '127.028079',
             y: '37.499486',
           },
           {
+            id: '4',
             place_name: 'CGV 강남',
             address_name: '서울 강남구 강남대로 438',
             x: '127.026387',
@@ -52,28 +56,32 @@ export default function getData() {
         planned_for: '2024.12.16',
       },
       {
-        id: 2,
+        id: '2',
         location: '강남구',
         places: [
           {
+            id: '1',
             place_name: '알베르',
             address_name: '서울 강남구 강남대로102길 34',
             x: '127.028098',
             y: '37.50304',
           },
           {
+            id: '2',
             place_name: '땀땀 본점',
             address_name: '서울 강남구 강남대로98길 12-5',
             x: '127.027992',
             y: '37.500398',
           },
           {
+            id: '3',
             place_name: '마녀주방',
             address_name: '서울 강남구 강남대로94길 9',
             x: '127.028079',
             y: '37.499486',
           },
           {
+            id: '4',
             place_name: 'CGV 강남',
             address_name: '서울 강남구 강남대로 438',
             x: '127.026387',
@@ -85,28 +93,32 @@ export default function getData() {
         planned_for: '2024.12.16',
       },
       {
-        id: 3,
+        id: '3',
         location: '강남구',
         places: [
           {
+            id: '1',
             place_name: '알베르',
             address_name: '서울 강남구 강남대로102길 34',
             x: '127.028098',
             y: '37.50304',
           },
           {
+            id: '2',
             place_name: '땀땀 본점',
             address_name: '서울 강남구 강남대로98길 12-5',
             x: '127.027992',
             y: '37.500398',
           },
           {
+            id: '3',
             place_name: '마녀주방',
             address_name: '서울 강남구 강남대로94길 9',
             x: '127.028079',
             y: '37.499486',
           },
           {
+            id: '4',
             place_name: 'CGV 강남',
             address_name: '서울 강남구 강남대로 438',
             x: '127.026387',
@@ -118,28 +130,32 @@ export default function getData() {
         planned_for: '2024.12.16',
       },
       {
-        id: 4,
+        id: '4',
         location: '강남구',
         places: [
           {
+            id: '1',
             place_name: '알베르',
             address_name: '서울 강남구 강남대로102길 34',
             x: '127.028098',
             y: '37.50304',
           },
           {
+            id: '2',
             place_name: '땀땀 본점',
             address_name: '서울 강남구 강남대로98길 12-5',
             x: '127.027992',
             y: '37.500398',
           },
           {
+            id: '3',
             place_name: '마녀주방',
             address_name: '서울 강남구 강남대로94길 9',
             x: '127.028079',
             y: '37.499486',
           },
           {
+            id: '4',
             place_name: 'CGV 강남',
             address_name: '서울 강남구 강남대로 438',
             x: '127.026387',
@@ -151,28 +167,32 @@ export default function getData() {
         planned_for: '2024.12.16',
       },
       {
-        id: 5,
+        id: '5',
         location: '강남구',
         places: [
           {
+            id: '1',
             place_name: '알베르',
             address_name: '서울 강남구 강남대로102길 34',
             x: '127.028098',
             y: '37.50304',
           },
           {
+            id: '2',
             place_name: '땀땀 본점',
             address_name: '서울 강남구 강남대로98길 12-5',
             x: '127.027992',
             y: '37.500398',
           },
           {
+            id: '3',
             place_name: '마녀주방',
             address_name: '서울 강남구 강남대로94길 9',
             x: '127.028079',
             y: '37.499486',
           },
           {
+            id: '4',
             place_name: 'CGV 강남',
             address_name: '서울 강남구 강남대로 438',
             x: '127.026387',

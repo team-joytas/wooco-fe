@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Input } from 'antd'
 
 export interface Place {
-  id?: string
+  id: string
   place_name: string
   category_name?: string
   address_name: string
