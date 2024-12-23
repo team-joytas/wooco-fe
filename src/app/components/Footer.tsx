@@ -40,9 +40,9 @@ export default function Footer() {
           src={path.includes('/schedules') ? calendaPurple : calendar}
           width={25}
           height={25}
-          alt='일정'
+          alt='플랜'
         />
-        일정
+        플랜
       </Link>
       <Link href='/users/1' className='flex flex-col items-center'>
         <Image
