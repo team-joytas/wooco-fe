@@ -1,15 +1,11 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-
-interface Place {
-  name: string
-  address: string
-  latlang: number[]
-}
+import { Place } from './SearchPlace'
 
 interface KakaoMapProps {
   places: Place[]
+  center?: number[]
   id: number
 }
 
@@ -19,7 +15,7 @@ declare global {
   }
 }
 
-export default function KakaoMap({ places, id }: KakaoMapProps) {
+export default function KakaoMap({ places, center, id }: KakaoMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -46,31 +42,32 @@ export default function KakaoMap({ places, id }: KakaoMapProps) {
           return
 
         const map = new window.kakao.maps.Map(mapContainerRef.current, {
-          center: new window.kakao.maps.LatLng(
-            places[0]?.latlang[0] || 37.5665,
-            places[0]?.latlang[1] || 126.978
-          ),
-          level: 6,
+          center: center
+            ? new window.kakao.maps.LatLng(center[0], center[1])
+            : new window.kakao.maps.LatLng(places[0].y, places[0].x),
+          level: center ? 8 : 6,
         })
 
-        places.forEach((place) => {
-          const markerPosition = new window.kakao.maps.LatLng(
-            place.latlang[0],
-            place.latlang[1]
-          )
-          const marker = new window.kakao.maps.Marker({
-            position: markerPosition,
-          })
-          marker.setMap(map)
+        if (places.length > 0) {
+          places.forEach((place) => {
+            const markerPosition = new window.kakao.maps.LatLng(
+              place.y,
+              place.x
+            )
+            const marker = new window.kakao.maps.Marker({
+              position: markerPosition,
+            })
+            marker.setMap(map)
 
-          // 마커 클릭 이벤트
-          const infoWindow = new window.kakao.maps.InfoWindow({
-            content: `<div class="text-sm p-2">${place.name}</div>`,
+            // 마커 클릭 이벤트
+            const infoWindow = new window.kakao.maps.InfoWindow({
+              content: `<div class="text-sm p-2">${place.place_name}</div>`,
+            })
+            window.kakao.maps.event.addListener(marker, 'click', () => {
+              infoWindow.open(map, marker)
+            })
           })
-          window.kakao.maps.event.addListener(marker, 'click', () => {
-            infoWindow.open(map, marker)
-          })
-        })
+        }
       })
     }
 

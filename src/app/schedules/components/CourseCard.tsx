@@ -58,12 +58,14 @@ export default function CourseCard({ courseData }: { courseData: Course }) {
             className='flex flex-row mt-[5px] gap-[5px] bg-gray-100 px-[15px] py-[8px] rounded-[10px] justify-between items-center'
           >
             <div className='flex flex-col items-start'>
-              <span className='text-[13px] font-bold'>{place.name}</span>
-              <span className='text-[10px] text-gray-600'>{place.address}</span>
+              <span className='text-[13px] font-bold'>{place.place_name}</span>
+              <span className='text-[10px] text-gray-600'>
+                {place.address_name}
+              </span>
             </div>
             <CopyOutlined
               className='w-[12px] h-[12px] cursor-pointer'
-              onClick={() => toast(place.address)}
+              onClick={() => toast(place.address_name)}
             />
           </div>
         ))}
