@@ -122,7 +122,7 @@ export default function Page() {
                 className='flex items-center justify-center w-full h-[30px] text-[13px] px-[10px] py-[5px] border border-blue-800 border-opacity-50 rounded-[5px] '
                 onClick={() => setOpen(true)}
               >
-                장소 추가
+                +
               </button>
             </section>
 
@@ -137,7 +137,7 @@ export default function Page() {
                     ${
                       places.length === 0 || !date
                         ? 'cursor-default'
-                        : 'bg-blue-800 bg-opacity-80'
+                        : 'bg-blue-800 bg-opacity-50'
                     }`}
                 disabled={places.length === 0 || !date}
                 onClick={submitPlan}

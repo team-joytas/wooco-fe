@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Input, Drawer } from 'antd'
 import { DndContext, closestCenter } from '@dnd-kit/core'
 import {
@@ -8,19 +8,20 @@ import {
   arrayMove,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
-import SortableItem from './components/SortableItem'
-import SearchPlace from './components/SearchPlace'
+import SortableItem from '@/app/components/SortableItem'
+import SearchPlace, { Place } from '@/app/components/SearchPlace'
 import { categories } from '@/types/Categories'
+import getData from '@/app/schedules/getData'
 
 export default function Page() {
   const [clickedCategory, setClickedCategory] = useState<number[]>([])
-  const [places, setPlaces] = useState([
-    { id: 1, name: '땀땀 강남점' },
-    { id: 2, name: '마녀주방 강남점' },
-    { id: 3, name: '미도인 강남' },
-    { id: 4, name: '정돈 강남점' },
-  ])
+  const [places, setPlaces] = useState<Place[]>([])
   const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    const data = getData()
+    setPlaces(data.courses[0].places)
+  }, [])
 
   const showDrawer = () => {
     setOpen(true)
@@ -28,6 +29,10 @@ export default function Page() {
 
   const onClose = () => {
     setOpen(false)
+  }
+
+  const onChangePlaces = (place: Place) => {
+    setPlaces((prevPlaces) => [...prevPlaces, place])
   }
 
   const handleCategoryClick = (id: number) => {
@@ -50,11 +55,11 @@ export default function Page() {
     }
   }
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     setPlaces((prev) => prev.filter((place) => place.id !== id))
   }
 
-  const handleEdit = (id: number) => {
+  const handleEdit = (id: string) => {
     alert(`${id}번 장소를 수정합니다.`)
   }
 
@@ -120,16 +125,24 @@ export default function Page() {
             title='장소 검색'
             height={600}
             placement={'bottom'}
-            className='w-full rounded-[10px]'
+            className='w-[90%] max-w-[330px] rounded-t-[10px] mx-auto my-0'
             onClose={onClose}
             open={open}
-            mask={true}
+            maskClosable
           >
-            <SearchPlace />
+            <SearchPlace
+              onOpenDrawer={setOpen}
+              onSelectPlace={onChangePlaces}
+            />
           </Drawer>
         </div>
       </div>
-      <button className='w-full rounded-[5px] mt-[40px] text-[12px] h-[40px] flex items-center justify-center bg-blue-100'>
+      <button
+        className={`w-full rounded-[5px] mt-[40px] text-[12px] h-[40px] flex items-center justify-center bg-blue-100 text-white ${
+          places.length === 0 ? 'cursor-default' : 'bg-blue-800 bg-opacity-50'
+        }`}
+        disabled={places.length === 0}
+      >
         완료
       </button>
     </div>

@@ -34,7 +34,6 @@ export default function SearchPlace({
   const [inputValue, setInputValue] = useState('')
 
   const getResult = async (value: string) => {
-    console.log('value: ', value)
     if (!value) return
 
     const result = await fetch(

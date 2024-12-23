@@ -14,6 +14,7 @@ export default function Page() {
   const router = useRouter()
   const [selectedRegion, setSelectedRegion] = useState<string>('')
   const [selectedCatetories, setSelectedCategories] = useState<number[]>([])
+  const { data } = getData()
 
   const onChange = (value: string[]) => {
     setSelectedRegion(value[1])
@@ -44,12 +45,13 @@ export default function Page() {
       <div className='flex flex-col w-full mt-[20px] px-[10px] gap-[10px]'>
         <span className='text-2xl'>어디로 가볼까요?</span>
         <Cascader
-          options={getData()}
+          options={data}
           placeholder='지역을 선택해 주세요'
           onChange={onChange}
           size='large'
           showSearch={{ filter }}
           style={{ width: '100%' }}
+          expandTrigger='hover'
         />
         <span className='text-[10px] text-gray-400'>
           * 원하는 태그를 눌러보세요. 딱 맞는 코스만 골라 드릴게요!

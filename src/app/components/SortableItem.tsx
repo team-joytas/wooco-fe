@@ -50,12 +50,14 @@ export default function SortableItem({
         <span className='text-[13px]'>{place.place_name}</span>
       </div>
       <div className='flex gap-[5px]'>
-        <Button
-          className='text-[10px] border-0 h-[20px] w-[20px]'
-          onClick={() => handleEdit(place.id)}
-        >
-          수정
-        </Button>
+        {onEdit && (
+          <Button
+            className='text-[10px] border-0 h-[20px] w-[20px]'
+            onClick={() => handleEdit(place.id)}
+          >
+            수정
+          </Button>
+        )}
         <Button
           className='text-[10px] shadow-none border-0 h-[20px] w-[30px]'
           onClick={() => onDelete(place.id)}

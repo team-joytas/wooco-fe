@@ -40,7 +40,7 @@ export default function CourseCard({ courseData }: { courseData: Course }) {
         </div>
       </div>
 
-      <KakaoMap places={places} id={id} />
+      <KakaoMap places={places} id={parseInt(id)} />
 
       <section className='flex flex-col mt-[20px] text-[15px]'>
         <div className='flex flex-row justify-between items-center'>
