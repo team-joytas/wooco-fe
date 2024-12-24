@@ -81,6 +81,11 @@ export default function Menu({
     },
   ]
 
+  const handleClickEdit = () => {
+    setIsOpen(false)
+    router.push('/users/1/setting')
+  }
+
   return (
     <div className='fixed top-0 right-0 w-[80vw] max-w-[300px] h-full bg-white z-50'>
       <div className='flex flex-col items-start justify-start h-full py-[50px] px-[25px]'>
@@ -99,7 +104,7 @@ export default function Menu({
             </div>
             <div
               className='text-[10px] text-gray-400 underline cursor-pointer'
-              onClick={() => router.push('/users/1/setting')}
+              onClick={() => handleClickEdit()}
             >
               수정하기
             </div>
