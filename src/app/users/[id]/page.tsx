@@ -8,6 +8,7 @@ import getData from './getData'
 import PlaceListComponent from './components/PlaceListComponent'
 import CourseListComponent from './components/CourseListComponent'
 import { Select } from 'antd'
+import { useRouter } from 'next/navigation'
 
 interface Place {
   id: number
@@ -36,6 +37,7 @@ export default function Page() {
   const [order, setOrder] = useState('recent')
   const places: Place[] = data.place_info.places
   const courses: Course[] = data.course_info.courses
+  const router = useRouter()
 
   const onChangeOrder = (value: string) => {
     setOrder(value)
@@ -66,7 +68,12 @@ export default function Page() {
       </div>
       <div className='mt-[20px] flex justify-between'>
         <span className='font-semibold text-[20px]'>{data.user_info.name}</span>
-        <button className='text-[14px] w-[72px] h-[32px] border'>
+        <button
+          className='text-[14px] w-[72px] h-[32px] border'
+          onClick={() => {
+            router.push('/users/1/setting')
+          }}
+        >
           수정하기
         </button>
       </div>
