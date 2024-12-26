@@ -67,7 +67,7 @@ export default function Page() {
         <p className='font-semi-bold'>{data.location} 코스 플랜</p>
       </div>
 
-      <KakaoMap places={data.places} id={parseInt(data.id)} />
+      <KakaoMap places={data.places} id={Number(data.id)} />
 
       <section className='flex flex-col mt-[20px] gap-[10px]'>
         <span className='text-[15px] font-semi-bold'>| 장소 추가</span>
