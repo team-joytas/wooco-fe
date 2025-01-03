@@ -7,7 +7,7 @@ import logo_default from '@images/logo_default.png'
 export default function Header() {
   return (
     <>
-      <header className='max-w-[375px] bg-white w-full h-[50px] min-h-[50px] flex justify-between items-center px-4'>
+      <header className='max-w-[375px] bg-white w-full h-[55px] min-h-[55px] flex justify-between items-center px-4 border-b-[1px] border-b-header-line'>
         <Link
           href='/'
           className='text-blue-800 text-3xl font-bold cursor-pointer'
