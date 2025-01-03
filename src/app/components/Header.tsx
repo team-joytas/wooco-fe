@@ -1,46 +1,28 @@
-'use client'
-
 import noti from '@images/noti.png'
+import search from '@images/search.png'
 import Image from 'next/image'
-import HamburgerMenu from '@components/HamburgerMenu'
-import { useState } from 'react'
-import Menu from './Menu'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import logo_default from '@images/logo_default.png'
 
 export default function Header() {
-  const router = useRouter()
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-
   return (
     <>
-      <header className='max-w-[375px] bg-white w-full h-[50px] min-h-[50px] flex justify-between items-center px-4'>
-        <p
+      <header className='max-w-[375px] bg-white w-full h-[55px] min-h-[55px] flex justify-between items-center px-4 border-b-[1px] border-b-header-line'>
+        <Link
+          href='/'
           className='text-blue-800 text-3xl font-bold cursor-pointer'
-          onClick={() => router.push('/')}
         >
-          WOOCO
-        </p>
-        <div className='flex items-center right-[10px]'>
-          <button>
+          <Image width={30} height={30} alt='logo' src={logo_default} />
+        </Link>
+        <div className='flex items-center gap-[10px] right-[10px]'>
+          <Link href='/search'>
+            <Image alt='search' src={search} className='w-24 h-auto' />
+          </Link>
+          <Link href='/notifications'>
             <Image alt='notification' src={noti} className='w-24 h-auto' />
-          </button>
-          <div
-            className={`z-[100] ${isMenuOpen && 'fixed top-0 right-[10px]'}`}
-          >
-            <HamburgerMenu menuOpen={isMenuOpen} setMenuOpen={setIsMenuOpen} />
-          </div>
+          </Link>
         </div>
       </header>
-
-      {isMenuOpen && (
-        <>
-          <Menu setIsOpen={setIsMenuOpen} />
-          <div
-            className='fixed top-0 right-0 w-full h-full bg-black bg-opacity-50 z-40 '
-            onClick={() => setIsMenuOpen(false)}
-          />
-        </>
-      )}
     </>
   )
 }
