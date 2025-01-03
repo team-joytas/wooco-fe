@@ -7,7 +7,7 @@ import KakaoMap from '@/app/components/KakaoMap'
 import { DatePicker, Drawer } from 'antd'
 import SearchPlace, { Place } from '@/app/components/SearchPlace'
 import { useState } from 'react'
-import { closestCenter, DndContext } from '@dnd-kit/core'
+import { closestCenter, DndContext, DragEndEvent } from '@dnd-kit/core'
 import {
   arrayMove,
   SortableContext,
@@ -39,13 +39,13 @@ export default function Page() {
     setPlaces((prevPlaces) => prevPlaces.filter((place) => place.id !== id))
   }
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
 
-    if (active.id !== over.id) {
+    if (active.id !== over?.id) {
       setPlaces((items) => {
         const oldIndex = items.findIndex((item) => item.id === active.id)
-        const newIndex = items.findIndex((item) => item.id === over.id)
+        const newIndex = items.findIndex((item) => item.id === over?.id)
         return arrayMove(items, oldIndex, newIndex)
       })
     }

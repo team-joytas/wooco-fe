@@ -22,7 +22,8 @@
       "@/*": ["./src/*"],
       "@components/*": ["./src/app/components/*"],
       "@images/*": ["./src/assets/images/*"]
-    }
+    },
+    "types": ["kakao.maps.d.ts"]
   },
   "include": [
     "next-env.d.ts",
