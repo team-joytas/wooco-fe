@@ -1,10 +1,18 @@
+'use client'
+
 import noti from '@images/noti.png'
 import search from '@images/search.png'
 import Image from 'next/image'
 import Link from 'next/link'
 import logo_default from '@images/logo_default.png'
+import { usePathname } from 'next/navigation'
 
 export default function Header() {
+  const path = usePathname()
+  const isLogin = path.includes('/login')
+
+  if (isLogin) return null
+
   return (
     <>
       <header className='max-w-[375px] bg-white w-full h-[55px] min-h-[55px] flex justify-between items-center px-4 border-b-[1px] border-b-header-line'>
