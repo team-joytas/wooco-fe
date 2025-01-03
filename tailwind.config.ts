@@ -11,6 +11,7 @@ const config: Config = {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        brand: '#5A59F2',
       },
       spacing: {
         10: '10px',
