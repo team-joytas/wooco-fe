@@ -18,13 +18,13 @@ export default function Splash() {
       />
       <div
         className={
-          'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white'
+          'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center text-[22px] font-bold'
         }
       >
-        <p className={'text-center text-[22px] font-bold'}>공유하고</p>
-        <p className={'text-center text-[22px] font-bold'}>공유받는</p>
-        <p className={'text-center text-[22px] font-bold'}>우리들의</p>
-        <p className={'text-center text-[22px] font-bold'}>코스</p>
+        <p>공유하고</p>
+        <p>공유받는</p>
+        <p>우리들의</p>
+        <p>코스</p>
       </div>
       <Image
         className={'absolute bottom-[50px] left-1/2 transform -translate-x-1/2'}
