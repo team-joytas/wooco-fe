@@ -4,7 +4,7 @@ import noti from '@images/noti.png'
 import search from '@images/search.png'
 import Image from 'next/image'
 import Link from 'next/link'
-import logo_default from '@images/logo_default.png'
+import logo from '@images/logo.png'
 import { usePathname } from 'next/navigation'
 
 export default function Header() {
@@ -20,7 +20,7 @@ export default function Header() {
           href='/'
           className='text-blue-800 text-3xl font-bold cursor-pointer'
         >
-          <Image width={30} height={30} alt='logo' src={logo_default} />
+          <Image width={30} height={30} alt='logo' src={logo} />
         </Link>
         <div className='flex items-center gap-[10px] right-[10px]'>
           <Link href='/search'>
