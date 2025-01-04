@@ -7,6 +7,9 @@ import LayoutSpacer from '@components/LayoutSpacer'
 export const metadata: Metadata = {
   title: 'WOOCO - 우코',
   description: '우리들의 코스',
+  icons: {
+    icon: '/logo.png',
+  },
 }
 
 export default function RootLayout({
