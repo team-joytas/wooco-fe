@@ -47,11 +47,11 @@ export default function LikeCourseItem() {
       </div>
       <div className={'flex items-center gap-[4px] px-[10px]'}>
         <div className={'flex items-center gap-[4px]'}>
-          <Image src={heart_color} width={20} height={20} alt='like-icon' />
+          <Image src={heart_color} width={20} height={20} alt='like' />
           <span>25</span>
         </div>
         <div className={'flex items-center gap-[4px]'}>
-          <Image src={comment} width={20} height={20} alt='like-icon' />
+          <Image src={comment} width={20} height={20} alt='comment' />
           <span>03</span>
         </div>
       </div>
