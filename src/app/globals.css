@@ -24,3 +24,7 @@ body {
 .ant-drawer-bottom > .ant-drawer-content-wrapper {
   box-shadow: none;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
