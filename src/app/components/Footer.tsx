@@ -18,6 +18,9 @@ export default function Footer() {
   const isCourse = path.includes('/courses')
   const isPlan = path.includes('/schedules')
   const isMy = path.includes('/users')
+  const isLogin = path.includes('/login')
+
+  if (isLogin) return null
 
   return (
     <footer

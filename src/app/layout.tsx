@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Header from '@components/Header'
 import Footer from '@components/Footer'
+import LayoutSpacer from '@components/LayoutSpacer'
 
 export const metadata: Metadata = {
   title: 'WOOCO - 우코',
@@ -19,7 +20,7 @@ export default function RootLayout({
         <Header />
         <div className='mx-auto flex-1 text-black w-full max-w-[375px]'>
           {children}
-          <div className='h-[50px]'></div>
+          <LayoutSpacer />
         </div>
         <Footer />
       </body>
