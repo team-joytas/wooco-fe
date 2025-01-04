@@ -11,7 +11,7 @@ interface KakaoMapProps {
 
 declare global {
   interface Window {
-    kakao: any
+    kakao: typeof kakao
   }
 }
 
@@ -44,15 +44,18 @@ export default function KakaoMap({ places, center, id }: KakaoMapProps) {
         const map = new window.kakao.maps.Map(mapContainerRef.current, {
           center: center
             ? new window.kakao.maps.LatLng(center[0], center[1])
-            : new window.kakao.maps.LatLng(places[0].y, places[0].x),
+            : new window.kakao.maps.LatLng(
+                Number(places[0].y),
+                Number(places[0].x)
+              ),
           level: center ? 8 : 6,
         })
 
         if (places.length > 0) {
           places.forEach((place) => {
             const markerPosition = new window.kakao.maps.LatLng(
-              place.y,
-              place.x
+              Number(place.y),
+              Number(place.x)
             )
             const marker = new window.kakao.maps.Marker({
               position: markerPosition,

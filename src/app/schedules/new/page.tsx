@@ -8,7 +8,7 @@ import getData from '@/app/getData'
 import KakaoMap from '@/app/components/KakaoMap'
 import { Place } from '@/app/components/SearchPlace'
 import SearchPlace from '@/app/components/SearchPlace'
-import { closestCenter, DndContext } from '@dnd-kit/core'
+import { closestCenter, DndContext, DragEndEvent } from '@dnd-kit/core'
 import {
   arrayMove,
   SortableContext,
@@ -27,10 +27,13 @@ export default function Page() {
   const { data, latlngMapping } = getData()
   const [open, setOpen] = useState(false)
 
-  const onChange = (value: string[]) => {
-    setSelectedRegion(value[1])
-    setCenterLatLng(latlngMapping[value[1]])
-    setPlaces((prevPlaces) => [...prevPlaces]) // 지도 중심좌표 초기화
+  const onChange = (
+    value: (string | number | null)[],
+    selectedOptions: DefaultOptionType[]
+  ) => {
+    setSelectedRegion(value[1] as string)
+    setCenterLatLng(latlngMapping[value[1] as string])
+    setPlaces((prevPlaces) => [...prevPlaces])
   }
 
   const filter = (inputValue: string, path: DefaultOptionType[]) =>
@@ -49,13 +52,13 @@ export default function Page() {
     setPlaces((prevPlaces) => [...prevPlaces, place])
   }
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
 
-    if (active.id !== over.id) {
+    if (active.id !== over?.id) {
       setPlaces((items) => {
         const oldIndex = items.findIndex((item) => item.id === active.id)
-        const newIndex = items.findIndex((item) => item.id === over.id)
+        const newIndex = items.findIndex((item) => item.id === over?.id)
         return arrayMove(items, oldIndex, newIndex)
       })
     }

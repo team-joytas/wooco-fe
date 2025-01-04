@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { Input, Drawer } from 'antd'
-import { DndContext, closestCenter } from '@dnd-kit/core'
+import { DndContext, closestCenter, DragEndEvent } from '@dnd-kit/core'
 import {
   SortableContext,
   arrayMove,
@@ -43,13 +43,13 @@ export default function Page() {
     )
   }
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
 
-    if (active.id !== over.id) {
+    if (active.id !== over?.id) {
       setPlaces((items) => {
         const oldIndex = items.findIndex((item) => item.id === active.id)
-        const newIndex = items.findIndex((item) => item.id === over.id)
+        const newIndex = items.findIndex((item) => item.id === over?.id)
         return arrayMove(items, oldIndex, newIndex)
       })
     }
