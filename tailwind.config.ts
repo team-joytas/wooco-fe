@@ -17,6 +17,7 @@ const config: Config = {
         'container-light-blue': '#B3BAF1',
         'light-gray': '#F0F0F0',
         kakao: '#FFDC00',
+        'search-gray': '#747474',
       },
       fontSize: {
         headline: '20px',

@@ -23,11 +23,7 @@ export default function Footer() {
   if (isLogin) return null
 
   return (
-    <footer
-      className={
-        'fixed bottom-0 shadow-custom max-w-[375px] text-gray-400 text-base bg-white flex w-full h-[60px] justify-around items-center'
-      }
-    >
+    <footer className='fixed bottom-0 shadow-custom max-w-[375px] text-gray-400 text-base bg-white flex w-full h-[60px] justify-around items-center'>
       <Link href='/' className='flex flex-col items-center mb-[5px]'>
         <Image
           src={isHome ? homePurple : home}
