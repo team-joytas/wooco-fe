@@ -18,6 +18,12 @@ const config: Config = {
         'light-gray': '#F0F0F0',
         kakao: '#FFDC00',
       },
+      fontSize: {
+        headline: '20px',
+        main: '16px',
+        middle: '14px',
+        sub: '11px',
+      },
       spacing: {
         10: '10px',
         16: '16px',

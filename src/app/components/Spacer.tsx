@@ -1,3 +1,14 @@
-export default function Spacer({ height }: { height: number }) {
-  return <div style={{ height: `${height}px`, width: '100%' }} />
+export default function Spacer({
+  className,
+  height,
+}: {
+  className?: string
+  height: number
+}) {
+  return (
+    <div
+      className={className}
+      style={{ width: '100%', height: `${height}px` }}
+    />
+  )
 }
