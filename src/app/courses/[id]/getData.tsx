@@ -14,6 +14,10 @@ export default function getData() {
     image: 'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
 
     created_at: '2024.12.16',
+    pass_from_create: {
+      type: 'date',
+      number: 2,
+    },
     likes: 200,
     comments_info: {
       summary: {
