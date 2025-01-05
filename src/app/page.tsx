@@ -11,11 +11,11 @@ export default function Page() {
     <div className='flex items-center flex-col h-[calc(100%-60px)]'>
       <BannerSection.Course />
       <NewCourseSection />
-      <Spacer className={'bg-light-gray'} height={8} />
+      <Spacer className='bg-light-gray' height={8} />
       <LikeCourseSection />
       <BannerSection.News />
       <EventSection />
-      <Spacer className={'bg-light-gray'} height={8} />
+      <Spacer className='bg-light-gray' height={8} />
       <NoticeSection />
       <BottomSection />
     </div>

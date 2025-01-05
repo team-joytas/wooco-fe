@@ -27,9 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='kr' className={`h-full ${pretendard.variable}`}>
-      <body className={'h-full flex items-center flex-col overflow-y-scroll'}>
+      <body className='h-full flex items-center flex-col overflow-y-scroll'>
         <Header />
-        <div className={'mx-auto flex-1 text-black w-full max-w-[375px]'}>
+        <div className='mx-auto flex-1 text-black w-full max-w-[375px]'>
           {children}
           <LayoutSpacer />
         </div>

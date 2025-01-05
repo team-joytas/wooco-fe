@@ -28,7 +28,7 @@ export default function Footer() {
         'fixed bottom-0 shadow-custom max-w-[375px] text-gray-400 text-base bg-white flex w-full h-[60px] justify-around items-center'
       }
     >
-      <Link href='/' className={'flex flex-col items-center mb-[5px]'}>
+      <Link href='/' className='flex flex-col items-center mb-[5px]'>
         <Image
           src={isHome ? homePurple : home}
           width={25}
@@ -37,7 +37,7 @@ export default function Footer() {
         />
         <span className={`text-[10px] ${isHome && 'text-brand'}`}>홈</span>
       </Link>
-      <Link href='/courses' className={'flex flex-col items-center mb-[5px]'}>
+      <Link href='/courses' className='flex flex-col items-center mb-[5px]'>
         <Image
           src={isCourse ? coursePurple : course}
           width={25}
@@ -46,7 +46,7 @@ export default function Footer() {
         />
         <span className={`text-[10px] ${isCourse && 'text-brand'}`}>코스</span>
       </Link>
-      <Link href='/schedules' className={'flex flex-col items-center mb-[5px]'}>
+      <Link href='/schedules' className='flex flex-col items-center mb-[5px]'>
         <Image
           src={isPlan ? planPurple : plan}
           width={25}
@@ -55,7 +55,7 @@ export default function Footer() {
         />
         <span className={`text-[10px] ${isPlan && 'text-brand'}`}>플랜</span>
       </Link>
-      <Link href='/users/1' className={'flex flex-col items-center mb-[5px]'}>
+      <Link href='/users/1' className='flex flex-col items-center mb-[5px]'>
         <Image src={isMy ? myPurple : my} width={25} height={25} alt='마이' />
         <span className={`text-[10px] ${isMy && 'text-brand'}`}>마이</span>
       </Link>
