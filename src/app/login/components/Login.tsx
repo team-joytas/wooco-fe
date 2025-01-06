@@ -1,4 +1,4 @@
-import Spacer from '@/app/components/Spacer'
+import Spacer from '@components/(layout)/Spacer'
 import Image from 'next/image'
 import splashLogo from '@images/splash_logo.svg'
 
