@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import Header from '@components/Header'
-import Footer from '@components/Footer'
-import LayoutSpacer from '@components/LayoutSpacer'
+import Header from '@/app/components/(layout)/Header'
+import Footer from '@/app/components/(layout)/Footer'
+import LayoutSpacer from '@/app/components/(layout)/LayoutSpacer'
 
 export const metadata: Metadata = {
   title: 'WOOCO - 우코',
