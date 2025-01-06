@@ -4,13 +4,14 @@ import { useRouter } from 'next/navigation'
 import getData from './getData'
 import Spacer from '../components/(layout)/Spacer'
 import TrendingCourse from './components/TrendingCourse'
+import FloatingWriteButton from '../components/FloatingWriteButton'
 
 export default function Page() {
   const router = useRouter()
   const data = getData()
 
   return (
-    <div className='w-full h-[calc(100%-50px)] py-[20px] flex flex-col relative overflow-y-auto'>
+    <div className='w-full h-[calc(100%-50px)] py-[20px] flex flex-col relative'>
       <div className='flex flex-col'>
         <div className='flex flex-row justify-between items-center h-[40px] px-[20px]'>
           <div className='flex flex-col justify-start'>
@@ -63,6 +64,8 @@ export default function Page() {
           ))}
         </div>
       </div>
+
+      <FloatingWriteButton to='/courses/new' />
     </div>
   )
 }
