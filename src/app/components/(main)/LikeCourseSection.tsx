@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import Spacer from '../Spacer'
+import Spacer from '../(layout)/Spacer'
 import LikeCourseItem from './LikeCourseItem'
 
 export default function LikeCourseSection() {

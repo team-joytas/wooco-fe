@@ -1,11 +1,11 @@
 import search from '@images/search.png'
 import left from '@images/left.png'
 import Image from 'next/image'
-import Spacer from '../Spacer'
+import Spacer from '../(layout)/Spacer'
 import { categories } from '@/types/Categories'
 import { useState, useEffect } from 'react'
 import NewCourseItem from './NewCourseItem'
-import LayoutSpacer from '../LayoutSpacer'
+import LayoutSpacer from '../(layout)/LayoutSpacer'
 
 // TODO: 실제 데이터 및 로직 구현 필요
 export default function SearchComponent({
