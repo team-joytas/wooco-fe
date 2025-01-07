@@ -16,8 +16,10 @@ const config: Config = {
         'container-blue': '#9997F2',
         'container-light-blue': '#B3BAF1',
         'light-gray': '#F0F0F0',
+        'bright-gray': '#F7F7F7',
         kakao: '#FFDC00',
         'search-gray': '#747474',
+        description: 'rgba(0, 0, 0, 0.5)',
       },
       fontSize: {
         headline: '20px',

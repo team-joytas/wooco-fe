@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Image from 'next/image'
+import ImageWithIndex from '../(course)/ImageWithIndex'
 
 interface NewCourseItemProps {
   data: {
@@ -26,46 +26,24 @@ export default function NewCourseItem() {
       </div>
       <div className='flex-1  h-fit overflow-x-auto flex gap-[9px] scrollbar-hide pr-[10px]'>
         <div className='w-fit flex gap-[9px]'>
-          <CourseImage
+          <ImageWithIndex
             index={1}
             src={'https://img.choroc.com/newshop/goods/009179/009179_1.jpg'}
           />
-          <CourseImage
+          <ImageWithIndex
             index={2}
             src={'https://img.choroc.com/newshop/goods/009179/009179_1.jpg'}
           />
-          <CourseImage
+          <ImageWithIndex
             index={3}
             src={'https://img.choroc.com/newshop/goods/009179/009179_1.jpg'}
           />
-          <CourseImage
+          <ImageWithIndex
             index={4}
             src={'https://img.choroc.com/newshop/goods/009179/009179_1.jpg'}
           />
         </div>
       </div>
     </Link>
-  )
-}
-
-interface CourseImageProps {
-  index: number
-  src: string
-}
-
-function CourseImage({ index, src }: CourseImageProps) {
-  return (
-    <div className='w-[60px] h-[58px] relative flex items-center justify-center'>
-      <Image
-        src={src}
-        alt={'먹고 구경하고 먹고 강남 한바퀴!'}
-        width={52}
-        height={52}
-        className='w-[52px] h-[52px] object-cover rounded-[5px] bg-light-gray'
-      />
-      <span className='absolute w-[13px] h-[13px] bg-container-light-blue top-[0px] left-[0px] flex items-center justify-center rounded-full'>
-        {index}
-      </span>
-    </div>
   )
 }
