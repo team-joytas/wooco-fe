@@ -3,7 +3,7 @@ import EventSection from './components/(main)/EventSection'
 import BannerSection from './components/(main)/BannerSection'
 import NewCourseSection from './components/(main)/NewCourseSection'
 import LikeCourseSection from './components/(main)/LikeCourseSection'
-import Spacer from './components/Spacer'
+import Spacer from './components/(layout)/Spacer'
 import BottomSection from './components/(main)/BottomSection'
 
 export default function Page() {

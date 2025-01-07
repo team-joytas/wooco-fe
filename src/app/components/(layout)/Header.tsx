@@ -7,7 +7,7 @@ import Link from 'next/link'
 import logo from '@images/logo.png'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-import SearchComponent from '@/app/components/(main)/SearchComponent'
+import SearchComponent from '@components/(main)/SearchComponent'
 
 export default function Header() {
   const path = usePathname()

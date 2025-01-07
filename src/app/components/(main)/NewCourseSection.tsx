@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import NewCourseItem from './NewCourseItem'
-import Spacer from '@components/Spacer'
+import Spacer from '@components/(layout)/Spacer'
 
 export default function NewCourseSection() {
   return (
