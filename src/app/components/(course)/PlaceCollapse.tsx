@@ -74,12 +74,6 @@ const data = [
 export default function PlaceCollapse() {
   const items = data.map((place, index) => ({
     key: place.id.toString(),
-    style: {
-      content: {
-        padding: '0px',
-        backgroundColor: '#F7F7F7',
-      },
-    },
     label: (
       <div className='flex gap-[10px] items-center'>
         <p className='w-[13px] h-[13px] flex items-center justify-center bg-container-light-blue text-[9px] rounded-full text-white'>
