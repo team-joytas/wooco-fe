@@ -1,11 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import heart_empty from '@images/heart_empty.png'
-import heart_filled from '@images/heart_filled.png'
-import Image from 'next/image'
 import ProfileImage from '@/app/components/ProfileImage'
-import { Input } from 'antd'
+import Spacer from '@components/(layout)/Spacer'
 
 interface User {
   id: number
@@ -43,49 +40,29 @@ export default function CommentComponent(data: ComponentProps) {
 
   return (
     <div className='flex flex-col text-[15px]'>
-      <span className='flex justify-between items-center'>
-        <p>이 코스에 대한 댓글을 남겨보세요!</p>
-        <button
-          onClick={handleLikeClick}
-          className='flex flex-col items-center px-[5px]'
-        >
-          <Image
-            src={isClick ? heart_filled : heart_empty}
-            width={20}
-            height={20}
-            alt='likes'
-          />
-          <span className='text-[10px]'>{likeCount}</span>
-        </button>
-      </span>
-      <div className='flex flex-col items-end'>
-        <Input.TextArea
-          showCount
-          maxLength={100}
-          allowClear
-          className='mt-[15px] mb-[15px] text-[12px] py-[20px]'
-          placeholder='댓글을 남겨주세요!'
-          style={{ height: 80, resize: 'none' }}
-        />
-        <button className='mt-[15px] rounded-[5px] border-blue-100 border text-[12px] w-[80px] py-[5px]'>
-          확인
-        </button>
-      </div>
-      <div className='mt-[15px] mb-[20px] h-[2px] bg-gray-100' />
-      <div className='flex flex-col gap-[20px]'>
+      <p className='px-[20px] gap-[10px] flex items-center'>
+        <span className='text-main font-bold'>댓글</span>
+        <span className='text-sub opacity-40'>
+          코스에 대한 댓글을 남겨보세요!
+        </span>
+      </p>
+      <Spacer height={20} />
+      <div className='px-[30px] flex flex-col gap-[20px]'>
         {data.comments.comments.map((comment) => {
           return (
             <div key={comment.id} className='flex flex-col gap-[10px]'>
               <span className='flex gap-[10px]'>
-                <ProfileImage size={36} src={comment.user.profile_url} />
+                <ProfileImage
+                  size={40}
+                  src={comment.user.profile_url}
+                  type='colored'
+                />
                 <span className='flex flex-col'>
                   <p className='text-[12px]'>{comment.user.name}</p>
                   <span className='text-[10px]'>{comment.created_at}</span>
                 </span>
               </span>
-              <span className='text-[12px] px-[15px] py-[10px] border rounded-[10px]'>
-                {comment.content}
-              </span>
+              <span className='text-[14px] px-[10px]'>{comment.content}</span>
             </div>
           )
         })}

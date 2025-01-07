@@ -2,6 +2,9 @@ import { Collapse } from 'antd'
 import Image from 'next/image'
 import Link from 'next/link'
 import CoursePlaceCarousel from './CoursePlaceCarousel'
+import { Copy, Star, StarHalf } from 'lucide-react'
+import allReview from '@images/all_review.png'
+import kakaoReview from '@images/kakao_review.png'
 
 const data = [
   {
@@ -69,53 +72,68 @@ const data = [
 ]
 
 export default function PlaceCollapse() {
-  const items = data.map((place) => ({
+  const items = data.map((place, index) => ({
     key: place.id.toString(),
+    style: {
+      content: {
+        padding: '0px',
+        backgroundColor: '#F7F7F7',
+      },
+    },
     label: (
-      <div className='flex gap-[10px]'>
-        <Image
-          className='rounded-[5px]'
-          src={place.images[0]}
-          width={50}
-          height={50}
-          alt={place.name}
-        />
-        <div className='overflow-hidden flex flex-col gap-[5px]'>
-          <span className='w-fit'>
-            <b>{place.name}</b>
-            <span className='text-blue-600'>({place.avg_rate})</span>
-          </span>
-          <span className='block truncate line-clamp-2'>{place.location}</span>
-        </div>
+      <div className='flex gap-[10px] items-center'>
+        <p className='w-[13px] h-[13px] flex items-center justify-center bg-container-light-blue text-[9px] rounded-full text-white'>
+          {index + 1}
+        </p>
+        <p className='w-fit'>{place.name}</p>
       </div>
     ),
     children: (
       <div className='flex flex-col w-full'>
         <CoursePlaceCarousel data={place.images} />
-        <div className='w-full mt-[10px] min-h-[40px] inline-flex flex-wrap gap-[5px]'>
-          {place.evaluates.map((data, index) => {
-            return (
-              <span
-                key={index}
-                className='h-[30px] px-[10px] border rounded-[20px] bg-slate-100 flex items-center justify-center'
-              >
-                {data}
-              </span>
-            )
-          })}
+        <div className='flex justify-center items-center gap-[10px] py-[10px] bg-black13 text-white'>
+          <span className='block text-sub text-light max-w-[200px] truncate line-clamp-2'>
+            {place.location}
+          </span>
+          <Copy size={14} />
         </div>
-        <Link
-          className='w-full flex items-center justify-center py-[5px] border rounded-[5px] mt-[10px]'
-          href={`/places/${place.id}`}
-        >
-          장소 전체 리뷰 바로가기
-        </Link>
-        <Link
-          className='w-full flex items-center justify-center py-[5px] border rounded-[5px] mt-[10px]'
-          href={place.kakao}
-        >
-          카카오 리뷰 바로가기
-        </Link>
+        <div className='flex bg-bright-gray rounded-[10px] justify-between p-[15px]'>
+          <div className='flex flex-col justify-end'>
+            <p className='text-headline text-brand font-semibold'>4.0</p>
+            <div className='relative'>
+              <div className='flex gap-[2px]'>
+                {Array.from({ length: 5 }, () => (
+                  <Star
+                    key={index}
+                    fill='#d9d9d9'
+                    size={10}
+                    stroke='#9997F2'
+                    strokeWidth={0}
+                  />
+                ))}
+              </div>
+              <div className='flex gap-[2px] absolute top-0'>
+                <Star fill='#9997F2' size={10} strokeWidth={0} />
+                <Star fill='#9997F2' size={10} strokeWidth={0} />
+                <StarHalf fill='#9997F2' size={10} strokeWidth={0} />
+              </div>
+            </div>
+            <p className='text-sub opacity-50'>장소 리뷰 20</p>
+          </div>
+          <div className='flex flex-col justify-center items-center gap-[5px]'>
+            <Link href={`/places/${place.id}`}>
+              <Image src={allReview} alt='all review' width={175} height={31} />
+            </Link>
+            <Link href={place.kakao}>
+              <Image
+                src={kakaoReview}
+                alt='kakao review'
+                width={175}
+                height={31}
+              />
+            </Link>
+          </div>
+        </div>
       </div>
     ),
   }))

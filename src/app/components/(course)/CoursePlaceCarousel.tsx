@@ -9,7 +9,7 @@ export default function CoursePlaceCarousel({ data }: { data: string[] }) {
       {data.map((image, index) => {
         return (
           <Image
-            className='rounded-[5px]'
+            className='rounded-t-[10px]'
             key={index}
             src={image}
             alt='place image'
