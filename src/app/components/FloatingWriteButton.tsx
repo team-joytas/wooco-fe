@@ -1,7 +1,6 @@
 'use client'
 
-import Image from 'next/image'
-import write from '@images/write.png'
+import { Pencil } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 interface FloatingWriteButtonProps {
@@ -17,7 +16,7 @@ export default function FloatingWriteButton({ to }: FloatingWriteButtonProps) {
         className='w-[53px] h-[53px] bg-brand rounded-full flex items-center justify-center shadow-lg border border-blue-800 border-opacity-20'
         onClick={() => router.push(to)}
       >
-        <Image alt='plus' src={write} width={20} height={20} />
+        <Pencil size={20} color='white' />
       </button>
     </div>
   )
