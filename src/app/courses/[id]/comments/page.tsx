@@ -8,7 +8,7 @@ export default function Page({ params }: { params: { id: number } }) {
   const comments = getData().comments_info.comments
   return (
     <div className='h-100% flex flex-col'>
-      <section className='max-w-[375px] relative bg-white w-full h-[55px] pr-[10px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line'>
+      <section className='max-w-[375px] relative bg-white w-full h-[55px] px-[20px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line'>
         <Link href={`/courses/${params.id}`} className='cursor-pointer'>
           <ChevronLeft size={24} />
         </Link>
@@ -18,7 +18,7 @@ export default function Page({ params }: { params: { id: number } }) {
         <div className='w-[24px] h-[24px]' />
       </section>
       <Spacer height={20} />
-      <div className='px-[20px] flex flex-col gap-[30px]'>
+      <div className='px-[30px] flex flex-col gap-[30px]'>
         {comments.map((comment) => {
           return <CommentItem key={comment.id} comment={comment} />
         })}
