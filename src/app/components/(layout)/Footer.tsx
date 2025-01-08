@@ -19,11 +19,12 @@ export default function Footer() {
   const isPlan = path.includes('/schedules')
   const isMy = path.includes('/users')
   const isLogin = path.includes('/login')
+  const isComment = path.includes('/comments')
 
-  if (isLogin) return null
+  if (isLogin || isComment) return null
 
   return (
-    <footer className='fixed bottom-0 shadow-custom max-w-[375px] text-gray-400 text-base bg-white flex w-full h-[60px] justify-around items-center'>
+    <footer className='fixed bottom-0 z-1000 shadow-custom max-w-[375px] text-gray-400 text-base bg-white flex w-full h-[60px] justify-around items-center'>
       <Link href='/' className='flex flex-col items-center mb-[5px]'>
         <Image
           src={isHome ? homePurple : home}
