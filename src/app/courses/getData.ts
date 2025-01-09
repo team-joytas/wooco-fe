@@ -63,6 +63,7 @@ export default function getData() {
       ],
       likes: 10,
       comments: 5,
+      isLiked: true,
     },
     {
       id: 2,
@@ -100,6 +101,7 @@ export default function getData() {
       ],
       likes: 10,
       comments: 5,
+      isLiked: false,
     },
     {
       id: 3,
@@ -137,6 +139,7 @@ export default function getData() {
       ],
       likes: 10,
       comments: 5,
+      isLiked: true,
     },
     {
       id: 4,
@@ -174,6 +177,7 @@ export default function getData() {
       ],
       likes: 10,
       comments: 5,
+      isLiked: false,
     },
   ]
 

@@ -1,8 +1,7 @@
 import Spacer from '@components/(layout)/Spacer'
 import PlaceCollapse from './PlaceCollapse'
 import getData from './getData'
-import { EllipsisVertical } from 'lucide-react'
-import { ChevronLeft } from 'lucide-react'
+import { EllipsisVertical, ChevronLeft } from 'lucide-react'
 import KakaoMap from '@components/KakaoMap'
 
 const COURSE_PLAN = {
@@ -59,7 +58,7 @@ export default function CoursePlanLayout({
 
   return (
     <>
-      <div className='w-full px-[30px] flex flex-col'>
+      <div className='w-full px-[20px] flex flex-col'>
         <Spacer height={14} />
         <section className='justify-between items-center flex'>
           <ChevronLeft size={24} />

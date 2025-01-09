@@ -13,10 +13,10 @@ export default function Header() {
   const path = usePathname()
   const isLogin = path.includes('/login')
   const isNew = path.includes('/new')
-
+  const isComment = path.includes('/comments')
   const [isSearch, setIsSearch] = useState(false)
 
-  if (isLogin || isNew) return null
+  if (isLogin || isNew || isComment) return null
 
   return (
     <header className='max-w-[375px] relative bg-white w-full h-[55px] pr-[10px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line'>
