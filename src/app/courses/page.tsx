@@ -24,7 +24,14 @@ export default function Page() {
             </span>
           </div>
 
-          <button className='border-none'>추가하기</button>
+          <button
+            className='border-none'
+            onClick={() => {
+              router.push('/courses/add-region')
+            }}
+          >
+            추가하기
+          </button>
         </div>
 
         <div className='flex flex-row items-center h-[30px] gap-[8px] my-[15px] overflow-auto px-[20px]'>
