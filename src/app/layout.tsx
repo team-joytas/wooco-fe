@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='kr' className={`h-full ${pretendard.variable}`}>
+    <html lang='kr' className={`h-vh ${pretendard.variable}`}>
       <body className='h-full flex items-center flex-col overflow-y-scroll'>
         <Header />
         <AnimatePresence>

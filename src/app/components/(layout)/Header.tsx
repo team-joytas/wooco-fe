@@ -12,9 +12,11 @@ import SearchComponent from '@components/(main)/SearchComponent'
 export default function Header() {
   const path = usePathname()
   const isLogin = path.includes('/login')
+  const isNew = path.includes('/new')
+
   const [isSearch, setIsSearch] = useState(false)
 
-  if (isLogin) return null
+  if (isLogin || isNew) return null
 
   return (
     <header className='max-w-[375px] relative bg-white w-full h-[55px] pr-[10px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line'>
