@@ -5,13 +5,14 @@ import getData from './getData'
 import Spacer from '../components/(layout)/Spacer'
 import TrendingCourse from './components/TrendingCourse'
 import FloatingWriteButton from '../components/FloatingWriteButton'
+import { Fragment } from 'react'
 
 export default function Page() {
   const router = useRouter()
   const data = getData()
 
   return (
-    <div className='w-full h-[calc(100%-50px)] py-[20px] flex flex-col relative'>
+    <div className='w-full h-[calc(100%-50px)] py-[20px] flex flex-col'>
       <div className='flex flex-col'>
         <div className='flex flex-row justify-between items-center h-[40px] px-[20px]'>
           <div className='flex flex-col justify-start'>
@@ -57,10 +58,10 @@ export default function Page() {
 
         <div className='flex flex-col items-center gap-[12px]'>
           {data.trendingCourses.map((course) => (
-            <>
-              <TrendingCourse key={course.id} course={course} />
+            <Fragment key={course.id}>
+              <TrendingCourse course={course} />
               <Spacer className='bg-bright-gray' height={8} />
-            </>
+            </Fragment>
           ))}
         </div>
       </div>
