@@ -11,7 +11,7 @@ export default function Page({ params }: { params: { id: number } }) {
 
   return (
     <CoursePlanLayout type='course' id={courseId}>
-      <section className='w-full px-[30px] py-[10px] text-white bg-brand'>
+      <section className='w-full px-[20px] py-[10px] text-white bg-brand'>
         <div className='w-full flex gap-[10px] max-w-[375px]'>
           <ProfileImage src={data.user.profile_url} size={40} type='colored' />
           <div className='flex flex-col gap-[2px]'>
