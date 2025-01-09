@@ -1,10 +1,11 @@
+'use client'
+
 import ImageWithIndex from '@components/(course)/ImageWithIndex'
 import ProfileImage from '@components/ProfileImage'
-import Image from 'next/image'
-import share from '@images/share.png'
-import heart_color from '@images/heart_color.png'
-import comment from '@images/comment.png'
 import Spacer from '@/app/components/(layout)/Spacer'
+import { Share2 } from 'lucide-react'
+import { Heart, MessageCircle } from 'lucide-react'
+import { useState } from 'react'
 
 interface TrendingProps {
   id: number
@@ -16,6 +17,7 @@ interface TrendingProps {
   places: PlaceProps[]
   likes: number
   comments: number
+  isLiked: boolean
 }
 
 interface PlaceProps {
@@ -24,6 +26,8 @@ interface PlaceProps {
 }
 
 export default function TrendingCourse({ course }: { course: TrendingProps }) {
+  const [isLiked, setIsLiked] = useState(course.isLiked)
+
   return (
     <div key={course.id} className='w-full flex flex-col gap-[8px]'>
       <span className='text-description text-[10px]'>{course.createdAt}</span>
@@ -62,21 +66,30 @@ export default function TrendingCourse({ course }: { course: TrendingProps }) {
           <div className='flex flex-row justify-between items-center'>
             <div className='flex items-center gap-[10px]'>
               <div className='flex items-center gap-[4px]'>
-                <Image src={heart_color} width={20} height={20} alt='like' />
+                <Heart
+                  size={17}
+                  className='cursor-pointer text-brand'
+                  fill={isLiked ? '#5A59F2' : 'none'}
+                  strokeWidth={1.5}
+                  onClick={() => setIsLiked(!isLiked)}
+                />
                 <span>25</span>
               </div>
               <div className='flex items-center gap-[4px]'>
-                <Image src={comment} width={20} height={20} alt='comment' />
+                <MessageCircle
+                  size={17}
+                  className='text-brand'
+                  strokeWidth={1.5}
+                />
                 <span>03</span>
               </div>
             </div>
 
-            <Image
-              alt='share'
-              src={share}
-              width={16}
-              height={16}
-              className='cursor-pointer'
+            <Share2
+              size={16}
+              className='cursor-pointer text-brand'
+              strokeWidth={1.5}
+              onClick={() => {}}
             />
           </div>
         </div>
