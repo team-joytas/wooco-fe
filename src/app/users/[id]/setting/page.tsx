@@ -3,7 +3,8 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-
+import { ChevronLeft, Camera } from 'lucide-react'
+import Spacer from '@components/(layout)/Spacer'
 export default function Page() {
   const router = useRouter()
   const [imagePreview, setImagePreview] = useState('')
@@ -49,70 +50,93 @@ export default function Page() {
   }
 
   return (
-    <div className='w-full h-[calc(100%-50px)] pt-[30px] pb-[20px] px-[16px] flex flex-col items-center relative'>
-      <section className='w-full flex flex-col items-center'>
-        <span className='font-bold text-[18px] border-b items-center'>
-          정보 수정
-        </span>
-        <label className='cursor-pointer mt-[20px]'>
-          <div className='w-[100px] h-[100px] bg-gray-300 rounded-full overflow-hidden flex items-center justify-center'>
-            {imagePreview ? (
-              <Image
-                src={imagePreview}
-                alt='Preview'
-                className='w-full h-full object-cover'
-                width={100}
-                height={100}
-              />
-            ) : (
-              <span className='text-[12px] text-gray-500'>+</span>
-            )}
-          </div>
-          <input
-            type='file'
-            className='hidden'
-            accept='.png, .jpg, .jpeg'
-            onChange={handleImageUpload}
-          />
-        </label>
-
-        <div className='flex flex-row items-start mt-[50px] w-[90%]'>
-          <span className='text-[13px] w-[80px] font-bold mx-[10px]'>
-            닉네임
-          </span>
-          <div className='flex flex-col w-auto'>
-            <input
-              type='text'
-              value={nickname}
-              maxLength={10}
-              onChange={(e) => validateInput(e.target.value)}
-              className='w-[200px] inline-block border-b text-[13px] border-gray-300'
-              placeholder='닉네임을 입력해주세요.'
-            />
-            {!isValidate && (
-              <span className='text-[12px] text-red-500 mt-[5px]'>
-                {errorMessage}
-              </span>
-            )}
-          </div>
-        </div>
-      </section>
-
-      <section className='absolute bottom-[40px] w-[90%] flex flex-col items-center mt-[20px]'>
-        <button
-          className={`w-full h-[30px] bg-blue-800 text-white rounded-[5px] ${
-            isValidate ? '' : 'bg-gray-300'
-          }`}
-          onClick={handleSubmit}
-          disabled={isClicked}
-        >
-          변경 완료
+    <>
+      <header className='max-w-[375px] relative bg-white w-full h-[55px] px-[20px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line'>
+        <button onClick={() => router.back()}>
+          <ChevronLeft size={24} color='black' strokeWidth={1.5} />
         </button>
-        <div className='flex flex-row items-center mt-[20px] text-[10px] text-gray-500 underline gap-[10px]'>
+        <p className='font-semibold text-[17px]'>정보 수정</p>
+        <div className='w-[24px] h-[24px]'></div>
+      </header>
+      <Spacer height={40} />
+      <section className='w-full h-fit pb-[20px] flex flex-col items-center relative'>
+        <div className='w-full flex flex-col items-center'>
+          <label className='w-[100px] h-[100px] border-[1px] border-brand rounded-full flex items-center justify-center cursor-pointer'>
+            <div className='w-full h-full bg-white relative rounded-full flex items-center justify-center'>
+              {imagePreview && (
+                <div className='relative'>
+                  <Image
+                    src={imagePreview}
+                    alt='Preview'
+                    className='rounded-full w-[70px] h-[70px] object-cover'
+                    width={70}
+                    height={70}
+                  />
+                </div>
+              )}
+              <div className='absolute bottom-[5px] w-[23px] h-[23px] right-[5px] rounded-full bg-brand flex items-center justify-center'>
+                <Camera size={15} strokeWidth={1.5} stroke='#ffffff' />
+              </div>
+            </div>
+            <input
+              type='file'
+              className='hidden'
+              accept='.png, .jpg, .jpeg'
+              onChange={handleImageUpload}
+            />
+          </label>
+          <Spacer height={22} />
+          <div className='px-[20px] flex flex-col gap-[15px] items-start w-full'>
+            <p className='text-main w-[80px] font-bold'>닉네임</p>
+            <div className='flex px-[20px] flex-col w-full'>
+              <input
+                type='text'
+                value={nickname}
+                maxLength={10}
+                onChange={(e) => validateInput(e.target.value)}
+                className='w-full inline-block text-[13px] focus:outline-none bg-bright-gray px-[15px] py-[10px] rounded-full'
+                placeholder='닉네임을 입력해주세요.'
+              />
+              {!isValidate && (
+                <span className='text-[12px] pl-[10px] text-red-500 mt-[5px]'>
+                  {errorMessage}
+                </span>
+              )}
+            </div>
+          </div>
+          <Spacer height={15} />
+          <Spacer height={8} className='bg-bright-gray' />
+          <Spacer height={15} />
+          <div className='px-[20px] flex flex-col gap-[15px] items-start w-full'>
+            <p className='text-main w-[80px] font-bold'>소개</p>
+            <div className='flex px-[20px] flex-col w-full'>
+              <input
+                type='text'
+                value={nickname}
+                maxLength={20}
+                onChange={(e) => validateInput(e.target.value)}
+                className='w-full inline-block text-[13px] focus:outline-none bg-bright-gray px-[15px] py-[10px] rounded-full'
+                placeholder='소개를 입력해주세요.'
+              />
+            </div>
+          </div>
+          <Spacer height={15} />
+          <Spacer height={8} className='bg-bright-gray' />
+        </div>
+        <div className='fixed bottom-[70px] flex items-center mt-[20px] text-[10px] text-gray-500 underline gap-[10px]'>
+          <span className='cursor-pointer'>회원탈퇴</span>|
           <span className='cursor-pointer'>로그아웃</span>
-          <span className='cursor-pointer'>회원탈퇴</span>
         </div>
       </section>
-    </div>
+      <button
+        className={`fixed bottom-[0px] text-[16px] font-bold flex items-center justify-center w-full max-w-[375px] h-[50px] ${
+          isValidate ? 'bg-brand text-white' : 'bg-gray-200 text-black13'
+        }`}
+        onClick={handleSubmit}
+        disabled={isClicked}
+      >
+        완료
+      </button>
+    </>
   )
 }

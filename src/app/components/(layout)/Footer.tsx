@@ -20,8 +20,9 @@ export default function Footer() {
   const isMy = path.includes('/users')
   const isLogin = path.includes('/login')
   const isComment = path.includes('/comments')
+  const isUserSetting = path.includes('/setting')
 
-  if (isLogin || isComment) return null
+  if (isLogin || isComment || isUserSetting) return null
 
   return (
     <footer className='fixed bottom-0 z-1000 shadow-custom max-w-[375px] text-gray-400 text-base bg-white flex w-full h-[60px] justify-around items-center'>
