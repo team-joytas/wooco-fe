@@ -9,7 +9,12 @@ import PlaceListComponent from './components/PlaceListComponent'
 import CourseListComponent from './components/CourseListComponent'
 import { Select } from 'antd'
 import { useRouter } from 'next/navigation'
-
+import { ChevronLeft } from 'lucide-react'
+import Link from 'next/link'
+import Spacer from '@components/(layout)/Spacer'
+import FloatingWriteButton from '@components/FloatingWriteButton'
+import setting from '@images/setting.png'
+import Image from 'next/image'
 interface Place {
   id: number
   name: string
@@ -31,9 +36,16 @@ interface Course {
   views: number
 }
 
+const LIST_TYPE = {
+  place: 'place' as const,
+  course: 'course' as const,
+}
+
+type ListType = keyof typeof LIST_TYPE
+
 export default function Page() {
   const data = getData()
-  const [type, setType] = useState('장소')
+  const [type, setType] = useState<ListType>(LIST_TYPE.place)
   const [order, setOrder] = useState('recent')
   const places: Place[] = data.place_info.places
   const courses: Course[] = data.course_info.courses
@@ -43,66 +55,78 @@ export default function Page() {
     setOrder(value)
   }
 
-  const handleTypeChange = (newType: string) => {
+  const handleTypeChange = (newType: ListType) => {
     setType(newType)
   }
 
   return (
-    <div className='px-16 py-32'>
-      <div className='flex items-center justify-between'>
-        <ProfileImage size={60} src={data.user_info.profile_url} />
-        <div className='flex gap-[30px] '>
-          <ProfileTag
-            content={data.place_info.summary.total_place}
-            title='장소 리뷰'
-          />
-          <ProfileTag
-            content={data.place_info.summary.total_place}
-            title='코스 리뷰'
-          />
-          <ProfileTag
-            content={data.place_info.summary.star_rate_avg}
-            title='평균 평점'
-          />
-        </div>
-      </div>
-      <div className='mt-[20px] flex justify-between'>
-        <span className='font-semibold text-[20px]'>{data.user_info.name}</span>
-        <button
-          className='text-[14px] w-[72px] h-[32px] border'
-          onClick={() => {
-            router.push('/users/1/setting')
-          }}
-        >
-          수정하기
+    <>
+      <header className='max-w-[375px] relative bg-white w-full h-[55px] px-[20px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line'>
+        <button onClick={() => router.back()}>
+          <ChevronLeft size={24} color='black' strokeWidth={1.5} />
         </button>
-      </div>
-      <div
-        className='sticky top-0 bg-white z-10 mt-[10px] flex items-center '
-        style={{ paddingTop: '10px', paddingBottom: '10px' }}
-      >
+        <p className='font-semibold text-[17px]'>마이 페이지</p>
+        <Link href='/users/1/setting'>
+          <Image width={24} height={24} alt='setting' src={setting} />
+        </Link>
+      </header>
+      <Spacer height={8} />
+      <section className='px-[20px] py-[10px] gap-[5px] w-full flex flex-col justify-between'>
+        <div className='flex items-center justify-between'>
+          <div className='flex flex-col items-center gap-[10px]'>
+            <ProfileImage
+              size={60}
+              src={data.user_info.profile_url}
+              type='colored'
+            />
+            <p className='font-bold text-brand text-headline'>
+              {data.user_info.name}
+            </p>{' '}
+          </div>
+          <div className='flex gap-[30px] items-end'>
+            <ProfileTag
+              type='heart'
+              content={data.place_info.summary.total_place}
+            />
+            <ProfileTag
+              type='comment'
+              content={data.place_info.summary.total_place}
+            />
+            <ProfileTag
+              type='rate'
+              content={data.place_info.summary.star_rate_avg}
+            />
+          </div>
+        </div>
+      </section>
+      <div className='sticky top-0 bg-white z-10 flex items-center pt-[10px] pb-[5px]'>
         <div
-          className={`w-[50%] h-[40px] flex justify-center items-center text-[16px] cursor-pointer ${
-            type === '장소' ? 'border-b-2 border-cyan-500 font-semibold' : ''
+          className={`w-[50%] flex justify-center border-b-[5px] pb-[5px] items-center font-semibold text-middle cursor-pointer ${
+            type === LIST_TYPE.place
+              ? ' border-container-light-blue'
+              : 'border-light-gray text-gray-400'
           }`}
-          onClick={() => handleTypeChange('장소')}
+          onClick={() => handleTypeChange(LIST_TYPE.place)}
         >
-          장소
+          장소 리뷰
         </div>
         <div
-          className={`w-[50%] h-[40px] flex justify-center items-center text-[16px] cursor-pointer ${
-            type === '코스' ? 'border-b-2 border-cyan-500 font-semibold' : ''
+          className={`w-[50%] flex justify-center border-b-[5px] pb-[5px] items-center font-semibold text-middle cursor-pointer ${
+            type === LIST_TYPE.course
+              ? ' border-container-light-blue '
+              : 'border-light-gray text-gray-400'
           }`}
-          onClick={() => handleTypeChange('코스')}
+          onClick={() => handleTypeChange(LIST_TYPE.course)}
         >
-          코스
+          나의 코스
         </div>
       </div>
-      <div className='mt-[20px] flex justify-between'>
-        <div className='flex gap-[5px] items-center'>
-          <span className='text-[14px]'>전체</span>
-          <span className='text-[16px] text-cyan-500'>
-            {type === '장소'
+      <Spacer height={10} />
+      <div className='flex px-[20px] justify-between'>
+        <div className='flex gap-[5px] text-main font-bold items-center'>
+          <span>전체</span>
+          <span className='text-container-blue'>
+            {type === LIST_TYPE.place
               ? data.place_info.summary.total_place
               : data.course_info.summary.total_course}
           </span>
@@ -118,11 +142,15 @@ export default function Page() {
           ]}
         />
       </div>
-      {type === '장소' ? (
+      <Spacer height={10} />
+      <Spacer height={8} className='bg-bright-gray' />
+      {type === LIST_TYPE.place ? (
         <PlaceListComponent data={places} />
       ) : (
         <CourseListComponent data={courses} />
       )}
-    </div>
+      <Spacer height={20} />
+      <FloatingWriteButton />
+    </>
   )
 }
