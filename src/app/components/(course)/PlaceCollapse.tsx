@@ -2,9 +2,10 @@ import { Collapse } from 'antd'
 import Image from 'next/image'
 import Link from 'next/link'
 import CoursePlaceCarousel from './CoursePlaceCarousel'
-import { Copy, Star, StarHalf } from 'lucide-react'
+import { Copy } from 'lucide-react'
 import allReview from '@images/all_review.png'
 import kakaoReview from '@images/kakao_review.png'
+import StarRate from '@components/StarRate'
 
 const data = [
   {
@@ -94,24 +95,7 @@ export default function PlaceCollapse() {
         <div className='flex bg-bright-gray rounded-[10px] justify-between p-[15px]'>
           <div className='flex flex-col justify-end'>
             <p className='text-headline text-brand font-semibold'>4.0</p>
-            <div className='relative'>
-              <div className='flex gap-[2px]'>
-                {Array.from({ length: 5 }, () => (
-                  <Star
-                    key={index}
-                    fill='#d9d9d9'
-                    size={10}
-                    stroke='#9997F2'
-                    strokeWidth={0}
-                  />
-                ))}
-              </div>
-              <div className='flex gap-[2px] absolute top-0'>
-                <Star fill='#9997F2' size={10} strokeWidth={0} />
-                <Star fill='#9997F2' size={10} strokeWidth={0} />
-                <StarHalf fill='#9997F2' size={10} strokeWidth={0} />
-              </div>
-            </div>
+            <StarRate rate={4.0} size={10} />
             <p className='text-sub opacity-50'>장소 리뷰 20</p>
           </div>
           <div className='flex flex-col justify-center items-center gap-[5px]'>
