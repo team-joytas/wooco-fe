@@ -15,10 +15,13 @@ export default function Header() {
   const isNew = path.includes('/new')
   const isComment = path.includes('/comments')
   const isAddRegion = path.includes('/add-region')
+  const isUser = path.includes('/users')
   const isNoti = path.includes('/notifications')
+
   const [isSearch, setIsSearch] = useState(false)
 
-  if (isLogin || isNew || isComment || isAddRegion || isNoti) return null
+  if (isLogin || isNew || isComment || isAddRegion || isNoti || isUser)
+    return null
 
   return (
     <header className='max-w-[375px] relative bg-white w-full h-[55px] pr-[10px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line'>

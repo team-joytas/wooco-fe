@@ -72,8 +72,7 @@ export default function Page() {
           ))}
         </div>
       </div>
-
-      <FloatingWriteButton to='/courses/new' />
+      <FloatingWriteButton />
     </div>
   )
 }

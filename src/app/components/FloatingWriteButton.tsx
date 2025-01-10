@@ -4,11 +4,7 @@ import { Pencil } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
-interface FloatingWriteButtonProps {
-  to: string
-}
-
-export default function FloatingWriteButton({ to }: FloatingWriteButtonProps) {
+export default function FloatingWriteButton() {
   const router = useRouter()
   const [isClick, setIsClick] = useState(false)
 
