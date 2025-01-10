@@ -1,6 +1,6 @@
 import Spacer from '@components/(layout)/Spacer'
 import Image from 'next/image'
-import splashLogo from '@images/splash_logo.svg'
+import splashLogo from '@images/(logo)/splash_logo.svg'
 
 export default async function Login() {
   await new Promise((resolve) => setTimeout(resolve, 3000))

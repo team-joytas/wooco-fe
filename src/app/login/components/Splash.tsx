@@ -1,6 +1,6 @@
-import splashLogo from '@images/splash_logo.svg'
+import splashLogo from '@images/(logo)/splash_logo.svg'
 import Image from 'next/image'
-import logo_long from '@images/logo_long.png'
+import logo_long from '@images/(logo)/logo_long.png'
 
 export default function Splash() {
   return (

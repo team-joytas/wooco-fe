@@ -1,11 +1,9 @@
-import search from '@images/search.png'
-import left from '@images/left.png'
-import Image from 'next/image'
 import Spacer from '../(layout)/Spacer'
 import { categories } from '@/types/Categories'
 import { useState, useEffect } from 'react'
 import NewCourseItem from './NewCourseItem'
 import LayoutSpacer from '../(layout)/LayoutSpacer'
+import { ChevronLeft, Search } from 'lucide-react'
 
 // TODO: 실제 데이터 및 로직 구현 필요
 export default function SearchComponent({
@@ -40,7 +38,7 @@ export default function SearchComponent({
     <div className='w-full'>
       <div className='flex justify-between items-center'>
         <button onClick={() => setIsSearch(false)}>
-          <Image alt='close' src={left} className='w-[30px] ml-[5px] h-auto' />
+          <ChevronLeft size={30} strokeWidth={1.5} />
         </button>
         <div
           className={
@@ -49,7 +47,7 @@ export default function SearchComponent({
               : 'hidden'
           }
         >
-          <Image alt='search' src={search} className='w-[15px] h-auto' />
+          <Search size={15} strokeWidth={1.5} />
           <input
             type='text'
             className='bg-transparent flex h-full w-full focus:outline-none text-sub placeholder:text-sub placeholder:font-light'

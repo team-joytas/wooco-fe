@@ -90,7 +90,7 @@ export default function PlaceCollapse() {
           <span className='block text-sub text-light max-w-[200px] truncate line-clamp-2'>
             {place.location}
           </span>
-          <Copy size={14} />
+          <Copy size={14} strokeWidth={1.5} />
         </div>
         <div className='flex bg-bright-gray rounded-[10px] justify-between p-[15px]'>
           <div className='flex flex-col justify-end'>

@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import heart_color from '@images/heart_color.png'
-import comment from '@images/comment.png'
 import ProfileImage from '../ProfileImage'
+import { Heart, MessageSquare } from 'lucide-react'
 
 // TODO: 실제 데이터로 변경
 export default function LikeCourseItem() {
@@ -41,11 +40,11 @@ export default function LikeCourseItem() {
       </div>
       <div className='flex items-center gap-[4px] px-[10px]'>
         <div className='flex items-center gap-[4px]'>
-          <Image src={heart_color} width={20} height={20} alt='like' />
+          <Heart fill='#5A59F2' stroke='#5A59F2' size={20} />
           <span>25</span>
         </div>
         <div className='flex items-center gap-[4px]'>
-          <Image src={comment} width={20} height={20} alt='comment' />
+          <MessageSquare fill='#5A59F2' stroke='#5A59F2' size={20} />
           <span>03</span>
         </div>
       </div>
