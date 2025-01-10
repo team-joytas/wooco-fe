@@ -18,7 +18,7 @@ export default function Page() {
         <CourseCard key={index} courseData={course} />
       ))}
 
-      <FloatingWriteButton to='/schedules/new' />
+      <FloatingWriteButton />
     </div>
   )
 }

@@ -13,15 +13,21 @@ export default function StarRate({
   return (
     <div className='relative'>
       <div className='flex gap-[2px]'>
-        {Array.from({ length: 5 }, () => (
-          <Star fill='#d9d9d9' size={size} stroke='#9997F2' strokeWidth={0} />
+        {Array.from({ length: 5 }, (_, index) => (
+          <Star
+            key={index}
+            fill='#d9d9d9'
+            size={size}
+            stroke='#9997F2'
+            strokeWidth={0}
+          />
         ))}
       </div>
       <div className='flex gap-[2px] absolute top-0'>
-        {Array.from({ length: fullStars }, () => (
-          <Star fill='#9997F2' size={size} strokeWidth={0} />
+        {Array.from({ length: fullStars }, (_, index) => (
+          <Star key={index} fill='#9997F2' size={size} strokeWidth={0} />
         ))}
-        {hasHalfStar && <StarHalf fill='#9997F2' size={size} strokeWidth={0} />}
+        {hasHalfStar && <StarHalf fill='#000000' size={size} strokeWidth={0} />}
       </div>
     </div>
   )
