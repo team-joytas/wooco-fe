@@ -81,7 +81,7 @@ export default function Page() {
             />
             <p className='font-bold text-brand text-headline'>
               {data.user_info.name}
-            </p>{' '}
+            </p>
           </div>
           <div className='flex gap-[30px] items-end'>
             <ProfileTag
