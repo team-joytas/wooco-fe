@@ -61,11 +61,11 @@ export default function CoursePlanLayout({
       <div className='w-full px-[20px] flex flex-col'>
         <Spacer height={14} />
         <section className='justify-between items-center flex'>
-          <ChevronLeft size={24} />
+          <ChevronLeft size={24} strokeWidth={1.5} />
           <p className='border-b font-semibold text-[13px] text-white px-[20px] py-[8px] rounded-[20px] bg-container-blue'>
             {data.name}
           </p>
-          <EllipsisVertical size={24} />
+          <EllipsisVertical size={24} strokeWidth={1.5} />
         </section>
         <Spacer height={14} />
         <section className='w-full items-center justify-center inline-flex gap-[5px]'>

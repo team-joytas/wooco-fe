@@ -27,7 +27,7 @@ export default function StarRate({
         {Array.from({ length: fullStars }, (_, index) => (
           <Star key={index} fill='#9997F2' size={size} strokeWidth={0} />
         ))}
-        {hasHalfStar && <StarHalf fill='#000000' size={size} strokeWidth={0} />}
+        {hasHalfStar && <StarHalf fill='#9997F2' size={size} strokeWidth={0} />}
       </div>
     </div>
   )

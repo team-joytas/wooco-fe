@@ -3,8 +3,7 @@
 import ImageWithIndex from '@components/(course)/ImageWithIndex'
 import ProfileImage from '@components/ProfileImage'
 import Spacer from '@/app/components/(layout)/Spacer'
-import { Share2 } from 'lucide-react'
-import { Heart, MessageCircle } from 'lucide-react'
+import { Heart, MessageCircle, Share2 } from 'lucide-react'
 import { useState } from 'react'
 
 interface TrendingProps {
@@ -45,9 +44,7 @@ export default function TrendingCourse({ course }: { course: TrendingProps }) {
           <span className='text-[11px] h-[26px] word-wrap'>
             {course.content}
           </span>
-
           <Spacer height={20} />
-
           <div className='flex flex-row w-[300px] justify-start overflow-x-auto scrollbar-hide'>
             <span className='w-[28px] text-[10px] text-description word-break leading-[12px] flex-shrink-0'>
               추천 코스
@@ -60,9 +57,7 @@ export default function TrendingCourse({ course }: { course: TrendingProps }) {
               />
             ))}
           </div>
-
           <Spacer height={20} />
-
           <div className='flex flex-row justify-between items-center'>
             <div className='flex items-center gap-[10px]'>
               <div className='flex items-center gap-[4px]'>
@@ -84,7 +79,6 @@ export default function TrendingCourse({ course }: { course: TrendingProps }) {
                 <span>03</span>
               </div>
             </div>
-
             <Share2
               size={16}
               className='cursor-pointer text-brand'

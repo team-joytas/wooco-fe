@@ -1,9 +1,9 @@
 import { Button } from 'antd'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import dragIcon from '@images/drag_icon.png'
 import Image from 'next/image'
 import { Place } from '@/app/components/SearchPlace'
+import { AlignJustify } from 'lucide-react'
 
 interface SortableItemProps {
   id: string
@@ -37,16 +37,9 @@ export default function SortableItem({
       className='flex items-center justify-between gap-[10px] h-[40px] px-[10px] py-[10px] border text-[15px] rounded-[5px] bg-white'
     >
       <div className='flex items-center gap-[10px]'>
-        <Image
-          {...attributes}
-          {...listeners}
-          ref={setNodeRef}
-          src={dragIcon}
-          width={20}
-          height={15}
-          className='w-[20px] h-[15px]'
-          alt='드래그'
-        />
+        <div {...attributes} {...listeners} ref={setNodeRef}>
+          <AlignJustify size={20} strokeWidth={1.5} />
+        </div>
         <span className='text-[13px]'>{place.place_name}</span>
       </div>
       <div className='flex gap-[5px]'>

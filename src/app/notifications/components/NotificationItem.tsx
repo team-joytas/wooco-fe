@@ -2,7 +2,7 @@ import { Notification, NOTIFICATION_TYPE } from '../types'
 import { MessageCircle, UserRound, SquareGanttChart } from 'lucide-react'
 import Image from 'next/image'
 import courseColor from '@images/course_color.png'
-import logo from '@images/logo.png'
+import logo from '@images/(logo)/logo.png'
 
 export default function NotificationItem({
   notification,

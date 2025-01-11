@@ -1,13 +1,12 @@
 'use client'
 
-import noti from '@images/noti.png'
-import search from '@images/search.png'
 import Image from 'next/image'
 import Link from 'next/link'
-import logo from '@images/logo.png'
+import logo from '@images/(logo)/logo.png'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import SearchComponent from '@components/(main)/SearchComponent'
+import { Search, Bell } from 'lucide-react'
 
 export default function Header() {
   const path = usePathname()
@@ -39,10 +38,10 @@ export default function Header() {
         }
       >
         <button onClick={() => setIsSearch(!isSearch)}>
-          <Image alt='search' src={search} className='w-24 h-auto' />
+          <Search size={24} strokeWidth={1.5} />
         </button>
         <Link href='/notifications'>
-          <Image alt='notification' src={noti} className='w-24 h-auto' />
+          <Bell size={24} strokeWidth={1.5} />
         </Link>
       </div>
       {isSearch && (

@@ -49,7 +49,7 @@ export default function FloatingWriteButton() {
           className='w-[53px] h-[53px] bg-brand rounded-full flex items-center justify-center shadow-lg border border-blue-800 border-opacity-20'
           onClick={() => setIsClick(!isClick)}
         >
-          <Pencil size={20} color='white' />
+          <Pencil size={20} color='white' strokeWidth={1.5} />
         </button>
       </div>
       {isClick && (

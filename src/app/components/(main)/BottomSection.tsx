@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import logo_long from '@images/long_logo_color.png'
+import logo_long from '@images/(logo)/logo_long_color.png'
 import Link from 'next/link'
 
 export default function BottomSection() {
