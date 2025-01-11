@@ -160,7 +160,10 @@ export default function Page() {
           open={open}
           maskClosable
         >
-          <SearchPlace onOpenDrawer={setOpen} onSelectPlace={onChangePlaces} />
+          <SearchPlace
+            setOpenSearchPlace={setOpen}
+            onChangePlaces={onChangePlaces}
+          />
         </Drawer>
       </div>
     </div>
