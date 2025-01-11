@@ -1,6 +1,4 @@
 import ProfileImage from '@/app/components/ProfileImage'
-import Spacer from '@components/(layout)/Spacer'
-import Link from 'next/link'
 
 interface Comment {
   id: number
