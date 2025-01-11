@@ -6,6 +6,7 @@ import LayoutSpacer from '@components/(layout)/LayoutSpacer'
 import localFont from 'next/font/local'
 import { AnimatePresence } from 'framer-motion'
 import { ConfigProvider } from 'antd'
+import ReactQueryProvider from '@/app/provider/ReactQueryProvider'
 
 export const metadata: Metadata = {
   title: 'WOOCO - 우코',
@@ -41,15 +42,17 @@ export default function RootLayout({
   return (
     <html lang='kr' className={`h-vh ${pretendard.variable}`}>
       <body className='h-full flex items-center flex-col overflow-y-scroll'>
-        <Header />
-        <ConfigProvider theme={theme}>
-          <AnimatePresence>
-            <div className='mx-auto flex-1 text-black w-full max-w-[375px]'>
-              {children}
-              <LayoutSpacer />
-            </div>
-          </AnimatePresence>
-        </ConfigProvider>
+        <ReactQueryProvider>
+          <Header />
+          <ConfigProvider theme={theme}>
+            <AnimatePresence>
+              <div className='mx-auto flex-1 text-black w-full max-w-[375px]'>
+                {children}
+                <LayoutSpacer />
+              </div>
+            </AnimatePresence>
+          </ConfigProvider>
+        </ReactQueryProvider>
         <Footer />
       </body>
     </html>

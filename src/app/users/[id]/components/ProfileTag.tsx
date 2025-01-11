@@ -1,4 +1,4 @@
-import { Heart, MessageCircle, Star } from 'lucide-react'
+import { Heart, MessageCircle } from 'lucide-react'
 
 const TAG_TYPE = {
   heart: '관심 목록',

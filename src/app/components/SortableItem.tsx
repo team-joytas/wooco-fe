@@ -1,7 +1,6 @@
 import { Button } from 'antd'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import Image from 'next/image'
 import { Place } from '@/app/components/SearchPlace'
 import { AlignJustify } from 'lucide-react'
 
