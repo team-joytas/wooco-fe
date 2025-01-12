@@ -45,7 +45,7 @@ export default function RegionCascader({
       size='large'
       showSearch={{ filter }}
       style={{
-        width: '300px',
+        width: '100%',
       }}
       expandTrigger='hover'
     />

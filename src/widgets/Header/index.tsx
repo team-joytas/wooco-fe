@@ -1,8 +1,8 @@
 'use client'
 
 import { ChevronLeft } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import { usePathname } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
+import { useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import setting from '@/src/assets/images/setting.png'
@@ -18,6 +18,12 @@ export default function Header({
   const path = usePathname()
   const router = useRouter()
   const isUpdateUser = path?.includes('/setting')
+
+  useEffect(() => {
+    return () => {
+      document.scrollingElement?.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }, [])
 
   const handleClickBack = () => {
     if (isBack) {
