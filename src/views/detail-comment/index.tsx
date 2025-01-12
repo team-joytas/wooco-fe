@@ -2,16 +2,17 @@ import { ChevronLeft, Send } from 'lucide-react'
 import Link from 'next/link'
 import Spacer from '@/src/shared/ui/Spacer'
 import CommentItem from '@/src/features/comment/card-comment'
+import type { CommentType } from '@/src/entities/comment/type'
 
-interface PageListCommentProps {
+interface DetailCommentProps {
   courseId: number
-  comments: any[]
+  comments: CommentType[]
 }
 
-export default function PageListComment({
+export default function DetailComment({
   courseId,
   comments,
-}: PageListCommentProps) {
+}: DetailCommentProps) {
   return (
     <div className='h-100% flex flex-col'>
       <section className='max-w-[375px] relative bg-white w-full h-[55px] px-[20px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line'>

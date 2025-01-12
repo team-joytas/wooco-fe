@@ -2,27 +2,26 @@
 
 import { useEffect, useState } from 'react'
 import { Input, Drawer } from 'antd'
-import { DndContext, closestCenter, DragEndEvent } from '@dnd-kit/core'
-import {
-  SortableContext,
-  arrayMove,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable'
-import SortableItem from '@/app/components/SortableItem'
-import SearchPlace, { Place } from '@/app/components/SearchPlace'
+import DragPlace from '@/src/widgets/DragPlace'
+import SearchPlace from '@/src/views/search-place'
 import { categories } from '@/src/entities/category/type'
-import getData from '@/app/plans/getData'
+import { getCourse } from '@/src/entities/course/api'
 import Spacer from '@/src/shared/ui/Spacer'
 import Header from '@/src/widgets/Header'
+import { PlaceType } from '@/src/entities/place/type'
 
 export default function AddCoursePlan() {
   const [clickedCategory, setClickedCategory] = useState<number[]>([])
-  const [places, setPlaces] = useState<Place[]>([])
+  const [places, setPlaces] = useState<PlaceType[]>([])
   const [open, setOpen] = useState(false)
 
+  // TODO: 나중에 제거
   useEffect(() => {
-    const data = getData()
-    setPlaces(data.courses[0].places)
+    const fetchData = async () => {
+      const data = await getCourse(1)
+      setPlaces(data.places)
+    }
+    fetchData()
   }, [])
 
   const showDrawer = () => {
@@ -33,7 +32,7 @@ export default function AddCoursePlan() {
     setOpen(false)
   }
 
-  const onChangePlaces = (place: Place) => {
+  const onChangePlaces = (place: PlaceType) => {
     setPlaces((prevPlaces) => [...prevPlaces, place])
   }
 
@@ -43,26 +42,6 @@ export default function AddCoursePlan() {
         ? prev.filter((categoryId) => categoryId !== id)
         : [...prev, id]
     )
-  }
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event
-
-    if (active.id !== over?.id) {
-      setPlaces((items) => {
-        const oldIndex = items.findIndex((item) => item.id === active.id)
-        const newIndex = items.findIndex((item) => item.id === over?.id)
-        return arrayMove(items, oldIndex, newIndex)
-      })
-    }
-  }
-
-  const handleDelete = (id: string) => {
-    setPlaces((prev) => prev.filter((place) => place.id !== id))
-  }
-
-  const handleEdit = (id: string) => {
-    alert(`${id}번 장소를 수정합니다.`)
   }
 
   return (
@@ -111,25 +90,7 @@ export default function AddCoursePlan() {
           <div className='w-full mt-[20px] mb-[20px] h-[2px] bg-gray-100' />
           <div className='w-full flex flex-col gap-[10px]'>
             <span className='text-[15px]'>코스 내 장소 정보</span>
-            <DndContext
-              collisionDetection={closestCenter}
-              onDragEnd={handleDragEnd}
-            >
-              <SortableContext
-                items={places}
-                strategy={verticalListSortingStrategy}
-              >
-                {places.map((place) => (
-                  <SortableItem
-                    key={place.id}
-                    id={place.id}
-                    place={place}
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
-                  />
-                ))}
-              </SortableContext>
-            </DndContext>
+            <DragPlace places={places} setPlaces={setPlaces} />
             <button
               onClick={showDrawer}
               className='w-full h-[40px] text-[15px] rounded-[5px] border border-blue-100 flex items-center justify-center'

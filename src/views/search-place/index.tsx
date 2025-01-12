@@ -2,19 +2,6 @@ import { useEffect, useState } from 'react'
 import { Input } from 'antd'
 import type { PlaceType } from '@/src/entities/place/type'
 
-export type Place = {
-  id: string
-  place_name: string
-  category_name?: string
-  address_name: string
-  road_address_name?: string
-  place_url?: string
-  phone?: string
-  distance?: string
-  x: string
-  y: string
-}
-
 type Meta = {
   total_count: number
   pageable_count: number

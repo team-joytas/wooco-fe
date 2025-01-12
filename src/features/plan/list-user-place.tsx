@@ -1,16 +1,9 @@
 import CardUserPlace from '@/src/features/plan/card-user-place'
 import Spacer from '@/src/shared/ui/Spacer'
+import type { PlaceType } from '@/src/entities/place/type'
 
-type ListUserPlaceProps = {
-  data: {
-    id: number
-    name: string
-    star_rate: string
-    created_at: string
-    tags: string[]
-    images: string[]
-    content: string
-  }[]
+interface ListUserPlaceProps {
+  data: PlaceType[]
 }
 
 export default function ListUserPlace({ data }: ListUserPlaceProps) {

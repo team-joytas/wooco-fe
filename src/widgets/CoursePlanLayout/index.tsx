@@ -2,6 +2,7 @@ import Spacer from '@/src/shared/ui/Spacer'
 import PlaceCollapse from '@/src/shared/ui/PlaceCollapse'
 import { EllipsisVertical, ChevronLeft } from 'lucide-react'
 import KakaoMap from '@/src/shared/ui/KakaoMap'
+import { CourseType } from '@/src/entities/course/type'
 
 const COURSE_PLAN = {
   course: 'course' as const,
@@ -14,7 +15,7 @@ interface CoursePlanLayoutProps {
   type: CoursePlanType
   id: number
   children: React.ReactNode
-  data: any
+  data: CourseType
 }
 
 export default function CoursePlanLayout({
@@ -25,36 +26,6 @@ export default function CoursePlanLayout({
 }: CoursePlanLayoutProps) {
   const typeName = type === COURSE_PLAN.course ? '코스' : '플랜'
   const visit = type === COURSE_PLAN.course ? '방문한' : '방문할'
-  const places = [
-    {
-      id: '1',
-      place_name: '알베르',
-      address_name: '서울 강남구 강남대로102길 34',
-      x: '127.028098',
-      y: '37.50304',
-    },
-    {
-      id: '2',
-      place_name: '땀땀 본점',
-      address_name: '서울 강남구 강남대로98길 12-5',
-      x: '127.027992',
-      y: '37.500398',
-    },
-    {
-      id: '3',
-      place_name: '마녀주방',
-      address_name: '서울 강남구 강남대로94길 9',
-      x: '127.028079',
-      y: '37.499486',
-    },
-    {
-      id: '4',
-      place_name: 'CGV 강남',
-      address_name: '서울 강남구 강남대로 438',
-      x: '127.026387',
-      y: '37.501678',
-    },
-  ]
 
   return (
     <>
@@ -80,7 +51,7 @@ export default function CoursePlanLayout({
             )
           })}
         </section>
-        <KakaoMap places={places} id={Number(id)} />
+        <KakaoMap places={data.places} id={Number(id)} />
         <Spacer height={16} />
         <p className='px-[20px]'>
           <span className='text-sub text-brand font-semibold'>

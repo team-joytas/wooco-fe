@@ -1,26 +1,26 @@
 import { Button } from 'antd'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { Place } from '@/app/components/SearchPlace'
+import { PlaceType } from '@/src/entities/place/type'
 import { AlignJustify } from 'lucide-react'
 
-interface SortableItemProps {
-  id: string
-  place: Place
-  onEdit?: (id: string) => void
-  onDelete: (id: string) => void
+interface DragPlaceItemProps {
+  id: number
+  place: PlaceType
+  onEdit?: (id: number) => void
+  onDelete: (id: number) => void
 }
 
-export default function SortableItem({
+export default function DragPlaceItem({
   id,
   place,
   onEdit,
   onDelete,
-}: SortableItemProps) {
+}: DragPlaceItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id })
 
-  const handleEdit = (id: string) => {
+  const handleEdit = (id: number) => {
     if (onEdit) {
       onEdit(id)
     }

@@ -2,17 +2,10 @@ import Image from 'next/image'
 import StarRate from '@/src/shared/ui/StarRate'
 import Spacer from '@/src/shared/ui/Spacer'
 import Link from 'next/link'
+import type { PlaceType } from '@/src/entities/place/type'
 
 interface CardUserPlaceProps {
-  data: {
-    id: number
-    name: string
-    star_rate: number | string
-    created_at: string
-    tags: string[]
-    images: string[]
-    content: string
-  }
+  data: PlaceType
 }
 
 export default function CardUserPlace({ data }: CardUserPlaceProps) {
@@ -21,7 +14,7 @@ export default function CardUserPlace({ data }: CardUserPlaceProps) {
       <div className='w-full justify-between flex gap-[10px]'>
         <div className='flex flex-col'>
           <div className='flex flex-col'>
-            <p className='text-main font-bold'>{data.name}</p>
+            <p className='text-main font-bold'>{data.place_name}</p>
             <span className='text-sub opacity-50'>{data.created_at}</span>
           </div>
           <Spacer height={10} />
@@ -29,7 +22,7 @@ export default function CardUserPlace({ data }: CardUserPlaceProps) {
             <span className='text-brand text-middle'>{data.star_rate}</span>
             <StarRate rate={Number(data.star_rate)} size={10} />
             <div className='flex gap-[8px]'>
-              {data.tags.map((tag, index) => (
+              {data.tags?.map((tag, index) => (
                 <span
                   className='px-[10px] py-[3px] text-[10px] rounded-[10px] bg-container-light-blue text-white'
                   key={index}
@@ -44,8 +37,8 @@ export default function CardUserPlace({ data }: CardUserPlaceProps) {
           className='rounded-[10px] w-[98px] h-[98px]'
           width={98}
           height={98}
-          src={data.images[0]}
-          alt={data.name}
+          src={data.image[0]}
+          alt={data.place_name}
         />
       </div>
       <Spacer height={10} />

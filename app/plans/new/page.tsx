@@ -3,29 +3,34 @@
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import { Cascader, CascaderProps, DatePicker, Drawer, GetProp } from 'antd'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import getData from '@/app/getData'
+import { useState, useEffect } from 'react'
 import KakaoMap from '@/src/shared/ui/KakaoMap'
-import SearchPlace from '@/app/components/SearchPlace'
-import { closestCenter, DndContext, DragEndEvent } from '@dnd-kit/core'
+import SearchPlace from '@/src/views/search-place'
 import type { PlaceType } from '@/src/entities/place/type'
-import {
-  arrayMove,
-  SortableContext,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable'
-import SortableItem from '@/app/components/SortableItem'
+import { getSeoulData } from '@/src/entities/place/api'
+import { latlngMapping } from '@/src/shared/utils/latlngMapping'
+import { SeoulType } from '@/src/entities/place/type'
+import DragPlace from '@/src/widgets/DragPlace'
 
 type DefaultOptionType = GetProp<CascaderProps, 'options'>[number]
 
 export default function Page() {
   const router = useRouter()
+
   const [selectedRegion, setSelectedRegion] = useState<string>('')
   const [centerLatLng, setCenterLatLng] = useState<number[]>([])
   const [places, setPlaces] = useState<PlaceType[]>([])
   const [date, setDate] = useState<string>('')
-  const { data, latlngMapping } = getData()
   const [open, setOpen] = useState(false)
+  const [data, setData] = useState<SeoulType[]>([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getSeoulData()
+      setData(data)
+    }
+    fetchData()
+  }, [])
 
   const onChange = (
     value: (string | number | null)[],
@@ -52,26 +57,6 @@ export default function Page() {
     setPlaces((prevPlaces) => [...prevPlaces, place])
   }
 
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event
-
-    if (active.id !== over?.id) {
-      setPlaces((items) => {
-        const oldIndex = items.findIndex((item) => item.id === active.id)
-        const newIndex = items.findIndex((item) => item.id === over?.id)
-        return arrayMove(items, oldIndex, newIndex)
-      })
-    }
-  }
-
-  const placesWithId = places.map((place) => ({
-    ...place,
-  }))
-
-  const handleDelete = (id: string) => {
-    setPlaces((prev) => prev.filter((place) => place.id !== id))
-  }
-
   const submitPlan = () => {
     router.push('/schedules')
   }
@@ -96,31 +81,12 @@ export default function Page() {
           style={{ width: '100%' }}
           expandTrigger='hover'
         />
-
         {selectedRegion && (
           <>
             <KakaoMap id={1} places={places} center={centerLatLng} />
-
             <section className='flex flex-col mt-[20px] gap-[10px]'>
               <span className='text-[15px] font-semi-bold'>| 장소 추가</span>
-              <DndContext
-                onDragEnd={handleDragEnd}
-                collisionDetection={closestCenter}
-              >
-                <SortableContext
-                  items={placesWithId}
-                  strategy={verticalListSortingStrategy}
-                >
-                  {places.map((place) => (
-                    <SortableItem
-                      key={place.id}
-                      id={place.id}
-                      place={place}
-                      onDelete={handleDelete}
-                    />
-                  ))}
-                </SortableContext>
-              </DndContext>
+              <DragPlace places={places} setPlaces={setPlaces} />
               <button
                 className='flex items-center justify-center w-full h-[30px] text-[13px] px-[10px] py-[5px] border border-blue-800 border-opacity-50 rounded-[5px] '
                 onClick={() => setOpen(true)}
@@ -128,7 +94,6 @@ export default function Page() {
                 +
               </button>
             </section>
-
             <section className='flex flex-row absolute justify-between bottom-[20px] left-0 right-0 px-[16px] gap-[10px]'>
               <DatePicker
                 placeholder='날짜를 선택해 주세요'

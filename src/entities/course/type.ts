@@ -1,9 +1,10 @@
 import type { PlaceType } from '@/src/entities/place/type'
+import type { CommentType } from '@/src/entities/comment/type'
 
 export type CourseType = {
   id: number
   user: {
-    isLike: boolean
+    is_like: boolean
     profile_url: string
     name: string
   }
@@ -19,36 +20,16 @@ export type CourseType = {
     type: string
     number: number
   }
-  likes: number
   comments_info: {
     summary: {
       count: number
     }
-    comments: {
-      id: number
-      user: {
-        id: number
-        profile_url: string
-        name: string
-      }
-      created_at: string
-      content: string
-    }[]
+    comments: CommentType[]
   }
-  views: number
-}
-
-export type TrendingCourseType = {
-  id: number
-  createdAt: string
-  profileImage: string
-  userName: string
-  title: string
-  content: string
   places: PlaceType[]
   likes: number
-  comments: number
-  isLiked: boolean
+  views: number
+  is_liked: boolean
 }
 
 export type FavoriteRegionType = {

@@ -1,12 +1,16 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { Course } from '../getData'
+import { CourseType } from '@/src/entities/course/type'
 import KakaoMap from '@/src/shared/ui/KakaoMap'
 import { CopyOutlined } from '@ant-design/icons'
 import { message } from 'antd'
 
-export default function CourseCard({ courseData }: { courseData: Course }) {
+interface CourseCardProps {
+  courseData: CourseType
+}
+
+export default function CourseCard({ courseData }: CourseCardProps) {
   const { location, places, planned_for, id } = courseData
   const router = useRouter()
 

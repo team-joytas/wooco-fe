@@ -1,10 +1,12 @@
 'use client'
 
-import getData from './getData'
 import ListCourse from '@/src/views/list-course'
+import { getCourses } from '@/src/entities/course/api'
+import { getFavoriteRegions } from '@/src/entities/user/api'
 
-export default function Page() {
-  const data = getData()
+export default async function Page() {
+  const courses = await getCourses()
+  const favoriteRegions = await getFavoriteRegions()
 
-  return <ListCourse data={data} />
+  return <ListCourse courses={courses} favoriteRegions={favoriteRegions} />
 }

@@ -1,8 +1,8 @@
-import getData from './getData'
+import { getCourse } from '@/src/entities/course/api'
 import DetailCourse from '@/src/views/detail-course'
 
-export default function Page({ params }: { params: { id: number } }) {
-  const data = getData()
+export default async function Page({ params }: { params: { id: number } }) {
+  const course = await getCourse(params.id)
 
-  return <DetailCourse courseId={params.id} data={data} />
+  return <DetailCourse courseId={params.id} course={course} />
 }

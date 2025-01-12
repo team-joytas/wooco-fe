@@ -1,6 +1,10 @@
+'use client'
+
 import { Cascader } from 'antd'
-import getData from '@/app/getData'
+import { getSeoulData } from '@/src/entities/place/api'
 import { DefaultOptionType } from 'antd/es/cascader'
+import { useState, useEffect } from 'react'
+import { SeoulType } from '@/src/entities/place/type'
 
 interface CascaderProps {
   placeholder: string
@@ -11,7 +15,15 @@ export default function RegionCascader({
   placeholder,
   setSelectedRegion,
 }: CascaderProps) {
-  const { data } = getData()
+  const [data, setData] = useState<SeoulType[]>([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getSeoulData()
+      setData(data)
+    }
+    fetchData()
+  }, [])
 
   const onChange = (value: (string | number | null)[]) => {
     if (value) setSelectedRegion(value[1] as string)

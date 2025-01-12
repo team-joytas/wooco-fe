@@ -1,11 +1,13 @@
-import getData from './getData'
-import CourseCard from './components/CourseCard'
+import CardCourse from '@/src/features/course/card-course'
 import FloatingWriteButton from '@/src/widgets/FloatingWriteButton'
+import { getCourses } from '@/src/entities/course/api'
+import { getUser } from '@/src/entities/user/api'
 
-export default function Page() {
-  const courseData = getData()
-  const userName = courseData.user_name
-  const planList = courseData.courses
+export default async function Page() {
+  const courses = await getCourses()
+  const user = await getUser(1)
+
+  const userName = user.user_info.name
 
   return (
     <div className='w-full pt-[20px] pb-[20px] px-[16px] flex flex-col'>
@@ -14,8 +16,8 @@ export default function Page() {
         <p>님의 코스 플랜</p>
       </span>
 
-      {planList.map((course, index) => (
-        <CourseCard key={index} courseData={course} />
+      {courses.map((_, index) => (
+        <CardCourse key={index} />
       ))}
 
       <FloatingWriteButton />

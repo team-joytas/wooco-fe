@@ -4,22 +4,21 @@ import { ArrowLeftOutlined } from '@ant-design/icons'
 import { useRouter } from 'next/navigation'
 import KakaoMap from '@/src/shared/ui/KakaoMap'
 import { DatePicker, Drawer } from 'antd'
-import SearchPlace, { Place } from '@/app/components/SearchPlace'
+import SearchPlace from '@/src/views/search-place'
 import { useState } from 'react'
-import { closestCenter, DndContext, DragEndEvent } from '@dnd-kit/core'
-import {
-  arrayMove,
-  SortableContext,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable'
-import SortableItem from '@/app/components/SortableItem'
+import DragPlace from '@/src/widgets/DragPlace'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import type { TrendingCourseType } from '@/src/entities/course/type'
+import { CourseType } from '@/src/entities/course/type'
+import { PlaceType } from '@/src/entities/place/type'
 
-export default function UpdatePlan({ data }: { data: any }) {
+interface UpdatePlanProps {
+  data: CourseType
+}
+
+export default function UpdatePlan({ data }: UpdatePlanProps) {
   const router = useRouter()
-  const [places, setPlaces] = useState<Place[]>(data.places)
+  const [places, setPlaces] = useState<PlaceType[]>(data.places)
   const [date, setDate] = useState<string>('2024-12-25')
   const [open, setOpen] = useState(false)
 
@@ -30,27 +29,9 @@ export default function UpdatePlan({ data }: { data: any }) {
     setOpen(false)
   }
 
-  const onChangePlaces = (place: Place) => {
+  const onChangePlaces = (place: PlaceType) => {
     setPlaces((prevPlaces) => [...prevPlaces, place])
   }
-
-  const handleDelete = (id: string) => {
-    setPlaces((prevPlaces) => prevPlaces.filter((place) => place.id !== id))
-  }
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event
-
-    if (active.id !== over?.id) {
-      setPlaces((items) => {
-        const oldIndex = items.findIndex((item) => item.id === active.id)
-        const newIndex = items.findIndex((item) => item.id === over?.id)
-        return arrayMove(items, oldIndex, newIndex)
-      })
-    }
-  }
-
-  const placesWithId = places.map((place) => ({ ...place }))
 
   const submitPlan = () => {
     router.push('/schedules')
@@ -70,24 +51,7 @@ export default function UpdatePlan({ data }: { data: any }) {
 
       <section className='flex flex-col mt-[20px] gap-[10px]'>
         <span className='text-[15px] font-semi-bold'>| 장소 추가</span>
-        <DndContext
-          onDragEnd={handleDragEnd}
-          collisionDetection={closestCenter}
-        >
-          <SortableContext
-            items={placesWithId}
-            strategy={verticalListSortingStrategy}
-          >
-            {places.map((place) => (
-              <SortableItem
-                key={place.id}
-                id={place.id}
-                place={place}
-                onDelete={handleDelete}
-              />
-            ))}
-          </SortableContext>
-        </DndContext>
+        <DragPlace places={places} setPlaces={setPlaces} />
         <button
           className='flex items-center justify-center w-full h-[30px] text-[13px] px-[10px] py-[5px] border border-blue-800 border-opacity-50 rounded-[5px] '
           onClick={() => setOpen(true)}

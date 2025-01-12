@@ -10,16 +10,12 @@ import { Select } from 'antd'
 import Spacer from '@/src/shared/ui/Spacer'
 import FloatingWriteButton from '@/src/widgets/FloatingWriteButton'
 import Header from '@/src/widgets/Header'
-import { CourseType } from '@/src/entities/course/type'
+import type { CourseType } from '@/src/entities/course/type'
+import type { PlaceType } from '@/src/entities/place/type'
+import type { UserType } from '@/src/entities/user/type'
 
-interface Place {
-  id: number
-  name: string
-  star_rate: string
-  created_at: string
-  tags: string[]
-  images: string[]
-  content: string
+interface DetailUserProps {
+  user: UserType
 }
 
 const LIST_TYPE = {
@@ -29,11 +25,11 @@ const LIST_TYPE = {
 
 type ListType = keyof typeof LIST_TYPE
 
-export default function DetailUser({ data }: { data: any }) {
+export default function DetailUser({ user }: DetailUserProps) {
   const [type, setType] = useState<ListType>(LIST_TYPE.place)
   const [order, setOrder] = useState('recent')
-  const places: Place[] = data.place_info.places
-  const courses: CourseType[] = data.course_info.courses
+  const places: PlaceType[] = user.place_info.places
+  const courses: CourseType[] = user.course_info.courses
 
   const onChangeOrder = (value: string) => {
     setOrder(value)
@@ -52,25 +48,25 @@ export default function DetailUser({ data }: { data: any }) {
           <div className='flex flex-col items-center gap-[10px]'>
             <ProfileImage
               size={60}
-              src={data.user_info.profile_url}
+              src={user.user_info.profile_url}
               type='colored'
             />
             <p className='font-bold text-brand text-headline'>
-              {data.user_info.name}
+              {user.user_info.name}
             </p>
           </div>
           <div className='flex gap-[30px] items-end'>
             <UserTag
               type='heart'
-              content={data.place_info.summary.total_place}
+              content={user.place_info.summary.total_place}
             />
             <UserTag
               type='comment'
-              content={data.place_info.summary.total_place}
+              content={user.place_info.summary.total_place}
             />
             <UserTag
               type='rate'
-              content={data.place_info.summary.star_rate_avg}
+              content={user.place_info.summary.star_rate_avg}
             />
           </div>
         </div>
@@ -103,8 +99,8 @@ export default function DetailUser({ data }: { data: any }) {
           <span>전체</span>
           <span className='text-container-blue'>
             {type === LIST_TYPE.place
-              ? data.place_info.summary.total_place
-              : data.course_info.summary.total_course}
+              ? user.place_info.summary.total_place
+              : user.course_info.summary.total_course}
           </span>
         </div>
         <Select

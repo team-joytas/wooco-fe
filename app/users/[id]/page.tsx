@@ -1,7 +1,8 @@
 import DetailUser from '@/src/views/detail-user'
-import getData from './getData'
+import { getUser } from '@/src/entities/user/api'
 
-export default function Page() {
-  const data = getData()
-  return <DetailUser data={data} />
+export default async function Page() {
+  const user = await getUser(1)
+
+  return <DetailUser user={user} />
 }

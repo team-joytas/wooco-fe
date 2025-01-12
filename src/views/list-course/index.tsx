@@ -3,8 +3,18 @@ import Spacer from '@/src/shared/ui/Spacer'
 import TrendingCourse from '@/src/features/course/card-trend-course'
 import FloatingWriteButton from '@/src/widgets/FloatingWriteButton'
 import { Fragment } from 'react'
+import { CourseType } from '@/src/entities/course/type'
+import { FavoriteRegionType } from '@/src/entities/user/type'
 
-export default function ListCourse({ data }: { data: any }) {
+interface ListCourseProps {
+  courses: CourseType[]
+  favoriteRegions: FavoriteRegionType[]
+}
+
+export default function ListCourse({
+  courses,
+  favoriteRegions,
+}: ListCourseProps) {
   const router = useRouter()
 
   return (
@@ -29,7 +39,7 @@ export default function ListCourse({ data }: { data: any }) {
           </button>
         </div>
         <div className='flex flex-row items-center h-[30px] gap-[8px] my-[15px] overflow-auto px-[20px]'>
-          {data.favoriteRegions.map((region: any) => (
+          {favoriteRegions.map((region) => (
             <div
               key={region.id}
               className='inline-block text-center whitespace-nowrap text-white font-bold text-[12px] h-[28px] rounded-[20px] px-[20px] py-[5px] bg-container-light-blue cursor-pointer'
@@ -54,7 +64,7 @@ export default function ListCourse({ data }: { data: any }) {
           <button className='border-none'>더보기</button>
         </div>
         <div className='flex flex-col items-center gap-[12px]'>
-          {data.trendingCourses.map((course: any) => (
+          {courses.map((course) => (
             <Fragment key={course.id}>
               <TrendingCourse course={course} />
               <Spacer className='bg-bright-gray' height={8} />
