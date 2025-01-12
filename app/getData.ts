@@ -1,4 +1,4 @@
-interface Data {
+type Data = {
   value: string
   label: string
   children?: Data[]

@@ -2,7 +2,7 @@ import Header from '@/src/widgets/Header'
 import CardNotification from '@/src/features/notification/card-notification'
 import Spacer from '@/src/shared/ui/Spacer'
 
-export interface Notification {
+export type Notification = {
   id: number
   createdAt: string
   content: string

@@ -1,17 +1,19 @@
 import CardUserPlace from '@/src/features/plan/card-user-place'
 import Spacer from '@/src/shared/ui/Spacer'
 
-interface Place {
-  id: number
-  name: string
-  star_rate: string
-  created_at: string
-  tags: string[]
-  images: string[]
-  content: string
+type ListUserPlaceProps = {
+  data: {
+    id: number
+    name: string
+    star_rate: string
+    created_at: string
+    tags: string[]
+    images: string[]
+    content: string
+  }[]
 }
 
-export default function ListUserPlace({ data }: { data: Place[] }) {
+export default function ListUserPlace({ data }: ListUserPlaceProps) {
   return (
     <>
       <section className='flex flex-col mt-[15px] gap-[20px]'>

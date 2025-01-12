@@ -1,16 +1,18 @@
 import ProfileImage from '@/src/shared/ui/ProfileImage'
 
-interface Comment {
-  id: number
-  user: {
-    profile_url: string
-    name: string
+interface CommentItemProps {
+  comment: {
+    id: number
+    user: {
+      profile_url: string
+      name: string
+    }
+    created_at: string
+    content: string
   }
-  created_at: string
-  content: string
 }
 
-export default function CommentItem({ comment }: { comment: Comment }) {
+export default function CommentItem({ comment }: CommentItemProps) {
   return (
     <div className='w-full flex items-end flex-col gap-[10px]'>
       <div className='flex w-full gap-[10px]'>

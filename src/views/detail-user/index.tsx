@@ -123,7 +123,7 @@ export default function DetailUser({ data }: { data: any }) {
       {type === LIST_TYPE.place ? (
         <ListUserPlace data={places} />
       ) : (
-        <ListUserCourse data={courses} />
+        <ListUserCourse />
       )}
       <Spacer height={20} />
       <FloatingWriteButton />

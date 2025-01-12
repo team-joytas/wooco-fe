@@ -1,13 +1,5 @@
 import Link from 'next/link'
 
-interface NoticeItemProps {
-  data: {
-    id: number
-    title: string
-    createdAt: string
-  }
-}
-
 // TODO: 실제 데이터로 변경
 export default function CardAnnouncement() {
   return (

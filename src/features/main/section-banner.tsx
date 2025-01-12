@@ -30,4 +30,6 @@ function News() {
   )
 }
 
-export default { Course, News }
+const SectionBanner = { Course, News }
+
+export default SectionBanner

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Input } from 'antd'
 import type { PlaceType } from '@/src/entities/place/type'
 
-export interface Place {
+export type Place = {
   id: string
   place_name: string
   category_name?: string
@@ -15,7 +15,7 @@ export interface Place {
   y: string
 }
 
-interface Meta {
+type Meta = {
   total_count: number
   pageable_count: number
   is_end: boolean

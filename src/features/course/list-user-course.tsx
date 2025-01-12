@@ -1,8 +1,7 @@
 import CardCourse from '@/src/features/course/card-course'
 import Spacer from '@/src/shared/ui/Spacer'
-import { CourseType } from '@/src/entities/course/type'
 
-export default function ListUserCourse({ data }: { data: CourseType[] }) {
+export default function ListUserCourse() {
   return (
     <>
       <section className='flex flex-col gap-[20px] px-[20px] mt-[20px]'>

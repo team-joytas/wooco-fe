@@ -1,15 +1,6 @@
 import Link from 'next/link'
 import ImageWithIndex from '@/src/shared/ui/ImageWithIndex'
 
-interface NewCourseItemProps {
-  data: {
-    title: string
-    createdAt: string
-    image: string
-    location: string
-  }
-}
-
 // TODO: 실제 데이터로 변경
 export default function CardCourse() {
   return (

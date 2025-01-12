@@ -3,10 +3,6 @@ import Spacer from '@/src/shared/ui/Spacer'
 import TrendingCourse from '@/src/features/course/card-trend-course'
 import FloatingWriteButton from '@/src/widgets/FloatingWriteButton'
 import { Fragment } from 'react'
-import type {
-  TrendingCourseType,
-  FavoriteRegionType,
-} from '@/src/entities/course/type'
 
 export default function ListCourse({ data }: { data: any }) {
   const router = useRouter()

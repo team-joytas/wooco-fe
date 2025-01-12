@@ -1,6 +1,6 @@
 import { Place } from '../components/SearchPlace'
 
-export interface Course {
+type Course = {
   id: string
   location: string
   places: Place[]
@@ -9,7 +9,7 @@ export interface Course {
   planned_for: string
 }
 
-interface Data {
+type Data = {
   user_name: string
   courses: Course[]
 }

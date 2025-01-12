@@ -12,12 +12,10 @@ import SortableItem from '@/app/components/SortableItem'
 import SearchPlace, { Place } from '@/app/components/SearchPlace'
 import { categories } from '@/src/entities/category/type'
 import getData from '@/app/plans/getData'
-import { useRouter } from 'next/navigation'
 import Spacer from '@/src/shared/ui/Spacer'
 import Header from '@/src/widgets/Header'
 
 export default function AddCoursePlan() {
-  const router = useRouter()
   const [clickedCategory, setClickedCategory] = useState<number[]>([])
   const [places, setPlaces] = useState<Place[]>([])
   const [open, setOpen] = useState(false)

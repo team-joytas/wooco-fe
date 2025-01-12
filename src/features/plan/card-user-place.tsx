@@ -3,7 +3,7 @@ import StarRate from '@/src/shared/ui/StarRate'
 import Spacer from '@/src/shared/ui/Spacer'
 import Link from 'next/link'
 
-interface PlaceData {
+interface CardUserPlaceProps {
   data: {
     id: number
     name: string
@@ -15,7 +15,7 @@ interface PlaceData {
   }
 }
 
-export default function CardUserPlace({ data }: PlaceData) {
+export default function CardUserPlace({ data }: CardUserPlaceProps) {
   return (
     <div className='w-full h-fit px-[20px] flex flex-col'>
       <div className='w-full justify-between flex gap-[10px]'>
