@@ -21,6 +21,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+image {
+  width: 100%;
+}
+
 .ant-drawer-bottom > .ant-drawer-content-wrapper {
   box-shadow: none;
 }

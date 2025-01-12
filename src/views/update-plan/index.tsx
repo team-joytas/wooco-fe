@@ -27,7 +27,7 @@ export default function UpdatePlan({ data }: UpdatePlanProps) {
   const dateFormat = 'YYYY-MM-DD'
 
   const submitPlan = () => {
-    router.push('/schedules')
+    router.push('/plans')
   }
 
   return (

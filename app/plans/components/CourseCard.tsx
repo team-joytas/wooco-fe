@@ -51,7 +51,7 @@ export default function CourseCard({ courseData }: CourseCardProps) {
           <span>| 장소 정보</span>
           <button
             className='w-[50px] h-[30px] text-[12px] border rounded-[10px] cursor-pointer'
-            onClick={() => router.push('/schedules/1/update')}
+            onClick={() => router.push('/plans/1/update')}
           >
             수정
           </button>

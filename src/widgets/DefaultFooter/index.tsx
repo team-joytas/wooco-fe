@@ -11,7 +11,7 @@ export default function DefaultFooter() {
   const path = usePathname()
   const isHome = path === '/'
   const isCourse = path?.includes('/courses')
-  const isPlan = path?.includes('/schedules')
+  const isPlan = path?.includes('/plans')
   const isMy = path?.includes('/users')
   const isLogin = path?.includes('/login')
   const isComment = path?.includes('/comments')
@@ -38,7 +38,7 @@ export default function DefaultFooter() {
         />
         <span className={`text-[10px] ${isCourse && 'text-brand'}`}>코스</span>
       </Link>
-      <Link href='/schedules' className='flex flex-col items-center mb-[5px]'>
+      <Link href='/plans' className='flex flex-col items-center mb-[5px]'>
         <SquareChartGantt
           size={25}
           strokeWidth={1.5}

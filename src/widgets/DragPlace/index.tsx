@@ -31,29 +31,25 @@ export default function DragPlace({
     }
   }
 
-  const placesWithId = places.map((place) => ({
-    ...place,
-  }))
-
   const handleDelete = (id: number) => {
     setPlaces((prev: PlaceType[]) => prev.filter((place) => place.id !== id))
   }
 
   return (
-    <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCenter}>
-      <SortableContext
-        items={placesWithId}
-        strategy={verticalListSortingStrategy}
-      >
-        {places.map((place) => (
-          <DragPlaceItem
-            key={place.id}
-            id={place.id}
-            place={place}
-            onDelete={handleDelete}
-          />
-        ))}
-      </SortableContext>
-    </DndContext>
+    <div className='w-full flex flex-col gap-[10px]'>
+      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <SortableContext items={places} strategy={verticalListSortingStrategy}>
+          {places.map((place) => (
+            <DragPlaceItem
+              key={place.id}
+              id={place.id}
+              place={place}
+              onEdit={onEdit}
+              onDelete={handleDelete}
+            />
+          ))}
+        </SortableContext>
+      </DndContext>
+    </div>
   )
 }

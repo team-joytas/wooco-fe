@@ -1,8 +1,7 @@
-import { Button } from 'antd'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { PlaceType } from '@/src/entities/place/type'
-import { AlignJustify } from 'lucide-react'
+import { AlignJustify, X } from 'lucide-react'
 
 interface DragPlaceItemProps {
   id: number
@@ -33,29 +32,29 @@ export default function DragPlaceItem({
         transition,
         touchAction: 'none',
       }}
-      className='flex items-center justify-between gap-[10px] h-[40px] px-[10px] py-[10px] border text-[15px] rounded-[5px] bg-white'
+      className='flex items-center justify-between gap-[10px] h-[40px] px-[10px] py-[10px] text-[15px] rounded-full bg-bright-gray'
     >
       <div className='flex items-center gap-[10px]'>
         <div {...attributes} {...listeners} ref={setNodeRef}>
-          <AlignJustify size={20} strokeWidth={1.5} />
+          <AlignJustify size={20} strokeWidth={1.5} stroke={'#5A59F2'} />
         </div>
         <span className='text-[13px]'>{place.place_name}</span>
       </div>
       <div className='flex gap-[5px]'>
         {onEdit && (
-          <Button
+          <button
             className='text-[10px] border-0 h-[20px] w-[20px]'
             onClick={() => handleEdit(place.id)}
           >
-            수정
-          </Button>
+            <X size={20} stroke={'#A9A9A9'} strokeWidth={1.5} />
+          </button>
         )}
-        <Button
+        <button
           className='text-[10px] shadow-none border-0 h-[20px] w-[30px]'
           onClick={() => onDelete(place.id)}
         >
-          X
-        </Button>
+          <X size={20} stroke={'#A9A9A9'} strokeWidth={1.5} />
+        </button>
       </div>
     </div>
   )
