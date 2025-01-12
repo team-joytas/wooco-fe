@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-
 import ProfileImage from '@/src/shared/ui/ProfileImage'
 import UserTag from '@/src/features/user/user-tag'
 import ListUserPlace from '@/src/features/plan/list-user-place'

@@ -1,5 +1,3 @@
-'use client'
-
 import { getCourse } from '@/src/entities/course/api'
 import UpdatePlan from '@/src/views/update-plan'
 

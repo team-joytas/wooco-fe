@@ -1,5 +1,3 @@
-'use client'
-
 import ListCourse from '@/src/views/list-course'
 import { getCourses } from '@/src/entities/course/api'
 import { getFavoriteRegions } from '@/src/entities/user/api'

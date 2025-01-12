@@ -1,19 +1,37 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { Input, Drawer } from 'antd'
-import DragPlace from '@/src/widgets/DragPlace'
-import SearchPlace from '@/src/views/search-place'
-import { categories } from '@/src/entities/category/type'
-import { PlaceType } from '@/src/entities/place/type'
+import { Plus } from 'lucide-react'
 import Spacer from '@/src/shared/ui/Spacer'
-import Header from '@/src/widgets/Header'
+import SearchPlace from '@/src/views/search-place'
+import SelectCategories from '@/src/shared/ui/SelectCategories'
+import { useEffect, useState } from 'react'
+import { Input } from 'antd'
+import KakaoMap from '@/src/shared/ui/KakaoMap'
+import type { DatePickerProps } from 'antd'
+import { DatePicker } from 'antd'
+import RegionCascader from '@/src/shared/ui/RegionCascader'
+import DragPlace from '@/src/widgets/DragPlace'
 import { getCourse } from '@/src/entities/course/api'
+import Header from '@/src/widgets/Header'
+import { PlaceType } from '@/src/entities/place/type'
 
-export default function AddCoursePlan() {
-  const [clickedCategory, setClickedCategory] = useState<number[]>([])
+const LAYOUT_TYPE = {
+  course: 'course' as const,
+  plan: 'plan' as const,
+}
+
+type LayoutType = keyof typeof LAYOUT_TYPE
+
+interface AddCoursePlanProps {
+  type: LayoutType
+}
+
+export default function AddCoursePlan({ type }: AddCoursePlanProps) {
   const [places, setPlaces] = useState<PlaceType[]>([])
-  const [open, setOpen] = useState(false)
+  const [selectedRegion, setSelectedRegion] = useState<string>('')
+  const [openSearchPlace, setOpenSearchPlace] = useState<boolean>(false)
+
+  const pageType = type === LAYOUT_TYPE.course ? '코스' : '플랜'
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,104 +41,110 @@ export default function AddCoursePlan() {
     fetchData()
   }, [])
 
-  const showDrawer = () => {
-    setOpen(true)
+  const onChange: DatePickerProps['onChange'] = (date, dateString) => {
+    console.log('날짜 선택')
   }
 
-  const onClose = () => {
-    setOpen(false)
-  }
-
-  const onChangePlaces = (place: PlaceType) => {
-    setPlaces((prevPlaces) => [...prevPlaces, place])
-  }
-
-  const handleCategoryClick = (id: number) => {
-    setClickedCategory((prev) =>
-      prev.includes(id)
-        ? prev.filter((categoryId) => categoryId !== id)
-        : [...prev, id]
-    )
-  }
+  const headerTitle =
+    type === LAYOUT_TYPE.course
+      ? '나만의 코스 작성하기'
+      : '좋아하는 장소로 채우는 나의 플랜'
 
   return (
-    <>
-      <Header title='나만의 코스 작성하기' isBack />
-      <Spacer height={8} />
-      <div className='px-[20px] w-full flex flex-col justify-between'>
-        <div className='w-full flex flex-col items-end'>
-          <div className='w-full flex flex-col gap-[5px]'>
-            <span className='text-main font-semibold'>
-              코스 제목을 만들어주세요
-            </span>
-            <Input
-              allowClear
-              maxLength={20}
-              className='rounded-full h-[35px] border-0 bg-bright-gray'
-            />
-            <Spacer height={15} />
-            <Spacer height={8} className='bg-bright-gray' />
-          </div>
-          <Spacer height={25} />
-          <div className='w-full flex flex-col gap-[5px]'>
-            <span className='text-main font-semibold'>
-              코스 지역을 검색하세요.
-            </span>
-            <Input.TextArea allowClear showCount autoSize maxLength={200} />
-          </div>
-          <div className='w-full mt-[10px] flex flex-col'>
-            <span className='text-[15px]'>코스 카테고리</span>
-            <div className='mt-[5px] inline-flex flex-wrap gap-[5px]'>
-              {categories.map((category) => (
-                <button
-                  key={category.id}
-                  className={`text-[12px] py-[5px] px-[13px] border rounded-[10px] transition-all duration-200 cursor-pointer ${
-                    clickedCategory.includes(category.id)
-                      ? 'bg-blue-100 border-blue-100'
-                      : 'border-gray-300'
-                  }`}
-                  onClick={() => handleCategoryClick(category.id)}
-                >
-                  {category.value}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className='w-full mt-[20px] mb-[20px] h-[2px] bg-gray-100' />
-          <div className='w-full flex flex-col gap-[10px]'>
-            <span className='text-[15px]'>코스 내 장소 정보</span>
-            <DragPlace places={places} setPlaces={setPlaces} />
-            <button
-              onClick={showDrawer}
-              className='w-full h-[40px] text-[15px] rounded-[5px] border border-blue-100 flex items-center justify-center'
-            >
-              +
-            </button>
-            <Drawer
-              title='장소 검색'
-              height={600}
-              placement={'bottom'}
-              className='w-[90%] max-w-[330px] rounded-t-[10px] mx-auto my-0'
-              onClose={onClose}
-              open={open}
-              maskClosable
-            >
-              <SearchPlace
-                onOpenDrawer={setOpen}
-                onSelectPlace={onChangePlaces}
-              />
-            </Drawer>
-          </div>
+    <div className='relative h-100% flex flex-col'>
+      <Header title={headerTitle} isBack />
+      <Spacer height={25} />
+      <Section title={`${pageType} 제목을 만들어주세요.`} padding>
+        <Input
+          allowClear
+          maxLength={20}
+          className='rounded-full h-[35px] border-0 bg-bright-gray'
+        />
+      </Section>
+      <Divider />
+      <Section title={`${pageType} 지역을 선택하세요.`} padding>
+        <RegionCascader
+          placeholder='지역을 선택해주세요.'
+          setSelectedRegion={setSelectedRegion}
+        />
+      </Section>
+      <Divider />
+      <Section title={`${pageType} 장소를 선택하세요.`}>
+        <div className='px-[20px] w-full flex flex-col gap-[15px] padding'>
+          {places.length > 0 && <KakaoMap places={places} id={1} />}
+          <DragPlace places={places} setPlaces={setPlaces} />
+          <button
+            onClick={() => setOpenSearchPlace(true)}
+            className='w-full h-[40px] text-[15px] cursor-pointer rounded-full flex items-center justify-center bg-container-light-blue'
+          >
+            <Plus size={20} strokeWidth={3} stroke={'#ffffff'} />
+          </button>
         </div>
-        <button
-          className={`w-full rounded-[5px] mt-[40px] text-[12px] h-[40px] flex items-center justify-center bg-blue-100 text-white ${
-            places.length === 0 ? 'cursor-default' : 'bg-blue-800 bg-opacity-50'
-          }`}
-          disabled={places.length === 0}
-        >
-          완료
-        </button>
-      </div>
+        {openSearchPlace && (
+          <SearchPlace
+            setOpenSearchPlace={setOpenSearchPlace}
+            setPlaces={setPlaces}
+          />
+        )}
+      </Section>
+      <Divider />
+      <Section title={`${pageType} 설명을 적어주세요.`} padding>
+        <Input.TextArea allowClear showCount autoSize maxLength={200} />
+      </Section>
+      <Divider />
+      <Section title='방문 날짜를 등록하세요.' padding>
+        <DatePicker
+          onChange={onChange}
+          allowClear
+          placeholder='날짜를 선택해주세요.'
+        />
+      </Section>
+      <Divider />
+      <Section title='관련 태그를 눌러 주세요.' padding>
+        <SelectCategories />
+      </Section>
+      <Spacer height={25} />
+      <button
+        className={`w-full text-[12px] h-[54px] flex items-center justify-center bg-blue-100 text-white ${
+          places.length === 0 ? 'cursor-default' : 'bg-blue-800 bg-opacity-50'
+        }`}
+        disabled={places.length === 0}
+      >
+        완료
+      </button>
+    </div>
+  )
+}
+
+function Section({
+  title,
+  children,
+  padding,
+}: {
+  title: string
+  children: React.ReactNode
+  padding?: boolean
+}) {
+  return (
+    <div
+      className={`w-full flex flex-col gap-[15px] ${
+        padding ? 'px-[20px]' : ''
+      }`}
+    >
+      <span className={`text-main font-semibold ${padding ? '' : 'px-[20px]'}`}>
+        {title}
+      </span>
+      {children}
+    </div>
+  )
+}
+
+function Divider() {
+  return (
+    <>
+      <Spacer height={25} />
+      <Spacer height={8} className='bg-bright-gray' />
+      <Spacer height={25} />
     </>
   )
 }

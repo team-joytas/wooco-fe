@@ -1,3 +1,5 @@
+'use client'
+
 import { useRouter } from 'next/navigation'
 import Spacer from '@/src/shared/ui/Spacer'
 import TrendingCourse from '@/src/features/course/card-trend-course'

@@ -1,5 +1,6 @@
-import Link from 'next/link'
+'use client'
 
+import Link from 'next/link'
 import ProfileImage from '@/src/shared/ui/ProfileImage'
 import Spacer from '@/src/shared/ui/Spacer'
 import CardComment from '@/src/features/comment/card-comment'

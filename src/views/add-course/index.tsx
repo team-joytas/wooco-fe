@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Input, Drawer } from 'antd'
+import { Input } from 'antd'
 import DragPlace from '@/src/widgets/DragPlace'
 import SearchPlace from '@/src/views/search-place'
 import { categories } from '@/src/entities/category/type'
@@ -13,7 +13,7 @@ import { PlaceType } from '@/src/entities/place/type'
 export default function AddCoursePlan() {
   const [clickedCategory, setClickedCategory] = useState<number[]>([])
   const [places, setPlaces] = useState<PlaceType[]>([])
-  const [open, setOpen] = useState(false)
+  const [openSearchPlace, setOpenSearchPlace] = useState<boolean>(false)
 
   // TODO: 나중에 제거
   useEffect(() => {
@@ -23,18 +23,6 @@ export default function AddCoursePlan() {
     }
     fetchData()
   }, [])
-
-  const showDrawer = () => {
-    setOpen(true)
-  }
-
-  const onClose = () => {
-    setOpen(false)
-  }
-
-  const onChangePlaces = (place: PlaceType) => {
-    setPlaces((prevPlaces) => [...prevPlaces, place])
-  }
 
   const handleCategoryClick = (id: number) => {
     setClickedCategory((prev) =>
@@ -92,25 +80,17 @@ export default function AddCoursePlan() {
             <span className='text-[15px]'>코스 내 장소 정보</span>
             <DragPlace places={places} setPlaces={setPlaces} />
             <button
-              onClick={showDrawer}
+              onClick={() => setOpenSearchPlace(true)}
               className='w-full h-[40px] text-[15px] rounded-[5px] border border-blue-100 flex items-center justify-center'
             >
               +
             </button>
-            <Drawer
-              title='장소 검색'
-              height={600}
-              placement={'bottom'}
-              className='w-[90%] max-w-[330px] rounded-t-[10px] mx-auto my-0'
-              onClose={onClose}
-              open={open}
-              maskClosable
-            >
+            {openSearchPlace && (
               <SearchPlace
-                onOpenDrawer={setOpen}
-                onSelectPlace={onChangePlaces}
+                setOpenSearchPlace={setOpenSearchPlace}
+                setPlaces={setPlaces}
               />
-            </Drawer>
+            )}
           </div>
         </div>
         <button

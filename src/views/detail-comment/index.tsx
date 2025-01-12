@@ -1,3 +1,5 @@
+'use client'
+
 import { ChevronLeft, Send } from 'lucide-react'
 import Link from 'next/link'
 import Spacer from '@/src/shared/ui/Spacer'

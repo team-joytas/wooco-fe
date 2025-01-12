@@ -3,7 +3,7 @@
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import { useRouter } from 'next/navigation'
 import KakaoMap from '@/src/shared/ui/KakaoMap'
-import { DatePicker, Drawer } from 'antd'
+import { DatePicker } from 'antd'
 import SearchPlace from '@/src/views/search-place'
 import { useState } from 'react'
 import DragPlace from '@/src/widgets/DragPlace'
@@ -20,18 +20,11 @@ export default function UpdatePlan({ data }: UpdatePlanProps) {
   const router = useRouter()
   const [places, setPlaces] = useState<PlaceType[]>(data.places)
   const [date, setDate] = useState<string>('2024-12-25')
-  const [open, setOpen] = useState(false)
+  const [openSearchPlace, setOpenSearchPlace] = useState<boolean>(false)
 
   dayjs.extend(customParseFormat)
+
   const dateFormat = 'YYYY-MM-DD'
-
-  const onClose = () => {
-    setOpen(false)
-  }
-
-  const onChangePlaces = (place: PlaceType) => {
-    setPlaces((prevPlaces) => [...prevPlaces, place])
-  }
 
   const submitPlan = () => {
     router.push('/schedules')
@@ -53,11 +46,17 @@ export default function UpdatePlan({ data }: UpdatePlanProps) {
         <span className='text-[15px] font-semi-bold'>| 장소 추가</span>
         <DragPlace places={places} setPlaces={setPlaces} />
         <button
-          className='flex items-center justify-center w-full h-[30px] text-[13px] px-[10px] py-[5px] border border-blue-800 border-opacity-50 rounded-[5px] '
-          onClick={() => setOpen(true)}
+          onClick={() => setOpenSearchPlace(true)}
+          className='w-full h-[40px] text-[15px] rounded-[5px] border border-blue-100 flex items-center justify-center'
         >
           +
         </button>
+        {openSearchPlace && (
+          <SearchPlace
+            setOpenSearchPlace={setOpenSearchPlace}
+            setPlaces={setPlaces}
+          />
+        )}
       </section>
 
       <section className='flex flex-row absolute justify-between bottom-[20px] left-0 right-0 px-[16px] gap-[10px]'>
@@ -80,17 +79,6 @@ export default function UpdatePlan({ data }: UpdatePlanProps) {
           수정
         </button>
       </section>
-      <Drawer
-        title='장소 검색'
-        height={600}
-        placement={'bottom'}
-        className='w-[90%] max-w-[330px] rounded-t-[10px] mx-auto my-0'
-        onClose={onClose}
-        open={open}
-        maskClosable
-      >
-        <SearchPlace onOpenDrawer={setOpen} onSelectPlace={onChangePlaces} />
-      </Drawer>
     </div>
   )
 }
