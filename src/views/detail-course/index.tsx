@@ -4,7 +4,7 @@ import Link from 'next/link'
 import ProfileImage from '@/src/shared/ui/ProfileImage'
 import Spacer from '@/src/shared/ui/Spacer'
 import CardComment from '@/src/features/comment/card-comment'
-import CoursePlanLayout from '@/src/widgets/CoursePlanLayout'
+import CoursePlanLayout from '@/src/widgets/course-plan-layout'
 import type { CourseType } from '@/src/entities/course/type'
 
 interface DetailCourseProps {

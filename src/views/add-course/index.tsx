@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from 'react'
 import { Input } from 'antd'
-import DragPlace from '@/src/widgets/DragPlace'
+import DragPlace from '@/src/widgets/drag-place'
 import SearchPlace from '@/src/views/search-place'
 import { categories } from '@/src/entities/category/type'
 import { getCourse } from '@/src/entities/course/api'
 import Spacer from '@/src/shared/ui/Spacer'
-import Header from '@/src/widgets/Header'
+import Header from '@/src/widgets/header'
 import { PlaceType } from '@/src/entities/place/type'
 
 export default function AddCoursePlan() {

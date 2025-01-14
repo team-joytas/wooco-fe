@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Camera } from 'lucide-react'
 import Spacer from '@/src/shared/ui/Spacer'
-import Header from '@/src/widgets/Header'
+import Header from '@/src/widgets/header'
 
 export default function UpdateUser() {
   const router = useRouter()

@@ -10,9 +10,9 @@ import KakaoMap from '@/src/shared/ui/KakaoMap'
 import type { DatePickerProps } from 'antd'
 import { DatePicker } from 'antd'
 import RegionCascader from '@/src/shared/ui/RegionCascader'
-import DragPlace from '@/src/widgets/DragPlace'
+import DragPlace from '@/src/widgets/drag-place'
 import { getCourse } from '@/src/entities/course/api'
-import Header from '@/src/widgets/Header'
+import Header from '@/src/widgets/header'
 import { PlaceType } from '@/src/entities/place/type'
 
 const LAYOUT_TYPE = {

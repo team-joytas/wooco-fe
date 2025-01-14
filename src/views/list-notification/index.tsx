@@ -1,4 +1,4 @@
-import Header from '@/src/widgets/Header'
+import Header from '@/src/widgets/header'
 import CardNotification from '@/src/features/notification/card-notification'
 import Spacer from '@/src/shared/ui/Spacer'
 

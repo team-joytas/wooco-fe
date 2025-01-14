@@ -16,10 +16,19 @@ export default function DefaultHeader() {
   const isAddRegion = path?.includes('/add-region')
   const isUser = path?.includes('/users')
   const isNoti = path?.includes('/notifications')
+  const isCoursesList = path?.includes('/courses?')
 
   const [isSearch, setIsSearch] = useState(false)
 
-  if (isLogin || isNew || isComment || isAddRegion || isNoti || isUser)
+  if (
+    isLogin ||
+    isNew ||
+    isComment ||
+    isAddRegion ||
+    isNoti ||
+    isUser ||
+    isCoursesList
+  )
     return null
 
   return (

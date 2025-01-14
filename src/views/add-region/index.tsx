@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import RegionCascader from '@/src/shared/ui/RegionCascader'
 import { useRouter } from 'next/navigation'
-import Header from '@/src/widgets/Header'
+import Header from '@/src/widgets/header'
 import Spacer from '@/src/shared/ui/Spacer'
 export default function AddRegion() {
   const router = useRouter()
