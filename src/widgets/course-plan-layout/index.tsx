@@ -40,7 +40,7 @@ export default function CoursePlanLayout({
         </section>
         <Spacer height={14} />
         <section className='w-full items-center justify-center inline-flex gap-[5px]'>
-          {data.categories.map((category, index) => {
+          {data.categories?.map((category, index) => {
             return (
               <span
                 key={index}
