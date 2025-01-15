@@ -9,14 +9,14 @@ export type CourseType = {
     name: string
   }
   name: string
-  location: string
-  categories: string[]
+  location?: string
+  categories?: string[]
   content: string
-  image: string
+  image?: string
   created_at: string
   updated_at: string
-  planned_for: string
-  pass_from_create: {
+  planned_for?: string
+  pass_from_create?: {
     type: string
     number: number
   }
@@ -24,12 +24,15 @@ export type CourseType = {
     summary: {
       count: number
     }
-    comments: CommentType[]
+    comments?: CommentType[]
   }
   places: PlaceType[]
   likes: number
-  views: number
-  is_liked: boolean
+  views?: number
+}
+
+export type CourseListType = {
+  courses: CourseType[]
 }
 
 export type FavoriteRegionType = {

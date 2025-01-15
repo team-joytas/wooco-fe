@@ -198,7 +198,6 @@ const user = {
         likes: 200,
         views: 1000,
         comments: 5,
-        is_liked: true,
       },
       {
         id: 2,
@@ -309,7 +308,6 @@ const user = {
         likes: 200,
         views: 1000,
         comments: 5,
-        is_liked: true,
       },
       {
         id: 3,
@@ -420,7 +418,6 @@ const user = {
         likes: 200,
         views: 1000,
         comments: 5,
-        is_liked: true,
       },
       {
         id: 4,
@@ -531,7 +528,6 @@ const user = {
         likes: 200,
         views: 1000,
         comments: 5,
-        is_liked: true,
       },
       {
         id: 5,
@@ -642,7 +638,6 @@ const user = {
         likes: 200,
         views: 1000,
         comments: 5,
-        is_liked: true,
       },
       {
         id: 6,
@@ -753,7 +748,6 @@ const user = {
         likes: 200,
         views: 1000,
         comments: 5,
-        is_liked: true,
       },
     ],
   },
