@@ -1,23 +1,28 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { CourseType, FavoriteRegionType } from '@/src/entities/course/type'
+import CardCourseList from '@/src/features/course/card-list-course'
 import Spacer from '@/src/shared/ui/Spacer'
-import TrendingCourse from '@/src/features/course/card-trend-course'
-import FloatingWriteButton from '@/src/widgets/FloatingWriteButton'
+import FloatingWriteButton from '@/src/widgets/floating-write-btn'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Fragment } from 'react'
-import { CourseType } from '@/src/entities/course/type'
-import { FavoriteRegionType } from '@/src/entities/user/type'
 
 interface ListCourseProps {
-  courses: CourseType[]
+  trendingCourses: CourseType[]
   favoriteRegions: FavoriteRegionType[]
 }
 
 export default function ListCourse({
-  courses,
+  trendingCourses,
   favoriteRegions,
 }: ListCourseProps) {
+  const searchParams = useSearchParams()
+  const location = searchParams.get('location') as string
   const router = useRouter()
+
+  if (location) {
+    return null
+  }
 
   return (
     <div className='w-full h-[calc(100%-50px)] py-[20px] flex flex-col'>
@@ -31,6 +36,7 @@ export default function ListCourse({
               지역별로 새로운, 인기 코스 확인해요
             </span>
           </div>
+
           <button
             className='border-none'
             onClick={() => {
@@ -40,6 +46,7 @@ export default function ListCourse({
             추가하기
           </button>
         </div>
+
         <div className='flex flex-row items-center h-[30px] gap-[8px] my-[15px] overflow-auto px-[20px]'>
           {favoriteRegions.map((region) => (
             <div
@@ -52,7 +59,9 @@ export default function ListCourse({
           ))}
         </div>
       </div>
+
       <Spacer className='bg-bright-gray' height={8} />
+
       <div className='flex flex-col w-full px-[20px]'>
         <div className='flex flex-row justify-between items-center h-[40px] my-[20px]'>
           <div className='flex flex-col justify-start'>
@@ -63,12 +72,14 @@ export default function ListCourse({
               실시간 인기 코스를 확인해요
             </span>
           </div>
+
           <button className='border-none'>더보기</button>
         </div>
+
         <div className='flex flex-col items-center gap-[12px]'>
-          {courses.map((course) => (
+          {trendingCourses.map((course) => (
             <Fragment key={course.id}>
-              <TrendingCourse course={course} />
+              <CardCourseList course={course} />
               <Spacer className='bg-bright-gray' height={8} />
             </Fragment>
           ))}

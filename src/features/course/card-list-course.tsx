@@ -7,7 +7,7 @@ import { Heart, MessageCircle, Share2 } from 'lucide-react'
 import { useState } from 'react'
 import type { CourseType } from '@/src/entities/course/type'
 
-export default function CardTrendCourse({ course }: { course: CourseType }) {
+export default function CardListCourse({ course }: { course: CourseType }) {
   const [isLiked, setIsLiked] = useState(course.user.is_like)
 
   return (

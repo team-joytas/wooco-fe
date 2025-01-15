@@ -31,10 +31,6 @@ export type CourseType = {
   views?: number
 }
 
-export type CourseListType = {
-  courses: CourseType[]
-}
-
 export type FavoriteRegionType = {
   id: number
   value: string
