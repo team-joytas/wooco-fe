@@ -55,7 +55,7 @@ export default function Header({
   }
 
   return (
-    <header className='max-w-[375px] relative bg-white w-full h-[55px] px-[20px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line'>
+    <header className='max-w-[375px] relative bg-white w-full h-[55px] px-[10px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line'>
       {isTitleTag ? (
         <TitleWithTagStyle title={title} handleClickBack={handleClickBack} />
       ) : (
@@ -80,8 +80,8 @@ export default function Header({
       {isListView !== undefined &&
         setIsListView &&
         (isListView ? (
-          <List
-            size={20}
+          <LayoutGrid
+            size={17}
             strokeWidth={1.5}
             onClick={() => {
               setIsListView(false)
@@ -89,8 +89,8 @@ export default function Header({
             className='cursor-pointer'
           />
         ) : (
-          <LayoutGrid
-            size={20}
+          <List
+            size={18}
             strokeWidth={1.5}
             onClick={() => {
               setIsListView(true)
