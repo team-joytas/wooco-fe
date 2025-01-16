@@ -11,7 +11,7 @@ export default function CardListCourse({ course }: { course: CourseType }) {
   const [isLiked, setIsLiked] = useState(course.user.is_like)
 
   return (
-    <div key={course.id} className='w-full flex flex-col gap-[8px]'>
+    <div key={course.id} className='w-full flex flex-col gap-[8px] p-[15px]'>
       <span className='text-description text-[10px]'>{course.created_at}</span>
       <div className='flex flex-row justify-center items-start gap-[8px]'>
         <ProfileImage

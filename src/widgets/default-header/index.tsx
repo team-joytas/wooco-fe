@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import logo from '@/src/assets/images/(logo)/logo.png'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import SearchCourse from '@/src/views/search-course'
 import { Search, Bell } from 'lucide-react'
@@ -16,7 +16,9 @@ export default function DefaultHeader() {
   const isAddRegion = path?.includes('/add-region')
   const isUser = path?.includes('/users')
   const isNoti = path?.includes('/notifications')
-  const isCoursesList = path?.includes('/courses?')
+
+  const params = useSearchParams()
+  const isCoursesList = params.get('location') && path?.includes('/courses')
 
   const [isSearch, setIsSearch] = useState(false)
 

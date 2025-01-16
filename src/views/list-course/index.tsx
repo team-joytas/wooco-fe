@@ -3,6 +3,7 @@
 import { CourseType, FavoriteRegionType } from '@/src/entities/course/type'
 import CardCourseList from '@/src/features/course/card-list-course'
 import Spacer from '@/src/shared/ui/Spacer'
+import CourseList from '@/src/widgets/course-list'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Fragment, Suspense } from 'react'
@@ -10,15 +11,16 @@ import { Fragment, Suspense } from 'react'
 interface ListCourseProps {
   trendingCourses: CourseType[]
   favoriteRegions: FavoriteRegionType[]
+  courses: CourseType[]
 }
 
-function Main({ trendingCourses, favoriteRegions }: ListCourseProps) {
+function Main({ trendingCourses, favoriteRegions, courses }: ListCourseProps) {
   const searchParams = useSearchParams()
   const location = searchParams.get('location') as string
   const router = useRouter()
 
   if (location) {
-    return null
+    return <CourseList location={location} courses={courses} />
   }
 
   return (
@@ -49,7 +51,7 @@ function Main({ trendingCourses, favoriteRegions }: ListCourseProps) {
             <div
               key={region.id}
               className='inline-block text-center whitespace-nowrap text-white font-bold text-[12px] h-[28px] rounded-[20px] px-[20px] py-[5px] bg-container-light-blue cursor-pointer'
-              onClick={() => router.push(`/courses/${region.value}`)}
+              onClick={() => router.push(`/courses?location=${region.value}`)}
             >
               {region.value}
             </div>
@@ -90,12 +92,14 @@ function Main({ trendingCourses, favoriteRegions }: ListCourseProps) {
 export default function ListCourse({
   trendingCourses,
   favoriteRegions,
+  courses,
 }: ListCourseProps) {
   return (
     <Suspense>
       <Main
         trendingCourses={trendingCourses}
         favoriteRegions={favoriteRegions}
+        courses={courses}
       />
     </Suspense>
   )
