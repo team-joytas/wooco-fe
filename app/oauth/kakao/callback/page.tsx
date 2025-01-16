@@ -14,8 +14,12 @@ function LoginHandler() {
     const handleLogin = async () => {
       if (code) {
         const isLogin = await postLogin(code)
-        if (isLogin) {
+        if (isLogin.success && !isLogin.onBoarding) {
           router.replace('/')
+        } else if (isLogin.onBoarding) {
+          router.replace(`/users/${isLogin.userId}/setting`)
+        } else {
+          router.replace('/login')
         }
       }
     }
