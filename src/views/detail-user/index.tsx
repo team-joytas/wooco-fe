@@ -69,6 +69,9 @@ export default function DetailUser({ user }: DetailUserProps) {
             />
           </div>
         </div>
+        <span className='text-sub font-light'>
+          {user.user_info.description}
+        </span>
       </section>
       <div className='sticky top-0 bg-white z-10 flex items-center pt-[10px] pb-[5px]'>
         <div

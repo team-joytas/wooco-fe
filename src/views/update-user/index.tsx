@@ -1,101 +1,126 @@
 'use client'
 
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import { Camera } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import Spacer from '@/src/shared/ui/Spacer'
 import Header from '@/src/widgets/header'
+import { getMyProfile } from '@/src/entities/user/api'
+import type { UserProfileType } from '@/src/entities/user/type'
+import { updateUser } from '@/src/entities/user/api'
+import UploadProfileImage from '@/src/features/user/upload-profile-image'
+import { useForm } from 'react-hook-form'
 
 export default function UpdateUser() {
   const router = useRouter()
-  const [imagePreview, setImagePreview] = useState('')
-  const [nickname, setNickname] = useState('')
-  const [isValidate, setIsValidate] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
-  const [isClicked, setIsClicked] = useState(false)
+  const [imageUrl, setImageUrl] = useState('')
+  const [profile, setProfile] = useState<UserProfileType>()
+  const [isOnBoarding, setIsOnBoarding] = useState(false)
 
-  const validateInput = (value: string) => {
-    setNickname(value)
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      nickname: '',
+      description: '',
+      profile_url: '',
+    },
+  })
 
+  useEffect(() => {
+    const fetchMyProfile = async () => {
+      const profile = await getMyProfile()
+      setProfile(profile)
+      setImageUrl(profile.profile_url)
+      setIsOnBoarding(profile.on_boarding)
+      setValue('nickname', profile.name)
+      setValue('description', profile.description || '')
+      setValue('profile_url', profile.profile_url)
+    }
+    fetchMyProfile()
+  }, [setValue])
+
+  const validateNickname = (value: string) => {
+    if (!value) {
+      return '닉네임을 입력해주세요.'
+    }
     if (value.includes(' ')) {
-      setIsValidate(false)
-      setErrorMessage('공백은 입력할 수 없습니다.')
-      return
+      return '공백은 입력할 수 없습니다.'
     }
     if (/[`~!@#$%^&*|\\'"/?]/gi.test(value)) {
-      setIsValidate(false)
-      setErrorMessage('특수 문자는 입력할 수 없습니다.')
-      return
+      return '특수 문자는 입력할 수 없습니다.'
     }
     if (value.length < 2 || value.length > 10) {
-      setIsValidate(false)
-      setErrorMessage('2자 이상 10자 이하로 입력해주세요.')
-      return
+      return '2자 이상 10자 이하로 입력해주세요.'
     }
-    setIsValidate(true)
-    setErrorMessage('')
+    return true
   }
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-
-    if (file) {
-      const previewUrl = URL.createObjectURL(file)
-      setImagePreview(previewUrl)
+  const validateDescription = (value: string) => {
+    if (/[`~!@#$%^&*|\\'"/?]/gi.test(value)) {
+      return '특수 문자는 입력할 수 없습니다.'
     }
+    if (value && value.length > 50) {
+      return '50자 이하로 입력해주세요.'
+    }
+    return true
   }
 
-  const handleSubmit = () => {
-    setIsClicked(false)
-    router.back()
+  const validateProfileUrl = (value: string) => {
+    if (!value) {
+      return '프로필 이미지를 선택해주세요.'
+    }
+    return true
+  }
+
+  const onSubmit = async (data: {
+    nickname: string
+    description: string
+    profile_url: string
+  }) => {
+    const isSuccess = await updateUser({
+      name: data.nickname,
+      description: data.description,
+      profile_url: data.profile_url,
+    })
+    if (isSuccess) router.push(`/users/${profile?.user_id}`)
   }
 
   return (
     <>
-      <Header title='정보 수정' isBack />
+      <Header
+        title={isOnBoarding ? '프로필 설정' : '프로필 수정'}
+        isBack={!isOnBoarding}
+      />
       <Spacer height={40} />
       <section className='w-full h-fit pb-[20px] flex flex-col items-center relative'>
-        <div className='w-full flex flex-col items-center'>
-          <label className='w-[100px] h-[100px] border-[1px] border-brand rounded-full flex items-center justify-center cursor-pointer'>
-            <div className='w-full h-full bg-white relative rounded-full flex items-center justify-center'>
-              {imagePreview && (
-                <div className='relative'>
-                  <Image
-                    src={imagePreview}
-                    alt='Preview'
-                    className='rounded-full w-[70px] h-[70px] object-cover'
-                    width={70}
-                    height={70}
-                  />
-                </div>
-              )}
-              <div className='absolute bottom-[5px] w-[23px] h-[23px] right-[5px] rounded-full bg-brand flex items-center justify-center'>
-                <Camera size={15} strokeWidth={1.5} stroke='#ffffff' />
-              </div>
-            </div>
-            <input
-              type='file'
-              className='hidden'
-              accept='.png, .jpg, .jpeg'
-              onChange={handleImageUpload}
-            />
-          </label>
+        <form
+          className='w-full flex flex-col items-center'
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <UploadProfileImage
+            {...(register('profile_url'), { validate: validateProfileUrl })}
+            imageUrl={imageUrl}
+            setImageUrl={(url) => {
+              setImageUrl(url)
+              setValue('profile_url', url)
+            }}
+          />
           <Spacer height={22} />
           <div className='px-[20px] flex flex-col gap-[15px] items-start w-full'>
             <p className='text-main w-[80px] font-bold'>닉네임</p>
             <div className='flex px-[20px] flex-col w-full'>
               <input
                 type='text'
-                value={nickname}
-                maxLength={10}
-                onChange={(e) => validateInput(e.target.value)}
+                {...register('nickname', { validate: validateNickname })}
                 className='w-full inline-block text-[13px] focus:outline-none bg-bright-gray px-[15px] py-[10px] rounded-full'
                 placeholder='닉네임을 입력해주세요.'
               />
-              {!isValidate && (
+              {errors.nickname && (
                 <span className='text-[12px] pl-[10px] text-red-500 mt-[5px]'>
-                  {errorMessage}
+                  {errors.nickname.message}
                 </span>
               )}
             </div>
@@ -108,31 +133,37 @@ export default function UpdateUser() {
             <div className='flex px-[20px] flex-col w-full'>
               <input
                 type='text'
-                value={nickname}
-                maxLength={20}
-                onChange={(e) => validateInput(e.target.value)}
+                {...register('description', { validate: validateDescription })}
                 className='w-full inline-block text-[13px] focus:outline-none bg-bright-gray px-[15px] py-[10px] rounded-full'
                 placeholder='소개를 입력해주세요.'
               />
+              {errors.description && (
+                <span className='text-[12px] pl-[10px] text-red-500 mt-[5px]'>
+                  {errors.description.message}
+                </span>
+              )}
             </div>
           </div>
           <Spacer height={15} />
           <Spacer height={8} className='bg-bright-gray' />
-        </div>
-        <div className='fixed bottom-[70px] flex items-center mt-[20px] text-[10px] text-gray-500 underline gap-[10px]'>
-          <span className='cursor-pointer'>회원탈퇴</span>|
-          <span className='cursor-pointer'>로그아웃</span>
-        </div>
+          {!isOnBoarding && (
+            <div className='fixed bottom-[70px] flex items-center mt-[20px] text-[10px] text-gray-500 underline gap-[10px]'>
+              <span className='cursor-pointer'>회원탈퇴</span>|
+              <span className='cursor-pointer'>로그아웃</span>
+            </div>
+          )}
+          <button
+            type='submit'
+            className={`fixed bottom-[0px] text-[16px] font-bold flex items-center cursor-pointer justify-center w-full max-w-[375px] h-[50px] ${
+              !errors.nickname
+                ? 'bg-brand text-white'
+                : 'bg-gray-200 text-black13'
+            }`}
+          >
+            완료
+          </button>
+        </form>
       </section>
-      <button
-        className={`fixed bottom-[0px] text-[16px] font-bold flex items-center justify-center w-full max-w-[375px] h-[50px] ${
-          isValidate ? 'bg-brand text-white' : 'bg-gray-200 text-black13'
-        }`}
-        onClick={handleSubmit}
-        disabled={isClicked}
-      >
-        완료
-      </button>
     </>
   )
 }

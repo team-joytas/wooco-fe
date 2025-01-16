@@ -1,8 +1,8 @@
 import DetailUser from '@/src/views/detail-user'
-import { getUser } from '@/src/entities/user/api'
+import { getMockupUser } from '@/src/entities/user/api'
 
 export default async function Page() {
-  const user = await getUser(1)
+  const user = await getMockupUser(1)
 
   return <DetailUser user={user} />
 }
