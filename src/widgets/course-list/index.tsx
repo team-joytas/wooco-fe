@@ -77,11 +77,14 @@ export default function CourseList({
           ))}
         </div>
       ) : (
-        <div className='grid grid-cols-2 gap-[10px] px-[10px]'>
-          {courses.map((course) => (
-            <CardGridCourse key={course.id} />
-          ))}
-        </div>
+        <>
+          <Spacer height={15} />
+          <div className='grid grid-cols-2 gap-[15px] px-[10px]'>
+            {courses.map((course) => (
+              <CardGridCourse key={course.id} course={course} />
+            ))}
+          </div>
+        </>
       )}
     </div>
   )

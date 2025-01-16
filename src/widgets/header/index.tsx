@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronLeft, Grid, List } from 'lucide-react'
+import { ChevronLeft, LayoutGrid, List } from 'lucide-react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 import Link from 'next/link'
@@ -89,7 +89,7 @@ export default function Header({
             className='cursor-pointer'
           />
         ) : (
-          <Grid
+          <LayoutGrid
             size={20}
             strokeWidth={1.5}
             onClick={() => {
