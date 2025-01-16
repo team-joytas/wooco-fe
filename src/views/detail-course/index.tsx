@@ -4,7 +4,7 @@ import Link from 'next/link'
 import ProfileImage from '@/src/shared/ui/ProfileImage'
 import Spacer from '@/src/shared/ui/Spacer'
 import CardComment from '@/src/features/comment/card-comment'
-import CoursePlanLayout from '@/src/widgets/CoursePlanLayout'
+import CoursePlanLayout from '@/src/widgets/course-plan-layout'
 import type { CourseType } from '@/src/entities/course/type'
 
 interface DetailCourseProps {
@@ -13,7 +13,8 @@ interface DetailCourseProps {
 }
 
 export default function DetailCourse({ courseId, course }: DetailCourseProps) {
-  const dateType = course.pass_from_create.type === 'date' ? '일 전' : '시간 전'
+  const dateType =
+    course.pass_from_create?.type === 'date' ? '일 전' : '시간 전'
 
   return (
     <CoursePlanLayout type='course' id={courseId} data={course}>
@@ -30,7 +31,7 @@ export default function DetailCourse({ courseId, course }: DetailCourseProps) {
             </span>
             <div className='text-[13px] flex gap-[5px]'>
               <span className='text-sub font-semibold'>
-                {course.pass_from_create.number}
+                {course.pass_from_create?.number}
                 {dateType}
               </span>
               <span className='text-sub opacity-50'>{course.created_at}</span>
@@ -57,7 +58,7 @@ export default function DetailCourse({ courseId, course }: DetailCourseProps) {
         </div>
         <Spacer height={20} />
         <div className='px-[30px] flex flex-col gap-[30px]'>
-          {course.comments_info.comments.map((comment) => {
+          {course.comments_info.comments?.map((comment) => {
             return <CardComment key={comment.id} comment={comment} />
           })}
         </div>

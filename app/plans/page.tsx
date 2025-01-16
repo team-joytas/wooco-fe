@@ -1,5 +1,5 @@
 import CardCourse from '@/src/features/course/card-course'
-import FloatingWriteButton from '@/src/widgets/FloatingWriteButton'
+import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import { getCourses } from '@/src/entities/course/api'
 import { getUser } from '@/src/entities/user/api'
 
