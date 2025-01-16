@@ -1,11 +1,11 @@
 import CardCourse from '@/src/features/course/card-course'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import { getCourses } from '@/src/entities/course/api'
-import { getUser } from '@/src/entities/user/api'
+import { getMockupUser } from '@/src/entities/user/api'
 
 export default async function Page() {
   const courses = await getCourses()
-  const user = await getUser(1)
+  const user = await getMockupUser(1)
 
   const userName = user.user_info.name
 

@@ -10,6 +10,7 @@ export type UserType = {
     user_id: number
     name: string
     profile_url: string
+    description?: string
   }
   place_info: {
     summary: {
@@ -24,4 +25,18 @@ export type UserType = {
     }
     courses: CourseType[]
   }
+}
+
+export type UserProfileType = {
+  name: string
+  user_id: string
+  profile_url: string
+  description?: string
+  on_boarding: boolean
+}
+
+export type UpdateUserType = {
+  name: string
+  description?: string
+  profile_url: string
 }

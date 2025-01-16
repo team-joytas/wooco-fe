@@ -1,7 +1,43 @@
+import { customAxios } from '@/src/shared/axios'
+import type { UpdateUserType, UserProfileType } from '@/src/entities/user/type'
+
+export const getMyProfile = async (): Promise<UserProfileType> => {
+  try {
+    const url = `/users/me`
+    const response = await customAxios.get(url)
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const getUser = async (id: number): Promise<UserProfileType> => {
+  try {
+    const url = `/users/${id}`
+    const response = await customAxios.get(url)
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const updateUser = async (data: UpdateUserType) => {
+  try {
+    const response = await customAxios.patch('/users/profile', data)
+    return response.status === 200
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
 const user = {
   user_info: {
     user_id: 123,
     name: '홍인데유',
+    description: '강남구 맛집 전문가',
     profile_url: 'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
   },
   place_info: {
@@ -784,6 +820,6 @@ export const getFavoriteRegions = async () => {
   return favoriteRegions
 }
 
-export const getUser = async (id: number) => {
+export const getMockupUser = async (id: number) => {
   return user
 }

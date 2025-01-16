@@ -10,14 +10,18 @@ import setting from '@/src/assets/images/setting.png'
 export default function Header({
   title,
   isBack,
+  isOnBoarding,
+  close,
 }: {
   title: string
   isBack?: boolean
+  isOnBoarding?: boolean
   close?: () => void
 }) {
   const path = usePathname()
   const router = useRouter()
-  const isUpdateUser = path?.includes('/setting')
+
+  const isUpdateUser = path?.includes('/users') && !path?.includes('setting')
 
   useEffect(() => {
     return () => {
@@ -34,11 +38,25 @@ export default function Header({
     }
   }
 
+  if (isOnBoarding) {
+    return (
+      <header className='max-w-[375px] relative bg-white w-full h-[55px] px-[20px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line'>
+        <div className='w-[24px] h-[24px]'></div>
+        <p className='font-semibold text-[17px]'>{title}</p>
+        <div className='w-[24px] h-[24px]'></div>
+      </header>
+    )
+  }
+
   return (
     <header className='max-w-[375px] relative bg-white w-full h-[55px] px-[20px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line'>
-      <button onClick={handleClickBack}>
-        <ChevronLeft size={24} color='black' strokeWidth={1.5} />
-      </button>
+      {isBack || close ? (
+        <button onClick={handleClickBack}>
+          <ChevronLeft size={24} color='black' strokeWidth={1.5} />
+        </button>
+      ) : (
+        <div className='w-[24px] h-[24px]'></div>
+      )}
       <p className='font-semibold text-[17px]'>{title}</p>
       {isUpdateUser ? (
         <Link href='/users/1/setting'>
