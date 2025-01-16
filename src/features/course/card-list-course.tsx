@@ -1,17 +1,12 @@
-'use client'
-
 import ImageWithIndex from '@/src/shared/ui/ImageWithIndex'
 import ProfileImage from '@/src/shared/ui/ProfileImage'
 import Spacer from '@/src/shared/ui/Spacer'
 import { Heart, MessageCircle, Share2 } from 'lucide-react'
-import { useState } from 'react'
 import type { CourseType } from '@/src/entities/course/type'
 
 export default function CardListCourse({ course }: { course: CourseType }) {
-  const [isLiked, setIsLiked] = useState(course.user.is_like)
-
   return (
-    <div key={course.id} className='w-full flex flex-col gap-[8px]'>
+    <div key={course.id} className='w-full flex flex-col gap-[8px] py-[15px]'>
       <span className='text-description text-[10px]'>{course.created_at}</span>
       <div className='flex flex-row justify-center items-start gap-[8px]'>
         <ProfileImage
@@ -46,10 +41,9 @@ export default function CardListCourse({ course }: { course: CourseType }) {
               <div className='flex items-center gap-[4px]'>
                 <Heart
                   size={17}
-                  className='cursor-pointer text-brand'
-                  fill={isLiked ? '#5A59F2' : 'none'}
+                  className='text-brand'
+                  fill={course.user.is_like ? '#5A59F2' : 'none'}
                   strokeWidth={1.5}
-                  onClick={() => setIsLiked(!isLiked)}
                 />
                 <span>25</span>
               </div>
