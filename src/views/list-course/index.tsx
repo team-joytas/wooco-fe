@@ -5,17 +5,14 @@ import CardCourseList from '@/src/features/course/card-list-course'
 import Spacer from '@/src/shared/ui/Spacer'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Fragment } from 'react'
+import { Fragment, Suspense } from 'react'
 
 interface ListCourseProps {
   trendingCourses: CourseType[]
   favoriteRegions: FavoriteRegionType[]
 }
 
-export default function ListCourse({
-  trendingCourses,
-  favoriteRegions,
-}: ListCourseProps) {
+function Main({ trendingCourses, favoriteRegions }: ListCourseProps) {
   const searchParams = useSearchParams()
   const location = searchParams.get('location') as string
   const router = useRouter()
@@ -87,5 +84,19 @@ export default function ListCourse({
       </div>
       <FloatingWriteButton />
     </div>
+  )
+}
+
+export default function ListCourse({
+  trendingCourses,
+  favoriteRegions,
+}: ListCourseProps) {
+  return (
+    <Suspense>
+      <Main
+        trendingCourses={trendingCourses}
+        favoriteRegions={favoriteRegions}
+      />
+    </Suspense>
   )
 }
