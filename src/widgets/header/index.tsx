@@ -27,7 +27,7 @@ export default function Header({
   const path = usePathname()
   const router = useRouter()
 
-  const isUpdateUser = path?.includes('/users') && !path?.includes('setting')
+  const isUpdateUser = /\/users(?!.*(setting|wishlist))/.test(path)
 
   useEffect(() => {
     return () => {

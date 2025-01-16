@@ -20,7 +20,7 @@ function Main({ trendingCourses, favoriteRegions, courses }: ListCourseProps) {
   const router = useRouter()
 
   if (location) {
-    return <CourseList location={location} courses={courses} />
+    return <CourseList title={location} courses={courses} />
   }
 
   return (

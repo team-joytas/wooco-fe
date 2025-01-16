@@ -10,10 +10,10 @@ import Spacer from '@/src/shared/ui/Spacer'
 import SelectCategories from '@/src/shared/ui/SelectCategories'
 
 export default function ListCourse({
-  location,
+  title,
   courses,
 }: {
-  location: string
+  title: string
   courses: CourseType[]
 }) {
   const [isListView, setIsListView] = useState(true)
@@ -26,7 +26,7 @@ export default function ListCourse({
   return (
     <div className='w-full h-[calc(100%-50px)] pb-[20px] flex flex-col relative overflow-y-auto'>
       <Header
-        title={location}
+        title={title}
         isTitleTag={true}
         isBack
         isListView={isListView}
