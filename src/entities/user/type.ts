@@ -40,3 +40,9 @@ export type UpdateUserType = {
   description?: string
   profile_url: string
 }
+
+export type WriterType = {
+  id: number
+  name: string
+  profile_url: string
+}

@@ -9,11 +9,11 @@ import { useState } from 'react'
 import DragPlace from '@/src/widgets/drag-place'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
-import { CourseType } from '@/src/entities/course/type'
+import { CourseMockType } from '@/src/entities/course/type'
 import { PlaceType } from '@/src/entities/place/type'
 
 interface UpdatePlanProps {
-  data: CourseType
+  data: CourseMockType
 }
 
 export default function UpdatePlan({ data }: UpdatePlanProps) {
@@ -40,7 +40,8 @@ export default function UpdatePlan({ data }: UpdatePlanProps) {
         <p className='font-semi-bold'>{data.location} 코스 플랜</p>
       </div>
 
-      <KakaoMap places={data.places} id={Number(data.id)} />
+      {/* 실제 API 연결 필요 */}
+      <KakaoMap places={[]} id={Number(data.id)} />
 
       <section className='flex flex-col mt-[20px] gap-[10px]'>
         <span className='text-[15px] font-semi-bold'>| 장소 추가</span>

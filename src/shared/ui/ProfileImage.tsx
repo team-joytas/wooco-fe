@@ -19,7 +19,7 @@ export default function ProfileImage({
         }px] bg-gradient-to-r from-[#9997F2] to-[#4341EA] p-[1px] rounded-[50%]`}
       >
         <Image
-          className={`w-[${size}px] h-[${size}px] rounded-full border-gray border-[0.5px] object-cover ${className}`}
+          className={`w-[${size}px] h-[${size}px] bg-white rounded-full border-gray border-[0.5px] object-cover ${className}`}
           alt='프로필이미지'
           src={src}
           width={size}

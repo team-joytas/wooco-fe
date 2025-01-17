@@ -1,8 +1,8 @@
 import DetailUser from '@/src/views/detail-user'
-import { getMockupUser } from '@/src/entities/user/api'
+import { getUser } from '@/src/entities/user/api'
 
-export default async function Page() {
-  const user = await getMockupUser(1)
+export default async function Page({ params }: { params: { id: string } }) {
+  const user = await getUser(Number(params.id))
 
   return <DetailUser user={user} />
 }
