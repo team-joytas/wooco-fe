@@ -42,13 +42,10 @@ export default function KakaoMap({ places, center, id }: KakaoMapProps) {
 
         const map = new window.kakao.maps.Map(mapContainerRef.current, {
           center: center
-            ? new window.kakao.maps.LatLng(
-                parseFloat(center[1].toFixed(6)),
-                parseFloat(center[0].toFixed(6))
-              )
+            ? new window.kakao.maps.LatLng(center[1], center[0])
             : new window.kakao.maps.LatLng(
-                parseFloat(Number(places[0].longitude).toFixed(6)),
-                parseFloat(Number(places[0].latitude).toFixed(6))
+                Number(places[0].longitude),
+                Number(places[0].latitude)
               ),
           level: center ? 8 : 6,
         })
@@ -56,8 +53,8 @@ export default function KakaoMap({ places, center, id }: KakaoMapProps) {
         if (places.length > 0) {
           places.forEach((place) => {
             const markerPosition = new window.kakao.maps.LatLng(
-              parseFloat(Number(place.longitude).toFixed(6)),
-              parseFloat(Number(place.latitude).toFixed(6))
+              Number(place.longitude),
+              Number(place.latitude)
             )
             const marker = new window.kakao.maps.Marker({
               position: markerPosition,
