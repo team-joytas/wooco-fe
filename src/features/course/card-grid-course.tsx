@@ -12,7 +12,7 @@ export default function CardGridCourse({ course }: { course: CourseType }) {
     >
       <div>
         <Image
-          src={course.places[0].images?.[0] || ''}
+          src={course.places[0].thumbnail_url || ''}
           width={207}
           height={100}
           className='h-[100px] bg-light-gray rounded-tr-[10px] rounded-tl-[10px] object-cover'

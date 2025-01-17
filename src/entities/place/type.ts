@@ -32,5 +32,5 @@ export type CoursePlaceType = {
   kakao_map_place_id: number
   average_rating: number
   review_count: number
-  images?: string[]
+  thumbnail_url: string
 }

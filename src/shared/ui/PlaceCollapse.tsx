@@ -38,21 +38,14 @@ export default function PlaceCollapse({
     ),
     children: (
       <div className='flex flex-col w-full'>
-        {place.images && place.images.length > 0 && (
-          <Carousel arrows>
-            {place.images?.map((image, index) => {
-              return (
-                <Image
-                  className='rounded-t-[10px]'
-                  key={index}
-                  src={image}
-                  alt='place image'
-                  width={300}
-                  height={150}
-                />
-              )
-            })}
-          </Carousel>
+        {place.thumbnail_url && (
+          <Image
+            className='rounded-t-[10px]'
+            src={place.thumbnail_url}
+            alt='place image'
+            width={300}
+            height={150}
+          />
         )}
         <div className='flex justify-center items-center gap-[10px] py-[10px] bg-black13 text-white'>
           <span className='block text-sub text-light max-w-[200px] truncate line-clamp-2'>
@@ -97,3 +90,26 @@ export default function PlaceCollapse({
     <Collapse expandIconPosition={'end'} className='mt-[10px]' items={items} />
   )
 }
+
+/* TODO: 장소 이미지 여러개로 변환 시
+function PlaceImage({ images }: { images: string[] }) {
+  return (
+    {place.images && place.images.length > 0 && (
+          <Carousel arrows>
+            {place.images?.map((image, index) => {
+              return (
+                <Image
+                  className='rounded-t-[10px]'
+                  key={index}
+                  src={image}
+                  alt='place image'
+                  width={300}
+                  height={150}
+                />
+              )
+            })}
+          </Carousel>
+        )}
+  )
+}
+*/

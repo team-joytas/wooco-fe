@@ -30,7 +30,7 @@ export default function CardListCourse({ course }: { course: CourseType }) {
             {course.places.map((place) => (
               <ImageWithIndex
                 key={place.id}
-                src={place.images?.[0] || ''}
+                src={place.thumbnail_url || ''}
                 index={Number(place.id)}
               />
             ))}
