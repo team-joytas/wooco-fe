@@ -3,12 +3,31 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import logo from '@/src/assets/images/(logo)/logo.png'
-import { usePathname, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
-import SearchCourse from '@/src/views/search-course'
-import { Search, Bell } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
 export default function DefaultHeader() {
+  const path = usePathname()
+  const isShowHeader = path === '/' || path === '/courses' || path === '/plans'
+
+  if (!isShowHeader) {
+    return <div className='w-full h-[1px] bg-header-line' />
+  }
+
+  return (
+    <header className='max-w-[375px] relative bg-white w-full h-[55px] pr-[10px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line'>
+      <Link
+        href='/'
+        className='text-blue-800 text-3xl font-bold cursor-pointer pl-[10px]'
+      >
+        <Image width={30} height={30} alt='logo' src={logo} />
+      </Link>
+    </header>
+  )
+}
+
+// TODO: 아카이브 헤더 추가 -> 알림 및 노티 api 작업 완료 시 추가
+/*
+function ArchiveHeader() {
   const path = usePathname()
   const isLogin = path?.includes('/login')
   const isNew = path?.includes('/new')
@@ -61,3 +80,4 @@ export default function DefaultHeader() {
     </header>
   )
 }
+*/

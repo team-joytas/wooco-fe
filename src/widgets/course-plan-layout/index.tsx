@@ -1,7 +1,7 @@
 import Spacer from '@/src/shared/ui/Spacer'
 import PlaceCollapse from '@/src/shared/ui/PlaceCollapse'
-import { EllipsisVertical, ChevronLeft } from 'lucide-react'
 import KakaoMap from '@/src/shared/ui/KakaoMap'
+import { OptionHeader } from '@/src/widgets/header'
 import { CourseType } from '@/src/entities/course/type'
 
 const COURSE_PLAN = {
@@ -29,17 +29,16 @@ export default function CoursePlanLayout({
 
   return (
     <>
+      <OptionHeader
+        title={data.name}
+        type={type}
+        id={id}
+        showLike={true}
+        isLiked={true}
+        isMine={true}
+      />
       <div className='w-full px-[20px] flex flex-col'>
-        <Spacer height={14} />
-        <section className='justify-between items-center flex'>
-          <ChevronLeft size={24} strokeWidth={1.5} />
-          <p className='border-b font-semibold text-[13px] text-white px-[20px] py-[8px] rounded-[20px] bg-container-blue'>
-            {data.name}
-          </p>
-          <EllipsisVertical size={24} strokeWidth={1.5} />
-        </section>
-        <Spacer height={14} />
-        <section className='w-full items-center justify-center inline-flex gap-[5px]'>
+        <section className='py-[8px] w-full items-center justify-center inline-flex gap-[5px]'>
           {data.categories?.map((category, index) => {
             return (
               <span
