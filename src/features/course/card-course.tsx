@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import ImageWithIndex from '@/src/shared/ui/ImageWithIndex'
+import { CourseType } from '@/src/entities/course/type'
 
 // TODO: 실제 데이터로 변경
-export default function CardCourse() {
+export default function CardCourse({ course }: { course: CourseType }) {
   return (
     <Link
       href={'/courses/1'}

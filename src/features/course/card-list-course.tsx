@@ -11,16 +11,16 @@ export default function CardListCourse({ course }: { course: CourseType }) {
       <div className='flex flex-row justify-center items-start gap-[8px]'>
         <ProfileImage
           size={32}
-          src={course.user.profile_url}
+          src={course.writer.profile_url}
           className='border-brand'
         />
         <div className='flex flex-col'>
           <span className='text-[13px] font-semibold text-brand'>
-            {course.user.name}
+            {course.writer.name}
           </span>
-          <span className='text-[16px] font-bold'>{course.name}</span>
+          <span className='text-[16px] font-bold'>{course.title}</span>
           <span className='text-[11px] h-[26px] word-wrap'>
-            {course.content}
+            {course.contents}
           </span>
           <Spacer height={20} />
           <div className='flex flex-row w-[300px] justify-start overflow-x-auto scrollbar-hide'>
@@ -30,7 +30,7 @@ export default function CardListCourse({ course }: { course: CourseType }) {
             {course.places.map((place) => (
               <ImageWithIndex
                 key={place.id}
-                src={place.image[0]}
+                src={place.images?.[0] || ''}
                 index={Number(place.id)}
               />
             ))}
@@ -42,7 +42,7 @@ export default function CardListCourse({ course }: { course: CourseType }) {
                 <Heart
                   size={17}
                   className='text-brand'
-                  fill={course.user.is_like ? '#5A59F2' : 'none'}
+                  fill={course.is_liked ? '#5A59F2' : 'none'}
                   strokeWidth={1.5}
                 />
                 <span>25</span>
@@ -53,7 +53,7 @@ export default function CardListCourse({ course }: { course: CourseType }) {
                   className='text-brand'
                   strokeWidth={1.5}
                 />
-                <span>03</span>
+                <span>{course.comments}</span>
               </div>
             </div>
             <Share2

@@ -9,20 +9,23 @@ import { getCourse } from '@/src/entities/course/api'
 import Spacer from '@/src/shared/ui/Spacer'
 import Header from '@/src/widgets/header'
 import { PlaceType } from '@/src/entities/place/type'
-
+import { useForm } from 'react-hook-form'
 export default function AddCoursePlan() {
   const [clickedCategory, setClickedCategory] = useState<number[]>([])
   const [places, setPlaces] = useState<PlaceType[]>([])
   const [openSearchPlace, setOpenSearchPlace] = useState<boolean>(false)
 
-  // TODO: 나중에 제거
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getCourse(1)
-      setPlaces(data.places)
-    }
-    fetchData()
-  }, [])
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      title: '',
+      description: '',
+    },
+  })
 
   const handleCategoryClick = (id: number) => {
     setClickedCategory((prev) =>

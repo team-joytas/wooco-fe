@@ -11,7 +11,7 @@ import type { DatePickerProps } from 'antd'
 import { DatePicker } from 'antd'
 import RegionCascader from '@/src/shared/ui/RegionCascader'
 import DragPlace from '@/src/widgets/drag-place'
-import { getCourse } from '@/src/entities/course/api'
+import { getMockCourse } from '@/src/entities/course/api'
 import Header from '@/src/widgets/header'
 import { PlaceType } from '@/src/entities/place/type'
 
@@ -35,7 +35,7 @@ export default function AddCoursePlan({ type }: AddCoursePlanProps) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getCourse(1)
+      const data = await getMockCourse(1)
       setPlaces(data.places)
     }
     fetchData()
@@ -71,7 +71,7 @@ export default function AddCoursePlan({ type }: AddCoursePlanProps) {
       <Divider />
       <Section title={`${pageType} 장소를 선택하세요.`}>
         <div className='px-[20px] w-full flex flex-col gap-[15px] padding'>
-          {places.length > 0 && <KakaoMap places={places} id={1} />}
+          {/*{places.length > 0 && <KakaoMap places={places} id={1} />}*/}
           <DragPlace places={places} setPlaces={setPlaces} />
           <button
             onClick={() => setOpenSearchPlace(true)}

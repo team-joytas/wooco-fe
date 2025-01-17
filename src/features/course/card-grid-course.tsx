@@ -12,7 +12,7 @@ export default function CardGridCourse({ course }: { course: CourseType }) {
     >
       <div>
         <Image
-          src={course.image || ''}
+          src={course.places[0].images?.[0] || ''}
           width={207}
           height={100}
           className='h-[100px] bg-light-gray rounded-tr-[10px] rounded-tl-[10px] object-cover'
@@ -21,27 +21,27 @@ export default function CardGridCourse({ course }: { course: CourseType }) {
         <div className='absolute top-[85px] left-[10px] w-[27px] h-[27px] bg-gradient-to-r from-[#9997F2] to-[#4341EA] p-[1px] rounded-[50%]'>
           <ProfileImage
             className='w-[25px] h-[25px]'
-            src={course.user.profile_url}
+            src={course.writer.profile_url}
           />
         </div>
       </div>
       <div className='flex mt-[5px] flex-col gap-[4px] px-[10px]'>
-        <span className='text-sub font-semibold'>{course.user.name}</span>
+        <span className='text-sub font-semibold'>{course.writer.name}</span>
         <p
           className={
             'text-sub font-extrabold overflow-hidden text-ellipsis w-full text-nowrap'
           }
         >
-          {course.name}
+          {course.title}
         </p>
         <span className='text-sub text-ellipsis w-full line-clamp-2'>
-          {course.content}
+          {course.contents}
         </span>
       </div>
       <div className='flex items-center gap-[4px] px-[10px]'>
         <div className='flex items-center gap-[4px]'>
           <Heart
-            {...(course.user.is_like ? { fill: '#5A59F2' } : {})}
+            {...(course.is_liked ? { fill: '#5A59F2' } : {})}
             stroke='#5A59F2'
             size={15}
           />
@@ -49,7 +49,7 @@ export default function CardGridCourse({ course }: { course: CourseType }) {
         </div>
         <div className='flex items-center gap-[4px]'>
           <MessageSquare stroke='#5A59F2' size={15} />
-          <span>{course.comments_info.summary.count}</span>
+          <span>{course.comments}</span>
         </div>
       </div>
     </Link>

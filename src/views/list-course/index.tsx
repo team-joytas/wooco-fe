@@ -1,6 +1,10 @@
 'use client'
 
-import { CourseType, FavoriteRegionType } from '@/src/entities/course/type'
+import {
+  CourseMockType,
+  CourseType,
+  FavoriteRegionType,
+} from '@/src/entities/course/type'
 import CardCourseList from '@/src/features/course/card-list-course'
 import Spacer from '@/src/shared/ui/Spacer'
 import CourseList from '@/src/widgets/list-course'

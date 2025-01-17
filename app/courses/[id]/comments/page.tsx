@@ -1,13 +1,20 @@
+'use client'
+
 import PageListComment from '@/src/views/detail-comment'
-import { getCourse } from '@/src/entities/course/api'
+import { getComments } from '@/src/entities/comment/api'
+import { useEffect, useState } from 'react'
+import { CommentType } from '@/src/entities/comment/type'
 
-export default async function Page({ params }: { params: { id: number } }) {
-  const course = await getCourse(params.id)
+export default function Page({ params }: { params: { id: number } }) {
+  const [comments, setComments] = useState<CommentType[]>([])
 
-  return (
-    <PageListComment
-      courseId={params.id}
-      comments={course.comments_info.comments}
-    />
-  )
+  useEffect(() => {
+    const fetchComments = async () => {
+      const comments = await getComments(params.id)
+      setComments(comments)
+    }
+    fetchComments()
+  }, [])
+
+  return <PageListComment courseId={params.id} comments={comments} />
 }

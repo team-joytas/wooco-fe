@@ -1,3 +1,6 @@
+import { customAxios } from '@/src/shared/axios'
+import type { CourseType, CourseMockType } from '@/src/entities/course/type'
+
 const courses = [
   {
     id: 1,
@@ -727,7 +730,7 @@ const course = {
       address_name: '서울 강남구 강남대로102길 34',
       x: '127.028098',
       y: '37.50304',
-      image: ['https://img.choroc.com/newshop/goods/009179/009179_1.jpg'],
+      image: [],
     },
     {
       id: 2,
@@ -973,14 +976,34 @@ const trendingCourses = [
   },
 ]
 
-export const getCourses = async () => {
+export const getMockCourses = async () => {
   return courses
 }
 
-export const getCourse = async (id: number) => {
+export const getMockCourse = async (id: number): Promise<CourseMockType> => {
   return course
 }
 
 export const getTrendingCourses = async () => {
   return trendingCourses
+}
+
+export const getCourse = async (id: number): Promise<CourseType> => {
+  try {
+    const response = await customAxios.get(`/courses/${id}`)
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const getCourses = async () => {
+  try {
+    const response = await customAxios.get('/courses')
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
 }
