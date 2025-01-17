@@ -28,6 +28,7 @@ function ArchiveMain() {
       <SectionEvent />
       <Spacer className='bg-light-gray' height={8} />
       <SectionAnnouncement />
+      <SectionBottom />
     </div>
   )
 }
