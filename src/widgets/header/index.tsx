@@ -194,7 +194,7 @@ export function OptionHeader({
               size={20}
               strokeWidth={1.5}
               fill={clickedLike ? '#5A59F2' : 'none'}
-              stroke={clickedLike ? '#5A59F2' : '#5A59F2'}
+              stroke='#5A59F2'
             />
           </button>
         )}
