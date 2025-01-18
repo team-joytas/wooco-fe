@@ -28,5 +28,5 @@ export default function Page({ params }: { params: { id: string } }) {
     fetchUser()
   }, [params.id])
 
-  return <DetailUser user={user} isMe={isMe} />
+  return <DetailUser id={params.id} user={user} isMe={isMe} />
 }

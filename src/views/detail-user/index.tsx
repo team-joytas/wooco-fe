@@ -15,6 +15,7 @@ import type { UserProfileType } from '@/src/entities/user/type'
 import { getUserCourses } from '@/src/entities/course/api'
 
 interface DetailUserProps {
+  id: string
   user: UserProfileType | undefined
   isMe: boolean
 }
@@ -26,7 +27,7 @@ const LIST_TYPE = {
 
 type ListType = keyof typeof LIST_TYPE
 
-export default function DetailUser({ user, isMe }: DetailUserProps) {
+export default function DetailUser({ id, user, isMe }: DetailUserProps) {
   const [type, setType] = useState<ListType>(LIST_TYPE.course)
   const [courses, setCourses] = useState<CourseType[]>([])
   const [order, setOrder] = useState('recent')
@@ -34,7 +35,7 @@ export default function DetailUser({ user, isMe }: DetailUserProps) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const courses = await getUserCourses(user?.user_id || '')
+      const courses = await getUserCourses(id)
       setCourses(courses)
     }
     fetchData()
