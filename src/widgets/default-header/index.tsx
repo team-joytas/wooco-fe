@@ -7,7 +7,11 @@ import { usePathname } from 'next/navigation'
 
 export default function DefaultHeader() {
   const path = usePathname()
-  const isShowHeader = path === '/' || path === '/courses' || path === '/plans'
+  const isShowHeader =
+    path === '/' ||
+    path === '/courses' ||
+    path === '/plans' ||
+    path === '/not-found'
 
   if (!isShowHeader) {
     return <div className='w-full h-[1px] bg-header-line' />

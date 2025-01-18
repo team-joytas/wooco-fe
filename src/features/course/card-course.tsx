@@ -1,8 +1,6 @@
 import Link from 'next/link'
 import ImageWithIndex from '@/src/shared/ui/ImageWithIndex'
 import { CourseType } from '@/src/entities/course/type'
-import logo from '@/src/assets/images/(logo)/logo.png'
-import Image from 'next/image'
 
 export default function CardCourse({ course }: { course: CourseType }) {
   return (
@@ -21,25 +19,15 @@ export default function CardCourse({ course }: { course: CourseType }) {
           {course.title}
         </p>
       </div>
-      <div className='flex-1  h-full overflow-x-auto flex items-center justify-end gap-[9px] scrollbar-hide pr-[10px]'>
-        <div className='w-fit h-[58px] flex gap-[9px]'>
-          {course.places.map((place, index) => {
-            return place.thumbnail_url ? (
-              <ImageWithIndex
-                key={place.id}
-                src={place.thumbnail_url}
-                index={index + 1}
-              />
-            ) : (
-              <Image
-                src={logo}
-                alt='no-image'
-                className='w-[58px] h-[58px] border border-container-light-blue rounded-[5px] opacity-50'
-                width={58}
-                height={58}
-              />
-            )
-          })}
+      <div className='h-full overflow-x-auto flex-1 items-center justify-end gap-[9px] scrollbar-hide pr-[10px]'>
+        <div className='w-fit h-full flex items-center gap-[9px]'>
+          {course.places.map((place, index) => (
+            <ImageWithIndex
+              key={place.id}
+              src={place.thumbnail_url}
+              index={index + 1}
+            />
+          ))}
         </div>
       </div>
     </Link>

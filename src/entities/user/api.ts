@@ -12,7 +12,7 @@ export const getMyProfile = async (): Promise<UserProfileType> => {
   }
 }
 
-export const getUser = async (id: number): Promise<UserProfileType> => {
+export const getUser = async (id: string): Promise<UserProfileType> => {
   try {
     const url = `/users/${id}`
     const response = await customAxios.get(url)

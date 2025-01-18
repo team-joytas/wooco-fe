@@ -76,7 +76,7 @@ function Main({ trendingCourses, favoriteRegions, courses }: ListCourseProps) {
         </div>
 
         <div className='flex flex-col items-center gap-[12px]'>
-          {trendingCourses.map((course) => (
+          {trendingCourses.slice(0, 5).map((course) => (
             <Fragment key={course.id}>
               <CardCourseList course={course} />
               <Spacer className='bg-bright-gray' height={8} />

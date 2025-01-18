@@ -15,7 +15,8 @@ import type { UserProfileType } from '@/src/entities/user/type'
 import { getCourses } from '@/src/entities/course/api'
 
 interface DetailUserProps {
-  user: UserProfileType
+  user: UserProfileType | undefined
+  isMe: boolean
 }
 
 const LIST_TYPE = {
@@ -25,8 +26,8 @@ const LIST_TYPE = {
 
 type ListType = keyof typeof LIST_TYPE
 
-export default function DetailUser({ user }: DetailUserProps) {
-  const [type, setType] = useState<ListType>(LIST_TYPE.place)
+export default function DetailUser({ user, isMe }: DetailUserProps) {
+  const [type, setType] = useState<ListType>(LIST_TYPE.course)
   const [courses, setCourses] = useState<CourseType[]>([])
   const [order, setOrder] = useState('recent')
   const places: PlaceType[] = []
@@ -49,13 +50,21 @@ export default function DetailUser({ user }: DetailUserProps) {
 
   return (
     <>
-      <Header title='마이 페이지' isBack />
+      {isMe ? (
+        <Header title='마이 페이지' isBack />
+      ) : (
+        <Header title={user?.name || ''} isBack />
+      )}
       <Spacer height={8} />
       <section className='px-[20px] py-[10px] gap-[5px] w-full flex flex-col justify-between'>
         <div className='flex items-center justify-between'>
           <div className='flex flex-col items-center gap-[10px]'>
-            <ProfileImage size={60} src={user.profile_url} type='colored' />
-            <p className='font-bold text-brand text-headline'>{user.name}</p>
+            <ProfileImage
+              size={60}
+              src={user?.profile_url || ''}
+              type='colored'
+            />
+            <p className='font-bold text-brand text-headline'>{user?.name}</p>
           </div>
           <div className='flex gap-[30px] items-end'>
             <UserTag type='heart' content={'?'} />
@@ -63,19 +72,9 @@ export default function DetailUser({ user }: DetailUserProps) {
             <UserTag type='rate' content={'?'} />
           </div>
         </div>
-        <span className='text-sub font-light'>{user.description}</span>
+        <span className='text-sub font-light'>{user?.description}</span>
       </section>
       <div className='sticky top-0 bg-white z-10 flex items-center pt-[10px] pb-[5px]'>
-        <div
-          className={`w-[50%] flex justify-center border-b-[5px] pb-[5px] items-center font-semibold text-middle cursor-pointer ${
-            type === LIST_TYPE.place
-              ? ' border-container-light-blue'
-              : 'border-light-gray text-gray-400'
-          }`}
-          onClick={() => handleTypeChange(LIST_TYPE.place)}
-        >
-          장소 리뷰
-        </div>
         <div
           className={`w-[50%] flex justify-center border-b-[5px] pb-[5px] items-center font-semibold text-middle cursor-pointer ${
             type === LIST_TYPE.course
@@ -85,6 +84,16 @@ export default function DetailUser({ user }: DetailUserProps) {
           onClick={() => handleTypeChange(LIST_TYPE.course)}
         >
           나의 코스
+        </div>
+        <div
+          className={`w-[50%] flex justify-center border-b-[5px] pb-[5px] items-center font-semibold text-middle cursor-pointer ${
+            type === LIST_TYPE.place
+              ? ' border-container-light-blue'
+              : 'border-light-gray text-gray-400'
+          }`}
+          onClick={() => handleTypeChange(LIST_TYPE.place)}
+        >
+          장소 리뷰
         </div>
       </div>
       <Spacer height={10} />
@@ -98,23 +107,29 @@ export default function DetailUser({ user }: DetailUserProps) {
               : user.course_info.summary.total_course}
           </span>*/}
         </div>
-        <Select
-          defaultValue='recent'
-          style={{ width: 80 }}
-          onChange={onChangeOrder}
-          size={'small'}
-          options={[
-            { value: 'recent', label: '최신순' },
-            { value: 'popular', label: '인기순' },
-          ]}
-        />
+        {type === LIST_TYPE.course ? (
+          <Select
+            defaultValue='recent'
+            style={{ width: 80 }}
+            onChange={onChangeOrder}
+            size={'small'}
+            options={[
+              { value: 'recent', label: '최신순' },
+              { value: 'popular', label: '인기순' },
+            ]}
+          />
+        ) : (
+          <div className='w-[80px]' />
+        )}
       </div>
-      <Spacer height={10} />
-      <Spacer height={8} className='bg-bright-gray' />
       {type === LIST_TYPE.place ? (
         <ListUserPlace data={places} />
       ) : (
-        <ListUserCourse courses={courses} />
+        <>
+          <Spacer height={10} />
+          <Spacer height={8} className='bg-bright-gray' />
+          <ListUserCourse courses={courses} />
+        </>
       )}
       <Spacer height={20} />
       <FloatingWriteButton />
