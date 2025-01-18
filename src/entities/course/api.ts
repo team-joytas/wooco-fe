@@ -1021,3 +1021,13 @@ export const postCourse = async (coursePayload: CoursePayloadType) => {
     throw error
   }
 }
+
+export const deleteCourse = async (id: number) => {
+  try {
+    const response = await customAxios.delete(`/courses/${id}`)
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}

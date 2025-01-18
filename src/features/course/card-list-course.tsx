@@ -48,6 +48,7 @@ export default function CardListCourse({ course }: { course: CourseType }) {
                   <Image
                     src={logo}
                     alt='no-image'
+                    key={index}
                     className='w-[58px] h-[58px] border border-container-light-blue rounded-[5px] opacity-50'
                     width={58}
                     height={58}

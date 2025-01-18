@@ -13,6 +13,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import React from 'react'
 import setting from '@/src/assets/images/setting.png'
+import { deleteCourse } from '@/src/entities/course/api'
 
 interface HeaderProps {
   title: string
@@ -127,6 +128,15 @@ export function OptionHeader({
   const handleClickOption = () => setIsOpen(!isOpen)
   const handleClickLike = () => setClickedLike(!clickedLike)
 
+  const handleDelete = async () => {
+    try {
+      await deleteCourse(id)
+      router.push(`/${type}s`)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <HeaderBase className='px-[20px]'>
       <div className='flex items-center gap-[10px]'>
@@ -137,7 +147,7 @@ export function OptionHeader({
         {title}
       </p>
       <div className='flex items-center gap-[10px]'>
-        {showLike && (
+        {showLike && !isMine && (
           <Heart
             onClick={handleClickLike}
             className='cursor-pointer'
@@ -154,52 +164,58 @@ export function OptionHeader({
           isMine={isMine}
           type={type}
           id={id}
+          handleDelete={handleDelete}
         />
       </div>
     </HeaderBase>
   )
 }
 
-const OptionMenu = React.forwardRef<
-  HTMLDivElement,
-  {
-    isOpen: boolean
-    onToggle: () => void
-    isMine: boolean
-    type: string
-    id: number
-  }
->(({ isOpen, onToggle, isMine, type, id }, ref) => (
-  <div className='relative' ref={ref}>
-    <EllipsisVertical
-      onClick={onToggle}
-      className='cursor-pointer'
-      size={24}
-      strokeWidth={1.5}
-    />
-    {isOpen && (
-      <div className='absolute flex flex-col z-1 top-[30px] right-[10px] w-[100px] shadow-floating-button h-fit bg-light-gray rounded-[10px]'>
-        {isMine ? (
-          <>
-            <Link
-              className='h-[25px] text-sub flex items-center justify-center'
-              href={`/${type}s/${id}/modify`}
-            >
-              수정하기
-            </Link>
+interface OptionMenuProps {
+  isOpen: boolean
+  onToggle: () => void
+  isMine: boolean
+  type: string
+  id: number
+  handleDelete: () => void
+}
+
+const OptionMenu = React.forwardRef<HTMLDivElement, OptionMenuProps>(
+  ({ isOpen, onToggle, isMine, type, id, handleDelete }, ref) => (
+    <div className='relative' ref={ref}>
+      <EllipsisVertical
+        onClick={onToggle}
+        className='cursor-pointer'
+        size={24}
+        strokeWidth={1.5}
+      />
+      {isOpen && (
+        <div className='absolute flex flex-col z-1 top-[30px] right-[10px] w-[100px] shadow-floating-button h-fit bg-light-gray rounded-[10px]'>
+          {isMine ? (
+            <>
+              <Link
+                className='h-[25px] text-sub flex items-center justify-center'
+                href={`/${type}s/${id}/modify`}
+              >
+                수정하기
+              </Link>
+              <button
+                className='h-[25px] text-sub flex items-center justify-center'
+                onClick={handleDelete}
+              >
+                삭제하기
+              </button>
+            </>
+          ) : (
             <button className='h-[25px] text-sub flex items-center justify-center'>
-              삭제하기
+              신고하기
             </button>
-          </>
-        ) : (
-          <button className='h-[25px] text-sub flex items-center justify-center'>
-            신고하기
-          </button>
-        )}
-      </div>
-    )}
-  </div>
-))
+          )}
+        </div>
+      )}
+    </div>
+  )
+)
 
 OptionMenu.displayName = 'OptionMenu'
 
