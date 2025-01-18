@@ -9,12 +9,16 @@ import type { UserProfileType } from '@/src/entities/user/type'
 import { updateUser } from '@/src/entities/user/api'
 import UploadProfileImage from '@/src/features/user/upload-profile-image'
 import { useForm } from 'react-hook-form'
+import { postLogout } from '@/src/entities/login/api'
+import useUserStore from '@/src/shared/store/userStore'
 
 export default function UpdateUser() {
   const router = useRouter()
   const [imageUrl, setImageUrl] = useState('')
   const [profile, setProfile] = useState<UserProfileType>()
   const [isOnBoarding, setIsOnBoarding] = useState(false)
+
+  const updateStateUser = useUserStore((state) => state.updateStateUser)
 
   const {
     register,
@@ -85,7 +89,15 @@ export default function UpdateUser() {
       description: data.description,
       profile_url: data.profile_url,
     })
-    if (isSuccess) router.push(`/users/${profile?.user_id}`)
+
+    if (isSuccess) {
+      updateStateUser({
+        name: data.nickname,
+        description: data.description,
+        profile_url: data.profile_url,
+      })
+      router.push(`/users/${profile?.user_id}`)
+    }
   }
 
   return (
@@ -148,8 +160,10 @@ export default function UpdateUser() {
           <Spacer height={8} className='bg-bright-gray' />
           {!isOnBoarding && (
             <div className='fixed bottom-[70px] flex items-center mt-[20px] text-[10px] text-gray-500 underline gap-[10px]'>
-              <span className='cursor-pointer'>회원탈퇴</span>|
-              <span className='cursor-pointer'>로그아웃</span>
+              <button className='cursor-pointer'>회원탈퇴</button>|
+              <button className='cursor-pointer' onClick={postLogout}>
+                로그아웃
+              </button>
             </div>
           )}
           <button

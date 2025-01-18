@@ -6,6 +6,7 @@ import coursePurple from '@/src/assets/images/course_color.png'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Home, SquareChartGantt, UserRound } from 'lucide-react'
+import useUserStore from '@/src/shared/store/userStore'
 
 export default function DefaultFooter() {
   const path = usePathname()
@@ -16,6 +17,8 @@ export default function DefaultFooter() {
   const isLogin = path?.includes('/login')
   const isComment = path?.includes('/comments')
   const isUserSetting = path?.includes('/setting')
+
+  const userId = useUserStore((state) => state.user?.user_id)
 
   if (isLogin || isComment || isUserSetting) return null
 
@@ -46,7 +49,10 @@ export default function DefaultFooter() {
         />
         <span className={`text-[10px] ${isPlan && 'text-brand'}`}>플랜</span>
       </Link>
-      <Link href='/users/1' className='flex flex-col items-center mb-[5px]'>
+      <Link
+        href={`/users/${userId}`}
+        className='flex flex-col items-center mb-[5px]'
+      >
         <UserRound
           strokeWidth={1.5}
           size={25}

@@ -4,6 +4,7 @@ import KakaoMap from '@/src/shared/ui/KakaoMap'
 import type { CourseType } from '@/src/entities/course/type'
 import { CATEGORY } from '@/src/entities/category/type'
 import { OptionHeader } from '@/src/widgets/header'
+import useUserStore from '@/src/shared/store/userStore'
 
 const COURSE_PLAN = {
   course: 'course' as const,
@@ -25,8 +26,10 @@ export default function CoursePlanLayout({
   children,
   data,
 }: CoursePlanLayoutProps) {
+  const userId = useUserStore((state) => state.user?.user_id)
   const typeName = type === COURSE_PLAN.course ? '코스' : '플랜'
   const visit = type === COURSE_PLAN.course ? '방문한' : '방문할'
+  const isMine = userId === data?.writer.id
 
   return (
     <>
@@ -34,9 +37,9 @@ export default function CoursePlanLayout({
         title={data?.title || ''}
         type={type}
         id={id}
-        showLike={true}
-        isLiked={true}
-        isMine={true}
+        showLike={!isMine}
+        isLiked={data?.is_liked || false}
+        isMine={isMine}
       />
       <div className='w-full px-[20px] flex flex-col'>
         <div className='w-full items-center justify-center inline-flex gap-[5px] py-[8px]'>
@@ -86,7 +89,6 @@ export default function CoursePlanLayout({
             </span>
             &nbsp;님이 {visit} 날짜에요.
           </p>
-          {/* TODO: visit_date로 변경 */}
           <span className='text-middle flex items-center justify-center px-[14px] py-[10px] bg-bright-gray rounded-[10px] opacity-80'>
             {data?.visit_date || ''}
           </span>

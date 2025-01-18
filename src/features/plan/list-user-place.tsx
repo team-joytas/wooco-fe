@@ -8,6 +8,15 @@ interface ListUserPlaceProps {
 
 export default function ListUserPlace({ data }: ListUserPlaceProps) {
   return (
+    <div className='w-full h-full mt-[50px] flex justify-center items-center text-main font-semibold text-header-line'>
+      준비 중인 기능입니다.
+    </div>
+  )
+}
+
+/*
+function ArchiveListUserPlace({ data }: ListUserPlaceProps) {
+  return (
     <>
       <section className='flex flex-col mt-[15px] gap-[20px]'>
         {data.map((place, index) => (
@@ -41,3 +50,5 @@ export default function ListUserPlace({ data }: ListUserPlaceProps) {
     </>
   )
 }
+
+*/

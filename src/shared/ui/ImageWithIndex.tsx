@@ -1,5 +1,5 @@
 import Image from 'next/image'
-
+import logo from '@/src/assets/images/(logo)/logo.png'
 interface ImageWithIndexProps {
   src: string
   index: number
@@ -12,7 +12,7 @@ export default function ImageWithIndex({ src, index }: ImageWithIndexProps) {
         alt='place'
         width={52}
         height={52}
-        src={src}
+        src={src || logo}
         className='w-[52px] h-[52px] rounded-[5px] object-cover'
         layout='fixed'
       />

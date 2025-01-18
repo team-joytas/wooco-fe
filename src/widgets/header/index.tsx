@@ -13,6 +13,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import React from 'react'
 import setting from '@/src/assets/images/setting.png'
+import useUserStore from '@/src/shared/store/userStore'
 import { deleteCourse } from '@/src/entities/course/api'
 
 interface HeaderProps {
@@ -229,8 +230,12 @@ export default function Header({
   close,
 }: HeaderProps) {
   const path = usePathname()
+  const user = useUserStore((state) => state.user)
   const router = useRouter()
   const isUpdateUser = /\/users(?!.*(setting|wishlist))/.test(path)
+
+  const notMe =
+    user?.user_id !== undefined && user?.user_id !== path.split('/')[2]
 
   useEffect(() => {
     return () => {
@@ -267,8 +272,8 @@ export default function Header({
           <p className='font-semibold text-[17px]'>{title}</p>
         </>
       )}
-      {isUpdateUser ? (
-        <Link href='/users/1/setting'>
+      {isUpdateUser && !notMe ? (
+        <Link href={`/users/setting`}>
           <Image width={24} height={24} alt='setting' src={setting} />
         </Link>
       ) : (
