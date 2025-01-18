@@ -1,11 +1,10 @@
 import Spacer from '@/src/shared/ui/Spacer'
 import PlaceCollapse from '@/src/shared/ui/PlaceCollapse'
-import { EllipsisVertical, ChevronLeft } from 'lucide-react'
 import KakaoMap from '@/src/shared/ui/KakaoMap'
 import type { CourseType } from '@/src/entities/course/type'
 import { formatDateToYYYYMMDD } from '@/src/shared/utils/date'
 import { CATEGORY } from '@/src/shared/entities/type'
-import { useRouter } from 'next/navigation'
+import { OptionHeader } from '@/src/widgets/header'
 
 const COURSE_PLAN = {
   course: 'course' as const,
@@ -27,40 +26,30 @@ export default function CoursePlanLayout({
   children,
   data,
 }: CoursePlanLayoutProps) {
-  const router = useRouter()
   const typeName = type === COURSE_PLAN.course ? '코스' : '플랜'
   const visit = type === COURSE_PLAN.course ? '방문한' : '방문할'
 
   return (
     <>
+      <OptionHeader
+        title={data?.title || ''}
+        type={type}
+        id={id}
+        showLike={true}
+        isLiked={true}
+        isMine={true}
+      />
       <div className='w-full px-[20px] flex flex-col'>
-        <Spacer height={14} />
-        <section className='justify-between items-center flex'>
-          <button
-            onClick={() =>
-              router.push(type === COURSE_PLAN.course ? '/courses' : '/plans')
-            }
-          >
-            <ChevronLeft size={24} strokeWidth={1.5} />
-          </button>
-          <p className='border-b font-semibold text-[13px] text-white px-[20px] py-[8px] rounded-[20px] bg-container-blue'>
-            {data?.title || ''}
-          </p>
-          <EllipsisVertical size={24} strokeWidth={1.5} />
-        </section>
-        <Spacer height={14} />
-        <section className='w-full items-center justify-center inline-flex gap-[5px]'>
-          {data?.categories?.map((category, index) => {
-            return (
-              <span
-                key={index}
-                className='px-[10px] py-[5px] text-[12px] text-white border rounded-[15px] bg-container-light-blue'
-              >
-                {CATEGORY[category]}
-              </span>
-            )
-          })}
-        </section>
+        {data?.categories?.map((category, index) => {
+          return (
+            <span
+              key={index}
+              className='px-[10px] py-[5px] text-[12px] text-white border rounded-[15px] bg-container-light-blue'
+            >
+              {CATEGORY[category]}
+            </span>
+          )
+        })}
         {data?.places && data?.places.length > 0 && (
           <KakaoMap places={data?.places || []} id={Number(id)} />
         )}
