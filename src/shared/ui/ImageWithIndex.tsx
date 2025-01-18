@@ -7,7 +7,7 @@ interface ImageWithIndexProps {
 
 export default function ImageWithIndex({ src, index }: ImageWithIndexProps) {
   return (
-    <div className='w-[60px] h-[58px] relative flex items-center justify-center  flex-shrink-0'>
+    <div className='w-[60px] h-[58px] relative  border border-container-light-blue flex items-center justify-center rounded-[5px] flex-shrink-0'>
       <Image
         alt='place'
         width={52}

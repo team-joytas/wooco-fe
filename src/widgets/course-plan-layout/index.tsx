@@ -2,7 +2,6 @@ import Spacer from '@/src/shared/ui/Spacer'
 import PlaceCollapse from '@/src/shared/ui/PlaceCollapse'
 import KakaoMap from '@/src/shared/ui/KakaoMap'
 import type { CourseType } from '@/src/entities/course/type'
-import { formatDateToYYYYMMDD } from '@/src/shared/utils/date'
 import { CATEGORY } from '@/src/entities/category/type'
 import { OptionHeader } from '@/src/widgets/header'
 
@@ -89,7 +88,7 @@ export default function CoursePlanLayout({
           </p>
           {/* TODO: visit_date로 변경 */}
           <span className='text-middle flex items-center justify-center px-[14px] py-[10px] bg-bright-gray rounded-[10px] opacity-80'>
-            {formatDateToYYYYMMDD(data?.created_at || '')}
+            {data?.visit_date || ''}
           </span>
         </section>
         <Spacer height={16} />

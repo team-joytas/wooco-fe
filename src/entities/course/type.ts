@@ -53,6 +53,7 @@ export type CourseType = {
   places: CoursePlaceType[]
   writer: WriterType
   is_liked: boolean
+  visit_date: string
 }
 
 export type CoursePayloadType = {
