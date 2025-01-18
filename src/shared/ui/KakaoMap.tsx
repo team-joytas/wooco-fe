@@ -1,9 +1,10 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import type { PlaceType } from '@/src/entities/place/type'
+import type { CoursePlaceType } from '@/src/entities/place/type'
+
 interface KakaoMapProps {
-  places: PlaceType[]
+  places: CoursePlaceType[]
   center?: number[]
   id: number
 }
@@ -35,17 +36,16 @@ export default function KakaoMap({ places, center, id }: KakaoMapProps) {
 
     function initializeMap() {
       if (!mapContainerRef.current) return
-
       window.kakao.maps.load(() => {
         if (!mapContainerRef.current || !window.kakao || !window.kakao.maps)
           return
 
         const map = new window.kakao.maps.Map(mapContainerRef.current, {
           center: center
-            ? new window.kakao.maps.LatLng(center[0], center[1])
+            ? new window.kakao.maps.LatLng(center[1], center[0])
             : new window.kakao.maps.LatLng(
-                Number(places[0].y),
-                Number(places[0].x)
+                Number(places[0].longitude),
+                Number(places[0].latitude)
               ),
           level: center ? 8 : 6,
         })
@@ -53,8 +53,8 @@ export default function KakaoMap({ places, center, id }: KakaoMapProps) {
         if (places.length > 0) {
           places.forEach((place) => {
             const markerPosition = new window.kakao.maps.LatLng(
-              Number(place.y),
-              Number(place.x)
+              Number(place.longitude),
+              Number(place.latitude)
             )
             const marker = new window.kakao.maps.Marker({
               position: markerPosition,
@@ -63,7 +63,7 @@ export default function KakaoMap({ places, center, id }: KakaoMapProps) {
 
             // 마커 클릭 이벤트
             const infoWindow = new window.kakao.maps.InfoWindow({
-              content: `<div class="text-sm p-2">${place.place_name}</div>`,
+              content: `<div class="text-sm p-2">${place.name}</div>`,
             })
             window.kakao.maps.event.addListener(marker, 'click', () => {
               infoWindow.open(map, marker)
@@ -79,7 +79,7 @@ export default function KakaoMap({ places, center, id }: KakaoMapProps) {
         document.head.removeChild(script)
       }
     }
-  }, [places])
+  }, [places, center, id])
 
   return (
     <div

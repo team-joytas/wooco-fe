@@ -37,6 +37,7 @@ function ArchiveHeader() {
   const isNoti = path?.includes('/notifications')
 
   const params = useSearchParams()
+  const router = useRouter()
   const isCoursesList = params.get('location') && path?.includes('/courses')
 
   const [isSearch, setIsSearch] = useState(false)
@@ -67,12 +68,18 @@ function ArchiveHeader() {
           isSearch ? 'hidden' : 'flex items-center gap-[10px] right-[10px]'
         }
       >
-        <button onClick={() => setIsSearch(!isSearch)}>
-          <Search size={24} strokeWidth={1.5} />
-        </button>
-        <Link href='/notifications'>
-          <Bell size={24} strokeWidth={1.5} />
-        </Link>
+        <Search
+          onClick={() => setIsSearch(!isSearch)}
+          size={24}
+          strokeWidth={1.5}
+        />
+        <Bell
+          onClick={() => {
+            router.push('/notifications')
+          }}
+          size={24}
+          strokeWidth={1.5}
+        />
       </div>
       {isSearch && (
         <SearchCourse isSearch={isSearch} setIsSearch={setIsSearch} />

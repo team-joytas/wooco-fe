@@ -3,6 +3,8 @@ import { categories } from '@/src/entities/category/type'
 import { useState, useEffect } from 'react'
 import { ChevronLeft, Search } from 'lucide-react'
 import CardCourse from '@/src/features/course/card-course'
+import type { CourseType } from '@/src/entities/course/type'
+import { getCourses } from '@/src/entities/course/api'
 
 // TODO: 실제 데이터 및 로직 구현 필요
 export default function SearchCourse({
@@ -12,6 +14,17 @@ export default function SearchCourse({
   isSearch: boolean
   setIsSearch: (isSearch: boolean) => void
 }) {
+  const [clickedCategory, setClickedCategory] = useState<number[]>([])
+  const [courses, setCourses] = useState<CourseType[]>([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const courses = await getCourses()
+      setCourses(courses)
+    }
+    fetchData()
+  }, [])
+
   useEffect(() => {
     if (isSearch) {
       document.body.style.overflow = 'hidden'
@@ -24,7 +37,6 @@ export default function SearchCourse({
     }
   }, [isSearch])
 
-  const [clickedCategory, setClickedCategory] = useState<number[]>([])
   const handleCategoryClick = (id: number) => {
     setClickedCategory((prev) =>
       prev.includes(id)
@@ -36,9 +48,12 @@ export default function SearchCourse({
   return (
     <div className='w-full'>
       <div className='flex justify-between items-center'>
-        <button onClick={() => setIsSearch(false)}>
-          <ChevronLeft size={30} strokeWidth={1.5} />
-        </button>
+        <ChevronLeft
+          onClick={() => setIsSearch(false)}
+          size={30}
+          strokeWidth={1.5}
+          className='cursor-pointer'
+        />
         <div
           className={
             isSearch
@@ -80,13 +95,9 @@ export default function SearchCourse({
           <Spacer height={8} className='bg-light-gray' />
           <Spacer height={22} />
           <div className='w-full px-[20px] flex flex-col gap-[15px]'>
-            <CardCourse />
-            <CardCourse />
-            <CardCourse />
-            <CardCourse />
-            <CardCourse />
-            <CardCourse />
-            <CardCourse />
+            {courses.map((course) => (
+              <CardCourse key={course.id} course={course} />
+            ))}
           </div>
         </div>
       </div>

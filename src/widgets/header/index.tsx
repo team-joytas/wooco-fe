@@ -62,9 +62,13 @@ export default function Header({
       ) : (
         <>
           {isBack || close ? (
-            <button onClick={handleClickBack}>
-              <ChevronLeft size={24} color='black' strokeWidth={1.5} />
-            </button>
+            <ChevronLeft
+              onClick={handleClickBack}
+              size={24}
+              color='black'
+              strokeWidth={1.5}
+              className='cursor-pointer'
+            />
           ) : (
             <div className='w-[24px] h-[24px]'></div>
           )}
@@ -112,9 +116,13 @@ export function TitleWithTagStyle({
 }) {
   return (
     <div className='flex items-center gap-[10px]'>
-      <button onClick={handleClickBack}>
-        <ChevronLeft size={24} color='black' strokeWidth={1.5} />
-      </button>
+      <ChevronLeft
+        onClick={handleClickBack}
+        size={24}
+        color='black'
+        strokeWidth={1.5}
+        className='cursor-pointer'
+      />
       <div className='px-[20px] py-[5px] text-[13px] font-bold text-white bg-container-blue rounded-[20px]'>
         {title}
       </div>
@@ -179,9 +187,13 @@ export function OptionHeader({
   return (
     <header className='max-w-[375px] relative bg-white w-full h-[55px] px-[20px] min-h-[55px] flex justify-between items-center'>
       <div className='flex items-center gap-[10px]'>
-        <button onClick={handleClickBack}>
-          <ChevronLeft size={24} color='black' strokeWidth={1.5} />
-        </button>
+        <ChevronLeft
+          onClick={handleClickBack}
+          size={24}
+          color='black'
+          strokeWidth={1.5}
+          className='cursor-pointer'
+        />
         {showLike && <div className='w-[24px] h-[24px]'></div>}
       </div>
       <p className='border-b font-semibold text-[13px] text-white px-[20px] py-[8px] rounded-[20px] bg-container-blue'>
@@ -189,19 +201,22 @@ export function OptionHeader({
       </p>
       <div className='flex items-center gap-[10px]'>
         {showLike && (
-          <button onClick={handleClickLike}>
-            <Heart
-              size={20}
-              strokeWidth={1.5}
-              fill={clickedLike ? '#5A59F2' : 'none'}
-              stroke='#5A59F2'
-            />
-          </button>
+          <Heart
+            onClick={handleClickLike}
+            className='cursor-pointer'
+            size={20}
+            strokeWidth={1.5}
+            fill={clickedLike ? '#5A59F2' : 'none'}
+            stroke='#5A59F2'
+          />
         )}
         <div className='relative' ref={menuRef}>
-          <button onClick={handleClickOption}>
-            <EllipsisVertical size={24} strokeWidth={1.5} />
-          </button>
+          <EllipsisVertical
+            onClick={handleClickOption}
+            className='cursor-pointer'
+            size={24}
+            strokeWidth={1.5}
+          />
           {isOpen && (
             <div className='absolute flex flex-col z-1 top-[30px] right-[10px] w-[100px] shadow-floating-button h-fit bg-light-gray rounded-[10px]'>
               {isMine ? (

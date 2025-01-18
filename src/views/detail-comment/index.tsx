@@ -1,7 +1,7 @@
 'use client'
 
 import { ChevronLeft, Send } from 'lucide-react'
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import Spacer from '@/src/shared/ui/Spacer'
 import CommentItem from '@/src/features/comment/card-comment'
 import type { CommentType } from '@/src/entities/comment/type'
@@ -15,12 +15,17 @@ export default function DetailComment({
   courseId,
   comments,
 }: DetailCommentProps) {
+  const router = useRouter()
+
   return (
     <div className='h-100% flex flex-col'>
       <section className='max-w-[375px] relative bg-white w-full h-[55px] px-[20px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line'>
-        <Link href={`/courses/${courseId}`} className='cursor-pointer'>
-          <ChevronLeft size={24} strokeWidth={1.5} />
-        </Link>
+        <ChevronLeft
+          onClick={() => router.push(`/courses/${courseId}`)}
+          size={24}
+          strokeWidth={1.5}
+          className='cursor-pointer'
+        />
         <p className='font-bold text-[17px]  px-[20px] py-[8px] rounded-[20px]'>
           댓글
         </p>

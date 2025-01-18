@@ -6,35 +6,40 @@ import Spacer from '@/src/shared/ui/Spacer'
 import CardComment from '@/src/features/comment/card-comment'
 import CoursePlanLayout from '@/src/widgets/course-plan-layout'
 import type { CourseType } from '@/src/entities/course/type'
+import type { CommentType } from '@/src/entities/comment/type'
+import { passFromCreate, formatDateToYYYYMMDD } from '@/src/shared/utils/date'
 
 interface DetailCourseProps {
   courseId: number
-  course: CourseType
+  course: CourseType | null
+  comments: CommentType[] | null
 }
 
-export default function DetailCourse({ courseId, course }: DetailCourseProps) {
-  const dateType =
-    course.pass_from_create?.type === 'date' ? '일 전' : '시간 전'
-
+export default function DetailCourse({
+  courseId,
+  course,
+  comments,
+}: DetailCourseProps) {
   return (
     <CoursePlanLayout type='course' id={courseId} data={course}>
       <section className='w-full px-[20px] py-[10px] text-white bg-brand'>
         <div className='w-full flex gap-[10px] max-w-[375px]'>
           <ProfileImage
-            src={course.user.profile_url}
+            src={course?.writer.profile_url || ''}
             size={40}
             type='colored'
           />
           <div className='flex flex-col gap-[2px]'>
             <span className='font-semibold text-[14px]'>
-              {course.user.name}
+              {course?.writer.name}
             </span>
             <div className='text-[13px] flex gap-[5px]'>
               <span className='text-sub font-semibold'>
-                {course.pass_from_create?.number}
-                {dateType}
+                {passFromCreate(course?.created_at || '')}
               </span>
-              <span className='text-sub opacity-50'>{course.created_at}</span>
+              <span className='text-sub opacity-50'>
+                {formatDateToYYYYMMDD(course?.created_at || '')}
+              </span>
             </div>
           </div>
         </div>
@@ -58,7 +63,7 @@ export default function DetailCourse({ courseId, course }: DetailCourseProps) {
         </div>
         <Spacer height={20} />
         <div className='px-[30px] flex flex-col gap-[30px]'>
-          {course.comments_info.comments?.map((comment) => {
+          {comments?.map((comment) => {
             return <CardComment key={comment.id} comment={comment} />
           })}
         </div>

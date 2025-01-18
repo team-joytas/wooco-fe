@@ -5,24 +5,27 @@ import { Input } from 'antd'
 import DragPlace from '@/src/widgets/drag-place'
 import SearchPlace from '@/src/views/search-place'
 import { categories } from '@/src/entities/category/type'
-import { getCourse } from '@/src/entities/course/api'
 import Spacer from '@/src/shared/ui/Spacer'
 import Header from '@/src/widgets/header'
 import { PlaceType } from '@/src/entities/place/type'
+import { useForm } from 'react-hook-form'
 
 export default function AddCoursePlan() {
   const [clickedCategory, setClickedCategory] = useState<number[]>([])
   const [places, setPlaces] = useState<PlaceType[]>([])
   const [openSearchPlace, setOpenSearchPlace] = useState<boolean>(false)
 
-  // TODO: 나중에 제거
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getCourse(1)
-      setPlaces(data.places)
-    }
-    fetchData()
-  }, [])
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      title: '',
+      description: '',
+    },
+  })
 
   const handleCategoryClick = (id: number) => {
     setClickedCategory((prev) =>
@@ -30,6 +33,10 @@ export default function AddCoursePlan() {
         ? prev.filter((categoryId) => categoryId !== id)
         : [...prev, id]
     )
+  }
+
+  const handleEdit = (id: number) => {
+    console.log(id)
   }
 
   return (
@@ -78,7 +85,11 @@ export default function AddCoursePlan() {
           <div className='w-full mt-[20px] mb-[20px] h-[2px] bg-gray-100' />
           <div className='w-full flex flex-col gap-[10px]'>
             <span className='text-[15px]'>코스 내 장소 정보</span>
-            <DragPlace places={places} setPlaces={setPlaces} />
+            <DragPlace
+              places={places}
+              setPlaces={setPlaces}
+              onEdit={handleEdit}
+            />
             <button
               onClick={() => setOpenSearchPlace(true)}
               className='w-full h-[40px] text-[15px] rounded-[5px] border border-blue-100 flex items-center justify-center'

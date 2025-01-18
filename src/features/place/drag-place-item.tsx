@@ -1,7 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { PlaceType } from '@/src/entities/place/type'
-import { AlignJustify, X } from 'lucide-react'
+import { AlignJustify, X, Image } from 'lucide-react'
 
 interface DragPlaceItemProps {
   id: number
@@ -40,22 +40,24 @@ export default function DragPlaceItem({
         </div>
         <span className='text-[13px]'>{place.place_name}</span>
       </div>
-      <div className='flex gap-[5px]'>
-        {onEdit && (
-          <button
-            className='text-[10px] border-0 h-[20px] w-[20px]'
+      {onEdit && (
+        <div className='flex gap-[5px]'>
+          <Image
+            size={20}
             onClick={() => handleEdit(place.id)}
-          >
-            <X size={20} stroke={'#A9A9A9'} strokeWidth={1.5} />
-          </button>
-        )}
-        <button
-          className='text-[10px] shadow-none border-0 h-[20px] w-[30px]'
-          onClick={() => onDelete(place.id)}
-        >
-          <X size={20} stroke={'#A9A9A9'} strokeWidth={1.5} />
-        </button>
-      </div>
+            className='cursor-pointer'
+            stroke={'#A9A9A9'}
+            strokeWidth={1.5}
+          />
+          <X
+            size={20}
+            onClick={() => onDelete(place.id)}
+            className='cursor-pointer'
+            stroke={'#A9A9A9'}
+            strokeWidth={1.5}
+          />
+        </div>
+      )}
     </div>
   )
 }

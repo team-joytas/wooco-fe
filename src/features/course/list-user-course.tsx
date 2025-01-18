@@ -1,14 +1,14 @@
 import CardCourse from '@/src/features/course/card-course'
 import Spacer from '@/src/shared/ui/Spacer'
+import type { CourseType } from '@/src/entities/course/type'
 
-export default function ListUserCourse() {
+export default function ListUserCourse({ courses }: { courses: CourseType[] }) {
   return (
     <>
       <section className='flex flex-col gap-[20px] px-[20px] mt-[20px]'>
-        <CardCourse />
-        <CardCourse />
-        <CardCourse />
-        <CardCourse />
+        {courses.map((course) => (
+          <CardCourse key={course.id} course={course} />
+        ))}
       </section>
       <Spacer height={20} />
       <Spacer height={8} className='bg-bright-gray' />
@@ -23,10 +23,9 @@ export default function ListUserCourse() {
           </span>
         </div>
         <div className='flex flex-col gap-[20px] px-[20px] mt-[20px]'>
-          <CardCourse />
-          <CardCourse />
-          <CardCourse />
-          <CardCourse />
+          {courses.map((course) => (
+            <CardCourse key={course.id} course={course} />
+          ))}
         </div>
       </section>
     </>

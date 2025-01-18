@@ -21,3 +21,16 @@ export type SeoulType = {
   label: string
   children?: SeoulType[]
 }
+
+export type CoursePlaceType = {
+  order: number
+  id: number
+  name: string
+  latitude: string
+  longitude: string
+  address: string
+  kakao_map_place_id: number
+  average_rating: number
+  review_count: number
+  thumbnail_url: string
+}

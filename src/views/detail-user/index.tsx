@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ProfileImage from '@/src/shared/ui/ProfileImage'
 import UserTag from '@/src/features/user/user-tag'
 import ListUserPlace from '@/src/features/plan/list-user-place'
@@ -9,12 +9,13 @@ import { Select } from 'antd'
 import Spacer from '@/src/shared/ui/Spacer'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import Header from '@/src/widgets/header'
-import type { CourseType } from '@/src/entities/course/type'
 import type { PlaceType } from '@/src/entities/place/type'
-import type { UserType } from '@/src/entities/user/type'
+import type { CourseType } from '@/src/entities/course/type'
+import type { UserProfileType } from '@/src/entities/user/type'
+import { getCourses } from '@/src/entities/course/api'
 
 interface DetailUserProps {
-  user: UserType
+  user: UserProfileType
 }
 
 const LIST_TYPE = {
@@ -26,9 +27,17 @@ type ListType = keyof typeof LIST_TYPE
 
 export default function DetailUser({ user }: DetailUserProps) {
   const [type, setType] = useState<ListType>(LIST_TYPE.place)
+  const [courses, setCourses] = useState<CourseType[]>([])
   const [order, setOrder] = useState('recent')
-  const places: PlaceType[] = user.place_info.places
-  const courses: CourseType[] = user.course_info.courses
+  const places: PlaceType[] = []
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const courses = await getCourses()
+      setCourses(courses)
+    }
+    fetchData()
+  }, [])
 
   const onChangeOrder = (value: string) => {
     setOrder(value)
@@ -45,33 +54,16 @@ export default function DetailUser({ user }: DetailUserProps) {
       <section className='px-[20px] py-[10px] gap-[5px] w-full flex flex-col justify-between'>
         <div className='flex items-center justify-between'>
           <div className='flex flex-col items-center gap-[10px]'>
-            <ProfileImage
-              size={60}
-              src={user.user_info.profile_url}
-              type='colored'
-            />
-            <p className='font-bold text-brand text-headline'>
-              {user.user_info.name}
-            </p>
+            <ProfileImage size={60} src={user.profile_url} type='colored' />
+            <p className='font-bold text-brand text-headline'>{user.name}</p>
           </div>
           <div className='flex gap-[30px] items-end'>
-            <UserTag
-              type='heart'
-              content={user.place_info.summary.total_place}
-            />
-            <UserTag
-              type='comment'
-              content={user.place_info.summary.total_place}
-            />
-            <UserTag
-              type='rate'
-              content={user.place_info.summary.star_rate_avg}
-            />
+            <UserTag type='heart' content={'?'} />
+            <UserTag type='comment' content={'?'} />
+            <UserTag type='rate' content={'?'} />
           </div>
         </div>
-        <span className='text-sub font-light'>
-          {user.user_info.description}
-        </span>
+        <span className='text-sub font-light'>{user.description}</span>
       </section>
       <div className='sticky top-0 bg-white z-10 flex items-center pt-[10px] pb-[5px]'>
         <div
@@ -98,12 +90,13 @@ export default function DetailUser({ user }: DetailUserProps) {
       <Spacer height={10} />
       <div className='flex px-[20px] justify-between'>
         <div className='flex gap-[5px] text-main font-bold items-center'>
+          {/* 실제 API 연결 필요 
           <span>전체</span>
           <span className='text-container-blue'>
             {type === LIST_TYPE.place
               ? user.place_info.summary.total_place
               : user.course_info.summary.total_course}
-          </span>
+          </span>*/}
         </div>
         <Select
           defaultValue='recent'
@@ -121,7 +114,7 @@ export default function DetailUser({ user }: DetailUserProps) {
       {type === LIST_TYPE.place ? (
         <ListUserPlace data={places} />
       ) : (
-        <ListUserCourse />
+        <ListUserCourse courses={courses} />
       )}
       <Spacer height={20} />
       <FloatingWriteButton />

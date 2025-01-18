@@ -5,75 +5,27 @@ import { Copy } from 'lucide-react'
 import allReview from '@/src/assets/images/all_review.png'
 import kakaoReview from '@/src/assets/images/kakao_review.png'
 import StarRate from '@/src/shared/ui/StarRate'
-import { Carousel } from 'antd'
+import type { CoursePlaceType } from '@/src/entities/place/type'
+import { message } from 'antd'
 
-const data = [
-  {
-    id: 1,
-    name: '땀땀 본점',
-    location: '서울특별시 강남구 강남대로98길 12-5',
-    avg_rate: 4.1,
-    images: [
-      'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
-      'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
-      'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
-      'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
-    ],
-    evaluates: ['맛있어요', '매장이깔끔해요', '주차장이넓어요', '친절해요'],
-    content: '땀땀땀땀땀',
-    kakao: 'https://place.map.kakao.com/1238400864',
-  },
-  {
-    id: 2,
-    name: '마녀주방 강남점',
-    location: '서울특별시 강남구 강남대로94길 9',
-    avg_rate: 4.2,
-    images: [
-      'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
-      'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
-      'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
-      'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
-    ],
-    evaluates: ['맛있어요', '매장이깔끔해요'],
-    content:
-      '마녀주방 강남점마녀주방 강남점마녀주방 강남점마녀주방 강남점마녀주방 강남점마녀주방 강남점',
-    kakao: 'https://place.map.kakao.com/26330643',
-  },
-  {
-    id: 3,
-    name: '미도인 강남',
-    location: '서울특별시 강남구 강남대로102길 16',
-    avg_rate: 4.2,
-    evaluates: ['맛있어요', '매장이깔끔해요'],
-    images: [
-      'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
-      'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
-      'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
-      'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
-    ],
-    contet:
-      '미도인 강남미도인 강남미도인 강남미도인 강남미도인 강남미도인 강남',
-    kakao: 'https://place.map.kakao.com/1804968253',
-  },
-  {
-    id: 4,
-    name: '정돈 강남점',
-    location: '서울특별시 강남구 강남대로110길 19-1',
-    avg_rate: 4.5,
-    evaluates: ['맛있어요', '매장이깔끔해요'],
-    images: [
-      'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
-      'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
-      'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
-      'https://img.choroc.com/newshop/goods/009179/009179_1.jpg',
-    ],
-    content: '정돈 정돈 정돈 정돈 정돈 정돈 정돈 정돈 정돈 정돈 정돈 정돈 ',
-    kakao: 'https://place.map.kakao.com/850873071',
-  },
-]
+export default function PlaceCollapse({
+  places,
+}: {
+  places: CoursePlaceType[]
+}) {
+  const [messageApi, contextHolder] = message.useMessage()
 
-export default function PlaceCollapse() {
-  const items = data.map((place, index) => ({
+  const toast = (address: string) => {
+    navigator.clipboard.writeText(address).then(() => {
+      messageApi.open({
+        type: 'success',
+        content: '주소가 클립보드에 복사되었습니다.',
+        duration: 1,
+      })
+    })
+  }
+
+  const items = places.map((place, index) => ({
     key: place.id.toString(),
     label: (
       <div className='flex gap-[10px] items-center'>
@@ -85,37 +37,43 @@ export default function PlaceCollapse() {
     ),
     children: (
       <div className='flex flex-col w-full'>
-        <Carousel arrows>
-          {place.images.map((image, index) => {
-            return (
-              <Image
-                className='rounded-t-[10px]'
-                key={index}
-                src={image}
-                alt='place image'
-                width={300}
-                height={150}
-              />
-            )
-          })}
-        </Carousel>
+        {place.thumbnail_url && (
+          <Image
+            className='rounded-t-[10px]'
+            src={place.thumbnail_url}
+            alt='place image'
+            width={300}
+            height={150}
+          />
+        )}
         <div className='flex justify-center items-center gap-[10px] py-[10px] bg-black13 text-white'>
           <span className='block text-sub text-light max-w-[200px] truncate line-clamp-2'>
-            {place.location}
+            {place.address}
           </span>
-          <Copy size={14} strokeWidth={1.5} />
+          <Copy
+            className='cursor-pointer'
+            onClick={() => toast(place.name)}
+            size={14}
+            strokeWidth={1.5}
+          />
         </div>
         <div className='flex bg-bright-gray rounded-[10px] justify-between p-[15px]'>
           <div className='flex flex-col justify-end'>
-            <p className='text-headline text-brand font-semibold'>4.0</p>
-            <StarRate rate={4.0} size={10} />
-            <p className='text-sub opacity-50'>장소 리뷰 20</p>
+            <p className='text-headline text-brand font-semibold'>
+              {place.average_rating}
+            </p>
+            <StarRate rate={place.average_rating} size={10} />
+            <p className='text-sub opacity-50'>
+              장소 리뷰 {place.review_count}
+            </p>
           </div>
           <div className='flex flex-col justify-center items-center gap-[5px]'>
             <Link href={`/places/${place.id}`}>
               <Image src={allReview} alt='all review' width={175} height={31} />
             </Link>
-            <Link href={place.kakao}>
+            <Link
+              href={`https://place.map.kakao.com/m/${place.kakao_map_place_id}`}
+            >
               <Image
                 src={kakaoReview}
                 alt='kakao review'
@@ -125,6 +83,7 @@ export default function PlaceCollapse() {
             </Link>
           </div>
         </div>
+        {contextHolder}
       </div>
     ),
   }))
@@ -133,3 +92,26 @@ export default function PlaceCollapse() {
     <Collapse expandIconPosition={'end'} className='mt-[10px]' items={items} />
   )
 }
+
+/* TODO: 장소 이미지 여러개로 변환 시
+function PlaceImage({ images }: { images: string[] }) {
+  return (
+    {place.images && place.images.length > 0 && (
+          <Carousel arrows>
+            {place.images?.map((image, index) => {
+              return (
+                <Image
+                  className='rounded-t-[10px]'
+                  key={index}
+                  src={image}
+                  alt='place image'
+                  width={300}
+                  height={150}
+                />
+              )
+            })}
+          </Carousel>
+        )}
+  )
+}
+*/

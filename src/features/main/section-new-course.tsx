@@ -3,8 +3,21 @@
 import Link from 'next/link'
 import CardCourse from '@/src/features/course/card-course'
 import Spacer from '@/src/shared/ui/Spacer'
+import { getCourses } from '@/src/entities/course/api'
+import { useEffect, useState } from 'react'
+import type { CourseType } from '@/src/entities/course/type'
 
 export default function SectionNewCourse() {
+  const [courses, setCourses] = useState<CourseType[]>([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const courses = await getCourses()
+      setCourses(courses)
+    }
+    fetchData()
+  }, [])
+
   return (
     <section className='w-full h-fit px-[20px] py-[22px]'>
       <div className='flex items-center justify-between'>
@@ -18,10 +31,9 @@ export default function SectionNewCourse() {
       </div>
       <Spacer height={22} />
       <div className='flex flex-col gap-[15px]'>
-        <CardCourse />
-        <CardCourse />
-        <CardCourse />
-        <CardCourse />
+        {courses.map((course) => (
+          <CardCourse key={course.id} course={course} />
+        ))}
       </div>
     </section>
   )

@@ -1,7 +1,10 @@
 import type { PlaceType } from '@/src/entities/place/type'
-import type { CommentType } from '@/src/entities/comment/type'
+import type { CommentMockType } from '@/src/entities/comment/type'
+import type { WriterType } from '@/src/entities/user/type'
+import type { CoursePlaceType } from '@/src/entities/place/type'
+import type { CategoryType } from '@/src/shared/entities/type'
 
-export type CourseType = {
+export type CourseMockType = {
   id: number
   user: {
     is_like: boolean
@@ -24,7 +27,7 @@ export type CourseType = {
     summary: {
       count: number
     }
-    comments?: CommentType[]
+    comments: CommentMockType[]
   }
   places: PlaceType[]
   likes: number
@@ -34,4 +37,20 @@ export type CourseType = {
 export type FavoriteRegionType = {
   id: number
   value: string
+}
+
+export type CourseType = {
+  id: number
+  title: string
+  primary_region: string
+  secondary_region: string
+  categories: CategoryType[]
+  contents: string
+  views: number
+  comments: number
+  likes: number
+  created_at: string
+  places: CoursePlaceType[]
+  writer: WriterType
+  is_liked: boolean
 }
