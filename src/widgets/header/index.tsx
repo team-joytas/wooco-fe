@@ -141,7 +141,7 @@ export function OptionHeader({
     <HeaderBase className='px-[20px]'>
       <div className='flex items-center gap-[10px]'>
         <BackButton onClick={handleClickBack} />
-        {showLike && <div className='w-[24px] h-[24px]' />}
+        {showLike && !isMine && <div className='w-[24px] h-[24px]' />}
       </div>
       <p className='border-b font-semibold text-[13px] text-white px-[20px] py-[8px] rounded-[20px] bg-container-blue'>
         {title}
