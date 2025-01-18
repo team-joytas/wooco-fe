@@ -5,7 +5,6 @@ import { Copy } from 'lucide-react'
 import allReview from '@/src/assets/images/all_review.png'
 import kakaoReview from '@/src/assets/images/kakao_review.png'
 import StarRate from '@/src/shared/ui/StarRate'
-import { Carousel } from 'antd'
 import type { CoursePlaceType } from '@/src/entities/place/type'
 import { message } from 'antd'
 
@@ -51,9 +50,12 @@ export default function PlaceCollapse({
           <span className='block text-sub text-light max-w-[200px] truncate line-clamp-2'>
             {place.address}
           </span>
-          <button className='cursor-pointer' onClick={() => toast(place.name)}>
-            <Copy size={14} strokeWidth={1.5} />
-          </button>
+          <Copy
+            className='cursor-pointer'
+            onClick={() => toast(place.name)}
+            size={14}
+            strokeWidth={1.5}
+          />
         </div>
         <div className='flex bg-bright-gray rounded-[10px] justify-between p-[15px]'>
           <div className='flex flex-col justify-end'>

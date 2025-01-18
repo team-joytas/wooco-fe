@@ -62,9 +62,13 @@ export default function SearchPlace({
   return (
     <div className='fixed top-0 transform z-[1000] w-full max-w-[375px] h-full bg-white'>
       <header className=' bg-white h-[55px] px-[20px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line'>
-        <button onClick={() => setOpenSearchPlace(false)}>
-          <ChevronLeft size={24} color='black' strokeWidth={1.5} />
-        </button>
+        <ChevronLeft
+          onClick={() => setOpenSearchPlace(false)}
+          size={24}
+          color='black'
+          strokeWidth={1.5}
+          className='cursor-pointer'
+        />
         <p className='font-semibold text-[17px]'>장소 추가하기</p>
         <div className='w-[24px] h-[24px]'></div>
       </header>

@@ -40,16 +40,18 @@ export default function CoursePlanLayout({
         isMine={true}
       />
       <div className='w-full px-[20px] flex flex-col'>
-        {data?.categories?.map((category, index) => {
-          return (
-            <span
-              key={index}
-              className='px-[10px] py-[5px] text-[12px] text-white border rounded-[15px] bg-container-light-blue'
-            >
-              {CATEGORY[category]}
-            </span>
-          )
-        })}
+        <div className='w-full items-center justify-center inline-flex gap-[5px] py-[8px]'>
+          {data?.categories?.map((category, index) => {
+            return (
+              <span
+                key={index}
+                className='px-[10px] py-[5px] text-[12px] text-white border rounded-[15px] bg-container-light-blue'
+              >
+                {CATEGORY[category]}
+              </span>
+            )
+          })}
+        </div>
         {data?.places && data?.places.length > 0 && (
           <KakaoMap places={data?.places || []} id={Number(id)} />
         )}

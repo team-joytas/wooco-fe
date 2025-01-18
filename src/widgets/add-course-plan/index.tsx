@@ -45,6 +45,10 @@ export default function AddCoursePlan({ type }: AddCoursePlanProps) {
     console.log('날짜 선택')
   }
 
+  const handleEdit = (id: number) => {
+    console.log(id)
+  }
+
   const headerTitle =
     type === LAYOUT_TYPE.course
       ? '나만의 코스 작성하기'
@@ -72,7 +76,11 @@ export default function AddCoursePlan({ type }: AddCoursePlanProps) {
       <Section title={`${pageType} 장소를 선택하세요.`}>
         <div className='px-[20px] w-full flex flex-col gap-[15px] padding'>
           {/*{places.length > 0 && <KakaoMap places={places} id={1} />}*/}
-          <DragPlace places={places} setPlaces={setPlaces} />
+          <DragPlace
+            places={places}
+            setPlaces={setPlaces}
+            onEdit={handleEdit}
+          />
           <button
             onClick={() => setOpenSearchPlace(true)}
             className='w-full h-[40px] text-[15px] cursor-pointer rounded-full flex items-center justify-center bg-container-light-blue'

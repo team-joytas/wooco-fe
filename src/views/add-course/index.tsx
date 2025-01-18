@@ -5,11 +5,11 @@ import { Input } from 'antd'
 import DragPlace from '@/src/widgets/drag-place'
 import SearchPlace from '@/src/views/search-place'
 import { categories } from '@/src/entities/category/type'
-import { getCourse } from '@/src/entities/course/api'
 import Spacer from '@/src/shared/ui/Spacer'
 import Header from '@/src/widgets/header'
 import { PlaceType } from '@/src/entities/place/type'
 import { useForm } from 'react-hook-form'
+
 export default function AddCoursePlan() {
   const [clickedCategory, setClickedCategory] = useState<number[]>([])
   const [places, setPlaces] = useState<PlaceType[]>([])
@@ -33,6 +33,10 @@ export default function AddCoursePlan() {
         ? prev.filter((categoryId) => categoryId !== id)
         : [...prev, id]
     )
+  }
+
+  const handleEdit = (id: number) => {
+    console.log(id)
   }
 
   return (
@@ -81,7 +85,11 @@ export default function AddCoursePlan() {
           <div className='w-full mt-[20px] mb-[20px] h-[2px] bg-gray-100' />
           <div className='w-full flex flex-col gap-[10px]'>
             <span className='text-[15px]'>코스 내 장소 정보</span>
-            <DragPlace places={places} setPlaces={setPlaces} />
+            <DragPlace
+              places={places}
+              setPlaces={setPlaces}
+              onEdit={handleEdit}
+            />
             <button
               onClick={() => setOpenSearchPlace(true)}
               className='w-full h-[40px] text-[15px] rounded-[5px] border border-blue-100 flex items-center justify-center'

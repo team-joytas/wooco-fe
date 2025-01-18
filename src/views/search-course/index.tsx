@@ -48,9 +48,12 @@ export default function SearchCourse({
   return (
     <div className='w-full'>
       <div className='flex justify-between items-center'>
-        <button onClick={() => setIsSearch(false)}>
-          <ChevronLeft size={30} strokeWidth={1.5} />
-        </button>
+        <ChevronLeft
+          onClick={() => setIsSearch(false)}
+          size={30}
+          strokeWidth={1.5}
+          className='cursor-pointer'
+        />
         <div
           className={
             isSearch
