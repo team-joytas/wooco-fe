@@ -7,7 +7,6 @@ import localFont from 'next/font/local'
 import { AnimatePresence } from 'framer-motion'
 import { ConfigProvider } from 'antd'
 import ReactQueryProvider from '@/src/shared/provider/ReactQueryProvider'
-import { Suspense } from 'react'
 
 export const metadata: Metadata = {
   title: 'WOOCO - 우코',
@@ -44,9 +43,7 @@ export default function RootLayout({
     <html lang='kr' className={`h-vh ${pretendard.variable}`}>
       <body className='h-full flex items-center flex-col overflow-y-scroll'>
         <ReactQueryProvider>
-          <Suspense>
-            <DefaultHeader />
-          </Suspense>
+          <DefaultHeader />
           <ConfigProvider theme={theme}>
             <AnimatePresence>
               <div className='mx-auto flex-1 text-black w-full max-w-[375px]'>
