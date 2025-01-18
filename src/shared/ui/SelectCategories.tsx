@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { CATEGORY } from '@/src/entities/category/type'
 
 export default function SelectCategories({
@@ -25,21 +25,26 @@ export default function SelectCategories({
     value: CATEGORY[key as keyof typeof CATEGORY],
   }))
 
+  useEffect(() => {
+    setCategories?.(clickedCategory)
+  }, [clickedCategory, setCategories])
+
   function handleCategoryClick(id: string) {
     setClickedCategory((prev) => {
+      let newCategories
       if (id === ALL_CATEGORY_ID) {
-        return prev.includes(ALL_CATEGORY_ID) ? [] : [ALL_CATEGORY_ID]
+        newCategories = prev.includes(ALL_CATEGORY_ID) ? [] : [ALL_CATEGORY_ID]
       } else {
         if (prev.includes(ALL_CATEGORY_ID)) {
-          return [id]
+          newCategories = [id]
         } else {
-          return prev.includes(id)
+          newCategories = prev.includes(id)
             ? prev.filter((categoryId) => categoryId !== id)
             : [...prev, id]
         }
       }
+      return newCategories
     })
-    setCategories?.(clickedCategory)
   }
 
   return (

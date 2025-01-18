@@ -7,7 +7,7 @@ import CardComment from '@/src/features/comment/card-comment'
 import CoursePlanLayout from '@/src/widgets/course-plan-layout'
 import type { CourseType } from '@/src/entities/course/type'
 import type { CommentType } from '@/src/entities/comment/type'
-import { passFromCreate, formatDateToYYYYMMDD } from '@/src/shared/utils/date'
+import { passFromCreate } from '@/src/shared/utils/date'
 
 interface DetailCourseProps {
   courseId: number
@@ -38,7 +38,7 @@ export default function DetailCourse({
                 {passFromCreate(course?.created_at || '')}
               </span>
               <span className='text-sub opacity-50'>
-                {formatDateToYYYYMMDD(course?.created_at || '')}
+                {course?.visit_date || ''}
               </span>
             </div>
           </div>
@@ -54,18 +54,34 @@ export default function DetailCourse({
               코스에 대한 댓글을 남겨보세요!
             </span>
           </p>
-          <Link
-            className='cursor-pointer pr-[20px] text-sub opacity-50'
-            href={`/courses/${courseId}/comments`}
-          >
-            더보기
-          </Link>
+          {comments && comments.length > 0 && (
+            <Link
+              className='cursor-pointer pr-[20px] text-sub opacity-50'
+              href={`/courses/${courseId}/comments`}
+            >
+              더보기
+            </Link>
+          )}
         </div>
         <Spacer height={20} />
-        <div className='px-[30px] flex flex-col gap-[30px]'>
-          {comments?.map((comment) => {
-            return <CardComment key={comment.id} comment={comment} />
-          })}
+        <div className='px-[30px] flex flex-col gap-[30px] min-h-[50px]'>
+          {comments && comments.length > 0 ? (
+            comments?.map((comment) => {
+              return <CardComment key={comment.id} comment={comment} />
+            })
+          ) : (
+            <div className='flex flex-col gap-[10px] items-center justify-center w-full'>
+              <p className='text-sub text-container-blue font-semibold'>
+                댓글이 없어요 댓글을 작성해보세요!
+              </p>
+              <Link
+                className='text-sub text-white  h-[30px] rounded-full bg-container-blue flex items-center justify-center w-full'
+                href={`/courses/${courseId}/comments`}
+              >
+                댓글 작성하러 가기
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </CoursePlanLayout>
