@@ -2,10 +2,15 @@
 
 import { useEffect, useState } from 'react'
 import { Input } from 'antd'
-import { ChevronLeft } from 'lucide-react'
 import Spacer from '@/src/shared/ui/Spacer'
-import { PlaceType } from '@/src/entities/place/type'
+import {
+  CoursePlaceType,
+  PlaceSearchType,
+  PlaceType,
+} from '@/src/entities/place/type'
 import { Dispatch, SetStateAction } from 'react'
+import Header from '@/src/widgets/header'
+import { postPlace } from '@/src/entities/place/api'
 
 type MetaType = {
   total_count: number
@@ -14,21 +19,19 @@ type MetaType = {
 }
 
 interface SearchPlaceProps {
+  region: string
   setOpenSearchPlace: (open: boolean) => void
-  setPlaces: Dispatch<SetStateAction<PlaceType[]>>
+  setPlaces: Dispatch<SetStateAction<CoursePlaceType[]>>
 }
 
 export default function SearchPlace({
+  region,
   setOpenSearchPlace,
   setPlaces,
 }: SearchPlaceProps) {
-  const [results, setResults] = useState<PlaceType[]>([])
+  const [results, setResults] = useState<PlaceSearchType[]>([])
   const [meta, setMeta] = useState<MetaType>() // TODO: 페이지네이션 추가 필요
   const [inputValue, setInputValue] = useState('')
-
-  useEffect(() => {
-    getResult(inputValue)
-  }, [inputValue])
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -41,7 +44,7 @@ export default function SearchPlace({
     if (!value) return
 
     const result = await fetch(
-      `https://dapi.kakao.com/v2/local/search/keyword.json?query=${value}`,
+      `https://dapi.kakao.com/v2/local/search/keyword.json?query=${region} ${value}`,
       {
         headers: {
           Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}`,
@@ -53,25 +56,26 @@ export default function SearchPlace({
     setMeta(data.meta)
   }
 
-  const selectPlace = (place: PlaceType) => {
+  const selectPlace = async (place: PlaceSearchType) => {
     setOpenSearchPlace(false)
-    setPlaces((prevPlaces) => [...prevPlaces, place])
+    const placeId = await postPlace(place)
+    const placePayload: CoursePlaceType = {
+      id: placeId.results.id,
+      order: 0,
+      name: place.place_name,
+      latitude: place.x,
+      longitude: place.y,
+      address: place.address_name,
+      kakao_map_place_id: Number(place.id),
+      thumbnail_url: '',
+    }
+    setPlaces((prevPlaces) => [...prevPlaces, placePayload])
     setInputValue('')
   }
 
   return (
     <div className='fixed top-0 transform z-[1000] w-full max-w-[375px] h-full bg-white'>
-      <header className=' bg-white h-[55px] px-[20px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line'>
-        <ChevronLeft
-          onClick={() => setOpenSearchPlace(false)}
-          size={24}
-          color='black'
-          strokeWidth={1.5}
-          className='cursor-pointer'
-        />
-        <p className='font-semibold text-[17px]'>장소 추가하기</p>
-        <div className='w-[24px] h-[24px]'></div>
-      </header>
+      <Header title='장소 추가하기' close={() => setOpenSearchPlace(false)} />
       <Spacer height={18} />
       <div className='px-[20px] w-full flex flex-col gap-[15px]'>
         <div className='flex flex-col gap-[10px]'>
@@ -80,30 +84,35 @@ export default function SearchPlace({
             placeholder='장소 이름을 입력해주세요.'
             className='w-full'
             value={inputValue}
+            onSearch={getResult}
             onChange={(e) => setInputValue(e.target.value)}
           />
         </div>
         <div className='w-full mt-[20px] h-[2px] bg-gray-100' />
         <div className='justify-start items-center overflow-y-auto h-[calc(100vh-200px)]'>
           <div className='h-fit w-full flex flex-col gap-[5px]'>
-            {results.map((result) => {
-              return (
-                <div
-                  key={result.id}
-                  className='text-[12px] border-blue-100 rounded-[5px] border-[1px] flex flex-col w-full gap-[5px] px-[15px] py-[8px] cursor-pointer'
-                  onClick={() => {
-                    selectPlace(result)
-                  }}
-                >
-                  <span className='text-[13px] font-bold'>
-                    {result.place_name}
-                  </span>
-                  <span className='text-[10px] text-gray-600'>
-                    {result.address_name}
-                  </span>
-                </div>
-              )
-            })}
+            {results.length > 0 ? (
+              results.map((result) => {
+                return (
+                  <div
+                    key={result.id}
+                    className='text-[12px] border-blue-100 rounded-[5px] border-[1px] flex flex-col w-full gap-[5px] px-[15px] py-[8px] cursor-pointer'
+                    onClick={() => selectPlace(result)}
+                  >
+                    <span className='text-[13px] font-bold'>
+                      {result.place_name}
+                    </span>
+                    <span className='text-[10px] text-gray-600'>
+                      {result.address_name}
+                    </span>
+                  </div>
+                )
+              })
+            ) : (
+              <div className='w-full h-[40px] flex items-center justify-center text-[15px]'>
+                검색 결과가 없습니다.
+              </div>
+            )}
           </div>
         </div>
       </div>

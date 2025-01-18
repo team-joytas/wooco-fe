@@ -1,11 +1,11 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { PlaceType } from '@/src/entities/place/type'
+import { CoursePlaceType } from '@/src/entities/place/type'
 import { AlignJustify, X, Image } from 'lucide-react'
 
 interface DragPlaceItemProps {
   id: number
-  place: PlaceType
+  place: CoursePlaceType
   onEdit?: (id: number) => void
   onDelete: (id: number) => void
 }
@@ -38,7 +38,7 @@ export default function DragPlaceItem({
         <div {...attributes} {...listeners} ref={setNodeRef}>
           <AlignJustify size={20} strokeWidth={1.5} stroke={'#5A59F2'} />
         </div>
-        <span className='text-[13px]'>{place.place_name}</span>
+        <span className='text-[13px]'>{place.name}</span>
       </div>
       {onEdit && (
         <div className='flex gap-[5px]'>
