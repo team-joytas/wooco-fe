@@ -10,3 +10,18 @@ export const getComments = async (id: number): Promise<CommentType[]> => {
     throw error
   }
 }
+
+export const postComment = async (
+  courseId: number,
+  contents: string
+): Promise<CommentType> => {
+  try {
+    const response = await customAxios.post(`/comments/courses/${courseId}`, {
+      contents,
+    })
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}

@@ -41,22 +41,13 @@ export default function DragPlaceItem({
         <span className='text-[13px]'>{place.name}</span>
       </div>
       {onEdit && (
-        <div className='flex gap-[5px]'>
-          <Image
-            size={20}
-            onClick={() => handleEdit(place.id)}
-            className='cursor-pointer'
-            stroke={'#A9A9A9'}
-            strokeWidth={1.5}
-          />
-          <X
-            size={20}
-            onClick={() => onDelete(place.id)}
-            className='cursor-pointer'
-            stroke={'#A9A9A9'}
-            strokeWidth={1.5}
-          />
-        </div>
+        <X
+          size={20}
+          onClick={() => onDelete(place.id)}
+          className='cursor-pointer'
+          stroke={'#A9A9A9'}
+          strokeWidth={1.5}
+        />
       )}
     </div>
   )
