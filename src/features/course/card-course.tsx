@@ -18,22 +18,13 @@ export default function CardCourse({ course }: { course: CourseType }) {
       </div>
       <div className='flex-1  h-full overflow-x-auto flex items-center gap-[9px] scrollbar-hide pr-[10px]'>
         <div className='w-fit h-[58px] flex gap-[9px]'>
-          <ImageWithIndex
-            index={1}
-            src={'https://img.choroc.com/newshop/goods/009179/009179_1.jpg'}
-          />
-          <ImageWithIndex
-            index={2}
-            src={'https://img.choroc.com/newshop/goods/009179/009179_1.jpg'}
-          />
-          <ImageWithIndex
-            index={3}
-            src={'https://img.choroc.com/newshop/goods/009179/009179_1.jpg'}
-          />
-          <ImageWithIndex
-            index={4}
-            src={'https://img.choroc.com/newshop/goods/009179/009179_1.jpg'}
-          />
+          {course.places.map((place, index) => (
+            <ImageWithIndex
+              key={place.id}
+              src={place.thumbnail_url || ''}
+              index={index + 1}
+            />
+          ))}
         </div>
       </div>
     </Link>

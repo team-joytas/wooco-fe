@@ -27,11 +27,11 @@ export default function CardListCourse({ course }: { course: CourseType }) {
             <span className='w-[28px] text-[10px] text-description word-break leading-[12px] flex-shrink-0'>
               추천 코스
             </span>
-            {course.places.map((place) => (
+            {course.places.map((place, index) => (
               <ImageWithIndex
                 key={place.id}
                 src={place.thumbnail_url || ''}
-                index={Number(place.id)}
+                index={index + 1}
               />
             ))}
           </div>
