@@ -1012,6 +1012,16 @@ export const getCourses = async () => {
   }
 }
 
+export const getUserCourses = async (id: string) => {
+  try {
+    const response = await customAxios.get(`/courses/users/${id}`)
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
 export const postCourse = async (coursePayload: CoursePayloadType) => {
   try {
     const response = await customAxios.post('/courses', coursePayload)

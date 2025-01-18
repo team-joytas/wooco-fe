@@ -12,7 +12,7 @@ import Header from '@/src/widgets/header'
 import type { PlaceType } from '@/src/entities/place/type'
 import type { CourseType } from '@/src/entities/course/type'
 import type { UserProfileType } from '@/src/entities/user/type'
-import { getCourses } from '@/src/entities/course/api'
+import { getUserCourses } from '@/src/entities/course/api'
 
 interface DetailUserProps {
   user: UserProfileType | undefined
@@ -34,7 +34,7 @@ export default function DetailUser({ user, isMe }: DetailUserProps) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const courses = await getCourses()
+      const courses = await getUserCourses(user?.user_id || '')
       setCourses(courses)
     }
     fetchData()
