@@ -1,9 +1,9 @@
 import Spacer from '@/src/shared/ui/Spacer'
-import { categories } from '@/src/entities/category/type'
 import { useState, useEffect } from 'react'
 import { ChevronLeft, Search } from 'lucide-react'
 import CardCourse from '@/src/features/course/card-course'
 import type { CourseType } from '@/src/entities/course/type'
+import SelectCategories from '@/src/shared/ui/SelectCategories'
 import { getCourses } from '@/src/entities/course/api'
 
 // TODO: 실제 데이터 및 로직 구현 필요
@@ -14,7 +14,7 @@ export default function SearchCourse({
   isSearch: boolean
   setIsSearch: (isSearch: boolean) => void
 }) {
-  const [clickedCategory, setClickedCategory] = useState<number[]>([])
+  const [clickedCategory, setClickedCategory] = useState<string[]>([])
   const [courses, setCourses] = useState<CourseType[]>([])
 
   useEffect(() => {
@@ -37,12 +37,8 @@ export default function SearchCourse({
     }
   }, [isSearch])
 
-  const handleCategoryClick = (id: number) => {
-    setClickedCategory((prev) =>
-      prev.includes(id)
-        ? prev.filter((categoryId) => categoryId !== id)
-        : [...prev, id]
-    )
+  const handleCategoryClick = (categories: string[]) => {
+    console.log(categories)
   }
 
   return (
@@ -77,19 +73,7 @@ export default function SearchCourse({
           </p>
           <Spacer height={14} />
           <div className='mt-[5px] justify-center inline-flex max-w-[306px] flex-wrap gap-[9px]'>
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                className={`text-[13px] h-[28px] px-[15px] border border-container-blue rounded-full transition-all duration-200 cursor-pointer ${
-                  clickedCategory.includes(category.id)
-                    ? 'bg-container-blue text-white'
-                    : 'border-container-blue text-search-gray'
-                }`}
-                onClick={() => handleCategoryClick(category.id)}
-              >
-                {category.value}
-              </button>
-            ))}
+            <SelectCategories setCategories={handleCategoryClick} />
           </div>
           <Spacer height={14} />
           <Spacer height={8} className='bg-light-gray' />

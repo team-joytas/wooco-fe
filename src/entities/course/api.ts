@@ -1,5 +1,9 @@
 import { customAxios } from '@/src/shared/axios'
-import type { CourseType, CourseMockType } from '@/src/entities/course/type'
+import type {
+  CourseType,
+  CourseMockType,
+  CoursePayloadType,
+} from '@/src/entities/course/type'
 
 const courses = [
   {
@@ -1001,6 +1005,26 @@ export const getCourse = async (id: number): Promise<CourseType> => {
 export const getCourses = async () => {
   try {
     const response = await customAxios.get('/courses')
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const postCourse = async (coursePayload: CoursePayloadType) => {
+  try {
+    const response = await customAxios.post('/courses', coursePayload)
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const deleteCourse = async (id: number) => {
+  try {
+    const response = await customAxios.delete(`/courses/${id}`)
     return response.data.results
   } catch (error) {
     console.error(error)

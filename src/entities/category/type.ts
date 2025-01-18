@@ -1,12 +1,9 @@
-interface Category {
-  id: number
-  value: string
+export const CATEGORY = {
+  HOT_PLACE: '핫플',
+  FAMOUS_RESTAURANT: '맛집',
+  ACTIVITY: '액티비티',
+  CULTURE_AND_ART: '문화/예술',
+  ETC: '기타',
 }
 
-export const categories: Category[] = [
-  { id: 1, value: '맛집' },
-  { id: 2, value: '액티비티' },
-  { id: 3, value: 'SNS 핫플' },
-  { id: 4, value: '문화/예술' },
-  { id: 5, value: '기타' },
-]
+export type CategoryType = keyof typeof CATEGORY

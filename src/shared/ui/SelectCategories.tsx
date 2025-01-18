@@ -1,29 +1,49 @@
-import { useState } from 'react'
-import { categories } from '@/src/entities/category/type'
+import { useState, useEffect } from 'react'
+import { CATEGORY } from '@/src/entities/category/type'
 
-export default function SelectCategories({ isList }: { isList?: boolean }) {
-  const [clickedCategory, setClickedCategory] = useState<number[]>(() =>
-    isList ? [0] : []
+export default function SelectCategories({
+  isList,
+  setCategories,
+}: {
+  isList?: boolean
+  setCategories?: (categories: string[]) => void
+}) {
+  const [clickedCategory, setClickedCategory] = useState<string[]>(() =>
+    isList ? ['ALL'] : []
   )
-  const ALL_CATEGORY_ID = 0
+  const ALL_CATEGORY_ID = 'ALL'
   const categoriesWithAll = [
     { id: ALL_CATEGORY_ID, value: '전체' },
-    ...categories,
+    ...Object.keys(CATEGORY).map((key) => ({
+      id: key,
+      value: CATEGORY[key as keyof typeof CATEGORY],
+    })),
   ]
 
-  function handleCategoryClick(id: number) {
+  const categories = Object.keys(CATEGORY).map((key) => ({
+    id: key,
+    value: CATEGORY[key as keyof typeof CATEGORY],
+  }))
+
+  useEffect(() => {
+    setCategories?.(clickedCategory)
+  }, [clickedCategory, setCategories])
+
+  function handleCategoryClick(id: string) {
     setClickedCategory((prev) => {
+      let newCategories
       if (id === ALL_CATEGORY_ID) {
-        return prev.includes(ALL_CATEGORY_ID) ? [] : [ALL_CATEGORY_ID]
+        newCategories = prev.includes(ALL_CATEGORY_ID) ? [] : [ALL_CATEGORY_ID]
       } else {
         if (prev.includes(ALL_CATEGORY_ID)) {
-          return [id]
+          newCategories = [id]
         } else {
-          return prev.includes(id)
+          newCategories = prev.includes(id)
             ? prev.filter((categoryId) => categoryId !== id)
             : [...prev, id]
         }
       }
+      return newCategories
     })
   }
 
@@ -62,9 +82,9 @@ function CategoryItem({
   onClick,
   isActive,
 }: {
-  id: number
+  id: string
   value: string
-  onClick: (id: number) => void
+  onClick: (id: string) => void
   isActive: boolean
 }) {
   return (

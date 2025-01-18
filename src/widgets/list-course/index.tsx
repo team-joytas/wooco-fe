@@ -8,7 +8,7 @@ import CardListCourse from '@/src/features/course/card-list-course'
 import CardGridCourse from '@/src/features/course/card-grid-course'
 import Spacer from '@/src/shared/ui/Spacer'
 import SelectCategories from '@/src/shared/ui/SelectCategories'
-
+import { Fragment } from 'react'
 export default function ListCourse({
   title,
   courses,
@@ -53,10 +53,10 @@ export default function ListCourse({
       {isListView ? (
         <div className='flex flex-col justify-between items-center px-[10px]'>
           {courses.map((course) => (
-            <>
-              <CardListCourse key={course.id} course={course} />
+            <Fragment key={course.id}>
+              <CardListCourse course={course} />
               <Spacer height={10} className='bg-bright-gray' />
-            </>
+            </Fragment>
           ))}
         </div>
       ) : (

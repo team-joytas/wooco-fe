@@ -2,7 +2,7 @@ import type { PlaceType } from '@/src/entities/place/type'
 import type { CommentMockType } from '@/src/entities/comment/type'
 import type { WriterType } from '@/src/entities/user/type'
 import type { CoursePlaceType } from '@/src/entities/place/type'
-import type { CategoryType } from '@/src/shared/entities/type'
+import type { CategoryType } from '@/src/entities/category/type'
 
 export type CourseMockType = {
   id: number
@@ -53,4 +53,15 @@ export type CourseType = {
   places: CoursePlaceType[]
   writer: WriterType
   is_liked: boolean
+  visit_date: string
+}
+
+export type CoursePayloadType = {
+  primary_region: string
+  secondary_region: string
+  categories: string[]
+  title: string
+  contents: string
+  place_ids: string[]
+  visit_date: string
 }

@@ -1,4 +1,4 @@
-import { PlaceType } from '@/src/entities/place/type'
+import { CoursePlaceType } from '@/src/entities/place/type'
 import { closestCenter, DndContext, DragEndEvent } from '@dnd-kit/core'
 import DragPlaceItem from '@/src/features/place/drag-place-item'
 import {
@@ -9,8 +9,8 @@ import {
 import { Dispatch, SetStateAction } from 'react'
 
 interface DragPlaceProps {
-  places: PlaceType[]
-  setPlaces: Dispatch<SetStateAction<PlaceType[]>>
+  places: CoursePlaceType[]
+  setPlaces: Dispatch<SetStateAction<CoursePlaceType[]>>
   onEdit?: (id: number) => void
 }
 
@@ -23,7 +23,7 @@ export default function DragPlace({
     const { active, over } = event
 
     if (active.id !== over?.id) {
-      setPlaces((items: PlaceType[]) => {
+      setPlaces((items: CoursePlaceType[]) => {
         const oldIndex = items.findIndex((item) => item.id === active.id)
         const newIndex = items.findIndex((item) => item.id === over?.id)
         return arrayMove(items, oldIndex, newIndex)
@@ -32,7 +32,9 @@ export default function DragPlace({
   }
 
   const handleDelete = (id: number) => {
-    setPlaces((prev: PlaceType[]) => prev.filter((place) => place.id !== id))
+    setPlaces((prev: CoursePlaceType[]) =>
+      prev.filter((place) => place.id !== id)
+    )
   }
 
   return (

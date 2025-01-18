@@ -44,8 +44,8 @@ export default function KakaoMap({ places, center, id }: KakaoMapProps) {
           center: center
             ? new window.kakao.maps.LatLng(center[1], center[0])
             : new window.kakao.maps.LatLng(
-                Number(places[0].longitude),
-                Number(places[0].latitude)
+                Number(places[0].latitude),
+                Number(places[0].longitude)
               ),
           level: center ? 8 : 6,
         })
@@ -53,15 +53,14 @@ export default function KakaoMap({ places, center, id }: KakaoMapProps) {
         if (places.length > 0) {
           places.forEach((place) => {
             const markerPosition = new window.kakao.maps.LatLng(
-              Number(place.longitude),
-              Number(place.latitude)
+              Number(place.latitude),
+              Number(place.longitude)
             )
             const marker = new window.kakao.maps.Marker({
               position: markerPosition,
             })
             marker.setMap(map)
 
-            // 마커 클릭 이벤트
             const infoWindow = new window.kakao.maps.InfoWindow({
               content: `<div class="text-sm p-2">${place.name}</div>`,
             })

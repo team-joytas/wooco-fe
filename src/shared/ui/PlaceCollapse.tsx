@@ -62,9 +62,9 @@ export default function PlaceCollapse({
             <p className='text-headline text-brand font-semibold'>
               {place.average_rating}
             </p>
-            <StarRate rate={place.average_rating} size={10} />
+            <StarRate rate={place?.average_rating || 0} size={10} />
             <p className='text-sub opacity-50'>
-              장소 리뷰 {place.review_count}
+              장소 리뷰 {place?.review_count || 0}
             </p>
           </div>
           <div className='flex flex-col justify-center items-center gap-[5px]'>
