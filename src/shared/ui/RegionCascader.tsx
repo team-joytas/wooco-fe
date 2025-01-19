@@ -5,11 +5,15 @@ import { getSeoulData } from '@/src/entities/place/api'
 import { DefaultOptionType } from 'antd/es/cascader'
 
 interface CascaderProps {
+  firstRegion: string
+  secondRegion: string
   placeholder: string
   setRegion: (value: string[]) => void
 }
 
 export default function RegionCascader({
+  firstRegion,
+  secondRegion,
   placeholder,
   setRegion,
 }: CascaderProps) {
@@ -30,6 +34,9 @@ export default function RegionCascader({
   return (
     <Cascader
       options={options}
+      value={
+        firstRegion && secondRegion ? [firstRegion, secondRegion] : undefined
+      }
       placeholder={placeholder}
       onChange={onChange}
       size='large'

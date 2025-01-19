@@ -8,8 +8,9 @@ import SearchPlace from '@/src/views/search-place'
 import Header from '@/src/widgets/header'
 import { CoursePlaceType } from '@/src/entities/place/type'
 import type { CoursePayloadType } from '@/src/entities/course/type'
+import { updateCourse } from '@/src/entities/course/api'
+import type { CourseType } from '@/src/entities/course/type'
 import FormSections from '@/src/features/course/form-course'
-import { postCourse } from '@/src/entities/course/api'
 import { useForm } from 'react-hook-form'
 
 const LAYOUT_TYPE = {
@@ -19,16 +20,20 @@ const LAYOUT_TYPE = {
 
 type LayoutType = keyof typeof LAYOUT_TYPE
 
-interface AddCoursePlanProps {
+interface UpdateCourseProps {
+  id: string
+  data: CourseType
   type: LayoutType
 }
 
-export default function AddCoursePlan({ type }: AddCoursePlanProps) {
+export default function UpdateCourse({ id, data, type }: UpdateCourseProps) {
   const router = useRouter()
-  const [places, setPlaces] = useState<CoursePlaceType[]>([])
+  const [places, setPlaces] = useState<CoursePlaceType[]>(data.places)
   const [openSearchPlace, setOpenSearchPlace] = useState<boolean>(false)
   const [messageApi, contextHolder] = message.useMessage()
   const [isButtonClick, setIsButtonClick] = useState<boolean>(false)
+
+  const place_ids = data.places.map((place) => place.id.toString())
 
   const {
     getValues,
@@ -38,21 +43,17 @@ export default function AddCoursePlan({ type }: AddCoursePlanProps) {
     formState: { isSubmitting, errors },
   } = useForm<CoursePayloadType>({
     defaultValues: {
-      title: '',
-      primary_region: '',
-      secondary_region: '',
-      categories: [],
-      contents: '',
-      place_ids: [],
-      visit_date: '',
+      title: data.title,
+      primary_region: data.primary_region,
+      secondary_region: data.secondary_region,
+      categories: data.categories,
+      contents: data.contents,
+      place_ids: place_ids,
+      visit_date: data.visit_date,
     },
   })
 
   const pageType = type === LAYOUT_TYPE.course ? '코스' : '플랜'
-  const headerTitle =
-    type === LAYOUT_TYPE.course
-      ? '나만의 코스 작성하기'
-      : '좋아하는 장소로 채우는 나의 플랜'
 
   const toast = (type: 'success' | 'error', content: string) => {
     messageApi.open({
@@ -75,15 +76,11 @@ export default function AddCoursePlan({ type }: AddCoursePlanProps) {
         'place_ids',
         places.map((place) => place.id.toString())
       )
-      const result = await postCourse(data)
-      router.push(`/courses/${result.id}`)
+      await updateCourse(id, data)
+      router.replace(`/courses/${id}`)
     } catch (error) {
       console.error(error)
     }
-  }
-
-  const handleEditPlace = (id: number) => {
-    console.log(id)
   }
 
   const handleClickSearchPlace = () => {
@@ -101,7 +98,7 @@ export default function AddCoursePlan({ type }: AddCoursePlanProps) {
 
   return (
     <div className='relative h-100% flex flex-col'>
-      <Header title={headerTitle} isBack />
+      <Header title={data.title} isBack isBlue />
       <Spacer height={25} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormSections
@@ -109,11 +106,10 @@ export default function AddCoursePlan({ type }: AddCoursePlanProps) {
           register={register}
           places={places}
           setPlaces={setPlaces}
-          getValues={getValues}
           handleClickSearchPlace={handleClickSearchPlace}
           setValue={setValue}
+          getValues={getValues}
           errors={errors}
-          handleEditPlace={handleEditPlace}
           isButtonClick={isButtonClick}
         />
         <button
