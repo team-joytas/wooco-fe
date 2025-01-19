@@ -34,7 +34,7 @@ function Main({ favoriteRegions }: ListCourseProps) {
   }
 
   return (
-    <div className='w-full h-ull py-[20px] flex flex-col'>
+    <div className='w-full h-full py-[20px] flex flex-col'>
       <div className='flex flex-col'>
         <div className='flex flex-row justify-between items-center h-[40px] px-[20px]'>
           <div className='flex flex-col justify-start'>
