@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import DefaultHeader from '@/src/widgets/default-header'
 
 export default function Error() {
   return (

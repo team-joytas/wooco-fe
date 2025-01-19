@@ -1,9 +1,9 @@
-import { customAxios } from '@/src/shared/axios'
 import useUserStore from '@/src/shared/store/userStore'
+import { publicAxios, customAxios } from '@/src/shared/axios'
 
 export const getLoginUrl = async (): Promise<string> => {
   const url = `/auth/kakao/social-login/url`
-  const response = await customAxios.get(url)
+  const response = await publicAxios.get(url)
   return response.data.results.url
 }
 
@@ -15,7 +15,7 @@ export const postLogin = async (
     const url = `/auth/kakao/social-login`
     const body = JSON.stringify({ code })
 
-    const response = await customAxios.post(url, body)
+    const response = await publicAxios.post(url, body)
     const accessToken = response.data.results.access_token
 
     if (accessToken) {
@@ -30,9 +30,4 @@ export const postLogin = async (
     console.error(error)
     return { success: false }
   }
-}
-
-export const postLogout = async () => {
-  localStorage.removeItem('accessToken')
-  useUserStore.getState().clearUser()
 }

@@ -190,7 +190,6 @@ export default function FormSections({
   setValue,
   getValues,
   errors,
-  handleEditPlace,
   isButtonClick,
 }: {
   pageType: string
@@ -201,7 +200,6 @@ export default function FormSections({
   setValue: UseFormSetValue<CoursePayloadType>
   getValues: UseFormGetValues<CoursePayloadType>
   errors: FieldErrors<CoursePayloadType>
-  handleEditPlace?: (id: number) => void
   isButtonClick: boolean
 }) {
   return (
@@ -226,11 +224,7 @@ export default function FormSections({
           })}
         >
           {places.length > 0 && <KakaoMap places={places} id={1} />}
-          <DragPlace
-            places={places}
-            setPlaces={setPlaces}
-            onEdit={handleEditPlace}
-          />
+          <DragPlace places={places} setPlaces={setPlaces} />
           <button
             type='button'
             onClick={handleClickSearchPlace}

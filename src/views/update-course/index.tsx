@@ -8,7 +8,7 @@ import SearchPlace from '@/src/views/search-place'
 import Header from '@/src/widgets/header'
 import { CoursePlaceType } from '@/src/entities/place/type'
 import type { CoursePayloadType } from '@/src/entities/course/type'
-import { updateCourse } from '@/src/entities/course/api'
+import { useUpdateCourse } from '@/src/entities/course/query'
 import type { CourseType } from '@/src/entities/course/type'
 import FormSections from '@/src/features/course/form-course'
 import { useForm } from 'react-hook-form'
@@ -53,6 +53,8 @@ export default function UpdateCourse({ id, data, type }: UpdateCourseProps) {
     },
   })
 
+  const { mutate } = useUpdateCourse(id)
+
   const pageType = type === LAYOUT_TYPE.course ? '코스' : '플랜'
 
   const toast = (type: 'success' | 'error', content: string) => {
@@ -76,8 +78,14 @@ export default function UpdateCourse({ id, data, type }: UpdateCourseProps) {
         'place_ids',
         places.map((place) => place.id.toString())
       )
-      await updateCourse(id, data)
-      router.replace(`/courses/${id}`)
+      mutate(
+        { id, data },
+        {
+          onSuccess: () => {
+            router.replace(`/courses/${id}`)
+          },
+        }
+      )
     } catch (error) {
       console.error(error)
     }

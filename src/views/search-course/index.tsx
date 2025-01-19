@@ -1,10 +1,12 @@
+'use client'
+
 import Spacer from '@/src/shared/ui/Spacer'
 import { useState, useEffect } from 'react'
 import { ChevronLeft, Search } from 'lucide-react'
 import CardCourse from '@/src/features/course/card-course'
 import type { CourseType } from '@/src/entities/course/type'
 import SelectCategories from '@/src/shared/ui/SelectCategories'
-import { getCourses } from '@/src/entities/course/api'
+import { useGetCourses } from '@/src/entities/course/query'
 
 // TODO: 실제 데이터 및 로직 구현 필요
 export default function SearchCourse({
@@ -15,15 +17,7 @@ export default function SearchCourse({
   setIsSearch: (isSearch: boolean) => void
 }) {
   const [clickedCategory, setClickedCategory] = useState<string[]>([])
-  const [courses, setCourses] = useState<CourseType[]>([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const courses = await getCourses({ sort: 'recent' })
-      setCourses(courses)
-    }
-    fetchData()
-  }, [])
+  const { data: courses } = useGetCourses({ sort: 'recent' })
 
   useEffect(() => {
     if (isSearch) {
@@ -36,6 +30,8 @@ export default function SearchCourse({
       document.body.style.overflow = 'unset'
     }
   }, [isSearch])
+
+  if (!courses) return <div>Loading...</div>
 
   const handleCategoryClick = (categories: string[]) => {
     console.log(categories)
@@ -79,7 +75,7 @@ export default function SearchCourse({
           <Spacer height={8} className='bg-light-gray' />
           <Spacer height={22} />
           <div className='w-full px-[20px] flex flex-col gap-[15px]'>
-            {courses.map((course) => (
+            {courses?.map((course: CourseType) => (
               <CardCourse key={course.id} course={course} />
             ))}
           </div>

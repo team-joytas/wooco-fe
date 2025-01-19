@@ -11,14 +11,9 @@ import { Dispatch, SetStateAction } from 'react'
 interface DragPlaceProps {
   places: CoursePlaceType[]
   setPlaces: Dispatch<SetStateAction<CoursePlaceType[]>>
-  onEdit?: (id: number) => void
 }
 
-export default function DragPlace({
-  places,
-  setPlaces,
-  onEdit,
-}: DragPlaceProps) {
+export default function DragPlace({ places, setPlaces }: DragPlaceProps) {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
 
@@ -46,7 +41,6 @@ export default function DragPlace({
               key={place.id}
               id={place.id}
               place={place}
-              onEdit={onEdit}
               onDelete={handleDelete}
             />
           ))}

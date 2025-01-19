@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import ProfileImage from '@/src/shared/ui/ProfileImage'
 import UserTag from '@/src/features/user/user-tag'
 import ListUserPlace from '@/src/features/plan/list-user-place'
@@ -10,9 +10,8 @@ import Spacer from '@/src/shared/ui/Spacer'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import Header from '@/src/widgets/header'
 import type { PlaceType } from '@/src/entities/place/type'
-import type { CourseType } from '@/src/entities/course/type'
 import type { UserProfileType } from '@/src/entities/user/type'
-import { getUserCourses } from '@/src/entities/course/api'
+import { useGetUserCourses } from '@/src/entities/course/query'
 
 interface DetailUserProps {
   id: string
@@ -29,17 +28,9 @@ type ListType = keyof typeof LIST_TYPE
 
 export default function DetailUser({ id, user, isMe }: DetailUserProps) {
   const [type, setType] = useState<ListType>(LIST_TYPE.course)
-  const [courses, setCourses] = useState<CourseType[]>([])
   const [order, setOrder] = useState('recent')
   const places: PlaceType[] = []
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const courses = await getUserCourses(id)
-      setCourses(courses)
-    }
-    fetchData()
-  }, [])
+  const { data: courses } = useGetUserCourses(id)
 
   const onChangeOrder = (value: string) => {
     setOrder(value)
@@ -129,7 +120,7 @@ export default function DetailUser({ id, user, isMe }: DetailUserProps) {
         <>
           <Spacer height={10} />
           <Spacer height={8} className='bg-bright-gray' />
-          <ListUserCourse courses={courses} />
+          {courses && <ListUserCourse courses={courses} />}
         </>
       )}
       <Spacer height={20} />

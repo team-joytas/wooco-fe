@@ -15,10 +15,12 @@ import React from 'react'
 import setting from '@/src/assets/images/setting.png'
 import useUserStore from '@/src/shared/store/userStore'
 import {
-  deleteCourse,
-  postCourseLike,
-  deleteCourseLike,
-} from '@/src/entities/course/api'
+  useDeleteCourse,
+  useDeleteCourseLike,
+  usePostCourseLike,
+} from '@/src/entities/course/query'
+import { useQueryClient } from '@tanstack/react-query'
+import { COURSE_QUERY_KEY } from '@/src/entities/course/query'
 
 interface HeaderProps {
   title: string
@@ -116,6 +118,13 @@ export function OptionHeader({
   const [clickedLike, setClickedLike] = useState(isLiked)
   const menuRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
+  const queryClient = useQueryClient()
+
+  const { mutate: deleteCourseLike } = useDeleteCourseLike(id)
+  const { mutate: postCourseLike } = usePostCourseLike(id)
+  const { mutate: deleteCourse } = useDeleteCourse()
+
+  const myId = useUserStore((state) => state.user?.user_id)
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -136,10 +145,18 @@ export function OptionHeader({
     try {
       if (isLiked) {
         setClickedLike(false)
-        await deleteCourseLike(id)
+        deleteCourseLike(id, {
+          onSuccess: () => {
+            router.push(`/${type}s`)
+          },
+        })
       } else {
         setClickedLike(true)
-        await postCourseLike(id)
+        postCourseLike(id, {
+          onSuccess: () => {
+            router.push(`/${type}s`)
+          },
+        })
       }
     } catch (error) {
       console.error(error)
@@ -148,8 +165,16 @@ export function OptionHeader({
 
   const handleDelete = async () => {
     try {
-      await deleteCourse(id)
-      router.push(`/${type}s`)
+      if (myId) {
+        deleteCourse(id, {
+          onSuccess: () => {
+            router.push(`/${type}s`)
+            queryClient.invalidateQueries({
+              queryKey: COURSE_QUERY_KEY.userCourses(myId),
+            })
+          },
+        })
+      }
     } catch (error) {
       console.error(error)
     }

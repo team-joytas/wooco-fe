@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Header from '@/src/widgets/header'
 import { Select } from 'antd'
 import { CourseType } from '@/src/entities/course/type'
@@ -8,28 +8,23 @@ import CardListCourse from '@/src/features/course/card-list-course'
 import CardGridCourse from '@/src/features/course/card-grid-course'
 import Spacer from '@/src/shared/ui/Spacer'
 import SelectCategories from '@/src/shared/ui/SelectCategories'
-import { getCourses } from '@/src/entities/course/api'
+import { useGetCourses } from '@/src/entities/course/query'
 import { Fragment } from 'react'
 
 export default function ListCourse({ title }: { title: string }) {
   const [isListView, setIsListView] = useState(true)
-  const [courses, setCourses] = useState<CourseType[]>([])
   const [order, setOrder] = useState('recent')
+
+  const { data: courses } = useGetCourses({
+    sort: order as 'recent' | 'popular',
+    secondary_region: title,
+  })
+
+  if (!courses) return <div>Loading...</div>
 
   const onChangeOrder = (value: string) => {
     setOrder(value)
   }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const courses = await getCourses({
-        sort: order as 'recent' | 'popular',
-        secondary_region: title,
-      })
-      setCourses(courses)
-    }
-    fetchData()
-  }, [order, title])
 
   return (
     <div className='w-full h-[calc(100%-50px)] pb-[20px] flex flex-col relative overflow-y-auto'>
@@ -60,7 +55,7 @@ export default function ListCourse({ title }: { title: string }) {
 
       {isListView ? (
         <div className='flex flex-col justify-between items-center px-[10px]'>
-          {courses.map((course) => (
+          {courses?.map((course: CourseType) => (
             <Fragment key={course.id}>
               <CardListCourse course={course} />
               <Spacer height={10} className='bg-bright-gray' />
@@ -71,7 +66,7 @@ export default function ListCourse({ title }: { title: string }) {
         <>
           <Spacer height={15} />
           <div className='grid grid-cols-2 gap-[15px] px-[10px]'>
-            {courses.map((course) => (
+            {courses?.map((course: CourseType) => (
               <CardGridCourse key={course.id} course={course} />
             ))}
           </div>

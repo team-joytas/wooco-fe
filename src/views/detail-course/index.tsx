@@ -5,21 +5,19 @@ import ProfileImage from '@/src/shared/ui/ProfileImage'
 import Spacer from '@/src/shared/ui/Spacer'
 import CardComment from '@/src/features/comment/card-comment'
 import CoursePlanLayout from '@/src/widgets/course-plan-layout'
-import type { CourseType } from '@/src/entities/course/type'
-import type { CommentType } from '@/src/entities/comment/type'
 import { passFromCreate } from '@/src/shared/utils/date'
+import { useGetCourse } from '@/src/entities/course/query'
+import { useGetComments } from '@/src/entities/comment/query'
 
 interface DetailCourseProps {
   courseId: string
-  course: CourseType | null
-  comments: CommentType[] | null
 }
 
-export default function DetailCourse({
-  courseId,
-  course,
-  comments,
-}: DetailCourseProps) {
+export default function DetailCourse({ courseId }: DetailCourseProps) {
+  const { data: course } = useGetCourse(courseId)
+  const { data: comments } = useGetComments(courseId)
+  if (!course) return <div>Loading...</div>
+
   return (
     <CoursePlanLayout type='course' id={courseId} data={course}>
       <section className='w-full px-[20px] py-[10px] text-white bg-brand'>

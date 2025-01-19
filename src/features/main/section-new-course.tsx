@@ -3,20 +3,13 @@
 import Link from 'next/link'
 import CardCourse from '@/src/features/course/card-course'
 import Spacer from '@/src/shared/ui/Spacer'
-import { getCourses } from '@/src/entities/course/api'
-import { useEffect, useState } from 'react'
+import { useGetCourses } from '@/src/entities/course/query'
 import type { CourseType } from '@/src/entities/course/type'
 
 export default function SectionNewCourse() {
-  const [courses, setCourses] = useState<CourseType[]>([])
+  const { data: courses } = useGetCourses({ sort: 'recent', limit: 4 })
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const courses = await getCourses({ sort: 'recent', limit: 4 })
-      setCourses(courses)
-    }
-    fetchData()
-  }, [])
+  if (!courses) return <div>Loading...</div>
 
   return (
     <section className='w-full h-fit px-[20px] py-[22px]'>
@@ -31,7 +24,7 @@ export default function SectionNewCourse() {
       </div>
       <Spacer height={22} />
       <div className='flex flex-col gap-[15px]'>
-        {courses.map((course) => (
+        {courses?.map((course: CourseType) => (
           <CardCourse key={course.id} course={course} />
         ))}
       </div>
