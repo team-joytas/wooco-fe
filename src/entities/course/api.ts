@@ -1005,7 +1005,7 @@ export const getCourse = async (id: string): Promise<CourseType> => {
 export const getCourses = async ({
   sort = 'recent',
   limit,
-  primary_region = '서울',
+  primary_region,
   secondary_region,
 }: {
   sort?: 'recent' | 'popular'
