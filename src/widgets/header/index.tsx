@@ -14,13 +14,18 @@ import Image from 'next/image'
 import React from 'react'
 import setting from '@/src/assets/images/setting.png'
 import useUserStore from '@/src/shared/store/userStore'
-import { deleteCourse } from '@/src/entities/course/api'
+import {
+  deleteCourse,
+  postCourseLike,
+  deleteCourseLike,
+} from '@/src/entities/course/api'
 
 interface HeaderProps {
   title: string
   isBack?: boolean
   isTitleTag?: boolean
   isOnBoarding?: boolean
+  isBlue?: boolean
   close?: () => void
   isListView?: boolean
   setIsListView?: (isListView: boolean) => void
@@ -29,7 +34,7 @@ interface HeaderProps {
 interface OptionHeaderProps {
   title: string
   type: 'course' | 'plan'
-  id: number
+  id: string
   isMine: boolean
   showLike: boolean
   isLiked: boolean
@@ -127,7 +132,19 @@ export function OptionHeader({
 
   const handleClickBack = () => router.push(`/${type}s`)
   const handleClickOption = () => setIsOpen(!isOpen)
-  const handleClickLike = () => setClickedLike(!clickedLike)
+  const handleClickLike = async () => {
+    try {
+      if (isLiked) {
+        setClickedLike(false)
+        await deleteCourseLike(id)
+      } else {
+        setClickedLike(true)
+        await postCourseLike(id)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   const handleDelete = async () => {
     try {
@@ -177,7 +194,7 @@ interface OptionMenuProps {
   onToggle: () => void
   isMine: boolean
   type: string
-  id: number
+  id: string
   handleDelete: () => void
 }
 
@@ -227,6 +244,7 @@ export default function Header({
   isListView,
   setIsListView,
   isOnBoarding,
+  isBlue,
   close,
 }: HeaderProps) {
   const path = usePathname()
@@ -269,7 +287,15 @@ export default function Header({
           ) : (
             <div className='w-[24px] h-[24px]' />
           )}
-          <p className='font-semibold text-[17px]'>{title}</p>
+          <p
+            className={`font-semibold ${
+              isBlue
+                ? 'text-white px-[20px] text-[13px] py-[8px] rounded-[20px] bg-container-blue'
+                : 'text-black text-[17px]'
+            }`}
+          >
+            {title}
+          </p>
         </>
       )}
       {isUpdateUser && !notMe ? (

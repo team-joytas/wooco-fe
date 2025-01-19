@@ -42,7 +42,7 @@ export type UpdateUserType = {
 }
 
 export type WriterType = {
-  id: number
+  id: string
   name: string
   profile_url: string
 }

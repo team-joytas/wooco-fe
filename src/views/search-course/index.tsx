@@ -19,7 +19,7 @@ export default function SearchCourse({
 
   useEffect(() => {
     const fetchData = async () => {
-      const courses = await getCourses()
+      const courses = await getCourses({ sort: 'recent' })
       setCourses(courses)
     }
     fetchData()

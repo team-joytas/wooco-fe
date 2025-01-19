@@ -4,12 +4,14 @@ import { CATEGORY } from '@/src/entities/category/type'
 export default function SelectCategories({
   isList,
   setCategories,
+  prevCategories,
 }: {
   isList?: boolean
   setCategories?: (categories: string[]) => void
+  prevCategories?: string[]
 }) {
   const [clickedCategory, setClickedCategory] = useState<string[]>(() =>
-    isList ? ['ALL'] : []
+    isList ? ['ALL'] : prevCategories || []
   )
   const ALL_CATEGORY_ID = 'ALL'
   const categoriesWithAll = [

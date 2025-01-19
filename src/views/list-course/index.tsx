@@ -6,25 +6,35 @@ import Spacer from '@/src/shared/ui/Spacer'
 import CourseList from '@/src/widgets/list-course'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Fragment, Suspense } from 'react'
+import { Fragment, Suspense, useEffect, useState } from 'react'
+import { getCourses } from '@/src/entities/course/api'
 
 interface ListCourseProps {
-  trendingCourses: CourseType[]
   favoriteRegions: FavoriteRegionType[]
-  courses: CourseType[]
 }
 
-function Main({ trendingCourses, favoriteRegions, courses }: ListCourseProps) {
+function Main({ favoriteRegions }: ListCourseProps) {
   const searchParams = useSearchParams()
   const location = searchParams.get('location') as string
   const router = useRouter()
 
+  const [trendingCourses, setTrendingCourses] = useState<CourseType[]>([])
+
+  useEffect(() => {
+    const fetchPopularData = async () => {
+      const courses = await getCourses({ sort: 'popular', limit: 5 })
+      setTrendingCourses(courses)
+    }
+
+    fetchPopularData()
+  }, [])
+
   if (location) {
-    return <CourseList title={location} courses={courses} />
+    return <CourseList title={location} />
   }
 
   return (
-    <div className='w-full h-[calc(100%-50px)] py-[20px] flex flex-col'>
+    <div className='w-full h-full py-[20px] flex flex-col'>
       <div className='flex flex-col'>
         <div className='flex flex-row justify-between items-center h-[40px] px-[20px]'>
           <div className='flex flex-col justify-start'>
@@ -62,19 +72,14 @@ function Main({ trendingCourses, favoriteRegions, courses }: ListCourseProps) {
       <Spacer className='bg-bright-gray' height={8} />
 
       <div className='flex flex-col w-full px-[20px]'>
-        <div className='flex flex-row justify-between items-center h-[40px] my-[20px]'>
-          <div className='flex flex-col justify-start'>
-            <span className='text-headline font-bold text-brand'>
-              실시간 인기
-            </span>
-            <span className='text-description text-[10px]'>
-              실시간 인기 코스를 확인해요
-            </span>
-          </div>
-
-          <button className='border-none'>더보기</button>
+        <div className='flex flex-col mt-[15px] justify-start'>
+          <span className='text-headline font-bold text-brand'>
+            실시간 인기
+          </span>
+          <span className='text-description text-[10px]'>
+            실시간 인기 코스를 확인해요
+          </span>
         </div>
-
         <div className='flex flex-col items-center gap-[12px]'>
           {trendingCourses.slice(0, 5).map((course) => (
             <Fragment key={course.id}>
@@ -89,18 +94,10 @@ function Main({ trendingCourses, favoriteRegions, courses }: ListCourseProps) {
   )
 }
 
-export default function ListCourse({
-  trendingCourses,
-  favoriteRegions,
-  courses,
-}: ListCourseProps) {
+export default function ListCourse({ favoriteRegions }: ListCourseProps) {
   return (
     <Suspense>
-      <Main
-        trendingCourses={trendingCourses}
-        favoriteRegions={favoriteRegions}
-        courses={courses}
-      />
+      <Main favoriteRegions={favoriteRegions} />
     </Suspense>
   )
 }

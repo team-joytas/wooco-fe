@@ -73,7 +73,7 @@ function UserLikeCourse({ id }: { id: string }) {
   useEffect(() => {
     const fetchLikeCourse = async () => {
       try {
-        const likeCourse = await getMyLikeCourse(id)
+        const likeCourse = await getMyLikeCourse({ id, limit: 4 })
         setLikeCourse(likeCourse)
       } catch (error) {
         console.error(error)

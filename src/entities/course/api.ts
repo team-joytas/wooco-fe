@@ -992,7 +992,7 @@ export const getTrendingCourses = async () => {
   return trendingCourses
 }
 
-export const getCourse = async (id: number): Promise<CourseType> => {
+export const getCourse = async (id: string): Promise<CourseType> => {
   try {
     const response = await customAxios.get(`/courses/${id}`)
     return response.data.results
@@ -1002,11 +1002,24 @@ export const getCourse = async (id: number): Promise<CourseType> => {
   }
 }
 
-export const getCourses = async (limit?: number) => {
+export const getCourses = async ({
+  sort = 'recent',
+  limit,
+  primary_region,
+  secondary_region,
+}: {
+  sort?: 'recent' | 'popular'
+  limit?: number
+  primary_region?: string
+  secondary_region?: string
+}) => {
   try {
     const response = await customAxios.get('/courses', {
       params: {
+        sort,
         limit,
+        primary_region,
+        secondary_region,
       },
     })
     return response.data.results
@@ -1036,7 +1049,7 @@ export const postCourse = async (coursePayload: CoursePayloadType) => {
   }
 }
 
-export const deleteCourse = async (id: number) => {
+export const deleteCourse = async (id: string) => {
   try {
     const response = await customAxios.delete(`/courses/${id}`)
     return response.data.results
@@ -1046,9 +1059,52 @@ export const deleteCourse = async (id: number) => {
   }
 }
 
-export const getMyLikeCourse = async (id: string) => {
+export const getMyLikeCourse = async ({
+  id,
+  limit,
+}: {
+  id: string
+  limit?: number
+}) => {
   try {
-    const response = await customAxios.get(`/courses/users/${id}/like`)
+    const response = await customAxios.get(`/courses/users/${id}/like`, {
+      params: {
+        limit,
+      },
+    })
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const updateCourse = async (
+  id: string,
+  coursePayload: CoursePayloadType
+) => {
+  try {
+    const response = await customAxios.patch(`/courses/${id}`, coursePayload)
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const postCourseLike = async (id: string) => {
+  try {
+    const response = await customAxios.post(`/courses/${id}/like`)
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const deleteCourseLike = async (id: string) => {
+  try {
+    const response = await customAxios.delete(`/courses/${id}/like`)
     return response.data.results
   } catch (error) {
     console.error(error)

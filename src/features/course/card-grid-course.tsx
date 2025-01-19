@@ -3,16 +3,17 @@ import Image from 'next/image'
 import ProfileImage from '@/src/shared/ui/ProfileImage'
 import { Heart, MessageSquare } from 'lucide-react'
 import { CourseType } from '@/src/entities/course/type'
+import logo from '@/src/assets/images/(logo)/logo.png'
 
 export default function CardGridCourse({ course }: { course: CourseType }) {
   return (
     <Link
-      href={'/courses/1'}
-      className='w-[164px] h-[230px] flex flex-col gap-[10px] rounded-[10px] bg-white drop-shadow-[0_0_4px_rgba(0,0,0,0.15)]'
+      href={`/courses/${course.id}`}
+      className='w-[164px] h-[220px] flex flex-col gap-[10px] rounded-[10px] bg-white drop-shadow-[0_0_4px_rgba(0,0,0,0.15)]'
     >
       <div>
         <Image
-          src={course.places[0].thumbnail_url || ''}
+          src={course.places[0].thumbnail_url || logo}
           width={207}
           height={100}
           className='h-[100px] bg-light-gray rounded-tr-[10px] rounded-tl-[10px] object-cover'

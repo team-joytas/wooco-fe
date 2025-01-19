@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Header from '@/src/widgets/header'
 import { Select } from 'antd'
 import { CourseType } from '@/src/entities/course/type'
@@ -8,20 +8,28 @@ import CardListCourse from '@/src/features/course/card-list-course'
 import CardGridCourse from '@/src/features/course/card-grid-course'
 import Spacer from '@/src/shared/ui/Spacer'
 import SelectCategories from '@/src/shared/ui/SelectCategories'
+import { getCourses } from '@/src/entities/course/api'
 import { Fragment } from 'react'
-export default function ListCourse({
-  title,
-  courses,
-}: {
-  title: string
-  courses: CourseType[]
-}) {
+
+export default function ListCourse({ title }: { title: string }) {
   const [isListView, setIsListView] = useState(true)
+  const [courses, setCourses] = useState<CourseType[]>([])
   const [order, setOrder] = useState('recent')
 
   const onChangeOrder = (value: string) => {
     setOrder(value)
   }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const courses = await getCourses({
+        sort: order as 'recent' | 'popular',
+        secondary_region: title,
+      })
+      setCourses(courses)
+    }
+    fetchData()
+  }, [order, title])
 
   return (
     <div className='w-full h-[calc(100%-50px)] pb-[20px] flex flex-col relative overflow-y-auto'>

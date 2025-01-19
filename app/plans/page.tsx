@@ -14,7 +14,7 @@ export default function Page() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const courses = await getCourses()
+      const courses = await getCourses({ sort: 'recent' })
       const user = await getUser('1')
       setCourses(courses)
       setUser(user)
