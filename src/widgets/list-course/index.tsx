@@ -23,7 +23,7 @@ export default function ListCourse({ title }: { title: string }) {
   useEffect(() => {
     const fetchData = async () => {
       const courses = await getCourses({
-        sort: order || 'recent',
+        sort: order as 'recent' | 'popular',
         secondary_region: title,
       })
       setCourses(courses)

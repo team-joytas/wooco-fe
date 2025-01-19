@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form'
 import { postComment } from '@/src/entities/comment/api'
 
 interface DetailCommentProps {
-  courseId: number
+  courseId: string
   comments: CommentType[]
 }
 

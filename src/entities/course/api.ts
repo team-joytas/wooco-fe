@@ -1008,7 +1008,7 @@ export const getCourses = async ({
   primary_region = '서울',
   secondary_region,
 }: {
-  sort?: string
+  sort?: 'recent' | 'popular'
   limit?: number
   primary_region?: string
   secondary_region?: string

@@ -12,7 +12,7 @@ export const getComments = async (id: string): Promise<CommentType[]> => {
 }
 
 export const postComment = async (
-  courseId: number,
+  courseId: string,
   contents: string
 ): Promise<CommentType> => {
   try {
