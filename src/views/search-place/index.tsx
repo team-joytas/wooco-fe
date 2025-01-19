@@ -99,11 +99,17 @@ export default function SearchPlace({
                     className='text-[12px] border-blue-100 rounded-[5px] border-[1px] flex flex-col w-full gap-[5px] px-[15px] py-[8px] cursor-pointer'
                     onClick={() => selectPlace(result)}
                   >
-                    <span className='text-[13px] font-bold'>
+                    <span className='text-[13px] font-bold flex gap-[10px] items-center'>
                       {result.place_name}
+                      <span className='text-[9px] font-light'>
+                        {result.category_group_name}
+                      </span>
                     </span>
                     <span className='text-[10px] text-gray-600'>
                       {result.address_name}
+                    </span>
+                    <span className='text-[10px] text-gray-600'>
+                      {result.road_address_name}
                     </span>
                   </div>
                 )

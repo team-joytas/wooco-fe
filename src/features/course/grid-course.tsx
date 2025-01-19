@@ -16,7 +16,7 @@ export default function GridCourse({ course }: { course: CourseType }) {
           src={course.places[0].thumbnail_url || logo}
           width={207}
           height={100}
-          className='bg-light-gray rounded-tr-[10px] rounded-tl-[10px]'
+          className='bg-light-gray rounded-tr-[10px] w-[207px] h-[100px] object-cover rounded-tl-[10px]'
           alt='course-image'
         />
         <div className='absolute top-[85px] left-[10px] w-[27px] h-[27px] bg-gradient-to-r from-[#9997F2] to-[#4341EA] p-[1px] rounded-[50%]'>
@@ -39,7 +39,7 @@ export default function GridCourse({ course }: { course: CourseType }) {
           {course.contents}
         </span>
       </div>
-      <div className='flex items-center gap-[4px] px-[10px]'>
+      <div className='flex items-center gap-[10px] px-[10px]'>
         <div className='flex items-center gap-[4px]'>
           <Heart fill='#5A59F2' stroke='#5A59F2' size={20} />
           <span>{course.likes}</span>
