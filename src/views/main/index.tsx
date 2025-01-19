@@ -3,6 +3,7 @@ import SectionNewCourse from '@/src/features/main/section-new-course'
 import SectionLikeCourse from '@/src/features/main/section-like-course'
 import Spacer from '@/src/shared/ui/Spacer'
 import SectionBottom from '@/src/features/main/section-bottom'
+import SectionAnnouncement from '@/src/features/main/section-announcement'
 
 export default function Main() {
   return (
@@ -11,6 +12,8 @@ export default function Main() {
       <SectionNewCourse />
       <Spacer className='bg-light-gray' height={8} />
       <SectionLikeCourse />
+      <SectionBanner.News />
+      <SectionAnnouncement />
       <SectionBottom />
     </div>
   )

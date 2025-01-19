@@ -12,7 +12,7 @@ export default function SectionNewCourse() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const courses = await getCourses()
+      const courses = await getCourses(5)
       setCourses(courses)
     }
     fetchData()
@@ -27,7 +27,7 @@ export default function SectionNewCourse() {
             이번 주 새로운 공유된 코스들을 구경하고 저장해보세요
           </span>
         </div>
-        <Link href='/notices'>더보기</Link>
+        <Link href='/courses'>더보기</Link>
       </div>
       <Spacer height={22} />
       <div className='flex flex-col gap-[15px]'>
