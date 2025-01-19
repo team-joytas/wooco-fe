@@ -10,7 +10,7 @@ import type { CommentType } from '@/src/entities/comment/type'
 import { passFromCreate } from '@/src/shared/utils/date'
 
 interface DetailCourseProps {
-  courseId: number
+  courseId: string
   course: CourseType | null
   comments: CommentType[] | null
 }

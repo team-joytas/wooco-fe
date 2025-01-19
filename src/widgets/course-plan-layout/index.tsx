@@ -15,7 +15,7 @@ type CoursePlanType = keyof typeof COURSE_PLAN
 
 interface CoursePlanLayoutProps {
   type: CoursePlanType
-  id: number
+  id: string
   children: React.ReactNode
   data: CourseType | null
 }

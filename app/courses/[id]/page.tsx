@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react'
 import type { CourseType } from '@/src/entities/course/type'
 import type { CommentType } from '@/src/entities/comment/type'
 
-export default function Page({ params }: { params: { id: number } }) {
+export default function Page({ params }: { params: { id: string } }) {
   const [course, setCourse] = useState<CourseType | null>(null)
   const [comments, setComments] = useState<CommentType[] | null>(null)
 

@@ -12,7 +12,7 @@ export default function SectionNewCourse() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const courses = await getCourses(5)
+      const courses = await getCourses({ sort: 'recent', limit: 4 })
       setCourses(courses)
     }
     fetchData()
