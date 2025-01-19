@@ -23,6 +23,7 @@ export const postLogin = async (
       const me = await customAxios.get('/users/me')
       const onBoarding = me.data.results.onboarding
 
+      useUserStore.getState().setUser(me.data.results)
       return { success: true, onBoarding, userId: me.data.results.user_id }
     } else return { success: false }
   } catch (error) {
