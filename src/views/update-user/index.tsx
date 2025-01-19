@@ -4,21 +4,20 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import Spacer from '@/src/shared/ui/Spacer'
 import Header from '@/src/widgets/header'
-import { getMyProfile } from '@/src/entities/user/api'
-import type { UserProfileType } from '@/src/entities/user/type'
-import { updateUser } from '@/src/entities/user/api'
 import UploadProfileImage from '@/src/features/user/upload-profile-image'
 import { useForm } from 'react-hook-form'
-import { postLogout } from '@/src/entities/login/api'
 import useUserStore from '@/src/shared/store/userStore'
+import { useGetMyProfile, useUpdateUser } from '@/src/entities/user/query'
 
 export default function UpdateUser() {
   const router = useRouter()
   const [imageUrl, setImageUrl] = useState('')
-  const [profile, setProfile] = useState<UserProfileType>()
   const [isOnBoarding, setIsOnBoarding] = useState(false)
 
   const updateStateUser = useUserStore((state) => state.updateStateUser)
+  const { mutate: updateUser } = useUpdateUser()
+
+  const { data: profile } = useGetMyProfile()
 
   const {
     register,
@@ -27,23 +26,20 @@ export default function UpdateUser() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      nickname: '',
-      description: '',
-      profile_url: '',
+      nickname: profile?.name || '',
+      description: profile?.description || '',
+      profile_url: profile?.profile_url || '',
     },
   })
 
   useEffect(() => {
-    const fetchMyProfile = async () => {
-      const profile = await getMyProfile()
-      setProfile(profile)
+    if (profile) {
       setImageUrl(profile.profile_url)
       setIsOnBoarding(profile.on_boarding)
       setValue('nickname', profile.name)
       setValue('description', profile.description || '')
       setValue('profile_url', profile.profile_url)
     }
-    fetchMyProfile()
   }, [setValue])
 
   const validateNickname = (value: string) => {
@@ -84,20 +80,29 @@ export default function UpdateUser() {
     description: string
     profile_url: string
   }) => {
-    const isSuccess = await updateUser({
-      name: data.nickname,
-      description: data.description,
-      profile_url: data.profile_url,
-    })
-
-    if (isSuccess) {
-      updateStateUser({
+    updateUser(
+      {
         name: data.nickname,
         description: data.description,
         profile_url: data.profile_url,
-      })
-      router.push(`/users/${profile?.user_id}`)
-    }
+      },
+      {
+        onSuccess: () => {
+          updateStateUser({
+            name: data.nickname,
+            description: data.description,
+            profile_url: data.profile_url,
+          })
+          router.push(`/users/${profile?.user_id}`)
+        },
+      }
+    )
+  }
+
+  const handleLogout = async () => {
+    localStorage.removeItem('accessToken')
+    useUserStore.getState().clearUser()
+    router.push('/login')
   }
 
   return (
@@ -161,7 +166,7 @@ export default function UpdateUser() {
           {!isOnBoarding && (
             <div className='fixed bottom-[70px] flex items-center mt-[20px] text-[10px] text-gray-500 underline gap-[10px]'>
               <button className='cursor-pointer'>회원탈퇴</button>|
-              <button className='cursor-pointer' onClick={postLogout}>
+              <button className='cursor-pointer' onClick={handleLogout}>
                 로그아웃
               </button>
             </div>

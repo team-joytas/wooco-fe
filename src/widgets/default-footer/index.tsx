@@ -7,9 +7,11 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Home, SquareChartGantt, UserRound } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { getMyProfile } from '@/src/entities/user/api'
+import { useGetMyProfile } from '@/src/entities/user/query'
 
 export default function DefaultFooter() {
+  const { data: user } = useGetMyProfile()
+
   const path = usePathname()
   const router = useRouter()
   const isHome = path === '/'
@@ -23,8 +25,11 @@ export default function DefaultFooter() {
 
   const handleClickMyPage = async () => {
     try {
-      const me = await getMyProfile()
-      router.push(`/users/${me.user_id}`)
+      if (user) {
+        router.push(`/users/${user?.user_id}`)
+      } else {
+        router.push('/login')
+      }
     } catch {
       router.push('/login')
     }

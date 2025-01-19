@@ -3,11 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Input } from 'antd'
 import Spacer from '@/src/shared/ui/Spacer'
-import {
-  CoursePlaceType,
-  PlaceSearchType,
-  PlaceType,
-} from '@/src/entities/place/type'
+import { CoursePlaceType, PlaceSearchType } from '@/src/entities/place/type'
 import { Dispatch, SetStateAction } from 'react'
 import Header from '@/src/widgets/header'
 import { postPlace } from '@/src/entities/place/api'

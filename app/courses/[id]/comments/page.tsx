@@ -1,20 +1,12 @@
 'use client'
 
 import PageListComment from '@/src/views/detail-comment'
-import { getComments } from '@/src/entities/comment/api'
-import { useEffect, useState } from 'react'
-import { CommentType } from '@/src/entities/comment/type'
+import { useGetComments } from '@/src/entities/comment/query'
 
 export default function Page({ params }: { params: { id: string } }) {
-  const [comments, setComments] = useState<CommentType[]>([])
+  const { data: comments } = useGetComments(params.id)
 
-  useEffect(() => {
-    const fetchComments = async () => {
-      const comments = await getComments(params.id)
-      setComments(comments)
-    }
-    fetchComments()
-  }, [])
+  if (!comments) return <div>Loading...</div>
 
   return <PageListComment courseId={params.id} comments={comments} />
 }

@@ -17,3 +17,11 @@ customAxios.interceptors.request.use((config) => {
   if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`
   return config
 })
+
+export const publicAxios: AxiosInstance = axios.create({
+  baseURL: `${SERVER_URL}/api/v1`,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true,
+})

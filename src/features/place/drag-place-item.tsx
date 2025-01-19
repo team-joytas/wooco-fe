@@ -6,24 +6,16 @@ import { AlignJustify, X, Image } from 'lucide-react'
 interface DragPlaceItemProps {
   id: number
   place: CoursePlaceType
-  onEdit?: (id: number) => void
   onDelete: (id: number) => void
 }
 
 export default function DragPlaceItem({
   id,
   place,
-  onEdit,
   onDelete,
 }: DragPlaceItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id })
-
-  const handleEdit = (id: number) => {
-    if (onEdit) {
-      onEdit(id)
-    }
-  }
 
   return (
     <div
@@ -40,7 +32,7 @@ export default function DragPlaceItem({
         </div>
         <span className='text-[13px]'>{place.name}</span>
       </div>
-      {onEdit && (
+      {onDelete && (
         <X
           size={20}
           onClick={() => onDelete(place.id)}

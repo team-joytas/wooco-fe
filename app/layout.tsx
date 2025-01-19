@@ -25,7 +25,7 @@ const pretendard = localFont({
 
 const theme = {
   token: {
-    borderRadius: 20,
+    borderRadius: 10,
     colorPrimary: '#5A59F2',
     colorBgContainer: '#F7F7F7',
     colorBorder: '#ffffff',
@@ -52,8 +52,8 @@ export default function RootLayout({
               </div>
             </AnimatePresence>
           </ConfigProvider>
+          <DefaultFooter />
         </ReactQueryProvider>
-        <DefaultFooter />
       </body>
     </html>
   )

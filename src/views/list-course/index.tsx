@@ -6,8 +6,8 @@ import Spacer from '@/src/shared/ui/Spacer'
 import CourseList from '@/src/widgets/list-course'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Fragment, Suspense, useEffect, useState } from 'react'
-import { getCourses } from '@/src/entities/course/api'
+import { Fragment, Suspense } from 'react'
+import { useGetCourses } from '@/src/entities/course/query'
 
 interface ListCourseProps {
   favoriteRegions: FavoriteRegionType[]
@@ -17,17 +17,9 @@ function Main({ favoriteRegions }: ListCourseProps) {
   const searchParams = useSearchParams()
   const location = searchParams.get('location') as string
   const router = useRouter()
+  const { data: courses } = useGetCourses({ sort: 'popular' })
 
-  const [trendingCourses, setTrendingCourses] = useState<CourseType[]>([])
-
-  useEffect(() => {
-    const fetchPopularData = async () => {
-      const courses = await getCourses({ sort: 'popular', limit: 5 })
-      setTrendingCourses(courses)
-    }
-
-    fetchPopularData()
-  }, [])
+  if (!courses) return <div>Loading...</div>
 
   if (location) {
     return <CourseList title={location} />
@@ -81,7 +73,7 @@ function Main({ favoriteRegions }: ListCourseProps) {
           </span>
         </div>
         <div className='flex flex-col items-center gap-[12px]'>
-          {trendingCourses.slice(0, 5).map((course) => (
+          {courses.slice(0, 5).map((course: CourseType) => (
             <Fragment key={course.id}>
               <CardCourseList course={course} />
               <Spacer className='bg-bright-gray' height={8} />

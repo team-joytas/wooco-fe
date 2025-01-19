@@ -3,27 +3,13 @@
 import Link from 'next/link'
 import Spacer from '@/src/shared/ui/Spacer'
 import GridCourse from '@/src/features/course/grid-course'
-import { getMyProfile } from '@/src/entities/user/api'
-import { useEffect, useState } from 'react'
 import { CourseType } from '@/src/entities/course/type'
-import { getMyLikeCourse } from '@/src/entities/course/api'
-import type { UserProfileType } from '@/src/entities/user/type'
 import NoLikedCourse from '@/src/shared/ui/NoLikedCourse'
+import { useGetMyProfile } from '@/src/entities/user/query'
+import { useGetMyLikeCourse } from '@/src/entities/course/query'
 
 export default function SectionLikeCourse() {
-  const [user, setUser] = useState<UserProfileType | null>()
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const me = await getMyProfile()
-        setUser(me)
-      } catch {
-        setUser(null)
-      }
-    }
-    fetchUser()
-  }, [])
+  const { data: user } = useGetMyProfile()
 
   if (!user)
     return (
@@ -68,25 +54,14 @@ export default function SectionLikeCourse() {
 }
 
 function UserLikeCourse({ id }: { id: string }) {
-  const [likeCourse, setLikeCourse] = useState<CourseType[]>([])
+  const { data: likeCourse } = useGetMyLikeCourse({ id, limit: 4 })
 
-  useEffect(() => {
-    const fetchLikeCourse = async () => {
-      try {
-        const likeCourse = await getMyLikeCourse({ id, limit: 4 })
-        setLikeCourse(likeCourse)
-      } catch (error) {
-        console.error(error)
-      }
-    }
-    fetchLikeCourse()
-  }, [])
+  if (!likeCourse || likeCourse.length === 0) return <NoLikedCourse />
 
-  if (likeCourse.length === 0) return <NoLikedCourse />
   return (
     <div className='w-full h-fit overflow-x-auto scrollbar-hide py-[10px] px-[20px]'>
       <div className='w-fit flex gap-[22px]'>
-        {likeCourse.map((course) => (
+        {likeCourse?.map((course: CourseType) => (
           <GridCourse key={course.id} course={course} />
         ))}
       </div>

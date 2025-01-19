@@ -9,8 +9,8 @@ import Header from '@/src/widgets/header'
 import { CoursePlaceType } from '@/src/entities/place/type'
 import type { CoursePayloadType } from '@/src/entities/course/type'
 import FormSections from '@/src/features/course/form-course'
-import { postCourse } from '@/src/entities/course/api'
 import { useForm } from 'react-hook-form'
+import { useCreateCourse } from '@/src/entities/course/query'
 
 const LAYOUT_TYPE = {
   course: 'course' as const,
@@ -48,6 +48,8 @@ export default function AddCoursePlan({ type }: AddCoursePlanProps) {
     },
   })
 
+  const { mutate } = useCreateCourse()
+
   const pageType = type === LAYOUT_TYPE.course ? '코스' : '플랜'
   const headerTitle =
     type === LAYOUT_TYPE.course
@@ -75,8 +77,14 @@ export default function AddCoursePlan({ type }: AddCoursePlanProps) {
         'place_ids',
         places.map((place) => place.id.toString())
       )
-      const result = await postCourse(data)
-      router.push(`/courses/${result.id}`)
+      if (getValues('categories').length == 0) {
+        return
+      }
+      mutate(data, {
+        onSuccess: (result) => {
+          router.push(`/courses/${result.id}`)
+        },
+      })
     } catch (error) {
       console.error(error)
     }
@@ -113,7 +121,6 @@ export default function AddCoursePlan({ type }: AddCoursePlanProps) {
           handleClickSearchPlace={handleClickSearchPlace}
           setValue={setValue}
           errors={errors}
-          handleEditPlace={handleEditPlace}
           isButtonClick={isButtonClick}
         />
         <button

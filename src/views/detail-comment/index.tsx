@@ -6,7 +6,7 @@ import Spacer from '@/src/shared/ui/Spacer'
 import CommentItem from '@/src/features/comment/card-comment'
 import type { CommentType } from '@/src/entities/comment/type'
 import { useForm } from 'react-hook-form'
-import { postComment } from '@/src/entities/comment/api'
+import { useCreateComment } from '@/src/entities/comment/query'
 
 interface DetailCommentProps {
   courseId: string
@@ -18,7 +18,7 @@ export default function DetailComment({
   comments,
 }: DetailCommentProps) {
   const router = useRouter()
-
+  const { mutate } = useCreateComment()
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       contents: '',
@@ -27,10 +27,14 @@ export default function DetailComment({
 
   const onSubmit = async (data: { contents: string }) => {
     try {
-      await postComment(courseId, data.contents)
-      reset()
-
-      // TODO: 댓글 작성 후 댓글 목록 업데이트 -> react query 사용
+      mutate(
+        { id: courseId, contents: data.contents },
+        {
+          onSuccess: () => {
+            reset()
+          },
+        }
+      )
     } catch (error) {
       console.error(error)
     }
