@@ -5,13 +5,13 @@ import { Copy } from 'lucide-react'
 import allReview from '@/src/assets/images/all_review.png'
 import kakaoReview from '@/src/assets/images/kakao_review.png'
 import StarRate from '@/src/shared/ui/StarRate'
-import type { CoursePlaceType } from '@/src/entities/place/type'
+import type { CoursePlanPlaceType } from '@/src/entities/place/type'
 import { message } from 'antd'
 
 export default function PlaceCollapse({
   places,
 }: {
-  places: CoursePlaceType[]
+  places: CoursePlanPlaceType[]
 }) {
   const [messageApi, contextHolder] = message.useMessage()
 

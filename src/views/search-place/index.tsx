@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Input } from 'antd'
 import Spacer from '@/src/shared/ui/Spacer'
-import { CoursePlaceType, PlaceSearchType } from '@/src/entities/place/type'
+import { CoursePlanPlaceType, PlaceSearchType } from '@/src/entities/place/type'
 import { Dispatch, SetStateAction } from 'react'
 import Header from '@/src/widgets/header'
 import { postPlace } from '@/src/entities/place/api'
@@ -17,7 +17,7 @@ type MetaType = {
 interface SearchPlaceProps {
   region: string
   setOpenSearchPlace: (open: boolean) => void
-  setPlaces: Dispatch<SetStateAction<CoursePlaceType[]>>
+  setPlaces: Dispatch<SetStateAction<CoursePlanPlaceType[]>>
 }
 
 export default function SearchPlace({
@@ -55,14 +55,14 @@ export default function SearchPlace({
   const selectPlace = async (place: PlaceSearchType) => {
     setOpenSearchPlace(false)
     const placeId = await postPlace(place)
-    const placePayload: CoursePlaceType = {
+    const placePayload: CoursePlanPlaceType = {
       id: placeId.results.id,
       order: 0,
       name: place.place_name,
       latitude: place.y,
       longitude: place.x,
       address: place.address_name,
-      kakao_map_place_id: Number(place.id),
+      kakao_map_place_id: place.id,
       thumbnail_url: '',
     }
     setPlaces((prevPlaces) => [...prevPlaces, placePayload])

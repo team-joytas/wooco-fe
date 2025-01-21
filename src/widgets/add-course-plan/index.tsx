@@ -6,7 +6,7 @@ import { message } from 'antd'
 import Spacer from '@/src/shared/ui/Spacer'
 import SearchPlace from '@/src/views/search-place'
 import Header from '@/src/widgets/header'
-import { CoursePlaceType } from '@/src/entities/place/type'
+import { CoursePlanPlaceType } from '@/src/entities/place/type'
 import type { CoursePayloadType } from '@/src/entities/course/type'
 import FormSections from '@/src/features/course/form-course'
 import { useForm } from 'react-hook-form'
@@ -25,7 +25,7 @@ interface AddCoursePlanProps {
 
 export default function AddCoursePlan({ type }: AddCoursePlanProps) {
   const router = useRouter()
-  const [places, setPlaces] = useState<CoursePlaceType[]>([])
+  const [places, setPlaces] = useState<CoursePlanPlaceType[]>([])
   const [openSearchPlace, setOpenSearchPlace] = useState<boolean>(false)
   const [messageApi, contextHolder] = message.useMessage()
   const [isButtonClick, setIsButtonClick] = useState<boolean>(false)
