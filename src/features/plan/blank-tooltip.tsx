@@ -2,7 +2,7 @@ import { Tooltip } from 'antd'
 
 export default function BlankTooltip() {
   const content = (
-    <div className='flex flex-col items-center gap-[8px] text-center py-[10px] mx-[50px] whitespace-nowrap '>
+    <div className='flex flex-col items-center gap-[8px] text-center py-[10px] mx-[50px] whitespace-nowrap'>
       <span className='text-headline font-bold text-[#333333]'>
         가고 싶은 곳들을 하나로!
       </span>
@@ -19,7 +19,13 @@ export default function BlankTooltip() {
         아직 플랜이 없어요!
       </span>
 
-      <Tooltip title={content} color='white' placement='topRight' open>
+      <Tooltip
+        title={content}
+        color='white'
+        placement='topRight'
+        open
+        zIndex={1}
+      >
         <div className='absolute bottom-[100px] right-[25px]' />
       </Tooltip>
     </div>
