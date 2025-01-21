@@ -63,7 +63,7 @@ export default function ListPlan() {
 
       <Spacer height={8} className='bg-bright-gray' />
 
-      {plans.length > 0 ? (
+      {plans && plans.length > 0 ? (
         <div className='flex flex-col gap-[15px] py-[20px] w-full px-[16px]'>
           {plans?.map((plan: PlanType, index: number) => (
             <CardPlan key={index} plan={plan} />
