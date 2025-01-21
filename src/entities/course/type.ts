@@ -1,7 +1,7 @@
 import type { PlaceType } from '@/src/entities/place/type'
 import type { CommentMockType } from '@/src/entities/comment/type'
 import type { WriterType } from '@/src/entities/user/type'
-import type { CoursePlaceType } from '@/src/entities/place/type'
+import type { CoursePlanPlaceType } from '@/src/entities/place/type'
 import type { CategoryType } from '@/src/entities/category/type'
 
 export type CourseMockType = {
@@ -50,7 +50,7 @@ export type CourseType = {
   comments: number
   likes: number
   created_at: string
-  places: CoursePlaceType[]
+  places: CoursePlanPlaceType[]
   writer: WriterType
   is_liked: boolean
   visit_date: string

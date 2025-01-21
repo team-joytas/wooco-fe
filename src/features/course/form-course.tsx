@@ -10,7 +10,7 @@ import SelectCategories from '@/src/shared/ui/SelectCategories'
 import RegionCascader from '@/src/shared/ui/RegionCascader'
 import { useState } from 'react'
 import dayjs from 'dayjs'
-import type { CoursePlaceType } from '@/src/entities/place/type'
+import type { CoursePlanPlaceType } from '@/src/entities/place/type'
 import { Dispatch, SetStateAction } from 'react'
 import Spacer from '@/src/shared/ui/Spacer'
 import KakaoMap from '@/src/shared/ui/KakaoMap'
@@ -194,8 +194,8 @@ export default function FormSections({
 }: {
   pageType: string
   register: UseFormRegister<CoursePayloadType>
-  places: CoursePlaceType[]
-  setPlaces: Dispatch<SetStateAction<CoursePlaceType[]>>
+  places: CoursePlanPlaceType[]
+  setPlaces: Dispatch<SetStateAction<CoursePlanPlaceType[]>>
   handleClickSearchPlace: () => void
   setValue: UseFormSetValue<CoursePayloadType>
   getValues: UseFormGetValues<CoursePayloadType>

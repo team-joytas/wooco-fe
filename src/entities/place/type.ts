@@ -15,6 +15,7 @@ export type PlaceType = {
   tags?: string[]
   content?: string
 }
+
 export type PlaceSearchType = {
   id: string
   address_name: string
@@ -36,14 +37,14 @@ export type SeoulType = {
   children?: SeoulType[]
 }
 
-export type CoursePlaceType = {
+export type CoursePlanPlaceType = {
   id: number
   order: number
   name: string
   latitude: string
   longitude: string
   address: string
-  kakao_map_place_id: number
+  kakao_map_place_id: string
   average_rating?: number
   review_count?: number
   thumbnail_url: string

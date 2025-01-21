@@ -6,7 +6,7 @@ import { message } from 'antd'
 import Spacer from '@/src/shared/ui/Spacer'
 import SearchPlace from '@/src/views/search-place'
 import Header from '@/src/widgets/header'
-import { CoursePlaceType } from '@/src/entities/place/type'
+import { CoursePlanPlaceType } from '@/src/entities/place/type'
 import type { CoursePayloadType } from '@/src/entities/course/type'
 import { useUpdateCourse } from '@/src/entities/course/query'
 import type { CourseType } from '@/src/entities/course/type'
@@ -28,7 +28,7 @@ interface UpdateCourseProps {
 
 export default function UpdateCourse({ id, data, type }: UpdateCourseProps) {
   const router = useRouter()
-  const [places, setPlaces] = useState<CoursePlaceType[]>(data.places)
+  const [places, setPlaces] = useState<CoursePlanPlaceType[]>(data.places)
   const [openSearchPlace, setOpenSearchPlace] = useState<boolean>(false)
   const [messageApi, contextHolder] = message.useMessage()
   const [isButtonClick, setIsButtonClick] = useState<boolean>(false)
