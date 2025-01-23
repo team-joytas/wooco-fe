@@ -67,7 +67,7 @@ export function FormContents({
       <textarea
         {...register('contents', { validate: validateContents })}
         className='rounded-[10px] h-[130px] resize-none focus:outline-container-light-blue focus:outline-[0.5px] border-0 bg-bright-gray p-[10px] text-sub text-gray-500'
-        placeholder='내용을 입력해주세요.'
+        placeholder='방문 후기나 가기 전 꿀팁 등 다양한 정보가 있을수록 좋아요!'
         maxLength={200}
       />
       {errors.contents && (
@@ -228,9 +228,10 @@ export default function FormSections({
           <button
             type='button'
             onClick={handleClickSearchPlace}
-            className='w-full h-[40px] text-[15px] cursor-pointer rounded-full flex items-center justify-center bg-container-light-blue'
+            className='w-full h-[40px] text-[15px] cursor-pointer rounded-full flex items-center justify-center bg-white text-container-light-blue border border-container-light-blue 
+            hover:bg-container-light-blue hover:text-white transition-all duration-300'
           >
-            <Plus size={20} strokeWidth={3} stroke='#ffffff' />
+            <Plus size={20} strokeWidth={3} />
           </button>
           {isButtonClick && places.length === 0 && (
             <span className='text-[12px] pl-[10px] text-red-500 mt-[5px]'>

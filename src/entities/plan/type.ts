@@ -10,3 +10,13 @@ export type PlanType = {
   places: CoursePlanPlaceType[]
   categories: string[]
 }
+
+export type PlanPayloadType = {
+  primary_region: string
+  secondary_region: string
+  categories: string[]
+  title: string
+  contents: string
+  place_ids: string[]
+  visit_date: string
+}

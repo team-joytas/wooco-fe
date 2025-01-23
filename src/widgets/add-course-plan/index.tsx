@@ -11,6 +11,8 @@ import type { CoursePayloadType } from '@/src/entities/course/type'
 import FormSections from '@/src/features/course/form-course'
 import { useForm } from 'react-hook-form'
 import { useCreateCourse } from '@/src/entities/course/query'
+import { PlanPayloadType } from '@/src/entities/plan/type'
+import { useCreatePlan } from '@/src/entities/plan/query'
 
 const LAYOUT_TYPE = {
   course: 'course' as const,
@@ -30,13 +32,17 @@ export default function AddCoursePlan({ type }: AddCoursePlanProps) {
   const [messageApi, contextHolder] = message.useMessage()
   const [isButtonClick, setIsButtonClick] = useState<boolean>(false)
 
+  type PayloadType = LayoutType extends 'plan'
+    ? PlanPayloadType
+    : CoursePayloadType
+
   const {
     getValues,
     register,
     handleSubmit,
     setValue,
     formState: { isSubmitting, errors },
-  } = useForm<CoursePayloadType>({
+  } = useForm<PayloadType>({
     defaultValues: {
       title: '',
       primary_region: '',
@@ -48,7 +54,8 @@ export default function AddCoursePlan({ type }: AddCoursePlanProps) {
     },
   })
 
-  const { mutate } = useCreateCourse()
+  const { mutate: courseMutate } = useCreateCourse()
+  const { mutate: planMutate } = useCreatePlan()
 
   const pageType = type === LAYOUT_TYPE.course ? '코스' : '플랜'
   const headerTitle =
@@ -71,27 +78,29 @@ export default function AddCoursePlan({ type }: AddCoursePlanProps) {
     )
   }, [places])
 
-  const onSubmit = async (data: CoursePayloadType) => {
+  const onSubmit = async (data: PayloadType) => {
     try {
       setValue(
         'place_ids',
         places.map((place) => place.id.toString())
       )
-      if (getValues('categories').length == 0) {
+
+      if (getValues('categories').length === 0) {
         return
       }
-      mutate(data, {
+
+      const mutateFunction =
+        type === LAYOUT_TYPE.plan ? planMutate : courseMutate
+      const routePrefix = type === LAYOUT_TYPE.plan ? 'plans' : 'courses'
+
+      mutateFunction(data, {
         onSuccess: (result) => {
-          router.push(`/courses/${result.id}`)
+          router.push(`/${routePrefix}/${result.id}`)
         },
       })
     } catch (error) {
       console.error(error)
     }
-  }
-
-  const handleEditPlace = (id: number) => {
-    console.log(id)
   }
 
   const handleClickSearchPlace = () => {
@@ -126,7 +135,7 @@ export default function AddCoursePlan({ type }: AddCoursePlanProps) {
         <button
           type='submit'
           onClick={() => setIsButtonClick(true)}
-          className={`w-full text-[12px] h-[54px] flex items-center justify-center bg-blue-100 text-white ${
+          className={`w-full text-[12px] h-[54px] flex items-center justify-center bg-light-gray text-brand hover:bg-brand hover:text-white transition-all duration-300 ${
             isSubmitting ? 'cursor-default' : 'bg-blue-800 bg-opacity-50'
           }`}
           disabled={isSubmitting}
