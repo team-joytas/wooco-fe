@@ -80,7 +80,7 @@ export default function SearchPlace({
             placeholder='장소 이름을 입력해주세요.'
             className='w-full'
             value={inputValue}
-            onSearch={getResult}
+            onSearch={() => getResult(inputValue)}
             onChange={(e) => setInputValue(e.target.value)}
           />
         </div>
