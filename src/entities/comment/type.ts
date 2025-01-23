@@ -8,14 +8,3 @@ export type CommentType = {
     profile_url: string
   }
 }
-
-export type CommentMockType = {
-  id: number
-  user: {
-    id: number
-    profile_url: string
-    name: string
-  }
-  created_at: string
-  content: string
-}
