@@ -4,7 +4,7 @@ import Link from 'next/link'
 import ProfileImage from '@/src/shared/ui/ProfileImage'
 import Spacer from '@/src/shared/ui/Spacer'
 import CardComment from '@/src/features/comment/card-comment'
-import CoursePlanLayout from '@/src/widgets/course-plan-layout'
+import CoursePlanDetailLayout from '@/src/widgets/course-plan-detail-layout'
 import { passFromCreate } from '@/src/shared/utils/date'
 import { useGetCourse } from '@/src/entities/course/query'
 import { useGetComments } from '@/src/entities/comment/query'
@@ -19,7 +19,7 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
   if (!course) return <div>Loading...</div>
 
   return (
-    <CoursePlanLayout type='course' id={courseId} data={course}>
+    <CoursePlanDetailLayout type='course' id={courseId} data={course}>
       <section className='w-full px-[20px] py-[10px] text-white bg-brand'>
         <div className='w-full flex gap-[10px] max-w-[375px]'>
           <ProfileImage
@@ -82,6 +82,6 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
           )}
         </div>
       </div>
-    </CoursePlanLayout>
+    </CoursePlanDetailLayout>
   )
 }

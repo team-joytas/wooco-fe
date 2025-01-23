@@ -21,11 +21,13 @@ const LAYOUT_TYPE = {
 
 type LayoutType = keyof typeof LAYOUT_TYPE
 
-interface AddCoursePlanProps {
+interface CoursePlanFormLayoutProps {
   type: LayoutType
 }
 
-export default function AddCoursePlan({ type }: AddCoursePlanProps) {
+export default function CoursePlanFormLayout({
+  type,
+}: CoursePlanFormLayoutProps) {
   const router = useRouter()
   const [places, setPlaces] = useState<CoursePlanPlaceType[]>([])
   const [openSearchPlace, setOpenSearchPlace] = useState<boolean>(false)
