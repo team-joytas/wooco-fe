@@ -5,7 +5,12 @@ import {
   UseQueryResult,
 } from '@tanstack/react-query'
 import { PlanPayloadType, PlanType } from '@/src/entities/plan/type'
-import { getPlan, getPlans, postPlan } from '@/src/entities/plan/api'
+import {
+  getPlan,
+  getPlans,
+  postPlan,
+  updatePlan,
+} from '@/src/entities/plan/api'
 
 export const PLAN_QUERY_KEY = {
   all: ['plans'] as const,
@@ -33,6 +38,17 @@ export const useCreatePlan = () => {
     mutationFn: (data: PlanPayloadType) => postPlan(data),
     onSuccess: () => {
       queryClient.refetchQueries({ queryKey: PLAN_QUERY_KEY.all })
+    },
+  })
+}
+
+export const useUpdatePlan = (id: string) => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (data: PlanPayloadType) => updatePlan(id, data),
+    onSuccess: () => {
+      queryClient.refetchQueries({ queryKey: PLAN_QUERY_KEY.detail(id) })
     },
   })
 }

@@ -13,10 +13,10 @@ import { message } from 'antd'
 import { FloatingMenuButton } from '@/src/widgets/floating-write-btn'
 import Link from 'next/link'
 
-const COURSE_PLAN = {
-  course: 'course' as const,
-  plan: 'plan' as const,
-}
+const COURSE_PLAN = Object.freeze({
+  course: 'course',
+  plan: 'plan',
+})
 
 type CoursePlanType = keyof typeof COURSE_PLAN
 type DataType = CourseType | PlanType

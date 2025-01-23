@@ -1,5 +1,5 @@
 import UpdatePlan from '@/src/views/update-plan'
 
-export default async function Page() {
-  return <UpdatePlan />
+export default function Page({ params }: { params: { id: string } }) {
+  return <UpdatePlan planId={params.id} />
 }
