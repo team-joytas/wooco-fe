@@ -9,3 +9,13 @@ export const getPlans = async () => {
     throw error
   }
 }
+
+export const getPlan = async (id: string) => {
+  try {
+    const response = await customAxios.get(`/plans/${id}`)
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}

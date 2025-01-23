@@ -4,6 +4,11 @@ import { Pencil } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
+type FloatingButtonProps = {
+  onClick: () => void
+  text: string
+}
+
 export default function FloatingWriteButton() {
   const router = useRouter()
   const [isClick, setIsClick] = useState(false)
@@ -31,18 +36,14 @@ export default function FloatingWriteButton() {
       <div className='fixed flex flex-col gap-[28px] items-end bottom-[70px] z-[1001] pr-[20px]'>
         {isClick && (
           <div className='flex flex-col gap-[15px]'>
-            <button
-              className='w-[80px] h-[30px] bg-white shadow-floating-button text-[14px] rounded-full flex items-center justify-center'
+            <FloatingMenuButton
               onClick={() => handleClick('/courses/new')}
-            >
-              코스 작성
-            </button>
-            <button
-              className='w-[80px] h-[30px] bg-white shadow-floating-button text-[14px] rounded-full flex items-center justify-center'
+              text='코스 작성'
+            />
+            <FloatingMenuButton
               onClick={() => handleClick('/plans/new')}
-            >
-              플랜 작성
-            </button>
+              text='플랜 작성'
+            />
           </div>
         )}
         <button
@@ -52,9 +53,17 @@ export default function FloatingWriteButton() {
           <Pencil size={20} color='white' strokeWidth={1.5} />
         </button>
       </div>
-      {isClick && (
-        <div className='fixed z-[1000] max-w-[375px] w-full h-[calc(100vh-60px)] top-0 bg-black opacity-40' />
-      )}
     </div>
+  )
+}
+
+export function FloatingMenuButton({ onClick, text }: FloatingButtonProps) {
+  return (
+    <button
+      className='w-[80px] h-[30px] bg-white shadow-floating-button text-[14px] rounded-full flex items-center justify-center hover:bg-brand hover:text-white transition-all duration-200'
+      onClick={onClick}
+    >
+      {text}
+    </button>
   )
 }
