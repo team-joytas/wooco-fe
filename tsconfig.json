@@ -34,7 +34,7 @@
     "next.config.js",
     "src/views/detail-comment",
     "src/shared/ui/ProfileImage",
-    "src/widgets/course-plan-layout",
+    "src/widgets/course-plan-detail-layout",
     "src/widgets/floating-write-btn"
   ],
   "exclude": ["node_modules"]

@@ -21,19 +21,19 @@ const COURSE_PLAN = {
 type CoursePlanType = keyof typeof COURSE_PLAN
 type DataType = CourseType | PlanType
 
-interface CoursePlanLayoutProps {
+interface CoursePlanDetailLayoutProps {
   type: CoursePlanType
   id: string
   children?: React.ReactNode
   data: CourseType | PlanType
 }
 
-export default function CoursePlanLayout({
+export default function CoursePlanDetailLayout({
   type,
   id,
   children,
   data,
-}: CoursePlanLayoutProps) {
+}: CoursePlanDetailLayoutProps) {
   const userId = useUserStore((state) => state.user?.user_id)
   const userName = useUserStore((state) => state.user?.name)
   const typeName = type === COURSE_PLAN.course ? '코스' : '플랜'
@@ -88,7 +88,7 @@ export default function CoursePlanLayout({
         isLiked={isCourseType(data) ? data.is_liked : false}
         isMine={isMine}
       />
-      <div className='w-full px-[20px] flex flex-col'>
+      <div className='w-full min-h-[calc(100vh-194px)] px-[20px] flex flex-col'>
         <div className='w-full items-center justify-center inline-flex gap-[5px] py-[8px]'>
           {data?.categories?.map((category, index) => {
             return (

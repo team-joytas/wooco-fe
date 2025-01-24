@@ -30,3 +30,13 @@ export const postPlan = async (payload: PlanPayloadType) => {
     throw error
   }
 }
+
+export const updatePlan = async (id: string, payload: PlanPayloadType) => {
+  try {
+    const response = await customAxios.patch(`/plans/${id}`, payload)
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}

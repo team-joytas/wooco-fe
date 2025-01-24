@@ -58,8 +58,7 @@ export const useUpdateCourse = (id: string) => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: CoursePayloadType }) =>
-      updateCourse(id, data),
+    mutationFn: (data: CoursePayloadType) => updateCourse(id, data),
     onSuccess: () => {
       queryClient.refetchQueries({ queryKey: COURSE_QUERY_KEY.detail(id) })
     },
