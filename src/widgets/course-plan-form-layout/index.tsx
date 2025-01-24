@@ -25,7 +25,7 @@ import { PlanPayloadType } from '@/src/entities/plan/type'
 const LAYOUT_TYPE = {
   course: 'course' as const,
   plan: 'plan' as const,
-} as const
+}
 
 const LEVEL_TYPE = {
   add: 'add' as const,
@@ -188,20 +188,19 @@ export default function CoursePlanFormLayout({
       <Spacer height={25} />
       <form onSubmit={handleSubmit(onSubmit)}>
         {(level === LEVEL_TYPE.update && isDataLoaded) ||
-        level === LEVEL_TYPE.add ? (
-          <FormSections
-            pageType={pageType}
-            register={register}
-            places={places}
-            setPlaces={setPlaces}
-            getValues={getValues}
-            handleClickSearchPlace={handleClickSearchPlace}
-            setValue={setValue}
-            errors={errors}
-            isButtonClick={isButtonClick}
-          />
-        ) : null}
-
+          (level === LEVEL_TYPE.add && (
+            <FormSections
+              pageType={pageType}
+              register={register}
+              places={places}
+              setPlaces={setPlaces}
+              getValues={getValues}
+              handleClickSearchPlace={handleClickSearchPlace}
+              setValue={setValue}
+              errors={errors}
+              isButtonClick={isButtonClick}
+            />
+          ))}
         <button
           type='submit'
           onClick={() => setIsButtonClick(true)}
