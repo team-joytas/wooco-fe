@@ -67,7 +67,7 @@ export default function CardListCourse({ course }: { course: CourseType }) {
                   fill={course.is_liked ? '#5A59F2' : 'none'}
                   strokeWidth={1.5}
                 />
-                <span>25</span>
+                <span>{course.likes}</span>
               </div>
               <div className='flex items-center gap-[4px]'>
                 <MessageCircle
