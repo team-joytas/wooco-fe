@@ -9,7 +9,6 @@ import { Select } from 'antd'
 import Spacer from '@/src/shared/ui/Spacer'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import Header from '@/src/widgets/header'
-import type { PlaceType } from '@/src/entities/place/type'
 import type { UserProfileType } from '@/src/entities/user/type'
 import { useGetUserCourses } from '@/src/entities/course/query'
 
@@ -29,7 +28,6 @@ type ListType = keyof typeof LIST_TYPE
 export default function DetailUser({ id, user, isMe }: DetailUserProps) {
   const [type, setType] = useState<ListType>(LIST_TYPE.course)
   const [order, setOrder] = useState('recent')
-  const places: PlaceType[] = []
   const { data: courses } = useGetUserCourses(id)
 
   const onChangeOrder = (value: string) => {
@@ -75,7 +73,7 @@ export default function DetailUser({ id, user, isMe }: DetailUserProps) {
           }`}
           onClick={() => handleTypeChange(LIST_TYPE.course)}
         >
-          나의 코스
+          {isMe ? '나의 코스' : `${user?.name}님의 코스`}
         </div>
         <div
           className={`w-[50%] flex justify-center border-b-[5px] pb-[5px] items-center font-semibold text-middle cursor-pointer ${
@@ -115,7 +113,7 @@ export default function DetailUser({ id, user, isMe }: DetailUserProps) {
         )}
       </div>
       {type === LIST_TYPE.place ? (
-        <ListUserPlace data={places} />
+        <ListUserPlace />
       ) : (
         <>
           <Spacer height={10} />

@@ -1,15 +1,32 @@
-import CardUserPlace from '@/src/features/plan/card-user-place'
 import Spacer from '@/src/shared/ui/Spacer'
-import type { PlaceType } from '@/src/entities/place/type'
+import logo from '@/src/assets/images/(logo)/logo.png'
+import Image from 'next/image'
+import { Tooltip } from 'antd'
 
-interface ListUserPlaceProps {
-  data: PlaceType[]
-}
-
-export default function ListUserPlace({ data }: ListUserPlaceProps) {
+export default function ListUserPlace() {
+  const content = (
+    <div className='p-[10px] flex flex-col items-center justify-center gap-[5px]'>
+      <p className='text-main text-black font-semibold'>
+        빠른 시일 내에 찾아 뵙겠습니다.
+      </p>
+      <p className='text-sub opacity-50 text-black'>- Team WOOCO -</p>
+    </div>
+  )
   return (
-    <div className='w-full h-full mt-[50px] flex justify-center items-center text-main font-semibold text-header-line'>
-      준비 중인 기능입니다.
+    <div className='relative w-full h-full mt-[50px] flex flex-col items-center text-main font-semibold'>
+      <p className='text-main mt-[50px] font-semibold opacity-50'>
+        아직 준비중이에요!
+      </p>
+      <Spacer height={43} />
+      <Tooltip title={content} color='white' placement='top' open zIndex={1}>
+        <Image
+          src={logo}
+          alt='logo'
+          className='absolute top-[200px]'
+          width={55}
+          height={55}
+        />
+      </Tooltip>
     </div>
   )
 }
