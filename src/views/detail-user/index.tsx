@@ -48,7 +48,7 @@ export default function DetailUser({ id, user, isMe }: DetailUserProps) {
       <Spacer height={8} />
       <section className='px-[20px] py-[10px] gap-[5px] w-full flex flex-col justify-between'>
         <div className='flex items-center justify-between'>
-          <div className='flex flex-col items-center gap-[10px]'>
+          <div className='flex flex-col justify-center items-start gap-[10px]'>
             <ProfileImage
               size={60}
               src={user?.profile_url || ''}
