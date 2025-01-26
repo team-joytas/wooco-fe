@@ -15,6 +15,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
         duration: 0.1,
         ease: 'easeInOut',
       }}
+      className='h-full w-full'
     >
       {children}
     </motion.div>

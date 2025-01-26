@@ -46,7 +46,7 @@ export default function RootLayout({
           <DefaultHeader />
           <ConfigProvider theme={theme}>
             <AnimatePresence>
-              <div className='mx-auto flex-1 text-black w-full max-w-[375px]'>
+              <div className='mx-auto flex-1 text-black h-full w-full max-w-[375px]'>
                 {children}
                 <Spacer height={60} notShowURLs={['/login']} />
               </div>

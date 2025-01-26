@@ -8,6 +8,8 @@ import UploadProfileImage from '@/src/features/user/upload-profile-image'
 import { useForm } from 'react-hook-form'
 import useUserStore from '@/src/shared/store/userStore'
 import { useGetMyProfile, useUpdateUser } from '@/src/entities/user/query'
+import { useQueryClient } from '@tanstack/react-query'
+import { USER_QUERY_KEY } from '@/src/entities/user/query'
 
 export default function UpdateUser() {
   const router = useRouter()
@@ -18,6 +20,7 @@ export default function UpdateUser() {
   const { mutate: updateUser } = useUpdateUser()
 
   const { data: profile } = useGetMyProfile()
+  const queryClient = useQueryClient()
 
   const {
     register,
@@ -93,6 +96,7 @@ export default function UpdateUser() {
             description: data.description,
             profile_url: data.profile_url,
           })
+          queryClient.refetchQueries({ queryKey: USER_QUERY_KEY.all })
           router.push(`/users/${profile?.user_id}`)
         },
       }
@@ -102,6 +106,7 @@ export default function UpdateUser() {
   const handleLogout = async () => {
     localStorage.removeItem('accessToken')
     useUserStore.getState().clearUser()
+    queryClient.clear()
     router.push('/login')
   }
 

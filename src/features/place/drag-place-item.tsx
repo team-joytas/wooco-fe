@@ -1,7 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { CoursePlanPlaceType } from '@/src/entities/place/type'
-import { AlignJustify, X, Image } from 'lucide-react'
+import { AlignJustify, X } from 'lucide-react'
 
 interface DragPlaceItemProps {
   id: number

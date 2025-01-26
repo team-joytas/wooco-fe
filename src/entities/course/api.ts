@@ -38,9 +38,16 @@ export const getCourses = async ({
   }
 }
 
-export const getUserCourses = async (id: string) => {
+export const getUserCourses = async (
+  id: string,
+  order: 'recent' | 'popular'
+) => {
   try {
-    const response = await customAxios.get(`/courses/users/${id}`)
+    const response = await customAxios.get(`/courses/users/${id}`, {
+      params: {
+        order,
+      },
+    })
     return response.data.results
   } catch (error) {
     console.error(error)
