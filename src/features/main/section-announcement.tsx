@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import Spacer from '@/src/shared/ui/Spacer'
 import CardAnnouncement from '@/src/features/main/card-announcement'
 

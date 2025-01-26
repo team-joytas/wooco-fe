@@ -1,7 +1,7 @@
 'use client'
 
 import Spacer from '@/src/shared/ui/Spacer'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { ChevronLeft, Search } from 'lucide-react'
 import CardCourse from '@/src/features/course/card-course'
 import type { CourseType } from '@/src/entities/course/type'
@@ -16,7 +16,6 @@ export default function SearchCourse({
   isSearch: boolean
   setIsSearch: (isSearch: boolean) => void
 }) {
-  const [clickedCategory, setClickedCategory] = useState<string[]>([])
   const { data: courses } = useGetCourses({ sort: 'recent' })
 
   useEffect(() => {

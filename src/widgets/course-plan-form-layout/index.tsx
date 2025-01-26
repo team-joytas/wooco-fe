@@ -85,13 +85,14 @@ export default function CoursePlanFormLayout({
     },
   })
 
-  const courseData = id && type === LAYOUT_TYPE.course ? useGetCourse(id) : null
-  const planData = id && type === LAYOUT_TYPE.plan ? useGetPlan(id) : null
+  const getData = useMemo(() => {
+    return id && type === LAYOUT_TYPE.course ? useGetCourse : useGetPlan
+  }, [id, type])
+  const fetchData = getData(id || '') || null
 
   useEffect(() => {
     if (level === LEVEL_TYPE.update) {
-      const data =
-        type === LAYOUT_TYPE.course ? courseData?.data : planData?.data
+      const data = fetchData?.data
 
       if (data) {
         setValue('title', data.title)
@@ -105,7 +106,7 @@ export default function CoursePlanFormLayout({
         setIsDataLoaded(true)
       }
     }
-  }, [level, type, courseData?.data, planData?.data])
+  }, [level, type, fetchData])
 
   const { mutate: courseMutate } = useCreateCourse()
   const { mutate: planMutate } = useCreatePlan()
@@ -159,9 +160,11 @@ export default function CoursePlanFormLayout({
 
       mutateFunction(data, {
         onSuccess: (result) => {
-          level === LEVEL_TYPE.add
-            ? router.push(`/${routePrefix}/${result.id}`)
-            : router.push(`/${routePrefix}/${id}`)
+          const redirectPath =
+            level === LEVEL_TYPE.add
+              ? `/${routePrefix}/${result.id}`
+              : `/${routePrefix}/${id}`
+          router.push(redirectPath)
         },
       })
     } catch (error) {

@@ -1,8 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-import ProfileImage from '@/src/shared/ui/ProfileImage'
-import UserTag from '@/src/features/user/user-tag'
+import { useState, useEffect } from 'react'
 import ListUserPlace from '@/src/features/plan/list-user-place'
 import ListUserCourse from '@/src/features/course/list-user-course'
 import { Select } from 'antd'
@@ -10,7 +8,13 @@ import Spacer from '@/src/shared/ui/Spacer'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import Header from '@/src/widgets/header'
 import type { UserProfileType } from '@/src/entities/user/type'
-import { useGetUserCourses } from '@/src/entities/course/query'
+import TabButton from '@/src/features/user/user-tab-button'
+import {
+  useGetUserCourses,
+  COURSE_QUERY_KEY,
+} from '@/src/entities/course/query'
+import { useQueryClient } from '@tanstack/react-query'
+import UserProfileSection from '@/src/features/user/user-profile-section'
 
 interface DetailUserProps {
   id: string
@@ -19,97 +23,61 @@ interface DetailUserProps {
 }
 
 const LIST_TYPE = {
-  place: 'place' as const,
-  course: 'course' as const,
-}
+  place: 'place',
+  course: 'course',
+} as const
 
 type ListType = keyof typeof LIST_TYPE
 
 export default function DetailUser({ id, user, isMe }: DetailUserProps) {
   const [type, setType] = useState<ListType>(LIST_TYPE.course)
-  const [order, setOrder] = useState('recent')
-  const { data: courses } = useGetUserCourses(id)
+  const [order, setOrder] = useState<'recent' | 'popular'>('recent')
+  const queryClient = useQueryClient()
+  const { data: courses } = useGetUserCourses(id, order)
 
-  const onChangeOrder = (value: string) => {
+  const onChangeOrder = (value: 'recent' | 'popular') => {
     setOrder(value)
   }
 
-  const handleTypeChange = (newType: ListType) => {
-    setType(newType)
-  }
+  useEffect(() => {
+    queryClient.refetchQueries({
+      queryKey: COURSE_QUERY_KEY.userCourses(id, order),
+    })
+  }, [order])
 
   return (
     <>
-      {isMe ? (
-        <Header title='마이 페이지' isBack />
-      ) : (
-        <Header title={user?.name || ''} isBack />
-      )}
+      <Header title={isMe ? '마이 페이지' : user?.name || ''} isBack />
       <Spacer height={8} />
-      <section className='px-[20px] py-[10px] gap-[5px] w-full flex flex-col justify-between'>
-        <div className='flex items-center justify-between'>
-          <div className='flex flex-col justify-center items-start gap-[10px]'>
-            <ProfileImage
-              size={60}
-              src={user?.profile_url || ''}
-              type='colored'
-            />
-            <p className='font-bold text-brand text-headline'>{user?.name}</p>
-          </div>
-          <div className='flex gap-[30px] items-end'>
-            <UserTag type='heart' content={'?'} />
-            <UserTag type='comment' content={'?'} />
-            <UserTag type='rate' content={'?'} />
-          </div>
-        </div>
-        <span className='text-sub font-light'>{user?.description}</span>
-      </section>
+      <UserProfileSection user={user} />
       <div className='sticky top-0 bg-white z-10 flex items-center pt-[10px] pb-[5px]'>
-        <div
-          className={`w-[50%] flex justify-center border-b-[5px] pb-[5px] items-center font-semibold text-middle cursor-pointer ${
-            type === LIST_TYPE.course
-              ? ' border-container-light-blue '
-              : 'border-light-gray text-gray-400'
-          }`}
-          onClick={() => handleTypeChange(LIST_TYPE.course)}
+        <TabButton
+          isActive={type === LIST_TYPE.course}
+          onClick={() => setType(LIST_TYPE.course)}
         >
           {isMe ? '나의 코스' : `${user?.name}님의 코스`}
-        </div>
-        <div
-          className={`w-[50%] flex justify-center border-b-[5px] pb-[5px] items-center font-semibold text-middle cursor-pointer ${
-            type === LIST_TYPE.place
-              ? ' border-container-light-blue'
-              : 'border-light-gray text-gray-400'
-          }`}
-          onClick={() => handleTypeChange(LIST_TYPE.place)}
+        </TabButton>
+        <TabButton
+          isActive={type === LIST_TYPE.place}
+          onClick={() => setType(LIST_TYPE.place)}
         >
           장소 리뷰
-        </div>
+        </TabButton>
       </div>
       <Spacer height={10} />
       <div className='flex px-[20px] justify-between'>
-        <div className='flex gap-[5px] text-main font-bold items-center'>
-          {/* 실제 API 연결 필요 
-          <span>전체</span>
-          <span className='text-container-blue'>
-            {type === LIST_TYPE.place
-              ? user.place_info.summary.total_place
-              : user.course_info.summary.total_course}
-          </span>*/}
-        </div>
-        {type === LIST_TYPE.course ? (
+        <div className='flex gap-[5px] text-main font-bold items-center' />
+        {type === LIST_TYPE.course && (
           <Select
             defaultValue='recent'
             style={{ width: 80 }}
-            onChange={onChangeOrder}
-            size={'small'}
+            onChange={(value) => onChangeOrder(value as 'recent' | 'popular')}
+            size='small'
             options={[
               { value: 'recent', label: '최신순' },
               { value: 'popular', label: '인기순' },
             ]}
           />
-        ) : (
-          <div className='w-[80px]' />
         )}
       </div>
       {type === LIST_TYPE.place ? (
