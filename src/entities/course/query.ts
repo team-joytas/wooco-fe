@@ -21,7 +21,7 @@ export const COURSE_QUERY_KEY = {
   all: ['courses'] as const,
   detail: (id: string) => ['course', id] as const,
   myLikeCourse: ['myLikeCourse'] as const,
-  userCourses: (id: string, order: 'recent' | 'popular') =>
+  userCourses: (id: string, order?: 'recent' | 'popular') =>
     ['userCourses', id, order] as const,
 }
 
@@ -78,7 +78,7 @@ export const useGetMyLikeCourse = (params: {
 
 export const useGetUserCourses = (
   id: string,
-  order: 'recent' | 'popular'
+  order?: 'recent' | 'popular'
 ): UseQueryResult<CourseType[]> => {
   return useQuery({
     queryKey: COURSE_QUERY_KEY.userCourses(id, order),
