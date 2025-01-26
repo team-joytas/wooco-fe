@@ -13,16 +13,15 @@ export default function ListUserPlace() {
     </div>
   )
   return (
-    <div className='relative w-full h-full mt-[50px] flex flex-col items-center text-main font-semibold'>
-      <p className='text-main mt-[50px] font-semibold opacity-50'>
-        아직 준비중이에요!
-      </p>
+    <div className='relative w-full h-full flex flex-col items-center text-main font-semibold'>
+      <Spacer height={100} />
+      <p className='text-main font-semibold opacity-50'>아직 준비중이에요!</p>
       <Spacer height={43} />
       <Tooltip title={content} color='white' placement='top' open zIndex={1}>
         <Image
           src={logo}
           alt='logo'
-          className='absolute top-[200px]'
+          className='absolute top-[250px]'
           width={55}
           height={55}
         />
