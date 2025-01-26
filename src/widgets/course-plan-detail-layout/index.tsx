@@ -19,7 +19,6 @@ const COURSE_PLAN = {
 }
 
 type CoursePlanType = keyof typeof COURSE_PLAN
-type DataType = CourseType | PlanType
 
 interface CoursePlanDetailLayoutProps {
   type: CoursePlanType
@@ -40,14 +39,14 @@ export default function CoursePlanDetailLayout({
   const visit = type === COURSE_PLAN.course ? '방문한' : '방문할'
   const router = useRouter()
 
-  const { isCourseType, isMine } = useMemo(() => {
-    const isCourseType = (data: DataType): data is CourseType => {
-      return 'writer' in data && 'is_liked' in data
-    }
-    const isMine = isCourseType(data) ? userId === data.writer.id : true
+  const isCourseType = (data: CourseType | PlanType) =>
+    'writer' in data && 'is_liked' in data
 
-    return { isCourseType, isMine }
-  }, [data, userId])
+  const isCourse = useMemo(() => isCourseType(data), [data])
+  const isMine = useMemo(
+    () => (isCourse ? userId === (data as CourseType).writer.id : true),
+    [isCourse, userId, data]
+  )
 
   const [isClicked, setIsClicked] = useState(false)
   const handleClick = (path: string) => {
@@ -88,7 +87,11 @@ export default function CoursePlanDetailLayout({
         isLiked={isCourseType(data) ? data.is_liked : false}
         isMine={isMine}
       />
-      <div className='w-full min-h-[calc(100vh-194px)] px-[20px] flex flex-col'>
+      <div
+        className={`w-full px-[20px] flex flex-col ${
+          isCourse ? '' : 'min-h-[calc(100vh-194px)]'
+        }`}
+      >
         <div className='w-full items-center justify-center inline-flex gap-[5px] py-[8px]'>
           {data?.categories?.map((category, index) => {
             return (
@@ -144,33 +147,33 @@ export default function CoursePlanDetailLayout({
       </div>
       {children}
       <Spacer height={25} />
-
-      <div className='w-full h-[54px] flex flex-row gap-[2px] text-brand font-bold text-main'>
-        <button
-          className='w-[187px] h-full flex items-center justify-center bg-light-gray   cursor-pointer gap-[10px] hover:bg-brand hover:text-white transition-all duration-200'
-          onClick={() => setIsClicked(!isClicked)}
-        >
-          {isClicked ? (
-            <>
-              <X size={24} strokeWidth={1.5} />
-              닫기
-            </>
-          ) : (
-            <>
-              <Share2 size={24} strokeWidth={1.5} />
-              공유하기
-            </>
-          )}
-        </button>
-        <Link
-          className='w-[187px] h-full flex items-center justify-center bg-light-gray gap-[10px] cursor-pointer hover:bg-brand hover:text-white transition-all duration-200'
-          href={`/${type}s/${id}/update`}
-        >
-          <PenLine size={24} strokeWidth={1.5} />
-          수정하기
-        </Link>
-      </div>
-
+      {!isCourse && (
+        <div className='w-full h-[54px] flex flex-row gap-[2px] text-brand font-bold text-main'>
+          <button
+            className='w-[187px] h-full flex items-center justify-center bg-light-gray   cursor-pointer gap-[10px] hover:bg-brand hover:text-white transition-all duration-200'
+            onClick={() => setIsClicked(!isClicked)}
+          >
+            {isClicked ? (
+              <>
+                <X size={24} strokeWidth={1.5} />
+                닫기
+              </>
+            ) : (
+              <>
+                <Share2 size={24} strokeWidth={1.5} />
+                공유하기
+              </>
+            )}
+          </button>
+          <Link
+            className='w-[187px] h-full flex items-center justify-center bg-light-gray gap-[10px] cursor-pointer hover:bg-brand hover:text-white transition-all duration-200'
+            href={`/${type}s/${id}/update`}
+          >
+            <PenLine size={24} strokeWidth={1.5} />
+            수정하기
+          </Link>
+        </div>
+      )}
       {isClicked && renderFloatingButtons()}
       {contextHolder}
     </>
