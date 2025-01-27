@@ -9,7 +9,7 @@ import {
   updateCourse,
   getCourse,
   getCourses,
-  getMyLikeCourse,
+  getMyLikeCourses,
   getUserCourses,
   postCourseLike,
   deleteCourseLike,
@@ -39,7 +39,11 @@ export const useGetCourses = (params: {
   secondary_region?: string
 }) => {
   return useQuery({
-    queryKey: COURSE_QUERY_KEY.all,
+    queryKey: [
+      COURSE_QUERY_KEY.all,
+      params.primary_region,
+      params.secondary_region,
+    ],
     queryFn: () => getCourses(params),
   })
 }
@@ -66,13 +70,13 @@ export const useUpdateCourse = (id: string) => {
   })
 }
 
-export const useGetMyLikeCourse = (params: {
+export const useGetMyLikeCourses = (params: {
   id: string
   limit?: number
 }): UseQueryResult<CourseType[]> => {
   return useQuery({
     queryKey: COURSE_QUERY_KEY.myLikeCourse,
-    queryFn: () => getMyLikeCourse(params),
+    queryFn: () => getMyLikeCourses(params),
   })
 }
 
