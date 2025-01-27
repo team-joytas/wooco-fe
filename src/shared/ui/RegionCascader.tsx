@@ -3,6 +3,8 @@
 import { Cascader } from 'antd'
 import { getSeoulData } from '@/src/entities/place/api'
 import { DefaultOptionType } from 'antd/es/cascader'
+import { useMemo, useState } from 'react'
+import { UserLikeRegionType } from '@/src/entities/user/type'
 
 interface CascaderProps {
   firstRegion: string
@@ -11,7 +13,13 @@ interface CascaderProps {
   setRegion: (value: string[]) => void
 }
 
-export default function RegionCascader({
+interface LikeCascaderProps {
+  placeholder: string
+  setRegion: (value: string[]) => void
+  likedRegions: UserLikeRegionType[]
+}
+
+export function RegionCascader({
   firstRegion,
   secondRegion,
   placeholder,
@@ -47,4 +55,66 @@ export default function RegionCascader({
       expandTrigger='hover'
     />
   )
+}
+
+export default function RegionCascaderWithLikes({
+  placeholder,
+  setRegion,
+  likedRegions,
+}: LikeCascaderProps) {
+  const seoulData = getSeoulData()
+  const likedRegionOptions = useMemo(
+    () => transformLikedRegions(likedRegions),
+    [likedRegions]
+  )
+
+  const options = useMemo(() => {
+    return [...seoulData, ...likedRegionOptions]
+  }, [seoulData, likedRegionOptions])
+
+  const onChange = (value: (string | number | null)[]) => {
+    const selectedValue = value as string[]
+    const trimmedValue = selectedValue.map((val) =>
+      typeof val === 'string' ? val.trim() : val
+    )
+
+    setRegion(trimmedValue)
+  }
+
+  const filter = (inputValue: string, path: DefaultOptionType[]) =>
+    path.some(
+      (option) =>
+        (option.label as string)
+          .toLowerCase()
+          .indexOf(inputValue.toLowerCase()) > -1
+    )
+
+  return (
+    <Cascader
+      options={options}
+      placeholder={placeholder}
+      onChange={onChange}
+      size='large'
+      showSearch={{ filter }}
+      style={{
+        width: '100%',
+      }}
+      expandTrigger='hover'
+    />
+  )
+}
+
+function transformLikedRegions(
+  likedRegions: UserLikeRegionType[]
+): DefaultOptionType[] {
+  return [
+    {
+      value: '서울 ',
+      label: '관심 지역',
+      children: likedRegions.map((region) => ({
+        value: region.secondary_region,
+        label: `${region.secondary_region}구`,
+      })),
+    },
+  ]
 }

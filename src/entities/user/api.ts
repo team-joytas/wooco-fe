@@ -33,33 +33,35 @@ export const updateUser = async (data: UpdateUserType) => {
   }
 }
 
-const favoriteRegions = [
-  {
-    id: 1,
-    value: '강남',
-  },
-  {
-    id: 2,
-    value: '노원',
-  },
-  {
-    id: 3,
-    value: '강남',
-  },
-  {
-    id: 4,
-    value: '노원',
-  },
-  {
-    id: 5,
-    value: '강남',
-  },
-  {
-    id: 6,
-    value: '노원',
-  },
-]
+export const getMyLikeRegions = async () => {
+  try {
+    const response = await customAxios.get(`/regions/preferences`)
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
 
-export const getFavoriteRegions = async () => {
-  return favoriteRegions
+export const postMyLikeRegion = async (data: {
+  primary_region: string
+  secondary_region: string
+}) => {
+  try {
+    const response = await customAxios.post(`/regions/preferences`, data)
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const deleteMyLikeRegion = async (id: string) => {
+  try {
+    const response = await customAxios.delete(`/regions/preferences/${id}`)
+    return response.status === 200
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
 }

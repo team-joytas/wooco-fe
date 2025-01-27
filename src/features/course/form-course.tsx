@@ -7,7 +7,7 @@ import {
 import type { CoursePayloadType } from '@/src/entities/course/type'
 import { DatePicker, type DatePickerProps } from 'antd'
 import SelectCategories from '@/src/shared/ui/SelectCategories'
-import RegionCascader from '@/src/shared/ui/RegionCascader'
+import { RegionCascader } from '@/src/shared/ui/RegionCascader'
 import { useState } from 'react'
 import dayjs from 'dayjs'
 import type { CoursePlanPlaceType } from '@/src/entities/place/type'

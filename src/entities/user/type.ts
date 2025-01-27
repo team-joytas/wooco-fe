@@ -1,9 +1,5 @@
 import type { PlaceType } from '@/src/entities/place/type'
 import type { CourseType } from '@/src/entities/course/type'
-export type FavoriteRegionType = {
-  id: number
-  value: string
-}
 
 export type UserType = {
   user_info: {
@@ -45,4 +41,10 @@ export type WriterType = {
   id: string
   name: string
   profile_url: string
+}
+
+export type UserLikeRegionType = {
+  id: string
+  primary_region: string
+  secondary_region: string
 }
