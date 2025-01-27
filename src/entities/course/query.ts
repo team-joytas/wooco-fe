@@ -77,6 +77,9 @@ export const useGetMyLikeCourses = (params: {
   return useQuery({
     queryKey: COURSE_QUERY_KEY.myLikeCourse,
     queryFn: () => getMyLikeCourses(params),
+    staleTime: 0,
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
   })
 }
 

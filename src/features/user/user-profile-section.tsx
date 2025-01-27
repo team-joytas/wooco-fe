@@ -1,12 +1,15 @@
 import type { UserProfileType } from '@/src/entities/user/type'
 import ProfileImage from '@/src/shared/ui/ProfileImage'
 import UserTag from '@/src/features/user/user-tag'
+import { useRouter } from 'next/navigation'
 
 export default function UserProfileSection({
   user,
 }: {
   user: UserProfileType | undefined
 }) {
+  const router = useRouter()
+
   return (
     <section className='px-[20px] py-[10px] gap-[5px] w-full flex flex-col justify-between'>
       <div className='flex items-center justify-between'>
@@ -19,7 +22,11 @@ export default function UserProfileSection({
           <p className='font-bold text-brand text-headline'>{user?.name}</p>
         </div>
         <div className='flex gap-[30px] items-end'>
-          <UserTag type='heart' content={'?'} />
+          <UserTag
+            type='heart'
+            content={'?'}
+            onClick={() => router.push(`/users/${user?.user_id}/wishlist`)}
+          />
           <UserTag type='comment' content={'?'} />
           <UserTag type='rate' content={'?'} />
         </div>

@@ -9,9 +9,11 @@ const TAG_TYPE = {
 export default function UserTag({
   content,
   type,
+  onClick,
 }: {
   content: string | number
   type: keyof typeof TAG_TYPE
+  onClick?: () => void
 }) {
   const tagIcon = {
     heart: <Heart size={20} fill='#5A59F2' strokeWidth={0} />,
@@ -30,7 +32,10 @@ export default function UserTag({
     )
   }
   return (
-    <div className='flex flex-col items-center'>
+    <div
+      className='flex flex-col items-center cursor-pointer'
+      onClick={onClick}
+    >
       {tagIcon[type]}
       <span className='text-sub opacity-50'>{content}</span>
       <span className='text-sub font-semibold'>{TAG_TYPE[type]}</span>
