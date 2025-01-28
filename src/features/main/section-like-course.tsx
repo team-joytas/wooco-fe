@@ -6,7 +6,7 @@ import GridCourse from '@/src/features/course/grid-course'
 import { CourseType } from '@/src/entities/course/type'
 import NoLikedCourse from '@/src/shared/ui/NoLikedCourse'
 import { useGetMyProfile } from '@/src/entities/user/query'
-import { useGetMyLikeCourse } from '@/src/entities/course/query'
+import { useGetMyLikeCourses } from '@/src/entities/course/query'
 import { getLoginUrl } from '@/src/entities/login/api'
 import { useRouter } from 'next/navigation'
 
@@ -38,7 +38,7 @@ export default function SectionLikeCourse() {
 }
 
 function UserLikeCourse({ id }: { id: string }) {
-  const { data: likeCourse } = useGetMyLikeCourse({ id, limit: 4 })
+  const { data: likeCourse } = useGetMyLikeCourses({ id, limit: 4 })
 
   if (!likeCourse || likeCourse.length === 0) return <NoLikedCourse />
 

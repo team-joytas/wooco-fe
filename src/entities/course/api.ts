@@ -75,7 +75,7 @@ export const deleteCourse = async (id: string) => {
   }
 }
 
-export const getMyLikeCourse = async ({
+export const getMyLikeCourses = async ({
   id,
   limit,
 }: {

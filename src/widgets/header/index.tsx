@@ -31,6 +31,8 @@ interface HeaderProps {
   close?: () => void
   isListView?: boolean
   setIsListView?: (isListView: boolean) => void
+  isLiked?: boolean
+  setIsLiked?: (isLiked: boolean) => void
 }
 
 interface OptionHeaderProps {
@@ -170,7 +172,7 @@ export function OptionHeader({
           onSuccess: () => {
             router.push(`/${type}s`)
             queryClient.invalidateQueries({
-              queryKey: COURSE_QUERY_KEY.userCourses(myId),
+              queryKey: COURSE_QUERY_KEY.userCourses(myId, 'recent'),
             })
           },
         })
@@ -271,6 +273,8 @@ export default function Header({
   isOnBoarding,
   isBlue,
   close,
+  isLiked,
+  setIsLiked,
 }: HeaderProps) {
   const path = usePathname()
   const user = useUserStore((state) => state.user)
@@ -304,7 +308,17 @@ export default function Header({
   return (
     <HeaderBase className='px-[10px]'>
       {isTitleTag ? (
-        <TitleWithTagStyle title={title} handleClickBack={handleClickBack} />
+        <div className='flex items-center gap-[10px]'>
+          <TitleWithTagStyle title={title} handleClickBack={handleClickBack} />
+          <Heart
+            onClick={() => setIsLiked && setIsLiked(!isLiked)}
+            className='cursor-pointer'
+            size={20}
+            strokeWidth={1.5}
+            fill={isLiked ? '#5A59F2' : 'none'}
+            stroke='#5A59F2'
+          />
+        </div>
       ) : (
         <>
           {isBack || close ? (
