@@ -33,6 +33,7 @@ interface HeaderProps {
   setIsListView?: (isListView: boolean) => void
   isLiked?: boolean
   setIsLiked?: (isLiked: boolean) => void
+  isHeart?: boolean
 }
 
 interface OptionHeaderProps {
@@ -147,18 +148,10 @@ export function OptionHeader({
     try {
       if (isLiked) {
         setClickedLike(false)
-        deleteCourseLike(id, {
-          onSuccess: () => {
-            router.push(`/${type}s`)
-          },
-        })
+        deleteCourseLike(id)
       } else {
         setClickedLike(true)
-        postCourseLike(id, {
-          onSuccess: () => {
-            router.push(`/${type}s`)
-          },
-        })
+        postCourseLike(id)
       }
     } catch (error) {
       console.error(error)
@@ -275,6 +268,7 @@ export default function Header({
   close,
   isLiked,
   setIsLiked,
+  isHeart,
 }: HeaderProps) {
   const path = usePathname()
   const user = useUserStore((state) => state.user)
@@ -310,14 +304,16 @@ export default function Header({
       {isTitleTag ? (
         <div className='flex items-center gap-[10px]'>
           <TitleWithTagStyle title={title} handleClickBack={handleClickBack} />
-          <Heart
-            onClick={() => setIsLiked && setIsLiked(!isLiked)}
-            className='cursor-pointer'
-            size={20}
-            strokeWidth={1.5}
-            fill={isLiked ? '#5A59F2' : 'none'}
-            stroke='#5A59F2'
-          />
+          {isHeart && (
+            <Heart
+              onClick={() => setIsLiked && setIsLiked(!isLiked)}
+              className='cursor-pointer'
+              size={20}
+              strokeWidth={1.5}
+              fill={isLiked ? '#5A59F2' : 'none'}
+              stroke='#5A59F2'
+            />
+          )}
         </div>
       ) : (
         <>
