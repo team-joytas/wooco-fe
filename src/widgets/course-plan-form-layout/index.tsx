@@ -190,20 +190,20 @@ export default function CoursePlanFormLayout({
       <Header title={headerTitle} isBack />
       <Spacer height={25} />
       <form onSubmit={handleSubmit(onSubmit)}>
-        {(level === LEVEL_TYPE.update && isDataLoaded) ||
-          (level === LEVEL_TYPE.add && (
-            <FormSections
-              pageType={pageType}
-              register={register}
-              places={places}
-              setPlaces={setPlaces}
-              getValues={getValues}
-              handleClickSearchPlace={handleClickSearchPlace}
-              setValue={setValue}
-              errors={errors}
-              isButtonClick={isButtonClick}
-            />
-          ))}
+        {((level === LEVEL_TYPE.update && isDataLoaded) ||
+          level === LEVEL_TYPE.add) && (
+          <FormSections
+            pageType={pageType}
+            register={register}
+            places={places}
+            setPlaces={setPlaces}
+            getValues={getValues}
+            handleClickSearchPlace={handleClickSearchPlace}
+            setValue={setValue}
+            errors={errors}
+            isButtonClick={isButtonClick}
+          />
+        )}
         <button
           type='submit'
           onClick={() => setIsButtonClick(true)}
