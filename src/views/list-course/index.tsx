@@ -44,15 +44,17 @@ export default function ListCourse({ title }: ListCourseProps) {
   const { mutate: postLikeMutate } = usePostMyLikeRegion()
   const { mutate: deleteLikeMutate } = useDeleteMyLikeRegion()
 
-  const { data: coursesData } = title
-    ? useGetMyLikeCourses({
-        id: user?.user_id || '',
-      })
-    : useGetCourses({
-        sort: order as 'recent' | 'popular',
-        primary_region: currentRegion[0],
-        secondary_region: currentRegion[1],
-      })
+  const { data: likeCourses } = useGetMyLikeCourses({
+    id: user?.user_id || '',
+  })
+
+  const { data: courses } = useGetCourses({
+    sort: order as 'recent' | 'popular',
+    primary_region: currentRegion[0],
+    secondary_region: currentRegion[1],
+  })
+
+  const coursesData = title ? likeCourses : courses
 
   const handleClickLike = () => {
     if (isLiked) {
