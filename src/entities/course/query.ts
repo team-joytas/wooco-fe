@@ -37,12 +37,14 @@ export const useGetCourses = (params: {
   limit?: number
   primary_region?: string
   secondary_region?: string
+  category?: string
 }) => {
   return useQuery({
     queryKey: [
       COURSE_QUERY_KEY.all,
       params.primary_region,
       params.secondary_region,
+      params.category,
     ],
     queryFn: () => getCourses(params),
   })

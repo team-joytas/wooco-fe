@@ -14,8 +14,6 @@ import SelectCategories from '@/src/shared/ui/SelectCategories'
 import Spacer from '@/src/shared/ui/Spacer'
 import { Select } from 'antd'
 
-// TODO: 카테고리 설정
-
 interface ListCourseProps {
   title?: string
 }
@@ -32,6 +30,11 @@ export default function ListCourse({ title }: ListCourseProps) {
   } = useRegionStore()
   const [isLiked, setIsLiked] = useState(false)
   const { user } = useUserStore()
+  const [category, setCategory] = useState<string[]>(['ALL'])
+
+  const onChangeCategories = (category: string[]) => {
+    setCategory(category)
+  }
 
   const regionId = useMemo(() => {
     return findLikedRegionId(likedRegions, currentRegion)
@@ -52,6 +55,7 @@ export default function ListCourse({ title }: ListCourseProps) {
     sort: order as 'recent' | 'popular',
     primary_region: currentRegion[0],
     secondary_region: currentRegion[1],
+    category: category.includes('ALL') ? undefined : category[0],
   })
 
   const coursesData = title ? likeCourses : courses
@@ -106,7 +110,11 @@ export default function ListCourse({ title }: ListCourseProps) {
         setIsLiked={handleClickLike}
       />
 
-      <SelectCategories isList={true} />
+      <SelectCategories
+        isList={true}
+        prevCategories={category}
+        setCategories={onChangeCategories}
+      />
 
       <Spacer height={10} />
 

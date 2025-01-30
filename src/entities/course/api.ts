@@ -16,11 +16,13 @@ export const getCourses = async ({
   limit,
   primary_region,
   secondary_region,
+  category,
 }: {
   sort?: 'recent' | 'popular'
   limit?: number
   primary_region?: string
   secondary_region?: string
+  category?: string
 }) => {
   try {
     const response = await customAxios.get('/courses', {
@@ -29,6 +31,7 @@ export const getCourses = async ({
         limit,
         primary_region,
         secondary_region,
+        category,
       },
     })
     return response.data.results
