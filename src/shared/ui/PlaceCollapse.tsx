@@ -25,7 +25,9 @@ export default function PlaceCollapse({
     })
   }
 
-  const items = places.map((place, index) => ({
+  const sortedPlaces = [...places].sort((a, b) => a.order - b.order)
+
+  const items = sortedPlaces.map((place, index) => ({
     key: place.id.toString(),
     label: (
       <div className='flex gap-[10px] items-center'>
