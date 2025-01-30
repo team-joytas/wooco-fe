@@ -1,6 +1,7 @@
 'use client'
 
 import axios, { AxiosInstance } from 'axios'
+import { addRequestSignature } from '@/src/shared/axios/signature'
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL
 
@@ -12,12 +13,17 @@ export const customAxios: AxiosInstance = axios.create({
   withCredentials: true,
 })
 
+// 토큰 인터셉터
 customAxios.interceptors.request.use((config) => {
   const accessToken = localStorage.getItem('accessToken')
   if (accessToken) config.headers.Authorization = `Bearer ${accessToken}`
   return config
 })
 
+// 서명 인터셉터
+customAxios.interceptors.request.use(addRequestSignature)
+
+// 에러 및 reissue 인터셉터
 customAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -62,3 +68,6 @@ export const publicAxios: AxiosInstance = axios.create({
   },
   withCredentials: true,
 })
+
+// 서명 인터셉터
+publicAxios.interceptors.request.use(addRequestSignature)
