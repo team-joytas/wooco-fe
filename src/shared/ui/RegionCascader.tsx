@@ -3,7 +3,7 @@
 import { Cascader } from 'antd'
 import { getSeoulData } from '@/src/entities/place/api'
 import { DefaultOptionType } from 'antd/es/cascader'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { UserLikeRegionType } from '@/src/entities/user/type'
 
 interface CascaderProps {
