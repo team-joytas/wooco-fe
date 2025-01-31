@@ -40,3 +40,13 @@ export const updatePlan = async (id: string, payload: PlanPayloadType) => {
     throw error
   }
 }
+
+export const deletePlan = async (id: string) => {
+  try {
+    const response = await customAxios.delete(`/plans/${id}`)
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}

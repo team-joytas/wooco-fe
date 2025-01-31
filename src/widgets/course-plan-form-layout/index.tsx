@@ -108,6 +108,27 @@ export default function CoursePlanFormLayout({
     }
   }, [level, type, fetchData])
 
+  useEffect(() => {
+    if (level === LEVEL_TYPE.add && type === LAYOUT_TYPE.course) {
+      const storedData = sessionStorage.getItem('course')
+      if (storedData) {
+        const course = JSON.parse(storedData)
+        setValue('title', course.title)
+        setValue('primary_region', course.primary_region)
+        setValue('secondary_region', course.secondary_region)
+        setValue('categories', course.categories)
+        setValue('contents', course.contents)
+        setValue('visit_date', course.visit_date)
+        setPlaces(course.places || [])
+
+        setIsDataLoaded(true)
+      }
+    }
+    return () => {
+      sessionStorage.removeItem('course')
+    }
+  }, [level, type])
+
   const { mutate: courseMutate } = useCreateCourse()
   const { mutate: planMutate } = useCreatePlan()
   const { mutate: courseUpdateMutate } = useUpdateCourse(id || '')
@@ -185,13 +206,31 @@ export default function CoursePlanFormLayout({
     'secondary_region'
   )}`
 
+  const isCourseSessionStored = !!sessionStorage.getItem('course')
+  const shouldRenderForm = (() => {
+    if (level === LEVEL_TYPE.update) {
+      return isDataLoaded
+    }
+
+    if (level === LEVEL_TYPE.add) {
+      if (type === LAYOUT_TYPE.plan) {
+        return true
+      }
+
+      if (type === LAYOUT_TYPE.course) {
+        return !isCourseSessionStored || (isCourseSessionStored && isDataLoaded)
+      }
+    }
+
+    return false
+  })()
+
   return (
     <div className='relative h-100% flex flex-col'>
       <Header title={headerTitle} isBack />
       <Spacer height={25} />
       <form onSubmit={handleSubmit(onSubmit)}>
-        {((level === LEVEL_TYPE.update && isDataLoaded) ||
-          level === LEVEL_TYPE.add) && (
+        {shouldRenderForm && (
           <FormSections
             pageType={pageType}
             register={register}

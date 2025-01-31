@@ -21,6 +21,7 @@ import {
 } from '@/src/entities/course/query'
 import { useQueryClient } from '@tanstack/react-query'
 import { COURSE_QUERY_KEY } from '@/src/entities/course/query'
+import { useDeletePlan } from '@/src/entities/plan/query'
 
 interface HeaderProps {
   title: string
@@ -126,6 +127,9 @@ export function OptionHeader({
   const { mutate: deleteCourseLike } = useDeleteCourseLike(id)
   const { mutate: postCourseLike } = usePostCourseLike(id)
   const { mutate: deleteCourse } = useDeleteCourse()
+  const { mutate: deletePlan } = useDeletePlan()
+
+  const deleteCourseOrPlan = type === 'course' ? deleteCourse : deletePlan
 
   const myId = useUserStore((state) => state.user?.user_id)
 
@@ -161,7 +165,7 @@ export function OptionHeader({
   const handleDelete = async () => {
     try {
       if (myId) {
-        deleteCourse(id, {
+        deleteCourseOrPlan(id, {
           onSuccess: () => {
             router.push(`/${type}s`)
             queryClient.invalidateQueries({
