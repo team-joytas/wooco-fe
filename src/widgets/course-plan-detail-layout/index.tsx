@@ -148,31 +148,22 @@ export default function CoursePlanDetailLayout({
       {children}
       <Spacer height={25} />
       {!isCourse && (
-        <div className='w-full h-[54px] flex flex-row gap-[2px] text-brand font-bold text-main'>
-          <button
-            className='w-[187px] h-full flex items-center justify-center bg-light-gray   cursor-pointer gap-[10px] hover:bg-brand hover:text-white transition-all duration-200'
-            onClick={() => setIsClicked(!isClicked)}
-          >
-            {isClicked ? (
-              <>
-                <X size={24} strokeWidth={1.5} />
-                닫기
-              </>
-            ) : (
-              <>
-                <Share2 size={24} strokeWidth={1.5} />
-                공유하기
-              </>
-            )}
-          </button>
-          <Link
-            className='w-[187px] h-full flex items-center justify-center bg-light-gray gap-[10px] cursor-pointer hover:bg-brand hover:text-white transition-all duration-200'
-            href={`/${type}s/${id}/update`}
-          >
-            <PenLine size={24} strokeWidth={1.5} />
-            수정하기
-          </Link>
-        </div>
+        <button
+          className='w-full h-[54px] text-brand font-bold text-main flex items-center justify-center bg-light-gray cursor-pointer gap-[10px] hover:bg-brand hover:text-white transition-all duration-200'
+          onClick={() => setIsClicked(!isClicked)}
+        >
+          {isClicked ? (
+            <>
+              <X size={24} strokeWidth={1.5} />
+              닫기
+            </>
+          ) : (
+            <>
+              <Share2 size={24} strokeWidth={1.5} />
+              공유하기
+            </>
+          )}
+        </button>
       )}
       {isClicked && renderFloatingButtons()}
       {contextHolder}
