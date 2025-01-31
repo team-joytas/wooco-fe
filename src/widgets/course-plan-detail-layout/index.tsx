@@ -66,14 +66,18 @@ export default function CoursePlanDetailLayout({
     setIsClicked(!isClicked)
   }
 
+  const handleClickShareCourse = () => {
+    setIsClicked(!isClicked)
+    sessionStorage.setItem('course', JSON.stringify(data))
+
+    handleClick('/courses/new')
+  }
+
   const renderFloatingButtons = () =>
     isClicked && (
       <div className='flex flex-col gap-[5px] absolute bottom-[120px]'>
         <FloatingMenuButton onClick={copyToClipboard} text='링크 복사' />
-        <FloatingMenuButton
-          onClick={() => handleClick('/courses/new')}
-          text='코스 작성'
-        />
+        <FloatingMenuButton onClick={handleClickShareCourse} text='코스 작성' />
       </div>
     )
 
