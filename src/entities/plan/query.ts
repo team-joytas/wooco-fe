@@ -6,6 +6,7 @@ import {
 } from '@tanstack/react-query'
 import { PlanPayloadType, PlanType } from '@/src/entities/plan/type'
 import {
+  deletePlan,
   getPlan,
   getPlans,
   postPlan,
@@ -49,6 +50,17 @@ export const useUpdatePlan = (id: string) => {
     mutationFn: (data: PlanPayloadType) => updatePlan(id, data),
     onSuccess: () => {
       queryClient.refetchQueries({ queryKey: PLAN_QUERY_KEY.detail(id) })
+    },
+  })
+}
+
+export const useDeletePlan = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (id: string) => deletePlan(id),
+    onSuccess: () => {
+      queryClient.refetchQueries({ queryKey: PLAN_QUERY_KEY.all })
     },
   })
 }
