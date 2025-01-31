@@ -7,11 +7,11 @@ export default function SelectCategories({
   prevCategories,
 }: {
   isList?: boolean
-  setCategories?: (categories: string[]) => void
+  setCategories: (categories: string[]) => void
   prevCategories?: string[]
 }) {
-  const [clickedCategory, setClickedCategory] = useState<string[]>(() =>
-    isList ? ['ALL'] : prevCategories || []
+  const [clickedCategory, setClickedCategory] = useState<string[]>(
+    prevCategories || []
   )
   const ALL_CATEGORY_ID = 'ALL'
   const categoriesWithAll = [
@@ -28,24 +28,13 @@ export default function SelectCategories({
   }))
 
   useEffect(() => {
-    setCategories?.(clickedCategory)
-  }, [clickedCategory, setCategories])
+    setCategories(clickedCategory)
+  }, [clickedCategory])
 
-  function handleCategoryClick(id: string) {
+  const handleCategoryClick = (id: string) => {
     setClickedCategory((prev) => {
-      let newCategories
-      if (id === ALL_CATEGORY_ID) {
-        newCategories = prev.includes(ALL_CATEGORY_ID) ? [] : [ALL_CATEGORY_ID]
-      } else {
-        if (prev.includes(ALL_CATEGORY_ID)) {
-          newCategories = [id]
-        } else {
-          newCategories = prev.includes(id)
-            ? prev.filter((categoryId) => categoryId !== id)
-            : [...prev, id]
-        }
-      }
-      return newCategories
+      if (prev.includes(id)) return prev
+      return [id]
     })
   }
 
