@@ -85,11 +85,10 @@ export default function CoursePlanFormLayout({
     },
   })
 
-  const fetchData = id
-    ? type === LAYOUT_TYPE.course
-      ? useGetCourse(id)
-      : useGetPlan(id)
-    : null
+  const getData = useMemo(() => {
+    return id && type === LAYOUT_TYPE.course ? useGetCourse : useGetPlan
+  }, [id, type])
+  const fetchData = getData(id || '') || null
 
   useEffect(() => {
     if (level === LEVEL_TYPE.update) {

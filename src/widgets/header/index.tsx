@@ -126,8 +126,10 @@ export function OptionHeader({
 
   const { mutate: deleteCourseLike } = useDeleteCourseLike(id)
   const { mutate: postCourseLike } = usePostCourseLike(id)
-  const { mutate: deleteCourseOrPlan } =
-    type === 'course' ? useDeleteCourse() : useDeletePlan()
+  const { mutate: deleteCourse } = useDeleteCourse()
+  const { mutate: deletePlan } = useDeletePlan()
+
+  const deleteCourseOrPlan = type === 'course' ? deleteCourse : deletePlan
 
   const myId = useUserStore((state) => state.user?.user_id)
 
