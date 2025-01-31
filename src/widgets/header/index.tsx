@@ -228,17 +228,17 @@ const OptionMenu = React.forwardRef<HTMLDivElement, OptionMenuProps>(
         strokeWidth={1.5}
       />
       {isOpen && (
-        <div className='absolute flex flex-col z-1 top-[30px] right-[10px] w-[100px] shadow-floating-button h-fit bg-light-gray rounded-[10px]'>
+        <div className='absolute flex flex-col z-1 top-[30px] right-[10px] w-[93px] shadow-floating-button h-fit bg-light-gray rounded-[10px]'>
           {isMine ? (
             <>
               <Link
-                className='h-[25px] text-sub flex items-center justify-center'
-                href={`/${type}s/${id}/modify`}
+                className='h-[25px] text-sub flex items-center justify-center cursor-pointer hover:text-brand transition-all duration-200'
+                href={`/${type}s/${id}/update`}
               >
                 수정하기
               </Link>
               <button
-                className='h-[25px] text-sub flex items-center justify-center'
+                className='h-[25px] text-sub flex items-center justify-center cursor-pointer hover:text-brand transition-all duration-200'
                 onClick={handleDelete}
               >
                 삭제하기
