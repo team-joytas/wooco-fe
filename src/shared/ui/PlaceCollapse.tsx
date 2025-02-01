@@ -54,7 +54,7 @@ export default function PlaceCollapse({
           </span>
           <Copy
             className='cursor-pointer'
-            onClick={() => toast(place.name)}
+            onClick={() => toast(place.address)}
             size={14}
             strokeWidth={1.5}
           />
