@@ -108,8 +108,15 @@ export default function CoursePlanFormLayout({
     }
   }, [level, type, fetchData])
 
+  const isCourseSessionStored =
+    typeof window !== 'undefined' ? !!sessionStorage.getItem('course') : false
+
   useEffect(() => {
-    if (level === LEVEL_TYPE.add && type === LAYOUT_TYPE.course) {
+    if (
+      level === LEVEL_TYPE.add &&
+      type === LAYOUT_TYPE.course &&
+      typeof window !== 'undefined'
+    ) {
       const storedData = sessionStorage.getItem('course')
       if (storedData) {
         const course = JSON.parse(storedData)
@@ -125,7 +132,9 @@ export default function CoursePlanFormLayout({
       }
     }
     return () => {
-      sessionStorage.removeItem('course')
+      if (typeof window !== 'undefined') {
+        sessionStorage.removeItem('course')
+      }
     }
   }, [level, type])
 
@@ -206,7 +215,6 @@ export default function CoursePlanFormLayout({
     'secondary_region'
   )}`
 
-  const isCourseSessionStored = !!sessionStorage.getItem('course')
   const shouldRenderForm = (() => {
     if (level === LEVEL_TYPE.update) {
       return isDataLoaded

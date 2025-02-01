@@ -1,3 +1,5 @@
+'use client'
+
 import Spacer from '@/src/shared/ui/Spacer'
 import PlaceCollapse from '@/src/shared/ui/PlaceCollapse'
 import KakaoMap from '@/src/shared/ui/KakaoMap'
@@ -6,12 +8,11 @@ import { CATEGORY } from '@/src/entities/category/type'
 import { OptionHeader } from '@/src/widgets/header'
 import useUserStore from '@/src/shared/store/userStore'
 import { PlanType } from '@/src/entities/plan/type'
-import { PenLine, Share2, X } from 'lucide-react'
+import { Share2, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useMemo, useState } from 'react'
 import { message } from 'antd'
 import { FloatingMenuButton } from '@/src/widgets/floating-write-btn'
-import Link from 'next/link'
 
 const COURSE_PLAN = {
   course: 'course' as const,
