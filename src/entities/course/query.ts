@@ -18,7 +18,21 @@ import {
 import type { CoursePayloadType, CourseType } from '@/src/entities/course/type'
 
 export const COURSE_QUERY_KEY = {
-  all: ['courses'] as const,
+  all: (params: {
+    sort?: 'recent' | 'popular'
+    primary_region?: string
+    secondary_region?: string
+    limit?: number
+    category?: string
+  }) =>
+    [
+      'courses',
+      params.sort,
+      params.limit,
+      params.category,
+      params.primary_region,
+      params.secondary_region,
+    ] as const,
   detail: (id: string) => ['course', id] as const,
   myLikeCourse: ['myLikeCourse'] as const,
   userCourses: (id: string, order?: 'recent' | 'popular') =>
@@ -40,12 +54,7 @@ export const useGetCourses = (params: {
   category?: string
 }) => {
   return useQuery({
-    queryKey: [
-      COURSE_QUERY_KEY.all,
-      params.primary_region,
-      params.secondary_region,
-      params.category,
-    ],
+    queryKey: COURSE_QUERY_KEY.all(params),
     queryFn: () => getCourses(params),
   })
 }
