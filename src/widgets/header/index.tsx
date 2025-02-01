@@ -146,7 +146,7 @@ export function OptionHeader({
     }
   }, [isOpen])
 
-  const handleClickBack = () => router.push(`/${type}s`)
+  const handleClickBack = () => router.back()
   const handleClickOption = () => setIsOpen(!isOpen)
   const handleClickLike = async () => {
     try {
