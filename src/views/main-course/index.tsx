@@ -21,7 +21,7 @@ export default function MainCourse() {
     setCurrentRegion([])
   }, [isUpdated, likeRegions])
 
-  if (!courses || !likeRegions) return <div>Loading...</div>
+  if (!courses) return <div>Loading...</div>
 
   const onChangeRegion = (value: string[]) => {
     useRegionStore.setState({ currentRegion: value })
