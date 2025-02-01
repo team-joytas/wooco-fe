@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 
 export default function ProfileImage({
   size = 16,
@@ -7,7 +7,7 @@ export default function ProfileImage({
   type,
 }: {
   size?: number
-  src: string
+  src: string | StaticImageData
   className?: string
   type?: 'colored'
 }) {

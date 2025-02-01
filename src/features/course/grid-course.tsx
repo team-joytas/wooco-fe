@@ -22,7 +22,7 @@ export default function GridCourse({ course }: { course: CourseType }) {
         <div className='absolute top-[85px] left-[10px] w-[27px] h-[27px] bg-gradient-to-r from-[#9997F2] to-[#4341EA] p-[1px] rounded-[50%]'>
           <ProfileImage
             className='w-[25px] h-[25px]'
-            src={'https://img.choroc.com/newshop/goods/009179/009179_1.jpg'}
+            src={course.writer.profile_url || logo}
           />
         </div>
       </div>
