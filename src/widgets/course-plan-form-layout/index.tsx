@@ -6,8 +6,10 @@ import { message } from 'antd'
 import Spacer from '@/src/shared/ui/Spacer'
 import SearchPlace from '@/src/views/search-place'
 import Header from '@/src/widgets/header'
-import { CoursePlanPlaceType } from '@/src/entities/place/type'
+import type { CoursePlanPlaceType } from '@/src/entities/place/type'
 import type { CoursePayloadType } from '@/src/entities/course/type'
+import { COURSE_QUERY_KEY } from '@/src/entities/course/query'
+import { PLAN_QUERY_KEY } from '@/src/entities/plan/query'
 import FormSections from '@/src/features/course/form-course'
 import { useForm } from 'react-hook-form'
 import {
@@ -21,6 +23,7 @@ import {
   useUpdatePlan,
 } from '@/src/entities/plan/query'
 import { PlanPayloadType } from '@/src/entities/plan/type'
+import { useQueryClient } from '@tanstack/react-query'
 
 const LAYOUT_TYPE = {
   course: 'course' as const,
@@ -57,6 +60,7 @@ export default function CoursePlanFormLayout({
   id,
 }: CoursePlanFormLayoutProps) {
   const router = useRouter()
+  const queryClient = useQueryClient()
   const [places, setPlaces] = useState<CoursePlanPlaceType[]>([])
   const [openSearchPlace, setOpenSearchPlace] = useState<boolean>(false)
   const [messageApi, contextHolder] = message.useMessage()
@@ -195,6 +199,11 @@ export default function CoursePlanFormLayout({
               ? `/${routePrefix}/${result.id}`
               : `/${routePrefix}/${id}`
           router.push(redirectPath)
+          queryClient.refetchQueries({
+            queryKey: LAYOUT_TYPE.course
+              ? COURSE_QUERY_KEY.all
+              : PLAN_QUERY_KEY.all,
+          })
         },
       })
     } catch (error) {
