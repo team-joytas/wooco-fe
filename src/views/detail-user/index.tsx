@@ -86,7 +86,7 @@ export default function DetailUser({ id, user, isMe }: DetailUserProps) {
         <>
           <Spacer height={10} />
           <Spacer height={8} className='bg-bright-gray' />
-          {courses && <ListUserCourse courses={courses} />}
+          <ListUserCourse courses={courses || []} />
         </>
       )}
       <Spacer height={20} />
