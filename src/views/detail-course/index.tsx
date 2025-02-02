@@ -8,6 +8,7 @@ import CoursePlanDetailLayout from '@/src/widgets/course-plan-detail-layout'
 import { passFromCreate } from '@/src/shared/utils/date'
 import { useGetCourse } from '@/src/entities/course/query'
 import { useGetComments } from '@/src/entities/comment/query'
+import { useRouter } from 'next/navigation'
 
 interface DetailCourseProps {
   courseId: string
@@ -16,6 +17,7 @@ interface DetailCourseProps {
 export default function DetailCourse({ courseId }: DetailCourseProps) {
   const { data: course } = useGetCourse(courseId)
   const { data: comments } = useGetComments(courseId)
+  const router = useRouter()
   if (!course) return <div>Loading...</div>
 
   return (
@@ -53,12 +55,12 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
             </span>
           </p>
           {comments && comments.length > 0 && (
-            <Link
+            <button
               className='cursor-pointer pr-[20px] text-sub opacity-50'
-              href={`/courses/${courseId}/comments`}
+              onClick={() => router.replace(`/courses/${courseId}/comments`)}
             >
               더보기
-            </Link>
+            </button>
           )}
         </div>
         <Spacer height={20} />

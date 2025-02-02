@@ -3,7 +3,7 @@
 import { ChevronLeft, Send } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import Spacer from '@/src/shared/ui/Spacer'
-import CommentItem from '@/src/features/comment/card-comment'
+import CardComment from '@/src/features/comment/card-comment'
 import type { CommentType } from '@/src/entities/comment/type'
 import { useForm } from 'react-hook-form'
 import { useCreateComment } from '@/src/entities/comment/query'
@@ -44,7 +44,7 @@ export default function DetailComment({
     <div className='h-100% flex flex-col'>
       <section className='max-w-[375px] relative bg-white w-full h-[55px] px-[20px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line'>
         <ChevronLeft
-          onClick={() => router.push(`/courses/${courseId}`)}
+          onClick={() => router.replace(`/courses/${courseId}`)}
           size={24}
           strokeWidth={1.5}
           className='cursor-pointer'
@@ -57,7 +57,7 @@ export default function DetailComment({
       <Spacer height={20} />
       <div className='px-[30px] flex flex-col gap-[30px]'>
         {comments.map((comment) => {
-          return <CommentItem key={comment.id} comment={comment} />
+          return <CardComment key={comment.id} comment={comment} />
         })}
         <Spacer height={20} />
       </div>
