@@ -14,7 +14,7 @@ export default function CourseListLayout({
   courses,
 }: CourseListLayoutProps) {
   return isListView ? (
-    <div className='flex flex-col justify-between items-center px-[10px]'>
+    <div className='flex flex-col justify-between items-center px-[20px]'>
       {courses.map((course: CourseType) => (
         <Fragment key={course.id}>
           <CardListCourse course={course} />

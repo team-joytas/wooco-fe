@@ -29,7 +29,7 @@ export default function MainCourse() {
   }
 
   return (
-    <div className='w-full h-full py-[20px] flex flex-col'>
+    <div className='w-full h-full py-[10px] flex flex-col'>
       <RegionCascaderWithLikes
         setRegion={onChangeRegion}
         placeholder='관심 지역 등록하고 빠르게 코스들 구경해요'
@@ -41,10 +41,8 @@ export default function MainCourse() {
           })) || []
         }
       />
-
       <Spacer height={11} />
       <Spacer className='bg-bright-gray' height={8} />
-
       <div className='flex flex-col w-full px-[20px]'>
         <div className='flex flex-col mt-[15px] justify-start'>
           <span className='text-headline font-bold text-brand'>

@@ -34,7 +34,8 @@ export const COURSE_QUERY_KEY = {
       params.secondary_region,
     ] as const,
   detail: (id: string) => ['course', id] as const,
-  myLikeCourse: ['myLikeCourse'] as const,
+  likeCourse: (params: { id: string; order?: 'recent' | 'popular' }) =>
+    ['likeCourse', params.id, params.order] as const,
   userCourses: (id: string, order?: 'recent' | 'popular') =>
     ['userCourses', id, order] as const,
 }
@@ -81,12 +82,13 @@ export const useUpdateCourse = (id: string) => {
   })
 }
 
-export const useGetMyLikeCourses = (params: {
+export const useGetLikeCourses = (params: {
   id: string
   limit?: number
+  order?: 'recent' | 'popular'
 }): UseQueryResult<CourseType[]> => {
   return useQuery({
-    queryKey: COURSE_QUERY_KEY.myLikeCourse,
+    queryKey: COURSE_QUERY_KEY.likeCourse(params),
     queryFn: () => getMyLikeCourses(params),
     staleTime: 0,
     refetchOnWindowFocus: true,

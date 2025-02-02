@@ -1,5 +1,5 @@
-import ListCourse from '@/src/views/list-course'
+import ListLikeCourse from '@/src/views/list-like-course'
 
-export default async function Page() {
-  return <ListCourse title='관심 목록' />
+export default async function Page({ params }: { params: { id: string } }) {
+  return <ListLikeCourse id={params.id} />
 }

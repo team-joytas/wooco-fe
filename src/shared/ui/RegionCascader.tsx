@@ -90,17 +90,19 @@ export default function RegionCascaderWithLikes({
     )
 
   return (
-    <Cascader
-      options={options}
-      placeholder={placeholder}
-      onChange={onChange}
-      size='large'
-      showSearch={{ filter }}
-      style={{
-        width: '100%',
-      }}
-      expandTrigger='hover'
-    />
+    <div className='w-full px-[10px]'>
+      <Cascader
+        options={options}
+        placeholder={placeholder}
+        onChange={onChange}
+        size='large'
+        showSearch={{ filter }}
+        style={{
+          width: '100%',
+        }}
+        expandTrigger='hover'
+      />
+    </div>
   )
 }
 

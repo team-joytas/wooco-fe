@@ -2,23 +2,18 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import Header from '@/src/widgets/header'
-import { useGetCourses, useGetMyLikeCourses } from '@/src/entities/course/query'
+import { useGetCourses } from '@/src/entities/course/query'
 import {
   useDeleteMyLikeRegion,
   usePostMyLikeRegion,
 } from '@/src/entities/user/query'
 import useRegionStore, { LikeRegion } from '@/src/shared/store/regionStore'
-import useUserStore from '@/src/shared/store/userStore'
 import CourseListLayout from '@/src/widgets/course-list-layout'
 import SelectCategories from '@/src/shared/ui/SelectCategories'
 import Spacer from '@/src/shared/ui/Spacer'
 import { Select } from 'antd'
 
-interface ListCourseProps {
-  title?: string
-}
-
-export default function ListCourse({ title }: ListCourseProps) {
+export default function ListCourse() {
   const [isListView, setIsListView] = useState(true)
   const [order, setOrder] = useState('recent')
   const {
@@ -29,12 +24,7 @@ export default function ListCourse({ title }: ListCourseProps) {
     setIsUpdated,
   } = useRegionStore()
   const [isLiked, setIsLiked] = useState(false)
-  const { user } = useUserStore()
   const [category, setCategory] = useState<string[]>(['ALL'])
-
-  const onChangeCategories = (category: string[]) => {
-    setCategory(category)
-  }
 
   const regionId = useMemo(() => {
     return findLikedRegionId(likedRegions, currentRegion)
@@ -47,18 +37,12 @@ export default function ListCourse({ title }: ListCourseProps) {
   const { mutate: postLikeMutate } = usePostMyLikeRegion()
   const { mutate: deleteLikeMutate } = useDeleteMyLikeRegion()
 
-  const { data: likeCourses } = useGetMyLikeCourses({
-    id: user?.user_id || '',
-  })
-
-  const { data: courses } = useGetCourses({
+  const { data: courses, isLoading } = useGetCourses({
     sort: order as 'recent' | 'popular',
     primary_region: currentRegion[0],
     secondary_region: currentRegion[1],
     category: category.includes('ALL') ? undefined : category[0],
   })
-
-  const coursesData = title ? likeCourses : courses
 
   const handleClickLike = () => {
     if (isLiked) {
@@ -91,38 +75,33 @@ export default function ListCourse({ title }: ListCourseProps) {
     }
   }
 
-  const onChangeOrder = (value: string) => {
-    setOrder(value)
-  }
-
-  if (!coursesData) return <div>Loading...</div>
+  if (isLoading) return <div>Loading...</div>
 
   return (
     <div>
       <Header
-        title={title ? title : currentRegion[1]}
+        title={currentRegion[1]}
         isTitleTag={true}
         isBack
         isListView={isListView}
         setIsListView={setIsListView}
-        isHeart={title ? false : true}
+        isHeart={true}
         isLiked={isLiked}
         setIsLiked={handleClickLike}
       />
-
       <SelectCategories
         isList={true}
         prevCategories={category}
-        setCategories={onChangeCategories}
+        setCategories={(category: string[]) => {
+          setCategory(category)
+        }}
       />
-
       <Spacer height={10} />
-
-      <div className='w-full flex justify-end items-center'>
+      <div className='w-full flex px-[10px] justify-end items-center'>
         <Select
           defaultValue='recent'
           style={{ width: 80 }}
-          onChange={onChangeOrder}
+          onChange={(value) => setOrder(value)}
           size={'small'}
           options={[
             { value: 'recent', label: '최신순' },
@@ -130,8 +109,7 @@ export default function ListCourse({ title }: ListCourseProps) {
           ]}
         />
       </div>
-
-      <CourseListLayout isListView={isListView} courses={coursesData} />
+      <CourseListLayout isListView={isListView} courses={courses} />
     </div>
   )
 }
