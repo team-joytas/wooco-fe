@@ -42,7 +42,7 @@ export default function SelectCategories({
     <div
       className={`flex gap-[3px] text-[13px] ${
         isList
-          ? 'w-full h-[50px] items-center overflow-x-auto border-b border-container-blue whitespace-nowrap'
+          ? 'w-full h-[50px] px-[10px] items-center overflow-x-auto border-b border-container-blue whitespace-nowrap'
           : 'flex-wrap'
       }`}
     >
