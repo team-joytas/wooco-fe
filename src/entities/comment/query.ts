@@ -4,7 +4,11 @@ import {
   useQueryClient,
   type UseQueryResult,
 } from '@tanstack/react-query'
-import { getComments, postComment } from '@/src/entities/comment/api'
+import {
+  getComments,
+  postComment,
+  deleteComment,
+} from '@/src/entities/comment/api'
 import type { CommentType } from '@/src/entities/comment/type'
 
 const COMMENT_QUERY_KEY = {
@@ -25,6 +29,17 @@ export const useCreateComment = () => {
   return useMutation({
     mutationFn: ({ id, contents }: { id: string; contents: string }) =>
       postComment(id, contents),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: COMMENT_QUERY_KEY.all })
+    },
+  })
+}
+
+export const useDeleteComment = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (id: string) => deleteComment(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: COMMENT_QUERY_KEY.all })
     },

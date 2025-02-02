@@ -25,3 +25,13 @@ export const postComment = async (
     throw error
   }
 }
+
+export const deleteComment = async (id: string): Promise<number> => {
+  try {
+    const response = await customAxios.delete(`/comments/${id}`)
+    return response.status
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
