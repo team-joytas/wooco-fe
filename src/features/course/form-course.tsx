@@ -253,14 +253,18 @@ export default function FormSections({
           isButtonClick={isButtonClick}
         />
       </Section>
-      <Divider />
-      <Section title='관련 태그를 눌러 주세요.' padding>
-        <FormCategories
-          setValue={setValue}
-          getValues={getValues}
-          isButtonClick={isButtonClick}
-        />
-      </Section>
+      {pageType === '코스' && (
+        <>
+          <Divider />
+          <Section title='관련 태그를 눌러 주세요.' padding>
+            <FormCategories
+              setValue={setValue}
+              getValues={getValues}
+              isButtonClick={isButtonClick}
+            />
+          </Section>
+        </>
+      )}
       <Spacer height={25} />
     </>
   )
