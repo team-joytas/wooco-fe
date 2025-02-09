@@ -64,7 +64,7 @@ export default function CoursePlanFormLayout({
   const [places, setPlaces] = useState<CoursePlanPlaceType[]>([])
   const [openSearchPlace, setOpenSearchPlace] = useState<boolean>(false)
   const [messageApi, contextHolder] = message.useMessage()
-  const [isButtonClick, setIsButtonClick] = useState<boolean>(false)
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
   const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false)
 
   type PayloadType = LayoutType extends 'plan'
@@ -257,12 +257,12 @@ export default function CoursePlanFormLayout({
             handleClickSearchPlace={handleClickSearchPlace}
             setValue={setValue}
             errors={errors}
-            isButtonClick={isButtonClick}
+            isSubmitted={isSubmitted}
           />
         )}
         <button
           type='submit'
-          onClick={() => setIsButtonClick(true)}
+          onClick={() => setIsSubmitted(true)}
           className={`w-full text-[12px] h-[54px] flex items-center justify-center bg-light-gray text-brand hover:bg-brand hover:text-white transition-all duration-300 ${
             isSubmitting ? 'cursor-default' : 'bg-blue-800 bg-opacity-50'
           }`}

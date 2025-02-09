@@ -69,8 +69,16 @@ export default function CoursePlanDetailLayout({
 
   const handleClickShareCourse = () => {
     setIsClicked(!isClicked)
-    sessionStorage.setItem('course', JSON.stringify(data))
 
+    const { primary_region, secondary_region, places, visit_date } = data
+    const filteredData = {
+      primary_region,
+      secondary_region,
+      places,
+      visit_date,
+    }
+
+    sessionStorage.setItem('course', JSON.stringify(filteredData))
     handleClick('/courses/new')
   }
 
