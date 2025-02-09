@@ -63,10 +63,7 @@ export default function RegionCascaderWithLikes({
   likedRegions,
 }: LikeCascaderProps) {
   const seoulData = getSeoulData()
-  const likedRegionOptions = useMemo(
-    () => transformLikedRegions(likedRegions),
-    [likedRegions]
-  )
+  const likedRegionOptions = transformLikedRegions(likedRegions)
 
   const options = useMemo(() => {
     return [...seoulData, ...likedRegionOptions]
@@ -113,6 +110,7 @@ function transformLikedRegions(
     {
       value: '서울 ',
       label: '관심 지역',
+      disabled: likedRegions.length === 0,
       children: likedRegions.map((region) => ({
         value: region.secondary_region,
         label: `${region.secondary_region}구`,
