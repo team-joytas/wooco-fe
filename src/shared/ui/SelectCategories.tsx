@@ -33,8 +33,21 @@ export default function SelectCategories({
 
   const handleCategoryClick = (id: string) => {
     setClickedCategory((prev) => {
-      if (prev.includes(id)) return prev
-      return [id]
+      if (isList) {
+        return prev.includes(id) ? prev : [id]
+      }
+
+      if (id === ALL_CATEGORY_ID) {
+        return prev.includes(ALL_CATEGORY_ID) ? [] : [ALL_CATEGORY_ID]
+      }
+
+      if (prev.includes(ALL_CATEGORY_ID)) {
+        return [id]
+      }
+
+      return prev.includes(id)
+        ? prev.filter((categoryId) => categoryId !== id)
+        : [...prev, id]
     })
   }
 
