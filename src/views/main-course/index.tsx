@@ -14,13 +14,8 @@ import useRegionStore from '@/src/shared/store/regionStore'
 export default function MainCourse() {
   const router = useRouter()
   const { data: courses } = useGetCourses({ sort: 'popular' })
-  const { data: likeRegions } = useGetMyLikeRegions()
-  const { setCurrentRegion, setLikedRegions, likedRegions, isUpdated } =
-    useRegionStore()
-
-  useEffect(() => {
-    setCurrentRegion([])
-  }, [isUpdated, likeRegions])
+  const { setLikedRegions, likedRegions } = useRegionStore()
+  const { data: likeRegions } = useGetMyLikeRegions(likedRegions)
 
   useEffect(() => {
     if (!likeRegions) return
