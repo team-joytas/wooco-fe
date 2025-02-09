@@ -17,12 +17,13 @@ import type {
   UpdateUserType,
   UserLikeRegionType,
 } from '@/src/entities/user/type'
+import { LikeRegion } from '@/src/shared/store/regionStore'
 
 export const USER_QUERY_KEY = {
   all: ['users'] as const,
   detail: (id: string) => [...USER_QUERY_KEY.all, id] as const,
   myProfile: ['myProfile'] as const,
-  myLikeRegions: ['myLikeRegions'] as const,
+  myLikeRegions: (data: LikeRegion[]) => ['myLikeRegions', data] as const,
 }
 
 export const useGetMyProfile = (): UseQueryResult<UserProfileType> => {
@@ -50,9 +51,11 @@ export const useUpdateUser = () => {
   })
 }
 
-export const useGetMyLikeRegions = (): UseQueryResult<UserLikeRegionType[]> => {
+export const useGetMyLikeRegions = (
+  data: LikeRegion[]
+): UseQueryResult<UserLikeRegionType[]> => {
   return useQuery({
-    queryKey: USER_QUERY_KEY.myLikeRegions,
+    queryKey: USER_QUERY_KEY.myLikeRegions(data),
     queryFn: () => getMyLikeRegions(),
   })
 }

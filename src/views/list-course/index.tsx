@@ -16,13 +16,8 @@ import { Select } from 'antd'
 export default function ListCourse() {
   const [isListView, setIsListView] = useState(true)
   const [order, setOrder] = useState('recent')
-  const {
-    currentRegion,
-    likedRegions,
-    addLikedRegion,
-    removeLikedRegion,
-    setIsUpdated,
-  } = useRegionStore()
+  const { currentRegion, likedRegions, addLikedRegion, removeLikedRegion } =
+    useRegionStore()
   const [isLiked, setIsLiked] = useState(false)
   const [category, setCategory] = useState<string[]>(['ALL'])
 
@@ -51,7 +46,6 @@ export default function ListCourse() {
       deleteLikeMutate(regionId, {
         onSuccess: () => {
           removeLikedRegion(regionId)
-          setIsUpdated(true)
         },
       })
     } else {
@@ -68,7 +62,6 @@ export default function ListCourse() {
               primary_region: currentRegion[0],
               secondary_region: currentRegion[1],
             })
-            setIsUpdated(true)
           },
         }
       )

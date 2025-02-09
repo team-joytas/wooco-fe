@@ -14,12 +14,13 @@ import useRegionStore from '@/src/shared/store/regionStore'
 export default function MainCourse() {
   const router = useRouter()
   const { data: courses } = useGetCourses({ sort: 'popular' })
-  const { data: likeRegions } = useGetMyLikeRegions()
-  const { setCurrentRegion, likedRegions, isUpdated } = useRegionStore()
+  const { setLikedRegions, likedRegions } = useRegionStore()
+  const { data: likeRegions } = useGetMyLikeRegions(likedRegions)
 
   useEffect(() => {
-    setCurrentRegion([])
-  }, [isUpdated, likeRegions])
+    if (!likeRegions) return
+    setLikedRegions(likeRegions)
+  }, [likeRegions])
 
   if (!courses) return <div>Loading...</div>
 

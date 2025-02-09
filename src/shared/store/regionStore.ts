@@ -11,10 +11,9 @@ interface RegionStore {
   currentRegion: string[]
   setCurrentRegion: (region: string[]) => void
   likedRegions: LikeRegion[]
+  setLikedRegions: (regions: LikeRegion[]) => void
   addLikedRegion: (region: LikeRegion) => void
   removeLikedRegion: (id: string) => void
-  isUpdated: boolean
-  setIsUpdated: (isUpdated: boolean) => void
 }
 
 const useRegionStore = create<RegionStore>()(
@@ -23,6 +22,7 @@ const useRegionStore = create<RegionStore>()(
       currentRegion: [],
       setCurrentRegion: (region) => set({ currentRegion: region }),
       likedRegions: [],
+      setLikedRegions: (regions) => set({ likedRegions: regions }),
       addLikedRegion: ({ id, primary_region, secondary_region }) =>
         set((state) => ({
           likedRegions: [
@@ -34,8 +34,6 @@ const useRegionStore = create<RegionStore>()(
         set((state) => ({
           likedRegions: state.likedRegions.filter((region) => region.id !== id),
         })),
-      isUpdated: true,
-      setIsUpdated: (isUpdated) => set({ isUpdated }),
     }),
     { name: 'like-region-storage' }
   )
