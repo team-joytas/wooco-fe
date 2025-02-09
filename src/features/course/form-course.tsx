@@ -83,12 +83,12 @@ export function FormDate({
   register,
   setValue,
   getValues,
-  isButtonClick,
+  isSubmitted,
 }: {
   register: UseFormRegister<CoursePayloadType>
   setValue: UseFormSetValue<CoursePayloadType>
   getValues: UseFormGetValues<CoursePayloadType>
-  isButtonClick: boolean
+  isSubmitted: boolean
 }) {
   const [date, setDate] = useState<string | null>(
     getValues('visit_date') || null
@@ -108,7 +108,7 @@ export function FormDate({
         placeholder='날짜를 선택해주세요.'
         defaultValue={date ? dayjs(date) : undefined}
       />
-      {!date && isButtonClick && (
+      {!date && isSubmitted && (
         <span className='text-[12px] pl-[10px] text-red-500 mt-[5px]'>
           날짜를 선택해주세요.
         </span>
@@ -120,12 +120,12 @@ export function FormDate({
 export function FormCategories({
   setValue,
   getValues,
-  isButtonClick,
+  isSubmitted,
   isInCourseList,
 }: {
   setValue: UseFormSetValue<CoursePayloadType>
   getValues: UseFormGetValues<CoursePayloadType>
-  isButtonClick: boolean
+  isSubmitted: boolean
   isInCourseList: boolean
 }) {
   const [categories, setCategories] = useState<string[]>([])
@@ -142,7 +142,7 @@ export function FormCategories({
         prevCategories={getValues('categories')}
         isInCourseList={isInCourseList}
       />
-      {isButtonClick && categories.length === 0 && (
+      {isSubmitted && categories.length === 0 && (
         <span className='text-[12px] pl-[10px] text-red-500 mt-[5px]'>
           태그를 선택해주세요.
         </span>
@@ -154,17 +154,20 @@ export function FormCategories({
 export function FormRegion({
   setValue,
   getValues,
-  isButtonClick,
+  setPlaces,
+  isSubmitted,
 }: {
   setValue: UseFormSetValue<CoursePayloadType>
   getValues: UseFormGetValues<CoursePayloadType>
-  isButtonClick: boolean
+  setPlaces: Dispatch<SetStateAction<CoursePlanPlaceType[]>>
+  isSubmitted: boolean
 }) {
   const [region, setRegion] = useState<string | null>(null)
   const onChangeRegion = (value: string[]) => {
     setRegion(value[0] as string)
     setValue('primary_region', value[0] as string)
     setValue('secondary_region', value[1] as string)
+    setPlaces([])
   }
 
   return (
@@ -175,7 +178,7 @@ export function FormRegion({
         setRegion={onChangeRegion}
         placeholder='지역을 선택해주세요.'
       />
-      {isButtonClick && !region && (
+      {isSubmitted && !region && (
         <span className='text-[12px] pl-[10px] text-red-500 mt-[5px]'>
           지역을 선택해주세요.
         </span>
@@ -193,7 +196,7 @@ export default function FormSections({
   setValue,
   getValues,
   errors,
-  isButtonClick,
+  isSubmitted,
 }: {
   pageType: string
   register: UseFormRegister<CoursePayloadType>
@@ -203,7 +206,7 @@ export default function FormSections({
   setValue: UseFormSetValue<CoursePayloadType>
   getValues: UseFormGetValues<CoursePayloadType>
   errors: FieldErrors<CoursePayloadType>
-  isButtonClick: boolean
+  isSubmitted: boolean
 }) {
   return (
     <>
@@ -215,7 +218,8 @@ export default function FormSections({
         <FormRegion
           getValues={getValues}
           setValue={setValue}
-          isButtonClick={isButtonClick}
+          setPlaces={setPlaces}
+          isSubmitted={isSubmitted}
         />
       </Section>
       <Divider />
@@ -236,7 +240,7 @@ export default function FormSections({
           >
             <Plus size={20} strokeWidth={3} />
           </button>
-          {isButtonClick && places.length === 0 && (
+          {isSubmitted && places.length === 0 && (
             <span className='text-[12px] pl-[10px] text-red-500 mt-[5px]'>
               장소를 선택해주세요.
             </span>
@@ -253,7 +257,7 @@ export default function FormSections({
           register={register}
           setValue={setValue}
           getValues={getValues}
-          isButtonClick={isButtonClick}
+          isSubmitted={isSubmitted}
         />
       </Section>
       {pageType === '코스' && (
@@ -263,7 +267,7 @@ export default function FormSections({
             <FormCategories
               setValue={setValue}
               getValues={getValues}
-              isButtonClick={isButtonClick}
+              isSubmitted={isSubmitted}
               isInCourseList={false}
             />
           </Section>
