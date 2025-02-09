@@ -15,11 +15,17 @@ export default function MainCourse() {
   const router = useRouter()
   const { data: courses } = useGetCourses({ sort: 'popular' })
   const { data: likeRegions } = useGetMyLikeRegions()
-  const { setCurrentRegion, likedRegions, isUpdated } = useRegionStore()
+  const { setCurrentRegion, setLikedRegions, likedRegions, isUpdated } =
+    useRegionStore()
 
   useEffect(() => {
     setCurrentRegion([])
   }, [isUpdated, likeRegions])
+
+  useEffect(() => {
+    if (!likeRegions) return
+    setLikedRegions(likeRegions)
+  }, [likeRegions])
 
   if (!courses) return <div>Loading...</div>
 
