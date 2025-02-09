@@ -121,10 +121,12 @@ export function FormCategories({
   setValue,
   getValues,
   isButtonClick,
+  isInCourseList,
 }: {
   setValue: UseFormSetValue<CoursePayloadType>
   getValues: UseFormGetValues<CoursePayloadType>
   isButtonClick: boolean
+  isInCourseList: boolean
 }) {
   const [categories, setCategories] = useState<string[]>([])
 
@@ -138,6 +140,7 @@ export function FormCategories({
       <SelectCategories
         setCategories={onChangeCategories}
         prevCategories={getValues('categories')}
+        isInCourseList={isInCourseList}
       />
       {isButtonClick && categories.length === 0 && (
         <span className='text-[12px] pl-[10px] text-red-500 mt-[5px]'>
@@ -261,6 +264,7 @@ export default function FormSections({
               setValue={setValue}
               getValues={getValues}
               isButtonClick={isButtonClick}
+              isInCourseList={false}
             />
           </Section>
         </>
