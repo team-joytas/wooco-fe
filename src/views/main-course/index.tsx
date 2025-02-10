@@ -14,13 +14,19 @@ import useRegionStore from '@/src/shared/store/regionStore'
 export default function MainCourse() {
   const router = useRouter()
   const { data: courses } = useGetCourses({ sort: 'popular' })
-  const { setLikedRegions, likedRegions } = useRegionStore()
+  const { setLikedRegions, likedRegions,setCurrentRegion, currentRegion } = useRegionStore()
   const { data: likeRegions } = useGetMyLikeRegions(likedRegions)
 
   useEffect(() => {
     if (!likeRegions) return
     setLikedRegions(likeRegions)
   }, [likeRegions])
+
+  useEffect(() => {
+    // "/courses" 페이지 진입시 저장소의 currentRegion 값 초기화
+    if (!currentRegion) return
+    setCurrentRegion([])
+  }, [])
 
   if (!courses) return <div>Loading...</div>
 
