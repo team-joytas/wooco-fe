@@ -8,7 +8,7 @@ import type { CoursePayloadType } from '@/src/entities/course/type'
 import { DatePicker, type DatePickerProps } from 'antd'
 import SelectCategories from '@/src/shared/ui/SelectCategories'
 import { RegionCascader } from '@/src/shared/ui/RegionCascader'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 import type { CoursePlanPlaceType } from '@/src/entities/place/type'
 import { Dispatch, SetStateAction } from 'react'
@@ -16,6 +16,7 @@ import Spacer from '@/src/shared/ui/Spacer'
 import KakaoMap from '@/src/shared/ui/KakaoMap'
 import DragPlace from '@/src/widgets/drag-place'
 import { Plus } from 'lucide-react'
+import useRegionStore from '@/src/shared/store/regionStore'
 
 export function FormTitle({
   register,
@@ -170,6 +171,16 @@ export function FormRegion({
   isSubmitted: boolean
 }) {
   const [region, setRegion] = useState<string | null>(null)
+
+  const { currentRegion} = useRegionStore()
+  useEffect(() => {
+    if (currentRegion?.length && currentRegion[0] !== region) {
+      setRegion(currentRegion[0] as string);
+      setValue<'primary_region'>('primary_region', currentRegion[0] as string);
+      setValue<'secondary_region'>('secondary_region', currentRegion[1] || '');
+    }
+  }, [currentRegion, region, setValue]);
+
   const onChangeRegion = (value: string[]) => {
     setRegion(value[0] as string)
     setValue('primary_region', value[0] as string)
