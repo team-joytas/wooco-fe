@@ -80,15 +80,17 @@ export function FormContents({
 }
 
 export function FormDate({
-  register,
-  setValue,
-  getValues,
-  isSubmitted,
-}: {
-  register: UseFormRegister<CoursePayloadType>
-  setValue: UseFormSetValue<CoursePayloadType>
-  getValues: UseFormGetValues<CoursePayloadType>
-  isSubmitted: boolean
+                           register,
+                           setValue,
+                           getValues,
+                           isSubmitted,
+                           pageType,
+                         }: {
+  register: UseFormRegister<CoursePayloadType>,
+  setValue: UseFormSetValue<CoursePayloadType>,
+  getValues: UseFormGetValues<CoursePayloadType>,
+  isSubmitted: boolean,
+  pageType: string
 }) {
   const [date, setDate] = useState<string | null>(
     getValues('visit_date') || null
@@ -99,6 +101,9 @@ export function FormDate({
     setDate(dateString as string)
   }
 
+  const minDate = pageType === "플랜" ? dayjs() : undefined
+  const maxDate = pageType === "코스" ? dayjs() : undefined
+
   return (
     <>
       <DatePicker
@@ -107,6 +112,8 @@ export function FormDate({
         allowClear
         placeholder='날짜를 선택해주세요.'
         defaultValue={date ? dayjs(date) : undefined}
+        {...(minDate ? { minDate } : {})}
+        {...(maxDate ? { maxDate } : {})}
       />
       {!date && isSubmitted && (
         <span className='text-[12px] pl-[10px] text-red-500 mt-[5px]'>
@@ -258,6 +265,7 @@ export default function FormSections({
           setValue={setValue}
           getValues={getValues}
           isSubmitted={isSubmitted}
+          pageType = {pageType}
         />
       </Section>
       {pageType === '코스' && (
