@@ -81,16 +81,16 @@ export function FormContents({
 }
 
 export function FormDate({
-                           register,
-                           setValue,
-                           getValues,
-                           isSubmitted,
-                           pageType,
-                         }: {
-  register: UseFormRegister<CoursePayloadType>,
-  setValue: UseFormSetValue<CoursePayloadType>,
-  getValues: UseFormGetValues<CoursePayloadType>,
-  isSubmitted: boolean,
+  register,
+  setValue,
+  getValues,
+  isSubmitted,
+  pageType,
+}: {
+  register: UseFormRegister<CoursePayloadType>
+  setValue: UseFormSetValue<CoursePayloadType>
+  getValues: UseFormGetValues<CoursePayloadType>
+  isSubmitted: boolean
   pageType: string
 }) {
   const [date, setDate] = useState<string | null>(
