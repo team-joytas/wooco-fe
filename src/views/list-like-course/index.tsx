@@ -37,7 +37,7 @@ export default function ListLikeCourse({ id }: ListLikeCourseProps) {
         setIsListView={setIsListView}
       />
       <SelectCategories
-        isList={true}
+        isInCourseList={true}
         prevCategories={category}
         setCategories={(category: string[]) => {
           setCategory(category)
