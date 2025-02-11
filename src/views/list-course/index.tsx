@@ -12,6 +12,7 @@ import CourseListLayout from '@/src/widgets/course-list-layout'
 import SelectCategories from '@/src/shared/ui/SelectCategories'
 import Spacer from '@/src/shared/ui/Spacer'
 import { Select } from 'antd'
+import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 
 export default function ListCourse() {
   const [isListView, setIsListView] = useState(true)
@@ -103,6 +104,7 @@ export default function ListCourse() {
         />
       </div>
       <CourseListLayout isListView={isListView} courses={courses} />
+      <FloatingWriteButton/>
     </div>
   )
 }

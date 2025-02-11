@@ -8,7 +8,7 @@ import type { CoursePayloadType } from '@/src/entities/course/type'
 import { DatePicker, type DatePickerProps } from 'antd'
 import SelectCategories from '@/src/shared/ui/SelectCategories'
 import { RegionCascader } from '@/src/shared/ui/RegionCascader'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
 import type { CoursePlanPlaceType } from '@/src/entities/place/type'
 import { Dispatch, SetStateAction } from 'react'
@@ -16,6 +16,7 @@ import Spacer from '@/src/shared/ui/Spacer'
 import KakaoMap from '@/src/shared/ui/KakaoMap'
 import DragPlace from '@/src/widgets/drag-place'
 import { Plus } from 'lucide-react'
+import useRegionStore from '@/src/shared/store/regionStore'
 
 export function FormTitle({
   register,
@@ -84,11 +85,13 @@ export function FormDate({
   setValue,
   getValues,
   isSubmitted,
+  pageType,
 }: {
   register: UseFormRegister<CoursePayloadType>
   setValue: UseFormSetValue<CoursePayloadType>
   getValues: UseFormGetValues<CoursePayloadType>
   isSubmitted: boolean
+  pageType: string
 }) {
   const [date, setDate] = useState<string | null>(
     getValues('visit_date') || null
@@ -99,6 +102,9 @@ export function FormDate({
     setDate(dateString as string)
   }
 
+  const minDate = pageType === "플랜" ? dayjs() : undefined
+  const maxDate = pageType === "코스" ? dayjs() : undefined
+
   return (
     <>
       <DatePicker
@@ -107,6 +113,8 @@ export function FormDate({
         allowClear
         placeholder='날짜를 선택해주세요.'
         defaultValue={date ? dayjs(date) : undefined}
+        {...(minDate ? { minDate } : {})}
+        {...(maxDate ? { maxDate } : {})}
       />
       {!date && isSubmitted && (
         <span className='text-[12px] pl-[10px] text-red-500 mt-[5px]'>
@@ -163,6 +171,16 @@ export function FormRegion({
   isSubmitted: boolean
 }) {
   const [region, setRegion] = useState<string | null>(null)
+
+  const { currentRegion} = useRegionStore()
+  useEffect(() => {
+    if (currentRegion?.length && currentRegion[0] !== region) {
+      setRegion(currentRegion[0] as string);
+      setValue<'primary_region'>('primary_region', currentRegion[0] as string);
+      setValue<'secondary_region'>('secondary_region', currentRegion[1] || '');
+    }
+  }, [currentRegion, region, setValue]);
+
   const onChangeRegion = (value: string[]) => {
     setRegion(value[0] as string)
     setValue('primary_region', value[0] as string)
@@ -258,6 +276,7 @@ export default function FormSections({
           setValue={setValue}
           getValues={getValues}
           isSubmitted={isSubmitted}
+          pageType = {pageType}
         />
       </Section>
       {pageType === '코스' && (
