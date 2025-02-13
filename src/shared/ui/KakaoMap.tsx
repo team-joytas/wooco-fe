@@ -6,7 +6,6 @@ import type { CoursePlanPlaceType } from '@/src/entities/place/type'
 interface KakaoMapProps {
   places: CoursePlanPlaceType[]
   center?: number[]
-  id: number
 }
 
 declare global {
@@ -15,7 +14,7 @@ declare global {
   }
 }
 
-export default function KakaoMap({ places, center, id }: KakaoMapProps) {
+export default function KakaoMap({ places, center }: KakaoMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null)
 
   // places 배열 업데이트 중, 맵 정보 임시 저장을 위한 ref
@@ -23,8 +22,8 @@ export default function KakaoMap({ places, center, id }: KakaoMapProps) {
   const markersRef = useRef<any[]>([])
 
   useEffect(() => {
-    const scriptId = `kakao-map-script-${id}`
-
+    // const scriptId = `kakao-map-script-${id}`
+    const scriptId = `kakao-map-script` // Kakao maps script가 전역으로 다중 선언되면 충돌이 발생할 가능성 있음
     if (!document.getElementById(scriptId)) {
       const script = document.createElement('script')
       script.id = scriptId
@@ -114,7 +113,6 @@ export default function KakaoMap({ places, center, id }: KakaoMapProps) {
 
   return (
     <div
-      id={`map-${id}`}
       className='w-full mt-[10px] h-[180px] z-0'
       ref={mapContainerRef}
     />
