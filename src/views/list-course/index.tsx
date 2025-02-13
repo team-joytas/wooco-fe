@@ -84,7 +84,7 @@ export default function ListCourse() {
         setIsLiked={handleClickLike}
       />
       <SelectCategories
-        isList={true}
+        isInCourseList={true}
         prevCategories={category}
         setCategories={(category: string[]) => {
           setCategory(category)
