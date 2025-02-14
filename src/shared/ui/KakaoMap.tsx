@@ -22,7 +22,6 @@ export default function KakaoMap({ places, center }: KakaoMapProps) {
   const markersRef = useRef<any[]>([])
 
   useEffect(() => {
-    // const scriptId = `kakao-map-script-${id}`
     const scriptId = `kakao-map-script` // Kakao maps script가 전역으로 다중 선언되면 충돌이 발생할 가능성 있음
     if (!document.getElementById(scriptId)) {
       const script = document.createElement('script')
@@ -47,9 +46,6 @@ export default function KakaoMap({ places, center }: KakaoMapProps) {
   const initializeMap = ()=> {
     if (!mapContainerRef.current) return
     if (mapRef.current) return
-    // window.kakao.maps.load(() => {
-    //   if (!mapContainerRef.current || !window.kakao || !window.kakao.maps)
-    //     return
 
     const map = new window.kakao.maps.Map(mapContainerRef.current, {
       center: center
@@ -101,15 +97,6 @@ export default function KakaoMap({ places, center }: KakaoMapProps) {
       markersRef.current.push(marker)
     })
   }
-
-
-    // return () => {
-    //   const script = document.getElementById(scriptId)
-    //   if (script) {
-    //     document.head.removeChild(script)
-    //   }
-    // }
-
 
   return (
     <div
