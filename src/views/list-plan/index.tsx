@@ -10,11 +10,12 @@ import { useGetPlans } from '@/src/entities/plan/query'
 import { getLoginUrl } from '@/src/entities/login/api'
 import { useRouter } from 'next/navigation'
 import { useGetMyProfile } from '@/src/entities/user/query'
+import { useState } from 'react'
 
 export default function ListPlan() {
   const { data: plans } = useGetPlans()
   const { data: user } = useGetMyProfile()
-
+  const [isClick, setIsClick] = useState(false)
   const router = useRouter()
   const handleLogin = async () => {
     const loginUrl = await getLoginUrl()
@@ -42,7 +43,7 @@ export default function ListPlan() {
     )
 
   return (
-    <div className='w-full h-[calc(100vh-60px)] pt-[20px] pb-[20px] flex flex-col'>
+    <div className='w-full pt-[20px] pb-[20px] flex flex-col'>
       <div className='flex flex-col px-[16px]'>
         <span className='text-[14px] text-black'>
           좋아하는 장소들로 채우는 나만의 코스 계획
@@ -70,10 +71,17 @@ export default function ListPlan() {
           ))}
         </div>
       ) : (
-        <BlankTooltip />
+        <>
+          <div className="mt-[150px] h-full">
+            <div className="text-center text-black text-[14px] font-medium">
+              아직 플랜이 없어요!
+            </div>
+          </div>
+          {!isClick && <BlankTooltip />}        
+        </>
       )}
 
-      <FloatingWriteButton />
+      <FloatingWriteButton isClick={isClick} setIsClick={setIsClick}/>
     </div>
   )
 }
