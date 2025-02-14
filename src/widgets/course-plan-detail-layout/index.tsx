@@ -118,7 +118,7 @@ export default function CoursePlanDetailLayout({
           })}
         </div>
         {data?.places && data?.places.length > 0 && (
-          <KakaoMap places={data?.places || []} id={Number(id)} />
+          <KakaoMap places={data?.places || []} />
         )}
         <Spacer height={16} />
         <p className='px-[20px]'>

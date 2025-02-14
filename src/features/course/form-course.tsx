@@ -248,7 +248,7 @@ export default function FormSections({
             validate: (value) => value.length > 0 || '장소를 선택해주세요.',
           })}
         >
-          {places.length > 0 && <KakaoMap places={places} id={1} />}
+          {places.length > 0 && <KakaoMap places={places} />}
           <DragPlace places={places} setPlaces={setPlaces} />
           <button
             type='button'

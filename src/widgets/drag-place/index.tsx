@@ -6,7 +6,7 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useMemo } from 'react'
 
 interface DragPlaceProps {
   places: CoursePlanPlaceType[]
@@ -32,10 +32,12 @@ export default function DragPlace({ places, setPlaces }: DragPlaceProps) {
     )
   }
 
+  const memoizedPlaces = useMemo(() => places.map((place) => place.id), [places]);
+
   return (
     <div className='w-full flex flex-col gap-[10px]'>
       <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-        <SortableContext items={places} strategy={verticalListSortingStrategy}>
+        <SortableContext items={memoizedPlaces} strategy={verticalListSortingStrategy}>
           {places.map((place) => (
             <DragPlaceItem
               key={place.id}

@@ -96,6 +96,7 @@ export default function CoursePlanFormLayout({
 
   useEffect(() => {
     if (level === LEVEL_TYPE.update) {
+      if (isDataLoaded) return
       const data = fetchData?.data
 
       if (data) {
@@ -110,7 +111,7 @@ export default function CoursePlanFormLayout({
         setIsDataLoaded(true)
       }
     }
-  }, [level, type, fetchData])
+  }, [level, type, fetchData, isDataLoaded])
 
   const isCourseSessionStored =
     typeof window !== 'undefined' ? !!sessionStorage.getItem('course') : false
@@ -119,7 +120,8 @@ export default function CoursePlanFormLayout({
     if (
       level === LEVEL_TYPE.add &&
       type === LAYOUT_TYPE.course &&
-      typeof window !== 'undefined'
+      typeof window !== 'undefined' &&
+      !isDataLoaded
     ) {
       const storedData = sessionStorage.getItem('course')
       if (storedData) {
@@ -131,7 +133,6 @@ export default function CoursePlanFormLayout({
         setValue('contents', course.contents)
         setValue('visit_date', course.visit_date)
         setPlaces(course.places || [])
-
         setIsDataLoaded(true)
       }
     }
@@ -140,7 +141,7 @@ export default function CoursePlanFormLayout({
         sessionStorage.removeItem('course')
       }
     }
-  }, [level, type])
+  }, [level, type, isDataLoaded])
 
   const { mutate: courseMutate } = useCreateCourse()
   const { mutate: planMutate } = useCreatePlan()
