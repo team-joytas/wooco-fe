@@ -1,13 +1,7 @@
 export default function BlankTooltip() {
 
   return (
-    <div className='flex relative justify-center items-center w-full h-[740px]'>
-      <div className="h-[37px] p-2.5 justify-center items-center gap-2.5 inline-flex">
-        <div className="text-center text-black text-[14px] font-medium">
-          아직 플랜이 없어요!
-        </div>
-      </div>
-      
+    <div className='flex relative justify-center items-center w-full'>
       <div className="fixed top-[529px] inline-flex flex-col items-center">
         <div className="w-[285px] h-auto p-[16px] bg-white rounded-2xl shadow-[0px_2px_7px_0px_rgba(0,0,0,0.12)] flex flex-col justify-start items-center gap-[8px]">
           <div className="text-center h-[24px] text-black text-[20px] font-bold">
