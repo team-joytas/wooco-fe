@@ -30,6 +30,13 @@ export default function ListCourse() {
     setIsLiked(!!regionId)
   }, [likedRegions, currentRegion])
 
+  useEffect(() => {
+    const isListView = sessionStorage.getItem('is-list')
+    if (isListView) {
+      setIsListView(isListView === 'true')
+    }
+  }, [])
+
   const { mutate: postLikeMutate } = usePostMyLikeRegion()
   const { mutate: deleteLikeMutate } = useDeleteMyLikeRegion()
 
@@ -69,6 +76,11 @@ export default function ListCourse() {
     }
   }
 
+  const handleSetIsListView = (isListView: boolean) => {
+    setIsListView(isListView)
+    sessionStorage.setItem('is-list', String(isListView))
+  }
+
   if (isLoading) return <div>Loading...</div>
 
   return (
@@ -78,7 +90,7 @@ export default function ListCourse() {
         isTitleTag={true}
         isBack
         isListView={isListView}
-        setIsListView={setIsListView}
+        setIsListView={handleSetIsListView}
         isHeart={true}
         isLiked={isLiked}
         setIsLiked={handleClickLike}
@@ -104,7 +116,7 @@ export default function ListCourse() {
         />
       </div>
       <CourseListLayout isListView={isListView} courses={courses} />
-      <FloatingWriteButton/>
+      <FloatingWriteButton />
     </div>
   )
 }

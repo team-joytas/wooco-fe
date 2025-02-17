@@ -6,7 +6,7 @@ import SelectCategories from '@/src/shared/ui/SelectCategories'
 import Spacer from '@/src/shared/ui/Spacer'
 import CourseListLayout from '@/src/widgets/course-list-layout'
 import { Select } from 'antd'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import NoLikedCourse from '@/src/shared/ui/NoLikedCourse'
 
 interface ListLikeCourseProps {
@@ -18,10 +18,22 @@ export default function ListLikeCourse({ id }: ListLikeCourseProps) {
   const [category, setCategory] = useState<string[]>(['ALL'])
   const [order, setOrder] = useState('recent')
 
+  useEffect(() => {
+    const isListView = sessionStorage.getItem('is-list-like')
+    if (isListView) {
+      setIsListView(isListView === 'true')
+    }
+  }, [])
+
   const { data: likeCourses, isLoading } = useGetLikeCourses({
     id,
     order: order as 'recent' | 'popular',
   })
+
+  const handleSetIsListView = (isListView: boolean) => {
+    setIsListView(isListView)
+    sessionStorage.setItem('is-list-like', String(isListView))
+  }
 
   if (isLoading) return <div>Loading...</div>
 
@@ -34,7 +46,7 @@ export default function ListLikeCourse({ id }: ListLikeCourseProps) {
         isTitleTag={true}
         isBack
         isListView={isListView}
-        setIsListView={setIsListView}
+        setIsListView={handleSetIsListView}
       />
       <SelectCategories
         isInCourseList={true}
