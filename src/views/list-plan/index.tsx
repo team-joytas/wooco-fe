@@ -43,12 +43,12 @@ export default function ListPlan() {
     )
 
   return (
-    <div className='w-full pt-[20px] pb-[20px] flex flex-col'>
+    <div className='w-full flex flex-col'>
+      <Spacer height={20} />
       <div className='flex flex-col px-[16px]'>
         <span className='text-[14px] text-black'>
           좋아하는 장소들로 채우는 나만의 코스 계획
         </span>
-
         <div className='flex justify-between items-center my-[5px]'>
           <span className='inline-flex items-center'>
             <p className='font-bold text-brand text-[20px]'>{user?.name}</p>
@@ -72,16 +72,17 @@ export default function ListPlan() {
         </div>
       ) : (
         <>
-          <div className="mt-[150px] h-full">
-            <div className="text-center text-black text-[14px] font-medium">
+          <div className='mt-[150px] h-full'>
+            <div className='text-center text-black text-[14px] font-medium'>
               아직 플랜이 없어요!
             </div>
           </div>
-          {!isClick && <BlankTooltip />}        
+          {!isClick && <BlankTooltip />}
         </>
       )}
+      <Spacer height={20}/>
 
-      <FloatingWriteButton isClick={isClick} setIsClick={setIsClick}/>
+      <FloatingWriteButton isClick={isClick} setIsClick={setIsClick} />
     </div>
   )
 }
