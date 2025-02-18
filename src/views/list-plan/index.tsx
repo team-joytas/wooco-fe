@@ -72,15 +72,14 @@ export default function ListPlan() {
         </div>
       ) : (
         <>
-          <div className='mt-[150px] h-full'>
-            <div className='text-center text-black text-[14px] font-medium'>
-              아직 플랜이 없어요!
-            </div>
+          <Spacer height={100}/>
+          <div className='text-center text-black text-[14px] font-medium'>
+            아직 플랜이 없어요!
           </div>
           {!isClick && <BlankTooltip />}
         </>
       )}
-      <Spacer height={20}/>
+      <Spacer height={20} />
 
       <FloatingWriteButton isClick={isClick} setIsClick={setIsClick} />
     </div>
