@@ -18,8 +18,8 @@ export default function KakaoMap({ places, center }: KakaoMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null)
 
   // places 배열 업데이트 중, 맵 정보 임시 저장을 위한 ref
-  const mapRef = useRef<any>(null)
-  const markersRef = useRef<any[]>([])
+  const mapRef = useRef<kakao.maps.Map | null>(null)
+  const markersRef = useRef<kakao.maps.Marker[]>([])
 
   useEffect(() => {
     const scriptId = `kakao-map-script` // Kakao maps script가 전역으로 다중 선언되면 충돌이 발생할 가능성 있음
