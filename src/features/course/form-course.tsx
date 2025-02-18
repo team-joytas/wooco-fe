@@ -17,6 +17,7 @@ import KakaoMap from '@/src/shared/ui/KakaoMap'
 import DragPlace from '@/src/widgets/drag-place'
 import { Plus } from 'lucide-react'
 import useRegionStore from '@/src/shared/store/regionStore'
+import HelperText from '@/src/shared/ui/HelperText'
 
 export function FormTitle({
   register,
@@ -40,11 +41,7 @@ export function FormTitle({
         placeholder='제목을 입력해주세요.'
         className='rounded-full focus:outline-container-light-blue focus:outline-[0.5px] text-sub text-gray-500 h-[35px] border-0 bg-bright-gray px-[10px]'
       />
-      {errors.title && (
-        <span className='text-[12px] pl-[10px] text-red-500'>
-          {errors.title.message}
-        </span>
-      )}
+      {errors.title && <HelperText message={errors.title.message || ''} />}
     </>
   )
 }
@@ -72,9 +69,7 @@ export function FormContents({
         maxLength={200}
       />
       {errors.contents && (
-        <span className='text-[12px] pl-[10px] text-red-500 mt-[5px]'>
-          {errors.contents.message}
-        </span>
+        <HelperText message={errors.contents.message || ''} />
       )}
     </>
   )
@@ -102,8 +97,8 @@ export function FormDate({
     setDate(dateString as string)
   }
 
-  const minDate = pageType === "플랜" ? dayjs() : undefined
-  const maxDate = pageType === "코스" ? dayjs() : undefined
+  const minDate = pageType === '플랜' ? dayjs() : undefined
+  const maxDate = pageType === '코스' ? dayjs() : undefined
 
   return (
     <>
@@ -116,11 +111,7 @@ export function FormDate({
         {...(minDate ? { minDate } : {})}
         {...(maxDate ? { maxDate } : {})}
       />
-      {!date && isSubmitted && (
-        <span className='text-[12px] pl-[10px] text-red-500 mt-[5px]'>
-          날짜를 선택해주세요.
-        </span>
-      )}
+      {!date && isSubmitted && <HelperText message='날짜를 선택해주세요.' />}
     </>
   )
 }
@@ -151,9 +142,7 @@ export function FormCategories({
         isInCourseList={isInCourseList}
       />
       {isSubmitted && categories.length === 0 && (
-        <span className='text-[12px] pl-[10px] text-red-500 mt-[5px]'>
-          태그를 선택해주세요.
-        </span>
+        <HelperText message='태그를 선택해주세요.' />
       )}
     </>
   )
@@ -172,14 +161,14 @@ export function FormRegion({
 }) {
   const [region, setRegion] = useState<string | null>(null)
 
-  const { currentRegion} = useRegionStore()
+  const { currentRegion } = useRegionStore()
   useEffect(() => {
     if (currentRegion?.length && currentRegion[0] !== region) {
-      setRegion(currentRegion[0] as string);
-      setValue<'primary_region'>('primary_region', currentRegion[0] as string);
-      setValue<'secondary_region'>('secondary_region', currentRegion[1] || '');
+      setRegion(currentRegion[0] as string)
+      setValue<'primary_region'>('primary_region', currentRegion[0] as string)
+      setValue<'secondary_region'>('secondary_region', currentRegion[1] || '')
     }
-  }, [currentRegion, region, setValue]);
+  }, [currentRegion, region, setValue])
 
   const onChangeRegion = (value: string[]) => {
     setRegion(value[0] as string)
@@ -196,11 +185,7 @@ export function FormRegion({
         setRegion={onChangeRegion}
         placeholder='지역을 선택해주세요.'
       />
-      {isSubmitted && !region && (
-        <span className='text-[12px] pl-[10px] text-red-500 mt-[5px]'>
-          지역을 선택해주세요.
-        </span>
-      )}
+      {isSubmitted && !region && <HelperText message='지역을 선택해주세요.' />}
     </>
   )
 }
@@ -259,9 +244,7 @@ export default function FormSections({
             <Plus size={20} strokeWidth={3} />
           </button>
           {isSubmitted && places.length === 0 && (
-            <span className='text-[12px] pl-[10px] text-red-500 mt-[5px]'>
-              장소를 선택해주세요.
-            </span>
+            <HelperText message='장소를 선택해주세요.' />
           )}
         </div>
       </Section>
@@ -276,7 +259,7 @@ export default function FormSections({
           setValue={setValue}
           getValues={getValues}
           isSubmitted={isSubmitted}
-          pageType = {pageType}
+          pageType={pageType}
         />
       </Section>
       {pageType === '코스' && (
