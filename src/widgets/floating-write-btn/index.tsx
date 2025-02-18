@@ -4,12 +4,12 @@ import { Pencil } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
-type FloatingButtonProps = {
+interface FloatingButtonProps {
   onClick: () => void
   text: string
 }
 
-type FloatingWriteButtonProps = {
+interface FloatingWriteButtonProps {
   isClick: boolean
   setIsClick: (value: boolean) => void
 }
