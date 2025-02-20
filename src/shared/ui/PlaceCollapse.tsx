@@ -106,7 +106,6 @@ export default function PlaceCollapse({
     ),
   }))
   const [openKey, setOpenKey] = useState<string | null>(null)
-  console.table(places)
   const toggleItem = (key: string) => {
     setOpenKey((prevKey) => (prevKey === key ? null : key))
   }
