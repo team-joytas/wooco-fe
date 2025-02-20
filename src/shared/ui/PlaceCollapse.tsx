@@ -53,7 +53,7 @@ export default function PlaceCollapse({
           ) : (
             <Image
               className='object-cover w-full h-full'
-              src={logoDefaultCopy['src']}
+              src={logoDefaultCopy}
               alt='place image not found'
               fill
             />
@@ -83,7 +83,7 @@ export default function PlaceCollapse({
           <div className='flex flex-col justify-center items-center gap-[5px]'>
             <Link href={`/places/${place.id}`}>
               <Image
-                src={allReview as string}
+                src={allReview}
                 alt='all review'
                 width={175}
                 height={31}
@@ -93,7 +93,7 @@ export default function PlaceCollapse({
               href={`https://place.map.kakao.com/m/${place.kakao_map_place_id}`}
             >
               <Image
-                src={kakaoReview as string}
+                src={kakaoReview}
                 alt='kakao review'
                 width={175}
                 height={31}
