@@ -127,6 +127,7 @@ export default function CoursePlanDetailLayout({
           </span>
           &nbsp;님의 {typeName} 제안이에요.
         </p>
+        <Spacer height={10} />
         <PlaceCollapse places={data?.places || []} />
         <Spacer height={16} />
         <Spacer height={8} className='bg-bright-gray' />

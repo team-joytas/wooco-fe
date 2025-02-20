@@ -1,12 +1,14 @@
-import { Collapse } from 'antd'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Copy } from 'lucide-react'
+import { ChevronDown, ChevronUp, Copy } from 'lucide-react'
+import logoDefaultCopy from '@/src/assets/images/(logo)/temp_empty.png'
 import allReview from '@/src/assets/images/all_review.png'
 import kakaoReview from '@/src/assets/images/kakao_review.png'
 import StarRate from '@/src/shared/ui/StarRate'
 import type { CoursePlanPlaceType } from '@/src/entities/place/type'
 import { message } from 'antd'
+import Spacer from '@/src/shared/ui/Spacer'
+import { useState } from 'react'
 
 export default function PlaceCollapse({
   places,
@@ -38,16 +40,25 @@ export default function PlaceCollapse({
       </div>
     ),
     children: (
-      <div className='flex flex-col w-full'>
-        {place.thumbnail_url && (
-          <Image
-            className='rounded-t-[10px]'
-            src={place.thumbnail_url}
-            alt='place image'
-            width={300}
-            height={150}
-          />
-        )}
+      <div className='rounded-[10px] border-[1px] border-brand bg-light-gray flex flex-col w-full'>
+        <div className='h-[224px] overflow-hidden relative rounded-t-[10px]'>
+          {place.thumbnail_url ? (
+            <Image
+              className='rounded-t-[10px]'
+              src={place.thumbnail_url}
+              alt='place image'
+              width={300}
+              height={150}
+            />
+          ) : (
+            <Image
+              className='object-cover w-full h-full'
+              src={logoDefaultCopy['src']}
+              alt='place image not found'
+              fill
+            />
+          )}
+        </div>
         <div className='flex justify-center items-center gap-[10px] py-[10px] bg-black13 text-white'>
           <span className='block text-sub text-light max-w-[200px] truncate line-clamp-2'>
             {place.address}
@@ -59,7 +70,7 @@ export default function PlaceCollapse({
             strokeWidth={1.5}
           />
         </div>
-        <div className='flex bg-bright-gray rounded-[10px] justify-between p-[15px]'>
+        <div className='flex rounded-[10px] justify-between p-[15px]'>
           <div className='flex flex-col justify-end'>
             <p className='text-headline text-brand font-semibold'>
               {place.average_rating}
@@ -71,13 +82,18 @@ export default function PlaceCollapse({
           </div>
           <div className='flex flex-col justify-center items-center gap-[5px]'>
             <Link href={`/places/${place.id}`}>
-              <Image src={allReview} alt='all review' width={175} height={31} />
+              <Image
+                src={allReview['src']}
+                alt='all review'
+                width={175}
+                height={31}
+              />
             </Link>
             <Link
               href={`https://place.map.kakao.com/m/${place.kakao_map_place_id}`}
             >
               <Image
-                src={kakaoReview}
+                src={kakaoReview['src']}
                 alt='kakao review'
                 width={175}
                 height={31}
@@ -89,9 +105,57 @@ export default function PlaceCollapse({
       </div>
     ),
   }))
+  const [openKey, setOpenKey] = useState<string | null>(null)
+  console.table(places)
+  const toggleItem = (key: string) => {
+    setOpenKey((prevKey) => (prevKey === key ? null : key))
+  }
 
   return (
-    <Collapse expandIconPosition={'end'} className='mt-[10px]' items={items} />
+    // <Collapse
+    //   expandIconPosition={'end'}
+    //   className='
+    //     {/*mt-10 bg-transparent*/}
+    //     mt-2 rounded-lg bg-transparent
+    //     [&_.ant-collapse-item]:!mb-4
+    //     [&_.ant-collapse-content-box]:!p-0 !bg-bright-gray
+    //     [&_.ant-collapse-header]:!border-none !rounded-xl'
+    //   items={items}
+    // />
+    <div className='w-full'>
+      {items.map((item) => {
+        const isOpen = openKey === item.key
+        return (
+          <div key={item.key}>
+            <button
+              onClick={() => toggleItem(item.key)}
+              className={`w-full flex justify-between items-center px-4 py-3 text-left text-middle font-[500] 
+                bg-bright-gray rounded-xl shadow-sm transition-[border] duration-300 ease-in-out ${
+                  isOpen
+                    ? 'border-[1px] border-brand'
+                    : 'border-[1px] border-white'
+                }`}
+            >
+              <div className='flex items-center gap-3'>{item.label}</div>
+              {isOpen ? (
+                <ChevronUp className='w-5 h-5 text-gray-500' />
+              ) : (
+                <ChevronDown className='w-5 h-5 text-gray-500' />
+              )}
+            </button>
+            <Spacer height={15} />
+            <div
+              className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${
+                isOpen ? 'max-h-screen' : 'max-h-0'
+              }`}
+            >
+              {item.children}
+              <Spacer height={15} />
+            </div>
+          </div>
+        )
+      })}
+    </div>
   )
 }
 
