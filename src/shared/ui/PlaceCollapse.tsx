@@ -83,7 +83,7 @@ export default function PlaceCollapse({
           <div className='flex flex-col justify-center items-center gap-[5px]'>
             <Link href={`/places/${place.id}`}>
               <Image
-                src={allReview['src']}
+                src={allReview as string}
                 alt='all review'
                 width={175}
                 height={31}
@@ -93,7 +93,7 @@ export default function PlaceCollapse({
               href={`https://place.map.kakao.com/m/${place.kakao_map_place_id}`}
             >
               <Image
-                src={kakaoReview['src']}
+                src={kakaoReview as string}
                 alt='kakao review'
                 width={175}
                 height={31}
@@ -118,18 +118,18 @@ export default function PlaceCollapse({
           <div key={item.key}>
             <button
               onClick={() => toggleItem(item.key)}
-              className={`w-full flex justify-between items-center px-4 py-3 text-left text-middle font-[500] 
+              className={`w-full flex justify-between items-center px-[16px] py-[12px] text-left text-middle font-[500] 
                 bg-bright-gray rounded-xl shadow-sm transition-[border] duration-300 ease-in-out ${
                   isOpen
                     ? 'border-[1px] border-brand'
-                    : 'border-[1px] border-white'
+                    : 'border-[1px] border-light-gray'
                 }`}
             >
               <div className='flex items-center gap-3'>{item.label}</div>
               {isOpen ? (
-                <ChevronUp className='w-5 h-5 text-gray-500' />
+                <ChevronUp className='w-[20px] h-[20px] text-gray-500' />
               ) : (
-                <ChevronDown className='w-5 h-5 text-gray-500' />
+                <ChevronDown className='w-[20px] h-[20px] text-gray-500' />
               )}
             </button>
             <Spacer height={15} />
