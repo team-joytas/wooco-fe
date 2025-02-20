@@ -112,16 +112,6 @@ export default function PlaceCollapse({
   }
 
   return (
-    // <Collapse
-    //   expandIconPosition={'end'}
-    //   className='
-    //     {/*mt-10 bg-transparent*/}
-    //     mt-2 rounded-lg bg-transparent
-    //     [&_.ant-collapse-item]:!mb-4
-    //     [&_.ant-collapse-content-box]:!p-0 !bg-bright-gray
-    //     [&_.ant-collapse-header]:!border-none !rounded-xl'
-    //   items={items}
-    // />
     <div className='w-full'>
       {items.map((item) => {
         const isOpen = openKey === item.key
