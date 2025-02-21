@@ -58,3 +58,9 @@ export type KakaoToServerPlaceType = {
   kakao_map_place_id: string
   phone_number: string
 }
+
+export type KakaoPlaceType = {
+  name: string
+  latitude: number
+  longitude: number
+}
