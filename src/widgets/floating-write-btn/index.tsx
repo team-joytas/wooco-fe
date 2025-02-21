@@ -10,11 +10,14 @@ interface FloatingButtonProps {
 }
 
 interface FloatingWriteButtonProps {
-  isClick: boolean
-  setIsClick: (value: boolean) => void
+  isClick?: boolean
+  setIsClick?: (value: boolean) => void
 }
 
-export default function FloatingWriteButton({ isClick, setIsClick } : FloatingWriteButtonProps) {
+export default function FloatingWriteButton({
+  isClick,
+  setIsClick,
+}: FloatingWriteButtonProps) {
   const router = useRouter()
 
   useEffect(() => {
@@ -30,7 +33,9 @@ export default function FloatingWriteButton({ isClick, setIsClick } : FloatingWr
   }, [isClick])
 
   const handleClick = (path: string) => {
-    setIsClick(!isClick)
+    if (setIsClick) {
+      setIsClick(!isClick)
+    }
     document.scrollingElement?.scrollTo({ top: 0, behavior: 'smooth' })
     router.push(path)
   }
@@ -52,7 +57,7 @@ export default function FloatingWriteButton({ isClick, setIsClick } : FloatingWr
         )}
         <button
           className='w-[53px] h-[53px] bg-brand rounded-full flex items-center justify-center shadow-lg border border-blue-800 border-opacity-20'
-          onClick={() => setIsClick(!isClick)}
+          onClick={() => setIsClick && setIsClick(!isClick)}
         >
           <Pencil size={20} color='white' strokeWidth={1.5} />
         </button>
