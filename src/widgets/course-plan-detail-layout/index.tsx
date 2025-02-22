@@ -164,7 +164,7 @@ export default function CoursePlanDetailLayout({
       <Spacer height={25} />
       {!isCourse && (
         <button
-          className='w-full h-[54px] text-brand font-bold text-main flex items-center justify-center bg-light-gray cursor-pointer gap-[10px] hover:bg-brand hover:text-white transition-all duration-200'
+          className='w-full max-w-[375px] h-[54px] text-brand font-bold text-main flex items-center justify-center bg-light-gray cursor-pointer gap-[10px] hover:bg-brand hover:text-white transition-all duration-200 fixed bottom-60'
           onClick={() => setIsClicked(!isClicked)}
         >
           {isClicked ? (
