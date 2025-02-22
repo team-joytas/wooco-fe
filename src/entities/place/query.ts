@@ -1,5 +1,14 @@
-import { useQuery, UseQueryResult } from '@tanstack/react-query'
-import { getPlace, getPlaceReviews } from '@/src/entities/place/api'
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryResult,
+} from '@tanstack/react-query'
+import {
+  deletePlaceReview,
+  getPlace,
+  getPlaceReviews,
+} from '@/src/entities/place/api'
 import { PlaceReviewType, PlaceType } from '@/src/entities/place/type'
 
 export const PLACE_QUERY_KEY = {
@@ -20,5 +29,16 @@ export const useGetPlaceReviews = (
   return useQuery({
     queryKey: PLACE_QUERY_KEY.reviews(id),
     queryFn: () => getPlaceReviews(id),
+  })
+}
+
+export const useDeletePlaceReview = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (id: string) => deletePlaceReview(id),
+    onSuccess: () => {
+      queryClient.refetchQueries({ queryKey: PLACE_QUERY_KEY.reviews })
+    },
   })
 }

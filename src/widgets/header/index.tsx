@@ -253,6 +253,28 @@ export function PlaceHeader({ title, isLiked }: PlaceHeaderProps) {
   )
 }
 
+export function HeaderWithBackButton({ title }: HeaderProps) {
+  const router = useRouter()
+
+  const handleClickBack = () => router.back()
+
+  return (
+    <header className='max-w-[375px] relative bg-white w-full h-[55px] min-h-[55px] flex items-center justify-center border-b-[1px] border-b-header-line px-[12px]'>
+      <ChevronLeft
+        onClick={handleClickBack}
+        size={24}
+        color='black'
+        strokeWidth={1.5}
+        className='cursor-pointer absolute left-4'
+      />
+
+      <p className='font-semibold text-[17px] absolute left-1/2 -translate-x-1/2'>
+        {title}
+      </p>
+    </header>
+  )
+}
+
 export default function Header({
   title,
   isBack,

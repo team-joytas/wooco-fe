@@ -169,18 +169,17 @@ export default function DetailPlace({ id }: { id: string }) {
 
         <Spacer height={20} />
         <Spacer height={8} className='bg-light-gray' />
-        <Spacer height={20} />
-        <div className='flex flex-col gap-[25px] px-[15px]'>
+
+        <div className='flex flex-col'>
           {reviewData.map((review) => (
             <CardReview
               key={review.id}
               review={review}
-              placeId={placeData.id}
+              placeId={placeData.id.toString()}
             />
           ))}
         </div>
 
-        <Spacer height={20} />
         <Spacer height={8} className='bg-light-gray' />
         <Spacer height={20} />
 

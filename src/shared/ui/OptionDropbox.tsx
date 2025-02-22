@@ -3,7 +3,6 @@ import Link from 'next/link'
 import React from 'react'
 
 interface OptionDropboxProps {
-  ref: React.Ref<HTMLDivElement>
   isOpen: boolean
   onToggle: () => void
   isMine: boolean
@@ -13,17 +12,8 @@ interface OptionDropboxProps {
   placeId?: string
 }
 
-export default function OptionDropbox({
-  ref,
-  isOpen,
-  onToggle,
-  isMine,
-  type,
-  id,
-  handleDelete,
-  placeId,
-}: OptionDropboxProps) {
-  return (
+const OptionDropbox = React.forwardRef<HTMLDivElement, OptionDropboxProps>(
+  ({ isOpen, onToggle, isMine, type, id, handleDelete, placeId }, ref) => (
     <div className='relative' ref={ref}>
       <EllipsisVertical
         onClick={onToggle}
@@ -61,5 +51,8 @@ export default function OptionDropbox({
       )}
     </div>
   )
-}
-OptionDropbox.displayName = 'OptionMenu'
+)
+
+OptionDropbox.displayName = 'OptionDropbox'
+
+export default OptionDropbox

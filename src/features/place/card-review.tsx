@@ -11,22 +11,24 @@ import ReviewTag from './review-tag'
 import StarRate from '@/src/shared/ui/StarRate'
 import OptionDropbox from '@/src/shared/ui/OptionDropbox'
 import { useEffect, useRef, useState } from 'react'
+import { useDeletePlaceReview } from '@/src/entities/place/query'
 
 export default function CardReview({
   review,
   placeId,
 }: {
   review: PlaceReviewType
-  placeId: number
+  placeId: string
 }) {
   const { user } = useUserStore()
   const isMyComment = review.writer.id === user?.user_id
   const menuRef = useRef<HTMLDivElement>(null)
 
   const [isOpen, setIsOpen] = useState(false)
+  const { mutate: deletePlaceReview } = useDeletePlaceReview()
 
   const handleDeleteReview = () => {
-    // TODO: 삭제 API 호출
+    deletePlaceReview(review.id.toString())
     setIsOpen(false)
   }
 
@@ -44,7 +46,8 @@ export default function CardReview({
   }, [isOpen])
 
   return (
-    <div className='w-full flex items-end flex-col'>
+    <div className='w-full flex items-end flex-col px-[12px]'>
+      <Spacer height={25} />
       <div className='w-full justify-between flex items-center'>
         <Link
           href={`/users/${review.writer.id}`}
@@ -77,7 +80,7 @@ export default function CardReview({
             type='place'
             id={review.id.toString()}
             handleDelete={handleDeleteReview}
-            placeId={placeId.toString()}
+            placeId={placeId}
           />
         )}
       </div>
@@ -94,6 +97,8 @@ export default function CardReview({
       <Spacer height={10} />
 
       <span className='w-full text-sub px-[12px]'>{review.contents}</span>
+
+      <Spacer height={30} />
     </div>
   )
 }
