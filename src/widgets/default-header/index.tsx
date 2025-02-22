@@ -11,7 +11,8 @@ export default function DefaultHeader() {
     path === '/' ||
     path === '/courses' ||
     path === '/plans' ||
-    path === '/not-found'
+    path === '/not-found' ||
+    path.includes('/places')
 
   if (!isShowHeader) {
     return <div className='w-full h-[1px] bg-header-line' />

@@ -54,3 +54,23 @@ export const postPlace = async (payload: PlaceSearchType) => {
   const response = await customAxios.post('/places', placePayload)
   return response.data
 }
+
+export const getPlace = async (id: string) => {
+  try {
+    const response = await customAxios.get(`/places/${id}`)
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const getPlaceReviews = async (id: string) => {
+  try {
+    const response = await customAxios.get(`/reviews/places/${id}`)
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}

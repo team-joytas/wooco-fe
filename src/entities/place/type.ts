@@ -1,19 +1,36 @@
+import { WriterType } from '../user/type'
+
 export type PlaceType = {
   id: number
-  image: string[]
-  place_name: string
-  address_name: string
-  x: string
-  y: string
-  category_name?: string
-  road_address_name?: string
-  place_url?: string
-  phone?: string
-  distance?: string
-  star_rate?: number | string
-  created_at?: string
-  tags?: string[]
-  content?: string
+  name: string
+  latitude: number
+  longitude: number
+  address: string
+  kakao_map_place_id: string
+  average_rating: number
+  review_count: number
+  phone_number: string
+  thumbnail_url: string
+  place_on_line_review_stats: PlaceReviewStatsType[]
+}
+
+export type PlaceReviewStatsType = {
+  contents: string
+  count: number
+}
+
+export type PlaceReviewType = {
+  id: number
+  writer: WriterType
+  rating: number
+  contents: string
+  created_at: string
+  one_line_reviews: PlaceReviewKeywordType[]
+  image_urls: string[]
+}
+
+export type PlaceReviewKeywordType = {
+  contents: string
 }
 
 export type PlaceSearchType = {
