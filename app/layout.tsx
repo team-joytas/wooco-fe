@@ -41,7 +41,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='kr' className={`h-vh ${pretendard.variable}`}>
-      <body className='h-full flex items-center flex-col overflow-y-scroll'>
+      <body
+        className={`${pretendard.className} h-full flex items-center flex-col overflow-y-scroll`}
+      >
         <ReactQueryProvider>
           <DefaultHeader />
           <ConfigProvider theme={theme}>
