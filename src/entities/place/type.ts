@@ -16,7 +16,7 @@ export type PlaceType = {
 
 export type PlaceReviewStatsType = {
   contents: string
-  count?: number
+  count: number
 }
 
 export type PlaceReviewType = {
@@ -25,8 +25,12 @@ export type PlaceReviewType = {
   rating: number
   contents: string
   created_at: string
-  one_line_reviews: PlaceReviewStatsType[]
+  one_line_reviews: PlaceReviewKeywordType[]
   image_urls: string[]
+}
+
+export type PlaceReviewKeywordType = {
+  contents: string
 }
 
 export type PlaceSearchType = {

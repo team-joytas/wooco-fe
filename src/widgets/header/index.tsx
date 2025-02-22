@@ -1,12 +1,6 @@
 'use client'
 
-import {
-  ChevronLeft,
-  LayoutGrid,
-  List,
-  EllipsisVertical,
-  Heart,
-} from 'lucide-react'
+import { ChevronLeft, LayoutGrid, List, Heart } from 'lucide-react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useEffect, useState, useRef } from 'react'
 import Link from 'next/link'
@@ -22,6 +16,7 @@ import {
 import { useQueryClient } from '@tanstack/react-query'
 import { COURSE_QUERY_KEY } from '@/src/entities/course/query'
 import { useDeletePlan } from '@/src/entities/plan/query'
+import OptionDropbox from '@/src/shared/ui/OptionDropbox'
 
 interface HeaderProps {
   title: string
@@ -43,6 +38,11 @@ interface OptionHeaderProps {
   id: string
   isMine: boolean
   showLike: boolean
+  isLiked: boolean
+}
+
+interface PlaceHeaderProps {
+  title: string
   isLiked: boolean
 }
 
@@ -93,7 +93,7 @@ const HeaderBase = ({
   </header>
 )
 
-export function TitleWithTagStyle({
+function TitleWithTagStyle({
   title,
   handleClickBack,
 }: {
@@ -199,7 +199,7 @@ export function OptionHeader({
             stroke='#5A59F2'
           />
         )}
-        <OptionMenu
+        <OptionDropbox
           ref={menuRef}
           isOpen={isOpen}
           onToggle={handleClickOption}
@@ -213,53 +213,45 @@ export function OptionHeader({
   )
 }
 
-interface OptionMenuProps {
-  isOpen: boolean
-  onToggle: () => void
-  isMine: boolean
-  type: string
-  id: string
-  handleDelete: () => void
-}
+export function PlaceHeader({ title, isLiked }: PlaceHeaderProps) {
+  const [clickedLike, setClickedLike] = useState(isLiked)
 
-const OptionMenu = React.forwardRef<HTMLDivElement, OptionMenuProps>(
-  ({ isOpen, onToggle, isMine, type, id, handleDelete }, ref) => (
-    <div className='relative' ref={ref}>
-      <EllipsisVertical
-        onClick={onToggle}
-        className='cursor-pointer'
-        size={24}
-        strokeWidth={1.5}
-      />
-      {isOpen && (
-        <div className='absolute flex flex-col z-1 top-[30px] right-[10px] w-[93px] shadow-floating-button h-fit bg-light-gray rounded-[10px]'>
-          {isMine ? (
-            <>
-              <Link
-                className='h-[25px] text-sub flex items-center justify-center cursor-pointer hover:text-brand transition-all duration-200'
-                href={`/${type}s/${id}/update`}
-              >
-                수정하기
-              </Link>
-              <button
-                className='h-[25px] text-sub flex items-center justify-center cursor-pointer hover:text-brand transition-all duration-200'
-                onClick={handleDelete}
-              >
-                삭제하기
-              </button>
-            </>
-          ) : (
-            <button className='h-[25px] text-sub flex items-center justify-center'>
-              신고하기
-            </button>
-          )}
-        </div>
-      )}
-    </div>
+  const router = useRouter()
+  const handleClickBack = () => router.back()
+  const handleClickLike = async () => {
+    // TODO: 좋아요 API 호출
+    try {
+      if (isLiked) {
+        setClickedLike(false)
+      } else {
+        setClickedLike(true)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  return (
+    <HeaderBase className='px-[20px]'>
+      <div className='flex items-center gap-[10px]'>
+        <BackButton onClick={handleClickBack} />
+      </div>
+      <p className='border-b font-semibold text-[13px] text-white px-[20px] py-[8px] rounded-[20px] bg-container-blue'>
+        {title}
+      </p>
+      <div className='flex items-center gap-[10px]'>
+        <Heart
+          onClick={handleClickLike}
+          className='cursor-pointer'
+          size={20}
+          strokeWidth={1.5}
+          fill={clickedLike ? '#5A59F2' : 'none'}
+          stroke='#5A59F2'
+        />
+      </div>
+    </HeaderBase>
   )
-)
-
-OptionMenu.displayName = 'OptionMenu'
+}
 
 export default function Header({
   title,

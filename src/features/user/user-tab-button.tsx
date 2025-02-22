@@ -9,10 +9,10 @@ export default function TabButton({
 }) {
   return (
     <div
-      className={`w-[50%] flex justify-center border-b-[5px] pb-[5px] items-center font-semibold text-middle cursor-pointer ${
+      className={`w-[50%] flex justify-center border-b-[5px] pb-[5px] items-center text-middle cursor-pointer ${
         isActive
           ? 'border-container-light-blue'
-          : 'border-light-gray text-gray-400'
+          : 'border-dark-gray text-gray-400'
       }`}
       onClick={onClick}
     >
