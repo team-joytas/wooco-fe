@@ -74,3 +74,13 @@ export const getPlaceReviews = async (id: string) => {
     throw error
   }
 }
+
+export const deletePlaceReview = async (id: string) => {
+  try {
+    const response = await customAxios.delete(`/reviews/${id}`)
+    return response.data
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
