@@ -17,7 +17,7 @@ export default function SectionLikeCourse() {
   if (!user) return <LoginLikeCourse />
 
   return (
-    <section className='w-full h-fit py-[22px] border-b-[1px] border-header-line'>
+    <section className='w-full h-fit py-[22px] border-b-[1px] border-container-blue'>
       <div className='px-[20px] flex items-center justify-between'>
         <div className='flex flex-col'>
           <p>
@@ -30,7 +30,12 @@ export default function SectionLikeCourse() {
             관심있는 지역/장소들을 내 코스로 만들어봐요
           </span>
         </div>
-        <Link href={`/users/${user?.user_id}/wishlist`}>더보기</Link>
+        <Link
+          href={`/users/${user?.user_id}/wishlist`}
+          className='text-[10px] text-black opacity-50'
+        >
+          더보기
+        </Link>
       </div>
       <Spacer height={12} />
       {user?.user_id && <UserLikeCourse id={user?.user_id} />}

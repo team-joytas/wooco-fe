@@ -5,10 +5,10 @@ import CardAnnouncement from '@/src/features/main/card-announcement'
 
 export default function SectionAnnouncement() {
   return (
-    <section className='w-full h-fit py-[22px] px-[20px] border-b-[1px] border-header-line'>
+    <section className='w-full h-fit py-[14px] px-[20px] border-b-[1px] border-container-blue'>
       <div className='flex items-center justify-between'>
         <div className='flex flex-col'>
-          <p className='text-headline text-brand font-bold'>공지사항</p>
+          <p className='text-headline text-brand font-semibold'>공지사항</p>
           <span className='text-sub text-black opacity-50'>
             우코를 사용하실 때, 알고 있으면 좋아요
           </span>
@@ -20,6 +20,7 @@ export default function SectionAnnouncement() {
       <div className='flex flex-col gap-[10px]'>
         <CardAnnouncement />
       </div>
+      <Spacer height={22} />
     </section>
   )
 }
