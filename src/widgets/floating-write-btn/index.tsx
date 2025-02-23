@@ -2,7 +2,7 @@
 
 import { Pencil, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 interface FloatingButtonProps {
   onClick: () => void
@@ -15,22 +15,14 @@ interface FloatingWriteButtonProps {
 }
 
 export default function FloatingWriteButton({
-  isClick,
-  setIsClick,
+  isClick: isClickProp,
+  setIsClick: setIsClickProp,
 }: FloatingWriteButtonProps) {
   const router = useRouter()
+  const [internalIsClick, setInternalIsClick] = useState(false)
 
-  useEffect(() => {
-    if (isClick) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [isClick])
+  const isClick = isClickProp ?? internalIsClick
+  const setIsClick = setIsClickProp ?? setInternalIsClick
 
   const handleClick = (path: string) => {
     if (setIsClick) {
