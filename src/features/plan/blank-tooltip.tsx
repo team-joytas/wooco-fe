@@ -1,7 +1,7 @@
 export default function BlankTooltip() {
   return (
-    <div className='flex relative justify-center items-center w-full'>
-      <div className='fixed bottom-[130px] inline-flex flex-col items-center'>
+    <div className='flex relative justify-end items-center w-full'>
+      <div className='fixed bottom-[150px] inline-flex flex-col items-center mr-[20px]'>
         <div className='w-[285px] h-auto p-[16px] bg-white rounded-2xl shadow-[0px_2px_7px_0px_rgba(0,0,0,0.12)] flex flex-col justify-start items-center gap-[8px]'>
           <div className='text-center h-[24px] text-black text-headline font-bold'>
             가고 싶은 곳들을 하나로!

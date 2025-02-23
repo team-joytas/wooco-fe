@@ -72,7 +72,7 @@ export default function ListPlan() {
         </div>
       ) : (
         <>
-          <Spacer height={100}/>
+          <Spacer height={100} />
           <div className='text-center text-black text-[14px] font-medium'>
             아직 플랜이 없어요!
           </div>
