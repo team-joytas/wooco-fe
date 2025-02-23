@@ -56,7 +56,7 @@ export default function ReviewFormLayout({
       if (reviewId) {
         try {
           const reviewData = await getReview(reviewId)
-          setValue('contents', value: reviewData.contents)
+          setValue('contents', reviewData.contents)
           setValue('rating', reviewData.rating)
           setValue('one_line_reviews', reviewData.one_line_reviews)
           setValue('image_urls', reviewData.image_urls)
