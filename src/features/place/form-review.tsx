@@ -120,7 +120,7 @@ const KeywordInput: React.FC<KeywordInputProps> = ({ keywords, setValue }) => {
         value={newKeyword}
         onChange={(e) => setNewKeyword(e.target.value)}
         onKeyDown={(e) => {
-          //스페이스바는 구버전에서 spacebar, 모던 브라우저에서 " "입니다!
+          //스페이스바는 구버전에서 Spacebar, 모던 브라우저에서 " "입니다!
           if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
             e.preventDefault()
             handleAddKeyword()
@@ -160,6 +160,48 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const [messageApi, contextHolder] = message.useMessage()
 
+  // Drag and Touch Scrolling
+  let isDragging = false
+  let startX = 0
+  let scrollLeft = 0
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    isDragging = true
+    startX = e.pageX - (scrollRef.current?.offsetLeft || 0)
+    scrollLeft = scrollRef.current?.scrollLeft || 0
+  }
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return
+    e.preventDefault()
+    const x = e.pageX - (scrollRef.current?.offsetLeft || 0)
+    const walk = (x - startX) * 1.5
+    const scrollRefCurrent = scrollRef.current
+    if (scrollRefCurrent) scrollRefCurrent.scrollLeft = scrollLeft - walk
+  }
+
+  const handleMouseUp = () => {
+    isDragging = false
+  }
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    isDragging = true
+    startX = e.touches[0].pageX - (scrollRef.current?.offsetLeft || 0)
+    scrollLeft = scrollRef.current?.scrollLeft || 0
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging) return
+    const x = e.touches[0].pageX - (scrollRef.current?.offsetLeft || 0)
+    const walk = (x - startX) * 1.5
+    const scrollRefCurrent = scrollRef.current
+    if (scrollRefCurrent) scrollRefCurrent.scrollLeft = scrollLeft - walk
+  }
+
+  const handleTouchEnd = () => {
+    isDragging = false
+  }
+
   const handleImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -188,6 +230,13 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
       <div
         className='w-[375px] overflow-x-scroll scroll-smooth cursor-grab'
         ref={scrollRef}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
       >
         <div className='flex flex-row gap-[13px] px-[35px] mx-[-5px] min-w-fit'>
           <div className='relative w-[84px] h-[84px] flex justify-center items-center'>
