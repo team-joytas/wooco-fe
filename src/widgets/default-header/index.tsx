@@ -15,7 +15,7 @@ export default function DefaultHeader() {
     (path.includes('/places') && !path.includes('/reviews'))
 
   if (!isShowHeader) {
-    return <div className='w-full h-[1px] bg-header-line' />
+    return null
   }
 
   return (

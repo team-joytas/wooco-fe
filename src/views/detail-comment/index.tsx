@@ -19,7 +19,12 @@ export default function DetailComment({
 }: DetailCommentProps) {
   const router = useRouter()
   const { mutate } = useCreateComment()
-  const { register, handleSubmit, reset } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isDirty },
+  } = useForm({
     defaultValues: {
       contents: '',
     },
@@ -75,9 +80,10 @@ export default function DetailComment({
           <button type='submit'>
             <Send
               size={24}
-              className='cursor-pointer'
+              className={`cursor-pointer ${
+                isDirty ? 'text-brand' : 'text-dark-gray'
+              }`}
               strokeWidth={1.5}
-              stroke='#D9D9D9'
             />
           </button>
         </form>
