@@ -1,6 +1,6 @@
 import {
   KakaoToServerPlaceType,
-  PlaceSearchType,
+  PlaceSearchType, PlaceType,
 } from '@/src/entities/place/type'
 import { customAxios } from '@/src/shared/axios'
 
@@ -55,7 +55,7 @@ export const postPlace = async (payload: PlaceSearchType) => {
   return response.data
 }
 
-export const getPlace = async (id: string) => {
+export const getPlace = async (id: string):Promise<PlaceType> => {
   try {
     const response = await customAxios.get(`/places/${id}`)
     return response.data.results
