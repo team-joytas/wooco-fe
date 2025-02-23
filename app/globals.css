@@ -12,6 +12,10 @@
 html {
   background-color: var(--white);
   color: var(--black);
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none
 }
 
 body {
