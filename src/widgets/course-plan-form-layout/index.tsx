@@ -186,7 +186,7 @@ export default function CoursePlanFormLayout({
         places.map((place) => place.id.toString())
       )
 
-      if (getValues('categories').length === 0) {
+      if (type === LAYOUT_TYPE.course && getValues('categories').length === 0) {
         return
       }
 
