@@ -9,6 +9,7 @@ import { useGetMyProfile } from '@/src/entities/user/query'
 import { useGetLikeCourses } from '@/src/entities/course/query'
 import { getLoginUrl } from '@/src/entities/login/api'
 import { useRouter } from 'next/navigation'
+import { ChevronRight } from 'lucide-react'
 
 export default function SectionLikeCourse() {
   const { data: user } = useGetMyProfile()
@@ -115,16 +116,21 @@ function LoginLikeCourse() {
           ))}
         </div>
       </div>
-      <div className='w-full h-full absolute top-0 left-0 flex items-center justify-center bg-white/60 backdrop-blur-sm'>
-        <div className='px-[35px] py-[30px] shadow-floating-button rounded-[10px] bg-white flex flex-col items-center justify-center gap-[10px]'>
-          <p className='text-[13px] text-center'>
-            로그인 후 나만의 관심 코스를 만들어보세요
+      <div className='w-full h-full absolute top-0 left-0 flex items-center justify-center bg-white/60 backdrop-blur'>
+        <div className='px-[35px] py-[30px] flex flex-col items-center justify-center'>
+          <p className='text-main text-brand font-bold text-center'>
+            로그인하고
+            <br />
+            나만의 관심 코스 만들어보세요!
           </p>
+          <Spacer height={30} />
           <button
-            className='h-[32px] w-[186px] rounded-full text-white font-extrabold cursor-pointer bg-kakao text-[15px]'
+            className='h-[32px] w-[186px] font-extrabold cursor-pointer text-search-gray flex flex-row items-center justify-center '
             onClick={handleLogin}
           >
-            카카오로 시작하기
+            <span className='text-kakao'>카카오</span>
+            로 시작하기
+            <ChevronRight className='ml-[5px]' size={16} />
           </button>
         </div>
       </div>
