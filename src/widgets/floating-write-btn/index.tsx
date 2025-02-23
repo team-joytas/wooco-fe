@@ -1,8 +1,8 @@
 'use client'
 
-import { Pencil } from 'lucide-react'
+import { Pencil, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 interface FloatingButtonProps {
   onClick: () => void
@@ -15,22 +15,14 @@ interface FloatingWriteButtonProps {
 }
 
 export default function FloatingWriteButton({
-  isClick,
-  setIsClick,
+  isClick: isClickProp,
+  setIsClick: setIsClickProp,
 }: FloatingWriteButtonProps) {
   const router = useRouter()
+  const [internalIsClick, setInternalIsClick] = useState(false)
 
-  useEffect(() => {
-    if (isClick) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [isClick])
+  const isClick = isClickProp ?? internalIsClick
+  const setIsClick = setIsClickProp ?? setInternalIsClick
 
   const handleClick = (path: string) => {
     if (setIsClick) {
@@ -42,9 +34,9 @@ export default function FloatingWriteButton({
 
   return (
     <div className='flex items-center justify-end cursor-pointer z-[50]'>
-      <div className='fixed flex flex-col gap-[28px] items-end bottom-[70px] z-[1001] pr-[20px]'>
+      <div className='fixed flex flex-col gap-[20px] items-end bottom-[80px] z-[1001] pr-[20px]'>
         {isClick && (
-          <div className='flex flex-col gap-[15px]'>
+          <div className='flex flex-col gap-[10px]'>
             <FloatingMenuButton
               onClick={() => handleClick('/courses/new')}
               text='코스 작성'
@@ -56,10 +48,14 @@ export default function FloatingWriteButton({
           </div>
         )}
         <button
-          className='w-[53px] h-[53px] bg-brand rounded-full flex items-center justify-center shadow-lg border border-blue-800 border-opacity-20'
+          className='w-[50px] h-[50px] bg-brand rounded-full flex items-center justify-center shadow-lg border border-blue-800 border-opacity-20'
           onClick={() => setIsClick && setIsClick(!isClick)}
         >
-          <Pencil size={20} color='white' strokeWidth={1.5} />
+          {isClick ? (
+            <X size={23} color='white' strokeWidth={1.5} />
+          ) : (
+            <Pencil size={23} color='white' strokeWidth={1.5} />
+          )}
         </button>
       </div>
     </div>

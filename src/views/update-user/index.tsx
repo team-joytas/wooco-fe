@@ -170,19 +170,20 @@ export default function UpdateUser() {
           <Spacer height={8} className='bg-bright-gray' />
           {!isOnBoarding && (
             <div className='fixed bottom-[70px] flex items-center mt-[20px] text-[10px] text-gray-500 underline gap-[10px]'>
-              <button className='cursor-pointer'>회원탈퇴</button>|
               <button className='cursor-pointer' onClick={handleLogout}>
                 로그아웃
               </button>
+              |<button className='cursor-pointer'>회원탈퇴</button>
             </div>
           )}
           <button
             type='submit'
-            className={`fixed bottom-[0px] text-[16px] font-bold flex items-center cursor-pointer justify-center w-full max-w-[375px] h-[50px] ${
-              !errors.nickname
-                ? 'bg-brand text-white'
-                : 'bg-gray-200 text-black13'
-            }`}
+            className={`fixed bottom-[0px] text-[16px] font-bold flex items-center cursor-pointer justify-center w-full max-w-[375px] h-[50px] bg-light-gray text-brand  ${
+              !errors.nickname &&
+              !errors.description &&
+              !errors.profile_url &&
+              'hover:bg-brand hover:text-white'
+            } transition-all duration-200`}
           >
             완료
           </button>

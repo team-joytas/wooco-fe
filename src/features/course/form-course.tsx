@@ -13,7 +13,7 @@ import dayjs from 'dayjs'
 import type { CoursePlanPlaceType } from '@/src/entities/place/type'
 import { Dispatch, SetStateAction } from 'react'
 import Spacer from '@/src/shared/ui/Spacer'
-import KakaoMap from '@/src/shared/ui/KakaoMap'
+import ActiveKakaoMap from '@/src/shared/ui/KakaoMap'
 import DragPlace from '@/src/widgets/drag-place'
 import { Plus } from 'lucide-react'
 import useRegionStore from '@/src/shared/store/regionStore'
@@ -233,7 +233,7 @@ export default function FormSections({
             validate: (value) => value.length > 0 || '장소를 선택해주세요.',
           })}
         >
-          {places.length > 0 && <KakaoMap places={places} />}
+          {places.length > 0 && <ActiveKakaoMap places={places} />}
           <DragPlace places={places} setPlaces={setPlaces} />
           <button
             type='button'

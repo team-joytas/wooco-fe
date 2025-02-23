@@ -2,7 +2,7 @@
 
 import Spacer from '@/src/shared/ui/Spacer'
 import PlaceCollapse from '@/src/shared/ui/PlaceCollapse'
-import KakaoMap from '@/src/shared/ui/KakaoMap'
+import ActiveKakaoMap from '@/src/shared/ui/KakaoMap'
 import type { CourseType } from '@/src/entities/course/type'
 import { CATEGORY } from '@/src/entities/category/type'
 import { OptionHeader } from '@/src/widgets/header'
@@ -118,14 +118,15 @@ export default function CoursePlanDetailLayout({
           })}
         </div>
         {data?.places && data?.places.length > 0 && (
-          <KakaoMap places={data?.places || []} />
+          <ActiveKakaoMap places={data?.places || []} />
         )}
         <Spacer height={16} />
-        <p className='px-[20px]'>
-          <span className='text-sub text-brand font-semibold'>
+        <p className='px-[20px] text-sub'>
+          <span className='text-brand font-semibold'>
             {isCourseType(data) ? data.writer.name : userName}
           </span>
-          &nbsp;님의 {typeName} 제안이에요.
+          &nbsp;
+          {isCourse ? '님의 코스 제안이에요.' : '님이 선택한 장소들이에요.'}
         </p>
         <Spacer height={10} />
         <PlaceCollapse places={data?.places || []} />
@@ -133,8 +134,8 @@ export default function CoursePlanDetailLayout({
         <Spacer height={8} className='bg-bright-gray' />
         <Spacer height={16} />
         <section className='w-full flex flex-col gap-[10px]'>
-          <p className='px-[20px]'>
-            <span className='text-sub text-brand font-semibold'>
+          <p className='px-[20px] text-sub'>
+            <span className='text-brand font-semibold'>
               {isCourseType(data) ? data.writer.name : userName}
             </span>
             &nbsp;님의 {typeName} 설명이에요.
@@ -147,8 +148,8 @@ export default function CoursePlanDetailLayout({
         <Spacer height={8} className='bg-bright-gray' />
         <Spacer height={16} />
         <section className='w-full flex flex-col gap-[10px]'>
-          <p className='px-[20px]'>
-            <span className='text-sub text-brand font-semibold'>
+          <p className='px-[20px] text-sub'>
+            <span className='text-brand font-semibold'>
               {isCourseType(data) ? data.writer.name : userName}
             </span>
             &nbsp;님이 {visit} 날짜에요.
@@ -163,7 +164,7 @@ export default function CoursePlanDetailLayout({
       <Spacer height={25} />
       {!isCourse && (
         <button
-          className='w-full h-[54px] text-brand font-bold text-main flex items-center justify-center bg-light-gray cursor-pointer gap-[10px] hover:bg-brand hover:text-white transition-all duration-200'
+          className='w-full max-w-[375px] h-[54px] text-brand font-bold text-main flex items-center justify-center bg-light-gray cursor-pointer gap-[10px] hover:bg-brand hover:text-white transition-all duration-200 fixed bottom-60'
           onClick={() => setIsClicked(!isClicked)}
         >
           {isClicked ? (

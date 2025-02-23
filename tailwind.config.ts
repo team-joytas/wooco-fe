@@ -11,6 +11,7 @@ const config: Config = {
         'header-line': '#737CC4',
         'container-blue': '#9997F2',
         'container-light-blue': '#B3BAF1',
+        'dark-gray': '#D9D9D9',
         'light-gray': '#F0F0F0',
         'bright-gray': '#F7F7F7',
         kakao: '#FFDC00',
