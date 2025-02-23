@@ -264,7 +264,7 @@ export default function CoursePlanFormLayout({
         <button
           type='submit'
           onClick={() => setIsSubmitted(true)}
-          className={`w-full text-[12px] h-[54px] flex items-center justify-center bg-light-gray text-brand hover:bg-brand hover:text-white transition-all duration-300 ${
+          className={`w-full h-[54px] flex items-center justify-center bg-light-gray text-brand text-main font-bold hover:bg-brand hover:text-white transition-all duration-300 ${
             isSubmitting ? 'cursor-default' : 'bg-blue-800 bg-opacity-50'
           }`}
           disabled={isSubmitting}
