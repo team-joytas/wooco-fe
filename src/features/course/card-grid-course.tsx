@@ -20,10 +20,7 @@ export default function CardGridCourse({ course }: { course: CourseType }) {
           alt='course-image'
         />
         <div className='absolute top-[85px] left-[10px] w-[27px] h-[27px] bg-gradient-to-r from-[#9997F2] to-[#4341EA] p-[1px] rounded-[50%]'>
-          <ProfileImage
-            className='w-[25px] h-[25px]'
-            src={course.writer.profile_url}
-          />
+          <ProfileImage size={25} src={course.writer.profile_url} />
         </div>
       </section>
       <section className='flex flex-col justify-between h-full px-[11px] py-[8px]'>

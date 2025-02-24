@@ -40,7 +40,7 @@ export default function PlaceCollapse({
       </div>
     ),
     children: (
-      <div className='rounded-[10px] border-[1px] border-brand bg-light-gray flex flex-col w-full'>
+      <div className='rounded-[10px] bg-light-gray flex flex-col w-full shadow-md'>
         <div className='h-[224px] overflow-hidden relative rounded-t-[10px]'>
           {place.thumbnail_url ? (
             <Image
@@ -82,12 +82,7 @@ export default function PlaceCollapse({
           </div>
           <div className='flex flex-col justify-center items-center gap-[5px]'>
             <Link href={`/places/${place.id}`}>
-              <Image
-                src={allReview}
-                alt='all review'
-                width={175}
-                height={31}
-              />
+              <Image src={allReview} alt='all review' width={175} height={31} />
             </Link>
             <Link
               href={`https://place.map.kakao.com/m/${place.kakao_map_place_id}`}
@@ -111,15 +106,15 @@ export default function PlaceCollapse({
   }
 
   return (
-    <div className='w-full'>
+    <div className='w-full px-[30px]'>
       {items.map((item) => {
         const isOpen = openKey === item.key
         return (
           <div key={item.key}>
             <button
               onClick={() => toggleItem(item.key)}
-              className={`w-full flex justify-between items-center px-[16px] py-[12px] text-left text-middle font-[500] 
-                bg-bright-gray rounded-xl shadow-sm transition-[border] duration-300 ease-in-out ${
+              className={`w-full flex justify-between items-center px-[16px] py-[10px] text-left text-middle font-[500] h-[40px]
+                bg-bright-gray rounded-full shadow-sm transition-[border] duration-300 ease-in-out ${
                   isOpen
                     ? 'border-[1px] border-brand'
                     : 'border-[1px] border-light-gray'
@@ -132,7 +127,6 @@ export default function PlaceCollapse({
                 <ChevronDown className='w-[20px] h-[20px] text-gray-500' />
               )}
             </button>
-            <Spacer height={15} />
             <div
               className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${
                 isOpen ? 'max-h-screen' : 'max-h-0'

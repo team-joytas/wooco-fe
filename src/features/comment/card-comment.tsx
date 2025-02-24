@@ -23,11 +23,7 @@ export default function CommentItem({ comment }: { comment: CommentType }) {
           href={`/users/${comment.writer.id}`}
           className='flex w-fit gap-[10px] items-center'
         >
-          <ProfileImage
-            size={40}
-            src={comment.writer.profile_url}
-            type='colored'
-          />
+          <ProfileImage size={40} src={comment.writer.profile_url} />
           <div className='flex flex-col'>
             <p className='text-[12px]'>{comment.writer.name}</p>
             <span className='text-[10px]'>
@@ -46,7 +42,6 @@ export default function CommentItem({ comment }: { comment: CommentType }) {
         )}
       </div>
       <span className='w-full text-[14px] px-[10px]'>{comment.contents}</span>
-      <button className='text-sub opacity-50'>신고하기</button>
     </div>
   )
 }

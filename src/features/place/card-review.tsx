@@ -56,7 +56,6 @@ export default function CardReview({
           <ProfileImage
             size={40}
             src={review.writer.profile_url || emptyProfile}
-            type='colored'
           />
           <div className='flex flex-col'>
             <p className='text-middle font-medium'>{review.writer.name}</p>

@@ -22,7 +22,7 @@ const OptionDropbox = React.forwardRef<HTMLDivElement, OptionDropboxProps>(
         strokeWidth={1.5}
       />
       {isOpen && (
-        <div className='absolute flex flex-col z-1 top-[30px] right-[10px] w-[93px] shadow-floating-button h-fit bg-light-gray rounded-[10px]'>
+        <div className='absolute flex flex-col z-[100] top-[30px] right-[10px] w-[93px] shadow-floating-button h-fit bg-light-gray rounded-[10px]'>
           {isMine ? (
             <>
               <Link

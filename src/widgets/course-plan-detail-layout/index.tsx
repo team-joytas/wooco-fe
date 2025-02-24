@@ -101,66 +101,78 @@ export default function CoursePlanDetailLayout({
         isMine={isMine}
       />
       <div
-        className={`w-full px-[20px] flex flex-col ${
+        className={`w-full flex flex-col ${
           isCourse ? '' : 'min-h-[calc(100vh-194px)]'
         }`}
       >
-        <div className='w-full items-center justify-center inline-flex gap-[5px] py-[8px]'>
-          {data?.categories?.map((category, index) => {
-            return (
-              <span
-                key={index}
-                className='px-[10px] py-[5px] text-[12px] text-white border rounded-[15px] bg-container-light-blue'
-              >
-                {CATEGORY[category as keyof typeof CATEGORY]}
-              </span>
-            )
-          })}
-        </div>
+        {isCourseType(data) && (
+          <div className='w-full items-center justify-center inline-flex gap-[5px] py-[8px]'>
+            {data?.categories?.map((category, index) => {
+              return (
+                <span
+                  key={index}
+                  className='px-[10px] py-[5px] text-[12px] text-white border rounded-[15px] bg-container-light-blue'
+                >
+                  {CATEGORY[category as keyof typeof CATEGORY]}
+                </span>
+              )
+            })}
+          </div>
+        )}
+
         {data?.places && data?.places.length > 0 && (
-          <ActiveKakaoMap places={data?.places || []} />
+          <div className='px-[30px]'>
+            <ActiveKakaoMap places={data?.places || []} />
+          </div>
         )}
         <Spacer height={16} />
-        <p className='px-[20px] text-sub'>
-          <span className='text-brand font-semibold'>
+
+        <p className='px-[50px] text-sub text-[rgba(0,0,0,0.8)]'>
+          <span className='text-brand font-normal'>
             {isCourseType(data) ? data.writer.name : userName}
           </span>
           &nbsp;
           {isCourse ? '님의 코스 제안이에요.' : '님이 선택한 장소들이에요.'}
         </p>
+
         <Spacer height={10} />
         <PlaceCollapse places={data?.places || []} />
         <Spacer height={16} />
+
         <Spacer height={8} className='bg-bright-gray' />
         <Spacer height={16} />
-        <section className='w-full flex flex-col gap-[10px]'>
-          <p className='px-[20px] text-sub'>
-            <span className='text-brand font-semibold'>
+        <section className='w-full flex flex-col gap-[10px] text-[rgba(0,0,0,0.8)]'>
+          <p className='px-[50px] text-sub'>
+            <span className='text-brand font-normal'>
               {isCourseType(data) ? data.writer.name : userName}
             </span>
             &nbsp;님의 {typeName} 설명이에요.
           </p>
-          <span className='text-middle px-[14px] py-[10px] bg-bright-gray rounded-[10px]'>
+          <span className='text-middle mx-[30px] px-[14px] py-[10px] bg-bright-gray rounded-[10px]'>
             {data?.contents || ''}
           </span>
         </section>
+
         <Spacer height={16} />
         <Spacer height={8} className='bg-bright-gray' />
         <Spacer height={16} />
-        <section className='w-full flex flex-col gap-[10px]'>
-          <p className='px-[20px] text-sub'>
-            <span className='text-brand font-semibold'>
+
+        <section className='w-full flex flex-col gap-[10px] text-[rgba(0,0,0,0.8)]'>
+          <p className='px-[50px] text-sub'>
+            <span className='text-brand font-normal'>
               {isCourseType(data) ? data.writer.name : userName}
             </span>
             &nbsp;님이 {visit} 날짜에요.
           </p>
-          <span className='text-middle flex items-center justify-center px-[14px] py-[10px] bg-bright-gray rounded-[10px] opacity-80'>
+          <span className='text-middle flex items-center justify-center mx-[30px] px-[14px] py-[10px] bg-bright-gray rounded-full opacity-80'>
             {data?.visit_date || ''}
           </span>
         </section>
         <Spacer height={16} />
       </div>
+
       {children}
+
       <Spacer height={25} />
       {!isCourse && (
         <button
