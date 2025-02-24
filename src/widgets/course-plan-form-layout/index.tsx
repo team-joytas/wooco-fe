@@ -89,27 +89,38 @@ export default function CoursePlanFormLayout({
     },
   })
 
-  const getData = useMemo(() => {
-    return id && type === LAYOUT_TYPE.course ? useGetCourse : useGetPlan
-  }, [id, type])
-  const fetchData = getData(id || '') || null
+  const { data: courseData } = useGetCourse(id || '')
+  const { data: planData } = useGetPlan(id || '')
+  const fetchData = useMemo(() => {
+    return type === LAYOUT_TYPE.course
+      ? courseData
+      : type === LAYOUT_TYPE.plan
+      ? planData
+      : null
+  }, [type, courseData, planData])
 
   useEffect(() => {
-    if (level === LEVEL_TYPE.update) {
-      if (isDataLoaded) return
-      const data = fetchData?.data
+    if (level !== LEVEL_TYPE.update || isDataLoaded || !fetchData) return
 
-      if (data) {
-        setValue('title', data.title)
-        setValue('primary_region', data.primary_region)
-        setValue('secondary_region', data.secondary_region)
-        setValue('categories', data.categories)
-        setValue('contents', data.contents)
-        setValue('visit_date', data.visit_date)
+    const {
+      title,
+      primary_region,
+      secondary_region,
+      contents,
+      visit_date,
+      places,
+    } = fetchData
 
-        setPlaces(data.places || [])
-        setIsDataLoaded(true)
-      }
+    setValue('title', title)
+    setValue('primary_region', primary_region)
+    setValue('secondary_region', secondary_region)
+    setValue('contents', contents)
+    setValue('visit_date', visit_date)
+    setPlaces(places || [])
+    setIsDataLoaded(true)
+
+    if (type === LAYOUT_TYPE.course && 'categories' in fetchData) {
+      setValue('categories', fetchData.categories as string[])
     }
   }, [level, type, fetchData, isDataLoaded])
 
