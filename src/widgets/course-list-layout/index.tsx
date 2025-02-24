@@ -14,11 +14,11 @@ export default function CourseListLayout({
   courses,
 }: CourseListLayoutProps) {
   return isListView ? (
-    <div className='flex flex-col justify-between items-center px-[20px]'>
+    <div className='flex flex-col items-center'>
       {courses.map((course: CourseType) => (
         <Fragment key={course.id}>
           <CardListCourse course={course} />
-          <Spacer height={10} className='bg-bright-gray' />
+          <Spacer height={8} className='bg-bright-gray' />
         </Fragment>
       ))}
     </div>
@@ -30,6 +30,7 @@ export default function CourseListLayout({
           <CardGridCourse key={course.id} course={course} />
         ))}
       </div>
+      <Spacer height={15} />
     </>
   )
 }

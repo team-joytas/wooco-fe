@@ -14,7 +14,8 @@ import useRegionStore from '@/src/shared/store/regionStore'
 export default function MainCourse() {
   const router = useRouter()
   const { data: courses } = useGetCourses({ sort: 'popular' })
-  const { setLikedRegions, likedRegions,setCurrentRegion, currentRegion } = useRegionStore()
+  const { setLikedRegions, likedRegions, setCurrentRegion, currentRegion } =
+    useRegionStore()
   const { data: likeRegions } = useGetMyLikeRegions(likedRegions)
 
   useEffect(() => {
@@ -50,16 +51,17 @@ export default function MainCourse() {
       />
       <Spacer height={11} />
       <Spacer className='bg-bright-gray' height={8} />
-      <div className='flex flex-col w-full px-[20px]'>
-        <div className='flex flex-col mt-[15px] justify-start'>
+      <div className='flex flex-col w-full mb-[3px]'>
+        <Spacer height={15} />
+        <div className='flex flex-col justify-start gap-[3px] px-[20px]'>
           <span className='text-headline font-bold text-brand'>
             실시간 인기
           </span>
-          <span className='text-description text-[10px]'>
-            실시간 인기 코스를 확인해요
+          <span className='text-description text-sub'>
+            실시간 인기 코스를 확인해보세요
           </span>
         </div>
-        <div className='flex flex-col items-center gap-[12px]'>
+        <div className='flex flex-col items-center'>
           {courses.slice(0, 5).map((course: CourseType) => (
             <Fragment key={course.id}>
               <CardCourseList course={course} />
