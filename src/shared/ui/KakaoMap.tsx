@@ -27,12 +27,11 @@ export default function ActiveKakaoMap({
 }: ActiveKakaoMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null)
 
-  // places 배열 업데이트 중, 맵 정보 임시 저장을 위한 ref
   const mapRef = useRef<kakao.maps.Map | null>(null)
   const markersRef = useRef<kakao.maps.Marker[]>([])
 
   useEffect(() => {
-    const scriptId = `kakao-map-script` // Kakao maps script가 전역으로 다중 선언되면 충돌이 발생할 가능성 있음
+    const scriptId = `kakao-map-script`
     if (!document.getElementById(scriptId)) {
       const script = document.createElement('script')
       script.id = scriptId
@@ -80,11 +79,9 @@ export default function ActiveKakaoMap({
     const map = mapRef.current
     if (!map) return
 
-    // 존재하는 모든 마커를 우선 초기화
     markersRef.current.forEach((marker) => marker.setMap(null))
     markersRef.current = []
 
-    // places 배열을 바탕으로 마커 재생성
     places.forEach((place) => {
       const position = new window.kakao.maps.LatLng(
         Number(place.latitude),
@@ -103,13 +100,15 @@ export default function ActiveKakaoMap({
         infoWindow.open(map, marker)
       })
 
-      // 변경사항 저장
       markersRef.current.push(marker)
     })
   }
 
   return (
-    <div className='w-full mt-[10px] h-[180px] z-0' ref={mapContainerRef} />
+    <div
+      className='w-full h-[180px] z-0 rounded-[10px] px-[30px]'
+      ref={mapContainerRef}
+    />
   )
 }
 
