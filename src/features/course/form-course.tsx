@@ -15,7 +15,7 @@ import { Dispatch, SetStateAction } from 'react'
 import Spacer from '@/src/shared/ui/Spacer'
 import ActiveKakaoMap from '@/src/shared/ui/KakaoMap'
 import DragPlace from '@/src/widgets/drag-place'
-import { Plus } from 'lucide-react'
+import { Calendar, Plus } from 'lucide-react'
 import useRegionStore from '@/src/shared/store/regionStore'
 import HelperText from '@/src/shared/ui/HelperText'
 
@@ -110,6 +110,10 @@ export function FormDate({
         defaultValue={date ? dayjs(date) : undefined}
         {...(minDate ? { minDate } : {})}
         {...(maxDate ? { maxDate } : {})}
+        suffixIcon={
+          <Calendar size={16} strokeWidth={1.5} className='text-brand' />
+        }
+        style={{ height: '36px', borderRadius: '100px' }}
       />
       {!date && isSubmitted && <HelperText message='날짜를 선택해주세요.' />}
     </>
