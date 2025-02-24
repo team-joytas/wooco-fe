@@ -18,11 +18,7 @@ export default function CardListCourse({ course }: { course: CourseType }) {
         {formatDateToYYYYMMDD(course.created_at, 'hypen')}
       </span>
       <div className='flex flex-row gap-[7px]'>
-        <ProfileImage
-          size={32}
-          src={course.writer.profile_url}
-          className='border-brand'
-        />
+        <ProfileImage size={32} src={course.writer.profile_url} />
         <div className='flex flex-col w-full'>
           <section className='flex flex-col gap-[6px] leading-none'>
             <span className='text-[13px] text-brand'>{course.writer.name}</span>

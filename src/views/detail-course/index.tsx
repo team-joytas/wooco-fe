@@ -24,11 +24,7 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
     <CoursePlanDetailLayout type='course' id={courseId} data={course}>
       <section className='w-full px-[20px] py-[10px] text-white bg-brand'>
         <div className='w-full flex gap-[10px] max-w-[375px]'>
-          <ProfileImage
-            src={course?.writer.profile_url || ''}
-            size={40}
-            type='colored'
-          />
+          <ProfileImage src={course?.writer.profile_url || ''} size={40} />
           <div className='flex flex-col gap-[2px]'>
             <span className='font-semibold text-[14px]'>
               {course?.writer.name}

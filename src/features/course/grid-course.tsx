@@ -20,10 +20,7 @@ export default function GridCourse({ course }: { course: CourseType }) {
           alt='course-image'
         />
         <div className='absolute top-[85px] left-[10px] w-[27px] h-[27px] bg-gradient-to-r from-[#9997F2] to-[#4341EA] p-[1px] rounded-[50%]'>
-          <ProfileImage
-            className='w-[25px] h-[25px]'
-            src={course.writer.profile_url || logo}
-          />
+          <ProfileImage size={25} src={course.writer.profile_url || logo} />
         </div>
       </div>
       <div className='flex mt-[5px] flex-col gap-[4px] px-[10px]'>
