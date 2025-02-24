@@ -8,13 +8,11 @@ export type PlanType = {
   secondary_region: string
   visit_date: string
   places: CoursePlanPlaceType[]
-  categories: string[]
 }
 
 export type PlanPayloadType = {
   primary_region: string
   secondary_region: string
-  categories: string[]
   title: string
   contents: string
   place_ids: string[]

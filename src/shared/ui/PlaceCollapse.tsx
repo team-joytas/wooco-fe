@@ -85,7 +85,7 @@ export default function PlaceCollapse({
               <Image src={allReview} alt='all review' width={175} height={31} />
             </Link>
             <Link
-              href={`https://place.map.kakao.com/m/${place.kakao_map_place_id}`}
+              href={`https://place.map.kakao.com/m/${place.kakao_place_id}`}
             >
               <Image
                 src={kakaoReview}

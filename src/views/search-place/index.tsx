@@ -62,7 +62,7 @@ export default function SearchPlace({
       latitude: place.y,
       longitude: place.x,
       address: place.address_name,
-      kakao_map_place_id: place.id,
+      kakao_place_id: place.id,
       thumbnail_url: '',
     }
     setPlaces((prevPlaces) => [...prevPlaces, placePayload])

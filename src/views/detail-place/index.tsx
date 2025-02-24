@@ -162,7 +162,7 @@ export default function DetailPlace({ id }: { id: string }) {
           ref={reviewRef}
         >
           <StatsReview
-            placeOnLineReviewStats={placeData.place_on_line_review_stats}
+            placeOnLineReviewStats={placeData.place_one_line_review_stats}
             AverageRating={placeData.average_rating}
           />
         </Section>
@@ -188,7 +188,7 @@ export default function DetailPlace({ id }: { id: string }) {
             <Image src={allReview} alt='all review' width={300} height={30} />
           </Link>
           <Link
-            href={`https://place.map.kakao.com/m/${placeData.kakao_map_place_id}`}
+            href={`https://place.map.kakao.com/m/${placeData.kakao_place_id}`}
           >
             <Image
               src={kakaoReview}

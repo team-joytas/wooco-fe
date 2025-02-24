@@ -6,12 +6,12 @@ export type PlaceType = {
   latitude: number
   longitude: number
   address: string
-  kakao_map_place_id: string
+  kakao_place_id: string
   average_rating: number
   review_count: number
   phone_number: string
   thumbnail_url: string
-  place_on_line_review_stats: PlaceReviewStatsType[]
+  place_one_line_review_stats: PlaceReviewStatsType[]
 }
 
 export type PlaceReviewStatsType = {
@@ -61,7 +61,7 @@ export type CoursePlanPlaceType = {
   latitude: string
   longitude: string
   address: string
-  kakao_map_place_id: string
+  kakao_place_id: string
   average_rating?: number
   review_count?: number
   thumbnail_url: string
@@ -72,7 +72,7 @@ export type KakaoToServerPlaceType = {
   latitude: string
   longitude: string
   address: string
-  kakao_map_place_id: string
+  kakao_place_id: string
   phone_number: string
 }
 

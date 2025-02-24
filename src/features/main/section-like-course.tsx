@@ -86,7 +86,7 @@ function LoginLikeCourse() {
         longitude: '127.04264755226313',
         address: '서울 강남구 삼성동 7-3',
         thumbnail_url: '',
-        kakao_map_place_id: '18442419',
+        kakao_place_id: '18442419',
         average_rating: 0.0,
         review_count: 0,
       },

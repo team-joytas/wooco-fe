@@ -48,7 +48,7 @@ export const postPlace = async (payload: PlaceSearchType) => {
     latitude: payload.y,
     longitude: payload.x,
     address: payload.address_name,
-    kakao_map_place_id: payload.id,
+    kakao_place_id: payload.id,
     phone_number: payload.phone,
   }
   const response = await customAxios.post('/places', placePayload)
