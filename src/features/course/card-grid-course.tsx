@@ -9,9 +9,9 @@ export default function CardGridCourse({ course }: { course: CourseType }) {
   return (
     <Link
       href={`/courses/${course.id}`}
-      className='w-[164px] h-[220px] flex flex-col gap-[10px] rounded-[10px] bg-white drop-shadow-[0_0_4px_rgba(0,0,0,0.15)]'
+      className='w-[164px] h-[230px] flex flex-col gap-[10px] rounded-[10px] bg-white drop-shadow-[0_0_4px_rgba(0,0,0,0.15)]'
     >
-      <div>
+      <section>
         <Image
           src={course.places[0].thumbnail_url || logo}
           width={207}
@@ -25,34 +25,40 @@ export default function CardGridCourse({ course }: { course: CourseType }) {
             src={course.writer.profile_url}
           />
         </div>
-      </div>
-      <div className='flex mt-[5px] flex-col gap-[4px] px-[10px]'>
-        <span className='text-sub font-semibold'>{course.writer.name}</span>
-        <p
-          className={
-            'text-sub font-extrabold overflow-hidden text-ellipsis w-full text-nowrap'
-          }
-        >
-          {course.title}
-        </p>
-        <span className='text-sub text-ellipsis w-full line-clamp-2'>
-          {course.contents}
-        </span>
-      </div>
-      <div className='flex items-center gap-[4px] px-[10px]'>
-        <div className='flex items-center gap-[4px]'>
-          <Heart
-            {...(course.is_liked ? { fill: '#5A59F2' } : {})}
-            stroke='#5A59F2'
-            size={15}
-          />
-          <span>{course.likes}</span>
+      </section>
+      <section className='flex flex-col justify-between h-full px-[11px] py-[8px]'>
+        <div className='flex flex-col gap-[5px]'>
+          <span className='text-sub text-brand leading-none'>
+            {course.writer.name}
+          </span>
+          <p
+            className={
+              'text-[13px] font-semibold overflow-hidden text-ellipsis w-full text-nowrap leading-normal'
+            }
+          >
+            {course.title}
+          </p>
+          <span className='text-sub text-ellipsis w-full line-clamp-2 leading-normal'>
+            {course.contents}
+          </span>
         </div>
-        <div className='flex items-center gap-[4px]'>
-          <MessageSquare stroke='#5A59F2' size={15} />
-          <span>{course.comments}</span>
+        <div className='flex items-center gap-[4px] text-[8px] text-description'>
+          <div className='flex items-center gap-[4px]'>
+            <Heart
+              size={12}
+              className='text-brand'
+              fill={course.is_liked ? '#5A59F2' : 'none'}
+              strokeWidth={1.5}
+              onClick={() => {}}
+            />
+            <span>{course.likes}</span>
+          </div>
+          <div className='flex items-center gap-[4px]'>
+            <MessageSquare size={12} className='text-brand' strokeWidth={1.5} />
+            <span>{course.comments}</span>
+          </div>
         </div>
-      </div>
+      </section>
     </Link>
   )
 }

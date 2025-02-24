@@ -30,6 +30,7 @@ export default function CourseListLayout({
           <CardGridCourse key={course.id} course={course} />
         ))}
       </div>
+      <Spacer height={15} />
     </>
   )
 }
