@@ -87,7 +87,7 @@ const HeaderBase = ({
   className?: string
 }) => (
   <header
-    className={`max-w-[375px] relative bg-white w-full h-[55px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line ${className}`}
+    className={`max-w-[375px] relative bg-white w-full h-[55px] min-h-[55px] flex justify-between items-center ${className}`}
   >
     {children}
   </header>
@@ -185,7 +185,7 @@ export function OptionHeader({
         <BackButton onClick={handleClickBack} />
         {showLike && !isMine && <div className='w-[24px] h-[24px]' />}
       </div>
-      <p className='border-b font-semibold text-[13px] text-white px-[20px] py-[8px] rounded-[20px] bg-container-blue'>
+      <p className='font-semibold text-[13px] text-white px-[20px] py-[8px] rounded-[20px] bg-container-blue leading-normal'>
         {title}
       </p>
       <div className='flex items-center gap-[10px]'>
@@ -309,7 +309,7 @@ export default function Header({
 
   if (isOnBoarding) {
     return (
-      <HeaderBase className='px-[20px]'>
+      <HeaderBase className='px-[20px] border-b-[1px] border-container-blue'>
         <div className='w-[24px] h-[24px]' />
         <p className='font-semibold text-[17px]'>{title}</p>
         <div className='w-[24px] h-[24px]' />
@@ -318,7 +318,7 @@ export default function Header({
   }
 
   return (
-    <HeaderBase className='px-[10px]'>
+    <HeaderBase className='px-[10px] border-b-[1px] border-container-blue'>
       {isTitleTag ? (
         <div className='flex items-center gap-[10px]'>
           <TitleWithTagStyle title={title} handleClickBack={handleClickBack} />

@@ -10,7 +10,9 @@ export default function DefaultHeader() {
   const isShowHeader =
     path === '/' ||
     path === '/courses' ||
-    path === '/plans' ||
+    (path.includes('/plans') &&
+      !path.includes('/new') &&
+      !path.includes('/update')) ||
     path === '/not-found' ||
     (path.includes('/places') && !path.includes('/reviews'))
 
