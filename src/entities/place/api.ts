@@ -55,7 +55,7 @@ export const postPlace = async (payload: PlaceSearchType) => {
   return response.data
 }
 
-export const getPlace = async (id: string):Promise<PlaceType> => {
+export const getPlace = async (id: string) => {
   try {
     const response = await customAxios.get(`/places/${id}`)
     return response.data.results

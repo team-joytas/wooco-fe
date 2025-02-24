@@ -7,5 +7,5 @@ interface UpdateReviewProps {
 }
 
 export default function UpdateReview({ placeId, reviewId }: UpdateReviewProps) {
-  return <ReviewFormLayout placeId={placeId} reviewId={reviewId}></ReviewFormLayout>
+  return <ReviewFormLayout placeId={placeId} reviewId={reviewId} />
 }
