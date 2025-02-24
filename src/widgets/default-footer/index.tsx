@@ -22,6 +22,7 @@ export default function DefaultFooter() {
   const isNotice = path?.includes('/notices')
   const isPlace = path?.includes('/places')
   const isReview = path?.includes('/reviews')
+  const isNotification = path?.includes('/notifications')
 
   const handleClickMyPage = async () => {
     try {
@@ -36,7 +37,8 @@ export default function DefaultFooter() {
     }
   }
 
-  if (isLogin || isComment || isUserSetting || isNotice) return null
+  if (isLogin || isComment || isUserSetting || isNotice || isNotification)
+    return null
 
   return (
     (!isPlace || isReview) && (
