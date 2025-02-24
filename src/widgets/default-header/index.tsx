@@ -7,14 +7,14 @@ import { usePathname } from 'next/navigation'
 
 export default function DefaultHeader() {
   const path = usePathname()
+  const isCoursePlanDetail =
+    (path.startsWith('/courses') || path.startsWith('/plans')) &&
+    !path.includes('/new') &&
+    !path.includes('/update')
+  const isPlaceDetail = path.startsWith('/places') && !path.includes('/reviews')
+
   const isShowHeader =
-    path === '/' ||
-    path === '/courses' ||
-    (path.includes('/plans') &&
-      !path.includes('/new') &&
-      !path.includes('/update')) ||
-    path === '/not-found' ||
-    (path.includes('/places') && !path.includes('/reviews'))
+    path === '/' || path === '/not-found' || isCoursePlanDetail || isPlaceDetail
 
   if (!isShowHeader) {
     return null
