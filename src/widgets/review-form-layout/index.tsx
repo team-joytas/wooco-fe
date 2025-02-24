@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import Spacer from '@/src/shared/ui/Spacer'
 import { getReview, postReview } from '@/src/entities/review/api'
 import { useEffect, useState } from 'react'
-import { getPlace } from '@/src/entities/place/api'
+import { useGetPlace } from '@/src/entities/place/query'
 import FormReview from '@/src/features/place/form-review'
 import { ReviewPayloadType } from '@/src/entities/review/type'
 
@@ -45,7 +45,7 @@ export default function ReviewFormLayout({
     const fetchPlaceData = async () => {
       if (placeId) {
         try {
-          const placeData = await getPlace(placeId)
+          const { data : placeData } = useGetPlace(placeId)
           setPlaceInfo({ name: placeData.name, address: placeData.address })
         } catch (error) {
           console.error('Error fetching place data:', error)

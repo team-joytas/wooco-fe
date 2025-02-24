@@ -12,7 +12,7 @@ interface StarRatingProps {
   setValue: UseFormSetValue<ReviewPayloadType>
 }
 
-const StarRating: React.FC<StarRatingProps> = ({ rating, setValue }) => {
+const StarRating = ({ rating, setValue } : StarRatingProps) => {
   const [hover, setHover] = useState(0)
 
   const handleStarClick = (ratingValue: number) => {
