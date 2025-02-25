@@ -7,9 +7,13 @@ import {
 import {
   deletePlaceReview,
   getPlace,
+  getPlaceReview,
   getPlaceReviews,
+  postPlaceReview,
+  updatePlaceReview,
 } from '@/src/entities/place/api'
 import { PlaceReviewType, PlaceType } from '@/src/entities/place/type'
+import { ReviewPayloadType } from '@/src/entities/place/type'
 
 export const PLACE_QUERY_KEY = {
   detail: (id: string) => ['place', id] as const,
@@ -37,6 +41,37 @@ export const useDeletePlaceReview = () => {
 
   return useMutation({
     mutationFn: (id: string) => deletePlaceReview(id),
+    onSuccess: () => {
+      queryClient.refetchQueries({ queryKey: PLACE_QUERY_KEY.reviews })
+    },
+  })
+}
+
+export const useCreatePlaceReview = (id: string) => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (data: ReviewPayloadType) => postPlaceReview(id, data),
+    onSuccess: () => {
+      queryClient.refetchQueries({ queryKey: PLACE_QUERY_KEY.reviews })
+    },
+  })
+}
+
+export const useGetPlaceReview = (
+  id?: string
+): UseQueryResult<PlaceReviewType> => {
+  return useQuery({
+    enabled: Boolean(id),
+    queryKey: ['placeReview', id],
+    queryFn: () => getPlaceReview(id!),
+  })
+}
+
+export const useUpdatePlaceReview = (id: string) => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (data: ReviewPayloadType) => updatePlaceReview(id, data),
     onSuccess: () => {
       queryClient.refetchQueries({ queryKey: PLACE_QUERY_KEY.reviews })
     },

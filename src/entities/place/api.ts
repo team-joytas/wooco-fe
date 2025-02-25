@@ -1,8 +1,9 @@
 import {
   KakaoToServerPlaceType,
-  PlaceSearchType, PlaceType,
+  PlaceSearchType,
 } from '@/src/entities/place/type'
 import { customAxios } from '@/src/shared/axios'
+import { ReviewPayloadType } from '@/src/entities/place/type'
 
 const seoulData = [
   {
@@ -84,3 +85,43 @@ export const deletePlaceReview = async (id: string) => {
     throw error
   }
 }
+
+export const postPlaceReview = async (
+  placeId: string,
+  reviewPayload: ReviewPayloadType
+) => {
+  try {
+    const response = await customAxios.post(
+      `reviews/places/${placeId}`,
+      reviewPayload
+    )
+    return response.data
+  } catch (error) {
+    console.error('Failed to submit review', error)
+    throw error
+  }
+}
+
+export const getPlaceReview = async (id: string) => {
+  try {
+    const response = await customAxios.get(`reviews/${id}`)
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
+export const updatePlaceReview = async (
+  id: string,
+  reviewPayload: ReviewPayloadType
+) => {
+  try {
+    const response = await customAxios.patch(`reviews/${id}`,reviewPayload)
+    return response.data.results
+  }catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+

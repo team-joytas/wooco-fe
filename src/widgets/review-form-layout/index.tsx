@@ -1,22 +1,19 @@
 import Header from '@/src/widgets/header'
 import { useForm } from 'react-hook-form'
 import Spacer from '@/src/shared/ui/Spacer'
-import { getReview, postReview } from '@/src/entities/review/api'
 import { useEffect, useState } from 'react'
-import { useGetPlace } from '@/src/entities/place/query'
+import {
+  useGetPlace,
+  useCreatePlaceReview,
+  useGetPlaceReview,
+  useUpdatePlaceReview,
+} from '@/src/entities/place/query'
 import FormReview from '@/src/features/place/form-review'
-import { ReviewPayloadType } from '@/src/entities/review/type'
+import { ReviewPayloadType } from '@/src/entities/place/type'
 
 interface ReviewFormLayoutProps {
-  placeId?: string
+  placeId: string
   reviewId?: string
-}
-
-interface InputFormData {
-  rating: number
-  contents: string
-  one_line_reviews: string[]
-  image_urls: string[]
 }
 
 export default function ReviewFormLayout({
@@ -41,44 +38,31 @@ export default function ReviewFormLayout({
     },
   })
   const [placeInfo, setPlaceInfo] = useState({ name: '', address: '' })
+  const { data: placeData } = useGetPlace(placeId)
+  const { data: reviewData } = useGetPlaceReview(reviewId)
+  const createPlaceReviewMutation = useCreatePlaceReview(placeId)
+  const updatePlaceReviewMutation = useUpdatePlaceReview(placeId)
+
   useEffect(() => {
-    const fetchPlaceData = async () => {
-      if (placeId) {
-        try {
-          const { data : placeData } = useGetPlace(placeId)
-          setPlaceInfo({ name: placeData.name, address: placeData.address })
-        } catch (error) {
-          console.error('Error fetching place data:', error)
-        }
-      }
+    if (placeData) {
+      setPlaceInfo({ name: placeData.name, address: placeData.address })
     }
-    const fetchReviewData = async () => {
-      if (reviewId) {
-        try {
-          const reviewData = await getReview(reviewId)
-          setValue('contents', reviewData.contents)
-          setValue('rating', reviewData.rating)
-          setValue('one_line_reviews', reviewData.one_line_reviews)
-          setValue('image_urls', reviewData.image_urls)
-        } catch (error) {
-          console.error('Error fetching review data:', error)
-        }
-      }
-    }
-    fetchPlaceData()
-    fetchReviewData()
-  }, [placeId, reviewId, setValue])
+  }, [placeData])
 
-  const onSubmit = async (data: InputFormData) => {
-    if (!placeId) {
-      console.error('Place ID is missing')
-      return
+  useEffect(() => {
+    if (reviewData) {
+      setValue('contents', reviewData.contents)
+      setValue('rating', reviewData.rating)
+      setValue('one_line_reviews', reviewData.one_line_reviews.map(item=>item.contents))
+      setValue('image_urls', reviewData.image_urls)
     }
+  }, [reviewData])
 
-    try {
-      await postReview(placeId, data).then()
-    } catch (error) {
-      console.error(error)
+  const onSubmit = async (data: ReviewPayloadType) => {
+    if (formType === '작성') {
+      await createPlaceReviewMutation.mutateAsync(data)
+    } else if (formType === '수정') {
+      await updatePlaceReviewMutation.mutateAsync(data)
     }
   }
   return (

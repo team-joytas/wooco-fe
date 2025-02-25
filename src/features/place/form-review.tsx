@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import React, { useState, useRef, useEffect } from 'react'
 import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
-import { ReviewPayloadType } from '@/src/entities/review/type'
+import { ReviewPayloadType } from '@/src/entities/place/type'
 import { postImage } from '@/src/shared/entities/api'
 import { message } from 'antd'
 import Spacer from '@/src/shared/ui/Spacer'
