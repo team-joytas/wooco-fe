@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --white: #ffffff;
+  --foreground: #171717;
+  --black: #171717;
+}
+
+html {
+  background-color: var(--white);
+  color: var(--black);
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none
+}
+
+body {
+  height: 100%;
+  color: var(--black);
+  font-family: Pretendard;
+}
+
+image {
+  width: 100%;
+}
+
+.ant-drawer-bottom > .ant-drawer-content-wrapper {
+  box-shadow: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

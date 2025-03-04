@@ -19,9 +19,7 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@components/*": ["./src/app/components/*"],
-      "@images/*": ["./src/assets/images/*"]
+      "@/*": ["./*"]
     },
     "types": ["kakao.maps.d.ts"]
   },
@@ -33,7 +31,11 @@
     "*.ts",
     ".next/types/**/*.ts",
     "tsconfig.d.ts",
-    "next.config.js"
+    "next.config.js",
+    "src/views/detail-comment",
+    "src/shared/ui/ProfileImage",
+    "src/widgets/course-plan-detail-layout",
+    "src/widgets/floating-write-btn"
   ],
   "exclude": ["node_modules"]
 }
