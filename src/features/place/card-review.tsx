@@ -47,7 +47,6 @@ export default function CardReview({
 
   return (
     <div className='w-full flex items-end flex-col px-[12px]'>
-      <Spacer height={25} />
       <div className='w-full justify-between flex items-center'>
         <Link
           href={`/users/${review.writer.id}`}
@@ -86,18 +85,18 @@ export default function CardReview({
 
       <Spacer height={21} />
       <section className='w-full flex flex-col items-start gap-[10px] px-[12px]'>
-        <div className='flex flex-row items-center gap-[5px]'>
-          {review.one_line_reviews.map((tag, index) => (
-            <ReviewTag key={index} keyword={tag.contents} />
-          ))}
-        </div>
+        {review.one_line_reviews.length > 0 && (
+          <div className='flex flex-row items-center gap-[5px]'>
+            {review.one_line_reviews.map((tag, index) => (
+              <ReviewTag key={index} keyword={tag.toString()} />
+            ))}
+          </div>
+        )}
         <StarRate rate={review.rating} size={10} />
       </section>
       <Spacer height={10} />
 
       <span className='w-full text-sub px-[12px]'>{review.contents}</span>
-
-      <Spacer height={30} />
     </div>
   )
 }
