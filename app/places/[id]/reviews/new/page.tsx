@@ -1,5 +1,5 @@
-import UpdateReview from '@/src/views/update-review'
+import ReviewFormLayout from '@/src/widgets/review-form-layout'
 
 export default function Page({ params }: { params: { id: string } }) {
-  return <UpdateReview placeId={params.id} reviewId={''} />
+  return <ReviewFormLayout placeId={params.id} />
 }
