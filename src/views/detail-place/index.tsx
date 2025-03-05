@@ -161,16 +161,19 @@ export default function DetailPlace({ id }: { id: string }) {
           }
           ref={reviewRef}
         >
+          <Spacer height={15} />
           <StatsReview
             placeOnLineReviewStats={placeData.place_one_line_review_stats}
             AverageRating={placeData.average_rating}
           />
+          <Spacer height={15} />
         </Section>
 
         <Spacer height={20} />
         <Spacer height={8} className='bg-light-gray' />
 
-        <div className='flex flex-col'>
+        <div className='flex flex-col w-full gap-[25px]'>
+          <Spacer height={24} />
           {reviewData.map((review) => (
             <CardReview
               key={review.id}
@@ -178,6 +181,7 @@ export default function DetailPlace({ id }: { id: string }) {
               placeId={placeData.id.toString()}
             />
           ))}
+          <Spacer height={24} />
         </div>
 
         <Spacer height={8} className='bg-light-gray' />

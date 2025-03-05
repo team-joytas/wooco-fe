@@ -35,10 +35,15 @@ export default function StatsReview({
       fontWeight: 'font-light',
       fontSize: 'text-sub',
     },
+    {
+      color: '#D9D9D9',
+      fontWeight: 'font-light',
+      fontSize: 'text-sub',
+    },
   ]
 
   return (
-    <div className='flex flex-row items-center gap-[33px]'>
+    <div className='flex flex-row items-center gap-[33px] h-[190px]'>
       <div className='flex w-full justify-between px-[10px]'>
         {placeOnLineReviewStats.map((stats, index) => {
           const height =
@@ -47,7 +52,7 @@ export default function StatsReview({
           return (
             <div
               key={stats.contents}
-              className='flex flex-col justify-between items-center'
+              className='flex flex-col justify-between items-center gap-[10px]'
             >
               <span className='text-xs text-gray-500'>{index + 1}위</span>
               <div
@@ -60,10 +65,12 @@ export default function StatsReview({
                     height: `${height}px`,
                     backgroundColor: barSetting[index].color,
                   }}
-                ></div>
+                />
                 <Spacer height={13} />
-                <span>{stats.contents}</span>
-                <span>{stats.count}</span>
+                <div className='flex flex-col items-center h-[40px]'>
+                  <span className='h-[20px]'>{stats.contents}</span>
+                  <span className='h-[20px]'>{stats.count}</span>
+                </div>
               </div>
             </div>
           )
@@ -71,7 +78,7 @@ export default function StatsReview({
       </div>
       <div className='flex flex-col items-center text-brand font-semibold'>
         <span className='text-main'>총점</span>
-        <span className='text-headline'>{AverageRating}</span>
+        <span className='text-headline'>{AverageRating.toFixed(1)}</span>
         <StarRate rate={AverageRating} size={10} />
       </div>
     </div>
