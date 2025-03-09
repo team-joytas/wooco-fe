@@ -106,21 +106,25 @@ export default function DetailPlace({ id }: { id: string }) {
         <Spacer height={26} />
 
         <div ref={infoRef} className='w-full flex flex-col items-center'>
-          <Section title='매장 번호'>
-            <div className='flex flex-row h-[44px] px-[25px] py-[10px] items-center justify-between rounded-full border-0 bg-bright-gray'>
-              <span className='block text-middle text-black max-w-[200px]'>
-                {placeData.phone_number}
-              </span>
-              <a href={`tel:${placeData.phone_number}`}>
-                <Phone
-                  className='cursor-pointer text-brand'
-                  size={16}
-                  strokeWidth={1.5}
-                />
-              </a>
-            </div>
-          </Section>
-          <Spacer height={20} />
+          {placeData.phone_number && (
+            <>
+              <Section title='매장 번호'>
+                <div className='flex flex-row h-[44px] px-[25px] py-[10px] items-center justify-between rounded-full border-0 bg-bright-gray'>
+                  <span className='block text-middle text-black max-w-[200px]'>
+                    {placeData.phone_number}
+                  </span>
+                  <a href={`tel:${placeData.phone_number}`}>
+                    <Phone
+                      className='cursor-pointer text-brand'
+                      size={16}
+                      strokeWidth={1.5}
+                    />
+                  </a>
+                </div>
+              </Section>
+              <Spacer height={20} />
+            </>
+          )}
           <Section title='위치 정보'>
             <div className='flex flex-row h-[44px] px-[25px] py-[10px] items-center justify-between rounded-full border-0 bg-bright-gray'>
               <span className='block text-middle text-black max-w-[200px]'>
