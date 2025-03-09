@@ -2,7 +2,7 @@
 
 import { useGetPlace, useGetPlaceReviews } from '@/src/entities/place/query'
 import TabButton from '@/src/features/user/user-tab-button'
-import { PlaceHeader } from '@/src/widgets/header'
+import { HeaderWithBackButton } from '@/src/widgets/header'
 import logo from '@/src/assets/images/(logo)/logo.png'
 import Image from 'next/image'
 import React, { useEffect, useRef, useState } from 'react'
@@ -83,7 +83,7 @@ export default function DetailPlace({ id }: { id: string }) {
 
   return (
     <>
-      <PlaceHeader title={placeData.name || ''} isLiked={false} />
+      <HeaderWithBackButton title={placeData.name || ''} isTitleTag />
       <div
         className={'w-full flex flex-col items-center min-h-[100vh] bg-white'}
       >
@@ -106,21 +106,25 @@ export default function DetailPlace({ id }: { id: string }) {
         <Spacer height={26} />
 
         <div ref={infoRef} className='w-full flex flex-col items-center'>
-          <Section title='매장 번호'>
-            <div className='flex flex-row h-[44px] px-[25px] py-[10px] items-center justify-between rounded-full border-0 bg-bright-gray'>
-              <span className='block text-middle text-black max-w-[200px]'>
-                {placeData.phone_number}
-              </span>
-              <a href={`tel:${placeData.phone_number}`}>
-                <Phone
-                  className='cursor-pointer text-brand'
-                  size={16}
-                  strokeWidth={1.5}
-                />
-              </a>
-            </div>
-          </Section>
-          <Spacer height={20} />
+          {placeData.phone_number && (
+            <>
+              <Section title='매장 번호'>
+                <div className='flex flex-row h-[44px] px-[25px] py-[10px] items-center justify-between rounded-full border-0 bg-bright-gray'>
+                  <span className='block text-middle text-black max-w-[200px]'>
+                    {placeData.phone_number}
+                  </span>
+                  <a href={`tel:${placeData.phone_number}`}>
+                    <Phone
+                      className='cursor-pointer text-brand'
+                      size={16}
+                      strokeWidth={1.5}
+                    />
+                  </a>
+                </div>
+              </Section>
+              <Spacer height={20} />
+            </>
+          )}
           <Section title='위치 정보'>
             <div className='flex flex-row h-[44px] px-[25px] py-[10px] items-center justify-between rounded-full border-0 bg-bright-gray'>
               <span className='block text-middle text-black max-w-[200px]'>
@@ -161,16 +165,19 @@ export default function DetailPlace({ id }: { id: string }) {
           }
           ref={reviewRef}
         >
+          <Spacer height={15} />
           <StatsReview
             placeOnLineReviewStats={placeData.place_one_line_review_stats}
             AverageRating={placeData.average_rating}
           />
+          <Spacer height={15} />
         </Section>
 
         <Spacer height={20} />
         <Spacer height={8} className='bg-light-gray' />
 
-        <div className='flex flex-col'>
+        <div className='flex flex-col w-full gap-[25px]'>
+          <Spacer height={24} />
           {reviewData.map((review) => (
             <CardReview
               key={review.id}
@@ -178,6 +185,7 @@ export default function DetailPlace({ id }: { id: string }) {
               placeId={placeData.id.toString()}
             />
           ))}
+          <Spacer height={24} />
         </div>
 
         <Spacer height={8} className='bg-light-gray' />

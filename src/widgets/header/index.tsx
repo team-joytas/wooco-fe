@@ -41,11 +41,6 @@ interface OptionHeaderProps {
   isLiked: boolean
 }
 
-interface PlaceHeaderProps {
-  title: string
-  isLiked: boolean
-}
-
 const BackButton = ({ onClick }: { onClick: () => void }) => (
   <ChevronLeft
     onClick={onClick}
@@ -213,47 +208,7 @@ export function OptionHeader({
   )
 }
 
-export function PlaceHeader({ title, isLiked }: PlaceHeaderProps) {
-  const [clickedLike, setClickedLike] = useState(isLiked)
-
-  const router = useRouter()
-  const handleClickBack = () => router.back()
-  const handleClickLike = async () => {
-    // TODO: 좋아요 API 호출
-    try {
-      if (isLiked) {
-        setClickedLike(false)
-      } else {
-        setClickedLike(true)
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  return (
-    <HeaderBase className='px-[20px]'>
-      <div className='flex items-center gap-[10px]'>
-        <BackButton onClick={handleClickBack} />
-      </div>
-      <p className='border-b font-semibold text-[13px] text-white px-[20px] py-[8px] rounded-[20px] bg-container-blue'>
-        {title}
-      </p>
-      <div className='flex items-center gap-[10px]'>
-        <Heart
-          onClick={handleClickLike}
-          className='cursor-pointer'
-          size={20}
-          strokeWidth={1.5}
-          fill={clickedLike ? '#5A59F2' : 'none'}
-          stroke='#5A59F2'
-        />
-      </div>
-    </HeaderBase>
-  )
-}
-
-export function HeaderWithBackButton({ title }: HeaderProps) {
+export function HeaderWithBackButton({ title, isTitleTag }: HeaderProps) {
   const router = useRouter()
 
   const handleClickBack = () => router.back()
@@ -268,9 +223,15 @@ export function HeaderWithBackButton({ title }: HeaderProps) {
         className='cursor-pointer absolute left-4'
       />
 
-      <p className='font-semibold text-[17px] absolute left-1/2 -translate-x-1/2'>
-        {title}
-      </p>
+      {isTitleTag ? (
+        <p className='border-b font-semibold text-[13px] text-white px-[20px] py-[8px] rounded-[20px] bg-container-blue'>
+          {title}
+        </p>
+      ) : (
+        <p className='font-semibold text-[17px] absolute left-1/2 -translate-x-1/2'>
+          {title}
+        </p>
+      )}
     </header>
   )
 }
