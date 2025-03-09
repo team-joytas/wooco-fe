@@ -17,6 +17,7 @@ const config: Config = {
         kakao: '#FFDC00',
         'search-gray': '#747474',
         description: 'rgba(0, 0, 0, 0.5)',
+        more: 'rgba(0, 0, 0, 0.7)',
         black13: 'rgba(0, 0, 0, 0.13)',
       },
       fontSize: {

@@ -3,10 +3,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import logo from '@/src/assets/images/(logo)/logo.png'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import bell from '@/public/bell.svg'
 
 export default function DefaultHeader() {
   const path = usePathname()
+  const router = useRouter()
+
   const isCoursePlanDetail =
     (path.startsWith('/courses') || path.startsWith('/plans')) &&
     !path.includes('/new') &&
@@ -28,6 +31,16 @@ export default function DefaultHeader() {
       >
         <Image width={30} height={30} alt='logo' src={logo} />
       </Link>
+
+      <div className='flex items-center gap-[10px] right-[10px]'>
+        <Link
+          href='/notifications'
+          className='cursor-pointer'
+          aria-label='알림'
+        >
+          <Image src={bell} alt='bell' width={22} height={22} />
+        </Link>
+      </div>
     </header>
   )
 }
