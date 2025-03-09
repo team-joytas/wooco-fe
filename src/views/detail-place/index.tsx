@@ -2,7 +2,7 @@
 
 import { useGetPlace, useGetPlaceReviews } from '@/src/entities/place/query'
 import TabButton from '@/src/features/user/user-tab-button'
-import { PlaceHeader } from '@/src/widgets/header'
+import { HeaderWithBackButton } from '@/src/widgets/header'
 import logo from '@/src/assets/images/(logo)/logo.png'
 import Image from 'next/image'
 import React, { useEffect, useRef, useState } from 'react'
@@ -83,7 +83,7 @@ export default function DetailPlace({ id }: { id: string }) {
 
   return (
     <>
-      <PlaceHeader title={placeData.name || ''} isLiked={false} />
+      <HeaderWithBackButton title={placeData.name || ''} isTitleTag />
       <div
         className={'w-full flex flex-col items-center min-h-[100vh] bg-white'}
       >
