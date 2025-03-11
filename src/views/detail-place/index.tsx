@@ -19,7 +19,7 @@ import StatsReview from '@/src/features/place/stats-review'
 
 export default function DetailPlace({ id }: { id: string }) {
   const { data: placeData } = useGetPlace(id)
-  const { data: reviewData } = useGetPlaceReviews(id)
+  const { data: reviewData, refetch } = useGetPlaceReviews(id)
 
   const router = useRouter()
 
@@ -183,6 +183,7 @@ export default function DetailPlace({ id }: { id: string }) {
               key={review.id}
               id={placeData.id.toString()}
               content={review}
+              refetch={refetch}
             />
           ))}
           <Spacer height={24} />
