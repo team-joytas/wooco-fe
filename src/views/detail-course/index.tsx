@@ -3,12 +3,10 @@
 import Link from 'next/link'
 import ProfileImage from '@/src/shared/ui/ProfileImage'
 import Spacer from '@/src/shared/ui/Spacer'
-import CardComment from '@/src/features/comment/card-comment'
 import CoursePlanDetailLayout from '@/src/widgets/course-plan-detail-layout'
 import { passFromCreate } from '@/src/shared/utils/date'
 import { useGetCourse } from '@/src/entities/course/query'
 import { useGetComments } from '@/src/entities/comment/query'
-import { useRouter } from 'next/navigation'
 import defaultImg from '@/src/assets/images/(logo)/logo_default.png'
 import ReviewCommentCard from '@/src/widgets/review-comment-card'
 
@@ -19,7 +17,6 @@ interface DetailCourseProps {
 export default function DetailCourse({ courseId }: DetailCourseProps) {
   const { data: course } = useGetCourse(courseId)
   const { data: comments } = useGetComments(courseId)
-  const router = useRouter()
   if (!course) return <div>Loading...</div>
 
   return (
