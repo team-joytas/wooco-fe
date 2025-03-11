@@ -7,28 +7,34 @@ import useUserStore from '@/src/shared/store/userStore'
 import { PlaceReviewType } from '@/src/entities/place/type'
 import emptyProfile from '@/src/assets/images/(logo)/temp_empty.png'
 import Spacer from '@/src/shared/ui/Spacer'
-import ReviewTag from './review-tag'
+import ReviewTag from '@/src/features/place/review-tag'
 import StarRate from '@/src/shared/ui/StarRate'
 import OptionDropbox from '@/src/shared/ui/OptionDropbox'
 import { useEffect, useRef, useState } from 'react'
 import { useDeletePlaceReview } from '@/src/entities/place/query'
+import { CommentType } from '@/src/entities/comment/type'
 
-export default function CardReview({
-  review,
-  placeId,
-}: {
-  review: PlaceReviewType
-  placeId: string
-}) {
+type ReviewCommentCardProps = {
+  id: string
+  content: PlaceReviewType | CommentType
+  isHaveOption?: boolean
+}
+
+export default function ReviewCommentCard({
+  id,
+  content,
+  isHaveOption,
+}: ReviewCommentCardProps) {
   const { user } = useUserStore()
-  const isMyComment = review.writer.id === user?.user_id
+  const isMine = content.writer.id === user?.user_id
+  const isPlaceReview = 'rating' in content && 'one_line_reviews' in content
   const menuRef = useRef<HTMLDivElement>(null)
 
   const [isOpen, setIsOpen] = useState(false)
   const { mutate: deletePlaceReview } = useDeletePlaceReview()
 
   const handleDeleteReview = () => {
-    deletePlaceReview(review.id.toString())
+    deletePlaceReview(content.id.toString())
     setIsOpen(false)
   }
 
@@ -49,54 +55,58 @@ export default function CardReview({
     <div className='w-full flex items-end flex-col px-[12px]'>
       <div className='w-full justify-between flex items-center'>
         <Link
-          href={`/users/${review.writer.id}`}
+          href={`/users/${content.writer.id}`}
           className='flex w-fit gap-[10px] items-center'
         >
           <ProfileImage
             size={40}
-            src={review.writer.profile_url || emptyProfile}
+            src={content.writer.profile_url || emptyProfile}
           />
           <div className='flex flex-col'>
-            <p className='text-middle font-medium'>{review.writer.name}</p>
+            <p className='text-middle font-medium'>{content.writer.name}</p>
             <div className='flex flex-row items-center gap-[5px] text-sub'>
               <span className='text-black'>
-                {passFromCreate(review.created_at)}
+                {passFromCreate(content.created_at)}
               </span>
               <span className='text-description'>
-                {formatDateToYYYYMMDD(review.created_at, 'slash')}
+                {formatDateToYYYYMMDD(content.created_at, 'slash')}
               </span>
             </div>
           </div>
         </Link>
 
-        {isMyComment && (
+        {isHaveOption && isMine && (
           <OptionDropbox
-            isMine={isMyComment}
+            isMine={isMine}
             isOpen={isOpen}
             onToggle={() => setIsOpen(!isOpen)}
             ref={menuRef}
             type='place'
-            id={review.id.toString()}
+            id={content.id.toString()}
             handleDelete={handleDeleteReview}
-            placeId={placeId}
+            placeId={id}
           />
         )}
       </div>
 
       <Spacer height={21} />
-      <section className='w-full flex flex-col items-start gap-[10px] px-[12px]'>
-        {review.one_line_reviews.length > 0 && (
-          <div className='flex flex-row items-center gap-[5px]'>
-            {review.one_line_reviews.map((tag, index) => (
-              <ReviewTag key={index} keyword={tag.toString()} />
-            ))}
-          </div>
-        )}
-        <StarRate rate={review.rating} size={10} />
-      </section>
-      <Spacer height={10} />
+      {isPlaceReview && (
+        <>
+          <section className='w-full flex flex-col items-start gap-[10px] px-[12px]'>
+            {content.one_line_reviews.length > 0 && (
+              <div className='flex flex-row items-center gap-[5px]'>
+                {content.one_line_reviews.map((tag, index) => (
+                  <ReviewTag key={index} keyword={tag.toString()} />
+                ))}
+              </div>
+            )}
+            <StarRate rate={content.rating} size={10} />
+          </section>
+          <Spacer height={10} />
+        </>
+      )}
 
-      <span className='w-full text-sub px-[12px]'>{review.contents}</span>
+      <span className='w-full text-sub px-[12px]'>{content.contents}</span>
     </div>
   )
 }

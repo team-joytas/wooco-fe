@@ -1,7 +1,7 @@
 'use client'
 
 import { useGetPlaceReviews } from '@/src/entities/place/query'
-import CardReview from '@/src/features/place/card-review'
+import ReviewCommentCard from '@/src/widgets/review-comment-card'
 import Spacer from '@/src/shared/ui/Spacer'
 import { HeaderWithBackButton } from '@/src/widgets/header'
 
@@ -16,7 +16,7 @@ export default function ListPlaceReview({ placeId }: { placeId: string }) {
       <div className='flex flex-col'>
         {reviewData.map((review) => (
           <div key={review.id}>
-            <CardReview review={review} placeId={placeId} />
+            <ReviewCommentCard id={placeId} content={review} />
             <Spacer height={8} className='bg-light-gray' />
           </div>
         ))}
