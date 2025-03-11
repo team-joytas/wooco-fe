@@ -1,31 +1,32 @@
+'use client'
+
 import Header from '@/src/widgets/header'
 import CardNotification from '@/src/features/notification/card-notification'
 import Spacer from '@/src/shared/ui/Spacer'
+import { useGetNotifications } from '@/src/entities/notification/query'
+import { useEffect } from 'react'
 
-export type Notification = {
-  id: number
-  createdAt: string
-  content: string
-  type: keyof typeof NOTIFICATION_TYPE
-}
+export default function ListNotification() {
+  const { data: notificationData, refetch } = useGetNotifications()
 
-export const NOTIFICATION_TYPE = {
-  comment: 'comment' as const,
-  plan_review: 'plan_review' as const,
-  plan_writing: 'plan_writing' as const,
-  share_course: 'share_course' as const,
-  wooco: 'wooco' as const,
-}
+  useEffect(() => {
+    refetch()
+  }, [])
 
-export default function ListNotification({ data }: { data: Notification[] }) {
   return (
     <>
       <Header title='알림' isBack />
       <Spacer height={20} />
-      <div className='px-[20px] gap-[20px] w-full flex flex-col justify-between'>
-        {[...data].reverse().map((notification) => (
-          <CardNotification key={notification.id} notification={notification} />
-        ))}
+      <div className='px-[17px] gap-[15px] w-full h-[calc(100vh-75px)] flex flex-col'>
+        {notificationData &&
+          [...notificationData]
+            .reverse()
+            .map((notification) => (
+              <CardNotification
+                key={notification.id}
+                notification={notification}
+              />
+            ))}
       </div>
     </>
   )
