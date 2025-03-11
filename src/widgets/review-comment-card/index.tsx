@@ -66,7 +66,9 @@ export default function ReviewCommentCard({
         {
           onSuccess: () => {
             setIsEditingComment(false)
-            refetch && refetch()
+            if (refetch) {
+              refetch()
+            }
             reset()
           },
         }
@@ -83,7 +85,9 @@ export default function ReviewCommentCard({
       if (isPlaceReview) {
         deletePlaceReview(content.id.toString(), {
           onSuccess: () => {
-            refetch && refetch()
+            if (refetch) {
+              refetch()
+            }
             reset()
           },
           onError: (error) => console.error(error),
@@ -91,7 +95,9 @@ export default function ReviewCommentCard({
       } else {
         deleteComment(content.id.toString(), {
           onSuccess: () => {
-            refetch && refetch()
+            if (refetch) {
+              refetch()
+            }
             reset()
           },
           onError: (error) => console.error(error),

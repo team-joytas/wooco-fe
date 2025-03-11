@@ -32,8 +32,12 @@ const OptionDropbox = React.forwardRef<HTMLDivElement, OptionDropboxProps>(
     ref
   ) => {
     const handleUpdateComment = () => {
-      setIsEditingComment && setIsEditingComment(true)
-      setIsOpen && setIsOpen(false)
+      if (setIsEditingComment) {
+        setIsEditingComment(true)
+      }
+      if (setIsOpen) {
+        setIsOpen(false)
+      }
     }
 
     return (
