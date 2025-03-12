@@ -18,12 +18,10 @@ export default function WelcomeView() {
   useEffect(() => {
     if (!imageLoaded) return
 
-    // Wait for the scale transition (2000ms), then show BeforeView
     const transitionTimer = setTimeout(() => {
       setTransitionFinished(true)
     }, 2000)
 
-    // Then, delay showing AfterView by another 1000ms
     const afterViewTimer = setTimeout(() => {
       setLoaded(true)
     }, 3000)
