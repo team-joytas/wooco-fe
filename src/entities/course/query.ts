@@ -19,7 +19,7 @@ import type { CoursePayloadType, CourseType } from '@/src/entities/course/type'
 
 export const COURSE_QUERY_KEY = {
   all: (params: {
-    sort?: 'recent' | 'popular'
+    sort?: 'RECENT' | 'POPULAR'
     primary_region?: string
     secondary_region?: string
     limit?: number
@@ -34,9 +34,9 @@ export const COURSE_QUERY_KEY = {
       params.secondary_region,
     ] as const,
   detail: (id: string) => ['course', id] as const,
-  likeCourse: (params: { id: string; order?: 'recent' | 'popular' }) =>
+  likeCourse: (params: { id: string; order?: 'RECENT' | 'POPULAR' }) =>
     ['likeCourse', params.id, params.order] as const,
-  userCourses: (id: string, order?: 'recent' | 'popular') =>
+  userCourses: (id: string, order?: 'RECENT' | 'POPULAR') =>
     ['userCourses', id, order] as const,
 }
 
@@ -48,7 +48,7 @@ export const useGetCourse = (id: string): UseQueryResult<CourseType> => {
 }
 
 export const useGetCourses = (params: {
-  sort?: 'recent' | 'popular'
+  sort?: 'RECENT' | 'POPULAR'
   limit?: number
   primary_region?: string
   secondary_region?: string
@@ -85,7 +85,7 @@ export const useUpdateCourse = (id: string) => {
 export const useGetLikeCourses = (params: {
   id: string
   limit?: number
-  order?: 'recent' | 'popular'
+  order?: 'RECENT' | 'POPULAR'
 }): UseQueryResult<CourseType[]> => {
   return useQuery({
     queryKey: COURSE_QUERY_KEY.likeCourse(params),
@@ -98,11 +98,13 @@ export const useGetLikeCourses = (params: {
 
 export const useGetUserCourses = (
   id: string,
-  order?: 'recent' | 'popular'
+  order?: 'RECENT' | 'POPULAR'
 ): UseQueryResult<CourseType[]> => {
   return useQuery({
     queryKey: COURSE_QUERY_KEY.userCourses(id, order),
     queryFn: () => getUserCourses(id, order),
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
   })
 }
 

@@ -12,13 +12,13 @@ export const getCourse = async (id: string): Promise<CourseType> => {
 }
 
 export const getCourses = async ({
-  sort = 'recent',
+  sort = 'RECENT',
   limit,
   primary_region,
   secondary_region,
   category,
 }: {
-  sort?: 'recent' | 'popular'
+  sort?: 'RECENT' | 'POPULAR'
   limit?: number
   primary_region?: string
   secondary_region?: string
@@ -43,12 +43,12 @@ export const getCourses = async ({
 
 export const getUserCourses = async (
   id: string,
-  order?: 'recent' | 'popular'
+  order?: 'RECENT' | 'POPULAR'
 ) => {
   try {
     const response = await customAxios.get(`/courses/users/${id}`, {
       params: {
-        order,
+        sort: order,
       },
     })
     return response.data.results

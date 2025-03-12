@@ -16,7 +16,7 @@ interface ListLikeCourseProps {
 export default function ListLikeCourse({ id }: ListLikeCourseProps) {
   const [isListView, setIsListView] = useState(true)
   const [category, setCategory] = useState<string[]>(['ALL'])
-  const [order, setOrder] = useState('recent')
+  const [order, setOrder] = useState('RECENT')
 
   useEffect(() => {
     const isListView = sessionStorage.getItem('is-list-like')
@@ -27,7 +27,7 @@ export default function ListLikeCourse({ id }: ListLikeCourseProps) {
 
   const { data: likeCourses, isLoading } = useGetLikeCourses({
     id,
-    order: order as 'recent' | 'popular',
+    order: order as 'RECENT' | 'POPULAR',
   })
 
   const handleSetIsListView = (isListView: boolean) => {
@@ -58,13 +58,13 @@ export default function ListLikeCourse({ id }: ListLikeCourseProps) {
       <Spacer height={10} />
       <div className='w-full flex px-[10px] justify-end items-center'>
         <Select
-          defaultValue='recent'
+          defaultValue='RECENT'
           style={{ width: 80 }}
           onChange={(value) => setOrder(value)}
           size={'small'}
           options={[
-            { value: 'recent', label: '최신순' },
-            { value: 'popular', label: '인기순' },
+            { value: 'RECENT', label: '최신순' },
+            { value: 'POPULAR', label: '인기순' },
           ]}
         />
       </div>

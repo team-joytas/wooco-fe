@@ -13,7 +13,7 @@ import useRegionStore from '@/src/shared/store/regionStore'
 
 export default function MainCourse() {
   const router = useRouter()
-  const { data: courses } = useGetCourses({ sort: 'popular' })
+  const { data: courses } = useGetCourses({ sort: 'POPULAR' })
   const { setLikedRegions, likedRegions, setCurrentRegion, currentRegion } =
     useRegionStore()
   const { data: likeRegions } = useGetMyLikeRegions(likedRegions)

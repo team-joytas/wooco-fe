@@ -164,7 +164,7 @@ export function OptionHeader({
           onSuccess: () => {
             router.push(`/${type}s`)
             queryClient.invalidateQueries({
-              queryKey: COURSE_QUERY_KEY.userCourses(myId, 'recent'),
+              queryKey: COURSE_QUERY_KEY.userCourses(myId, 'RECENT'),
             })
           },
         })
