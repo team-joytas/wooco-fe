@@ -16,7 +16,7 @@ export default function SearchCourse({
   isSearch: boolean
   setIsSearch: (isSearch: boolean) => void
 }) {
-  const { data: courses } = useGetCourses({ sort: 'recent' })
+  const { data: courses } = useGetCourses({ sort: 'RECENT' })
 
   useEffect(() => {
     if (isSearch) {

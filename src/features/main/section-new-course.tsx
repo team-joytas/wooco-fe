@@ -7,7 +7,7 @@ import { useGetCourses } from '@/src/entities/course/query'
 import type { CourseType } from '@/src/entities/course/type'
 
 export default function SectionNewCourse() {
-  const { data: courses } = useGetCourses({ sort: 'recent', limit: 4 })
+  const { data: courses } = useGetCourses({ sort: 'RECENT', limit: 4 })
 
   if (!courses) return <div>Loading...</div>
 

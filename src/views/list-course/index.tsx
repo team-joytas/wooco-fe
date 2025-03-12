@@ -16,7 +16,7 @@ import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 
 export default function ListCourse() {
   const [isListView, setIsListView] = useState(true)
-  const [order, setOrder] = useState('recent')
+  const [order, setOrder] = useState('RECENT')
   const { currentRegion, likedRegions, addLikedRegion, removeLikedRegion } =
     useRegionStore()
   const [isLiked, setIsLiked] = useState(false)
@@ -41,7 +41,7 @@ export default function ListCourse() {
   const { mutate: deleteLikeMutate } = useDeleteMyLikeRegion()
 
   const { data: courses, isLoading } = useGetCourses({
-    sort: order as 'recent' | 'popular',
+    sort: order as 'RECENT' | 'POPULAR',
     primary_region: currentRegion[0],
     secondary_region: currentRegion[1],
     category: category.includes('ALL') ? undefined : category[0],
@@ -105,13 +105,13 @@ export default function ListCourse() {
       <Spacer height={10} />
       <div className='w-full flex px-[10px] justify-end items-center'>
         <Select
-          defaultValue='recent'
+          defaultValue='RECENT'
           style={{ width: 80 }}
           onChange={(value) => setOrder(value)}
           size={'small'}
           options={[
-            { value: 'recent', label: '최신순' },
-            { value: 'popular', label: '인기순' },
+            { value: 'RECENT', label: '최신순' },
+            { value: 'POPULAR', label: '인기순' },
           ]}
         />
       </div>
