@@ -1,19 +1,14 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import ListUserPlace from '@/src/features/plan/list-user-place'
 import ListUserCourse from '@/src/features/course/list-user-course'
 import { Select } from 'antd'
 import Spacer from '@/src/shared/ui/Spacer'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import Header from '@/src/widgets/header'
-import type { UserProfileType } from '@/src/entities/user/type'
 import TabButton from '@/src/features/user/user-tab-button'
-import {
-  useGetUserCourses,
-  COURSE_QUERY_KEY,
-} from '@/src/entities/course/query'
-import { useQueryClient } from '@tanstack/react-query'
+import { useGetUserCourses } from '@/src/entities/course/query'
 import UserProfileSection from '@/src/features/user/user-profile-section'
 import useUserStore from '@/src/shared/store/userStore'
 import { useRouter } from 'next/navigation'
@@ -27,29 +22,21 @@ const LIST_TYPE = {
 type ListType = keyof typeof LIST_TYPE
 
 export default function DetailUser({ id }: { id: string }) {
+  const router = useRouter()
   const myId = useUserStore((state) => state.user?.user_id)
   const isMe = myId !== undefined && myId === id
-  const router = useRouter()
+  const [type, setType] = useState<ListType>(LIST_TYPE.course)
+  const [order, setOrder] = useState<'RECENT' | 'POPULAR'>('RECENT')
 
   const { data: user, error } = useGetUser(id)
   if (error) {
     router.push('/not-found')
   }
-
-  const [type, setType] = useState<ListType>(LIST_TYPE.course)
-  const [order, setOrder] = useState<'recent' | 'popular'>('recent')
-  const queryClient = useQueryClient()
   const { data: courses } = useGetUserCourses(id, order)
 
-  const onChangeOrder = (value: 'recent' | 'popular') => {
+  const onChangeOrder = (value: 'RECENT' | 'POPULAR') => {
     setOrder(value)
   }
-
-  useEffect(() => {
-    queryClient.refetchQueries({
-      queryKey: COURSE_QUERY_KEY.userCourses(id, order),
-    })
-  }, [order])
 
   return (
     <>
@@ -75,13 +62,13 @@ export default function DetailUser({ id }: { id: string }) {
         <div className='flex gap-[5px] text-main font-bold items-center' />
         {type === LIST_TYPE.course && (
           <Select
-            defaultValue='recent'
+            defaultValue='RECENT'
             style={{ width: 80 }}
-            onChange={(value) => onChangeOrder(value as 'recent' | 'popular')}
+            onChange={(value) => onChangeOrder(value as 'RECENT' | 'POPULAR')}
             size='small'
             options={[
-              { value: 'recent', label: '최신순' },
-              { value: 'popular', label: '인기순' },
+              { value: 'RECENT', label: '최신순' },
+              { value: 'POPULAR', label: '인기순' },
             ]}
           />
         )}

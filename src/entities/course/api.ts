@@ -43,12 +43,12 @@ export const getCourses = async ({
 
 export const getUserCourses = async (
   id: string,
-  order?: 'recent' | 'popular'
+  order?: 'RECENT' | 'POPULAR'
 ) => {
   try {
     const response = await customAxios.get(`/courses/users/${id}`, {
       params: {
-        order,
+        sort: order,
       },
     })
     return response.data.results
