@@ -60,18 +60,15 @@ export default function WelcomeView() {
       >
         {loaded ? <WelcomeAfterView /> : <WelcomeBeforeView />}
       </div>
-      {loaded ? (
-        <div className='flex flex-col gap-[49px] bottom-[50px] items-center justify-center absolute left-1/2 transform -translate-x-1/2'>
+      <div className='flex flex-col gap-[49px] bottom-[50px] items-center justify-center absolute left-1/2 transform -translate-x-1/2'>
+        {loaded ? (
           <Link
             className='text-white text-[15px] w-fit font-extrabold px-[15px] py-[5px]'
             href='/'
           >
             둘러볼게요
           </Link>
-          <Image src={logo_long} alt='logo_long' width={192} height={45} />
-        </div>
-      ) : (
-        <div className='flex flex-col gap-[49px] bottom-[50px] items-center justify-center absolute left-1/2 transform -translate-x-1/2'>
+        ) : (
           <Image
             src={loading_bar}
             alt='loading'
@@ -79,9 +76,9 @@ export default function WelcomeView() {
             height={45}
             className='z-9 animate-spin'
           />
-          <Image src={logo_long} alt='logo_long' width={192} height={45} />
-        </div>
-      )}
+        )}
+        <Image src={logo_long} alt='logo_long' width={192} height={45} />
+      </div>
     </div>
   )
 }
