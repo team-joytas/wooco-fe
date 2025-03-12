@@ -21,7 +21,7 @@ export const postLogin = async (
     if (accessToken) {
       localStorage.setItem('accessToken', accessToken)
       const me = await customAxios.get('/users/me')
-      const onBoarding = me.data.results.onboarding
+      const onBoarding = me.data.results.on_boarding
 
       useUserStore.getState().setUser(me.data.results)
       return { success: true, onBoarding, userId: me.data.results.user_id }

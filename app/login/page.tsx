@@ -1,5 +1,6 @@
-import LoginView from '@/src/views/login'
-
+// import LoginView from '@/src/views/login'
+import WelcomeView from '@/src/views/welcome'
 export default async function Page() {
-  return <LoginView />
+  return <WelcomeView />
+  // return <LoginView />
 }

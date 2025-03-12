@@ -23,7 +23,8 @@ export default function DefaultFooter() {
   const isPlace = path?.includes('/places')
   const isReview = path?.includes('/reviews')
   const isNotification = path?.includes('/notifications')
-
+  const isWelcome = path?.includes('welcome')
+  const isOnBoard = path?.includes('onboard')
   const handleClickMyPage = async () => {
     try {
       const { data } = await customAxios.get(`/users/me`)
@@ -37,7 +38,15 @@ export default function DefaultFooter() {
     }
   }
 
-  if (isLogin || isComment || isUserSetting || isNotice || isNotification)
+  if (
+    isLogin ||
+    isComment ||
+    isUserSetting ||
+    isNotice ||
+    isNotification ||
+    isWelcome ||
+    isOnBoard
+  )
     return null
 
   return (
