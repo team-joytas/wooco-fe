@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import splashLogo from '@/src/assets/images/(logo)/splash_logo.svg'
 import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { FieldErrors, useForm, UseFormRegister } from 'react-hook-form'
 import useUserStore from '@/src/shared/store/userStore'
 import { useGetMyProfile, useUpdateUser } from '@/src/entities/user/query'
 import { useQueryClient } from '@tanstack/react-query'
@@ -61,7 +61,6 @@ export default function OnBoardView() {
         imageLoaded ? 'bg-brand' : 'bg-gradient-to-t from-brand to-[#B3BAF1]'
       } `}
     >
-      {/* Background image - Ensure it's behind the form */}
       <Image
         className={`w-[450px] h-auto m-[-200px] fixed bottom-0 transition-all duration-[2000ms] ease-in-out ${
           imageLoaded
@@ -75,7 +74,6 @@ export default function OnBoardView() {
         onLoadingComplete={() => setImageLoaded(true)}
       />
 
-      {/* Form Section */}
       <form
         className='w-full h-full flex flex-col items-center justify-center z-10'
         onSubmit={handleSubmit(onSubmit)}
@@ -86,10 +84,9 @@ export default function OnBoardView() {
   )
 }
 
-// Nickname Input Component
 interface NicknameInputProps {
-  register: any
-  errors: any
+  register: UseFormRegister<{ nickname: string }>
+  errors: FieldErrors<{ nickname: string }>
 }
 
 function NicknameInput({ register, errors }: NicknameInputProps) {
