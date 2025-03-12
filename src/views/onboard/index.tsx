@@ -58,7 +58,7 @@ export default function OnBoardView() {
     <div
       className={`w-full h-screen flex flex-col items-center justify-center
       transition-all duration-[2000ms] ease-in-out ${
-        imageLoaded ? 'bg-brand' : 'bg-gradient-to-t from-brand to-[#B3BAF1]'
+        imageLoaded ? 'bg-brand' : 'bg-gradient-to-t from-brand to-container-light-blue'
       } `}
     >
       <Image
