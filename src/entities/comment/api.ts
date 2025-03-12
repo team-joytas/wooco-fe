@@ -26,6 +26,21 @@ export const postComment = async (
   }
 }
 
+export const updateComment = async (
+  id: string,
+  contents: string
+): Promise<CommentType> => {
+  try {
+    const response = await customAxios.patch(`/comments/${id}`, {
+      contents,
+    })
+    return response.data.results
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+
 export const deleteComment = async (id: string): Promise<number> => {
   try {
     const response = await customAxios.delete(`/comments/${id}`)

@@ -10,7 +10,7 @@ import Spacer from '@/src/shared/ui/Spacer'
 import { Copy, Phone } from 'lucide-react'
 import { message } from 'antd'
 import { KakaoMap } from '@/src/shared/ui/KakaoMap'
-import CardReview from '@/src/features/place/card-review'
+import ReviewCommentCard from '@/src/widgets/review-comment-card'
 import Link from 'next/link'
 import allReview from '@/src/assets/images/all_review_long.png'
 import kakaoReview from '@/src/assets/images/kakao_review_long.png'
@@ -19,7 +19,7 @@ import StatsReview from '@/src/features/place/stats-review'
 
 export default function DetailPlace({ id }: { id: string }) {
   const { data: placeData } = useGetPlace(id)
-  const { data: reviewData } = useGetPlaceReviews(id)
+  const { data: reviewData, refetch } = useGetPlaceReviews(id)
 
   const router = useRouter()
 
@@ -176,13 +176,14 @@ export default function DetailPlace({ id }: { id: string }) {
         <Spacer height={20} />
         <Spacer height={8} className='bg-light-gray' />
 
-        <div className='flex flex-col w-full gap-[25px]'>
-          <Spacer height={24} />
+        <div className='flex flex-col w-full gap-[25px] px-[20px]'>
+          <Spacer height={4} />
           {reviewData.map((review) => (
-            <CardReview
+            <ReviewCommentCard
               key={review.id}
-              review={review}
-              placeId={placeData.id.toString()}
+              id={placeData.id.toString()}
+              content={review}
+              refetch={refetch}
             />
           ))}
           <Spacer height={24} />

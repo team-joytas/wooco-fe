@@ -8,12 +8,12 @@ import bell from '@/public/bell.svg'
 
 export default function DefaultHeader() {
   const path = usePathname()
-  const router = useRouter()
 
   const isCoursePlanDetail =
     (path.startsWith('/courses') || path.startsWith('/plans')) &&
     !path.includes('/new') &&
-    !path.includes('/update')
+    !path.includes('/update') &&
+    !path.includes('/comments')
   const isPlaceDetail = path.startsWith('/places') && !path.includes('/reviews')
 
   const isShowHeader =

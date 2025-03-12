@@ -8,6 +8,7 @@ import {
   getComments,
   postComment,
   deleteComment,
+  updateComment,
 } from '@/src/entities/comment/api'
 import type { CommentType } from '@/src/entities/comment/type'
 
@@ -35,13 +36,25 @@ export const useCreateComment = () => {
   })
 }
 
+export const useUpdateComment = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ({ id, contents }: { id: string; contents: string }) =>
+      updateComment(id, contents),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: COMMENT_QUERY_KEY.detail })
+    },
+  })
+}
+
 export const useDeleteComment = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: (id: string) => deleteComment(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: COMMENT_QUERY_KEY.all })
+      queryClient.invalidateQueries({ queryKey: COMMENT_QUERY_KEY.detail })
     },
   })
 }
