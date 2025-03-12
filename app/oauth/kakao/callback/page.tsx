@@ -17,7 +17,7 @@ function LoginHandler() {
         if (isLogin.success && !isLogin.onBoarding) {
           router.replace('/')
         } else if (isLogin.onBoarding) {
-          router.replace(`/users/${isLogin.userId}/setting`)
+          router.replace(`/onboard`)
         } else {
           router.replace('/login')
         }
