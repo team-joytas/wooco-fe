@@ -15,12 +15,9 @@ import {
 } from '@/src/entities/course/query'
 import { useQueryClient } from '@tanstack/react-query'
 import UserProfileSection from '@/src/features/user/user-profile-section'
-
-interface DetailUserProps {
-  id: string
-  user: UserProfileType | undefined
-  isMe: boolean
-}
+import useUserStore from '@/src/shared/store/userStore'
+import { useRouter } from 'next/navigation'
+import { useGetUser } from '@/src/entities/user/query'
 
 const LIST_TYPE = {
   place: 'place',
@@ -29,7 +26,16 @@ const LIST_TYPE = {
 
 type ListType = keyof typeof LIST_TYPE
 
-export default function DetailUser({ id, user, isMe }: DetailUserProps) {
+export default function DetailUser({ id }: { id: string }) {
+  const myId = useUserStore((state) => state.user?.user_id)
+  const isMe = myId !== undefined && myId === id
+  const router = useRouter()
+
+  const { data: user, error } = useGetUser(id)
+  if (error) {
+    router.push('/not-found')
+  }
+
   const [type, setType] = useState<ListType>(LIST_TYPE.course)
   const [order, setOrder] = useState<'recent' | 'popular'>('recent')
   const queryClient = useQueryClient()
