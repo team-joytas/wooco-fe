@@ -4,10 +4,7 @@ import Image from 'next/image'
 import splashLogo from '@/src/assets/images/(logo)/splash_logo.svg'
 import { useEffect, useState } from 'react'
 import { FieldErrors, useForm, UseFormRegister } from 'react-hook-form'
-import useUserStore from '@/src/shared/store/userStore'
 import { useGetMyProfile, useUpdateUser } from '@/src/entities/user/query'
-import { useQueryClient } from '@tanstack/react-query'
-import { USER_QUERY_KEY } from '@/src/entities/user/query'
 import { useRouter } from 'next/navigation'
 import Spacer from '@/src/shared/ui/Spacer'
 
@@ -15,10 +12,8 @@ export default function OnBoardView() {
   const router = useRouter()
   const [imageLoaded, setImageLoaded] = useState(false)
 
-  const updateStateUser = useUserStore((state) => state.updateStateUser)
   const { mutate: updateUser } = useUpdateUser()
   const { data: profile } = useGetMyProfile()
-  const queryClient = useQueryClient()
 
   const {
     register,
@@ -42,12 +37,6 @@ export default function OnBoardView() {
       { name: data.nickname, profile_url: '', description: '' },
       {
         onSuccess: () => {
-          updateStateUser({
-            name: data.nickname,
-            profile_url: '',
-            description: '',
-          })
-          queryClient.refetchQueries({ queryKey: USER_QUERY_KEY.all })
           router.push(`/`)
         },
       }
@@ -58,7 +47,9 @@ export default function OnBoardView() {
     <div
       className={`w-full h-screen flex flex-col items-center justify-center
       transition-all duration-[2000ms] ease-in-out ${
-        imageLoaded ? 'bg-brand' : 'bg-gradient-to-t from-brand to-container-light-blue'
+        imageLoaded
+          ? 'bg-brand'
+          : 'bg-gradient-to-t from-brand to-container-light-blue'
       } `}
     >
       <Image
