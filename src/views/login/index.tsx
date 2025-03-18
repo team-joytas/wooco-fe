@@ -47,7 +47,7 @@ export default function LoginView() {
           className='text-brand text-[15px] w-fit font-extrabold px-[15px] py-[5px] rounded-full bg-white'
           href='/'
         >
-          둘러볼게요
+          둘러볼게요.
         </Link>
         <Image src={logo_long} alt='logo_long' width={192} height={45} />
       </div>

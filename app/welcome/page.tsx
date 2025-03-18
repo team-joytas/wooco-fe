@@ -1,4 +1,5 @@
 import WelcomeView from '@/src/views/welcome'
-export default async function Page() {
+
+export default function page() {
   return <WelcomeView />
 }

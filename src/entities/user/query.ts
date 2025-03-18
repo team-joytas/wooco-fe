@@ -18,6 +18,7 @@ import type {
   UserLikeRegionType,
 } from '@/src/entities/user/type'
 import { LikeRegion } from '@/src/shared/store/regionStore'
+import useUserStore from '@/src/shared/store/userStore'
 
 export const USER_QUERY_KEY = {
   all: ['users'] as const,
@@ -42,10 +43,16 @@ export const useGetUser = (id: string): UseQueryResult<UserProfileType> => {
 
 export const useUpdateUser = () => {
   const queryClient = useQueryClient()
+  const updateStateUser = useUserStore((state) => state.updateStateUser)
 
   return useMutation({
     mutationFn: (data: UpdateUserType) => updateUser(data),
-    onSuccess: () => {
+    onSuccess: (_,data) => {
+      updateStateUser({
+        name: data.name,
+        profile_url: '',
+        description: '',
+      })
       queryClient.invalidateQueries({ queryKey: USER_QUERY_KEY.myProfile })
     },
   })
