@@ -7,6 +7,7 @@ import localFont from 'next/font/local'
 import { AnimatePresence } from 'framer-motion'
 import { ConfigProvider } from 'antd'
 import ReactQueryProvider from '@/src/shared/provider/ReactQueryProvider'
+import NextAuthSessionProvider from '@/src/shared/provider/NextAuthSessionProvider'
 
 export const metadata: Metadata = {
   title: 'WOOCO - 우코',
@@ -44,18 +45,20 @@ export default function RootLayout({
       <body
         className={`${pretendard.className} h-full flex items-center flex-col overflow-y-scroll`}
       >
-        <ReactQueryProvider>
-          <DefaultHeader />
-          <ConfigProvider theme={theme}>
-            <AnimatePresence>
-              <div className='mx-auto flex-1 text-black h-full w-full max-w-[375px]'>
-                {children}
-                <Spacer height={60} notShowURLs={['/login']} />
-              </div>
-            </AnimatePresence>
-          </ConfigProvider>
-          <DefaultFooter />
-        </ReactQueryProvider>
+        <NextAuthSessionProvider>
+          <ReactQueryProvider>
+            <DefaultHeader />
+            <ConfigProvider theme={theme}>
+              <AnimatePresence>
+                <div className='mx-auto flex-1 text-black h-full w-full max-w-[375px]'>
+                  {children}
+                  <Spacer height={60} notShowURLs={['/login']} />
+                </div>
+              </AnimatePresence>
+            </ConfigProvider>
+            <DefaultFooter />
+          </ReactQueryProvider>
+        </NextAuthSessionProvider>
       </body>
     </html>
   )
