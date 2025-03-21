@@ -3,12 +3,11 @@
 import Image from 'next/image'
 import splashLogo from '@/src/assets/images/(logo)/splash_logo.svg'
 import Spacer from '@/src/shared/ui/Spacer'
-import { getLoginUrl } from '@/src/entities/login/api'
 import Link from 'next/link'
 import logo_long from '@/src/assets/images/(logo)/logo_long.png'
 import loading_bar from '@/src/assets/images/loading_bar.svg'
-import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { signIn } from 'next-auth/react'
 
 export default function WelcomeView() {
   const [imageLoaded, setImageLoaded] = useState(false)
@@ -95,10 +94,8 @@ function WelcomeBeforeView() {
 }
 
 function WelcomeAfterView() {
-  const router = useRouter()
   const handleLogin = async () => {
-    const loginUrl = await getLoginUrl()
-    router.push(loginUrl)
+    await signIn('kakao')
   }
   return (
     <div>

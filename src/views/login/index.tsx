@@ -3,16 +3,19 @@
 import Image from 'next/image'
 import splashLogo from '@/src/assets/images/(logo)/splash_logo.svg'
 import Spacer from '@/src/shared/ui/Spacer'
-import { getLoginUrl } from '@/src/entities/login/api'
 import Link from 'next/link'
 import logo_long from '@/src/assets/images/(logo)/logo_long.png'
-import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 
+/**
+ * 사용하지 않는지 확인
+ *
+ * @deprecated
+ * @author JiHongKim98
+ */
 export default function LoginView() {
-  const router = useRouter()
   const handleLogin = async () => {
-    const loginUrl = await getLoginUrl()
-    router.push(loginUrl)
+    await signIn('kakao')
   }
 
   return (

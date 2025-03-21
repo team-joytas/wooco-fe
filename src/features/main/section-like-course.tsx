@@ -7,9 +7,8 @@ import { CourseType } from '@/src/entities/course/type'
 import NoLikedCourse from '@/src/shared/ui/NoLikedCourse'
 import { useGetMyProfile } from '@/src/entities/user/query'
 import { useGetLikeCourses } from '@/src/entities/course/query'
-import { getLoginUrl } from '@/src/entities/login/api'
-import { useRouter } from 'next/navigation'
 import { ChevronRight } from 'lucide-react'
+import { signIn } from 'next-auth/react'
 
 export default function SectionLikeCourse() {
   const { data: user } = useGetMyProfile()
@@ -60,10 +59,8 @@ function UserLikeCourse({ id }: { id: string }) {
 }
 
 function LoginLikeCourse() {
-  const router = useRouter()
   const handleLogin = async () => {
-    const loginUrl = await getLoginUrl()
-    router.push(loginUrl)
+    await signIn('kakao')
   }
   const mockCourse = {
     id: 1,

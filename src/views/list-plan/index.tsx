@@ -7,19 +7,16 @@ import BlankTooltip from '@/src/features/plan/blank-tooltip'
 import { PlanType } from '@/src/entities/plan/type'
 import CardPlan from '@/src/features/plan/card-plan'
 import { useGetPlans } from '@/src/entities/plan/query'
-import { getLoginUrl } from '@/src/entities/login/api'
-import { useRouter } from 'next/navigation'
 import { useGetMyProfile } from '@/src/entities/user/query'
 import { useState } from 'react'
+import { signIn } from 'next-auth/react'
 
 export default function ListPlan() {
   const { data: plans } = useGetPlans()
   const { data: user } = useGetMyProfile()
   const [isClick, setIsClick] = useState(false)
-  const router = useRouter()
   const handleLogin = async () => {
-    const loginUrl = await getLoginUrl()
-    router.push(loginUrl)
+    await signIn('kakao')
   }
 
   if (!user)
