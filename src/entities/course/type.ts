@@ -1,4 +1,4 @@
-import type { WriterType } from '@/src/entities/user/type'
+import type { WriterType } from '@/src/entities/user'
 import type { CoursePlanPlaceType } from '@/src/entities/place/type'
 import type { CategoryType } from '@/src/entities/category/type'
 

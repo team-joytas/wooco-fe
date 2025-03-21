@@ -7,9 +7,12 @@ import Header from '@/src/widgets/header'
 import UploadProfileImage from '@/src/features/user/upload-profile-image'
 import { useForm } from 'react-hook-form'
 import useUserStore from '@/src/shared/store/userStore'
-import { useGetMyProfile, useUpdateUser } from '@/src/entities/user/query'
+import {
+  useGetMyProfile,
+  USER_QUERY_KEY,
+  useUpdateUser,
+} from '@/src/entities/user'
 import { useQueryClient } from '@tanstack/react-query'
-import { USER_QUERY_KEY } from '@/src/entities/user/query'
 
 export default function UpdateUser() {
   const router = useRouter()

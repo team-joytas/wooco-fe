@@ -4,7 +4,7 @@ import Image from 'next/image'
 import splashLogo from '@/src/assets/images/(logo)/splash_logo.svg'
 import { useEffect, useState } from 'react'
 import { FieldErrors, useForm, UseFormRegister } from 'react-hook-form'
-import { useGetMyProfile, useUpdateUser } from '@/src/entities/user/query'
+import { useGetMyProfile, useUpdateUser } from '@/src/entities/user'
 import { useRouter } from 'next/navigation'
 import Spacer from '@/src/shared/ui/Spacer'
 

@@ -1,4 +1,4 @@
-import { WriterType } from '../user/type'
+import { WriterType } from '../user'
 
 export type PlaceType = {
   id: number

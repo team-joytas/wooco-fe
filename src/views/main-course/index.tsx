@@ -7,7 +7,7 @@ import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import { useRouter } from 'next/navigation'
 import { Fragment, useEffect } from 'react'
 import { useGetCourses } from '@/src/entities/course/query'
-import { useGetMyLikeRegions } from '@/src/entities/user/query'
+import { useGetMyLikeRegions } from '@/src/entities/user'
 import RegionCascaderWithLikes from '@/src/shared/ui/RegionCascader'
 import useRegionStore from '@/src/shared/store/regionStore'
 

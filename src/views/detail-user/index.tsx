@@ -12,7 +12,7 @@ import { useGetUserCourses } from '@/src/entities/course/query'
 import UserProfileSection from '@/src/features/user/user-profile-section'
 import useUserStore from '@/src/shared/store/userStore'
 import { useRouter } from 'next/navigation'
-import { useGetUser } from '@/src/entities/user/query'
+import { useGetUser } from '@/src/entities/user'
 
 const LIST_TYPE = {
   place: 'place',

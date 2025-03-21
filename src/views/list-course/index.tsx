@@ -3,16 +3,13 @@
 import { useEffect, useMemo, useState } from 'react'
 import Header from '@/src/widgets/header'
 import { useGetCourses } from '@/src/entities/course/query'
-import {
-  useDeleteMyLikeRegion,
-  usePostMyLikeRegion,
-} from '@/src/entities/user/query'
 import useRegionStore, { LikeRegion } from '@/src/shared/store/regionStore'
 import CourseListLayout from '@/src/widgets/course-list-layout'
 import SelectCategories from '@/src/shared/ui/SelectCategories'
 import Spacer from '@/src/shared/ui/Spacer'
 import { Select } from 'antd'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
+import { useDeleteMyLikeRegion, usePostMyLikeRegion } from '@/src/entities/user'
 
 export default function ListCourse() {
   const [isListView, setIsListView] = useState(true)

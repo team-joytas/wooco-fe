@@ -9,8 +9,8 @@ import CardPlan from '@/src/features/plan/card-plan'
 import { useGetPlans } from '@/src/entities/plan/query'
 import { getLoginUrl } from '@/src/entities/login/api'
 import { useRouter } from 'next/navigation'
-import { useGetMyProfile } from '@/src/entities/user/query'
 import { useState } from 'react'
+import { useGetMyProfile } from '@/src/entities/user'
 
 export default function ListPlan() {
   const { data: plans } = useGetPlans()
