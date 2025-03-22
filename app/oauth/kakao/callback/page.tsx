@@ -2,7 +2,7 @@
 
 import { useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { postLogin } from '@/src/entities/login/api'
+import { postLogin } from '@/src/entities/auth'
 import { useRouter } from 'next/navigation'
 
 function LoginHandler() {

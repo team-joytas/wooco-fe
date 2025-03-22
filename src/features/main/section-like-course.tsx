@@ -6,7 +6,7 @@ import GridCourse from '@/src/features/course/grid-course'
 import { CourseType } from '@/src/entities/course'
 import NoLikedCourse from '@/src/shared/ui/NoLikedCourse'
 import { useGetMyProfile, useGetLikeCourses } from '@/src/entities/user'
-import { getLoginUrl } from '@/src/entities/login/api'
+import { getLoginUrl } from '@/src/entities/auth'
 import { useRouter } from 'next/navigation'
 import { ChevronRight } from 'lucide-react'
 
