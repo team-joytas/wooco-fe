@@ -4,7 +4,7 @@ import {
   FieldErrors,
   UseFormGetValues,
 } from 'react-hook-form'
-import type { CoursePayloadType } from '@/src/entities/course/type'
+import type { CoursePayloadType } from '@/src/entities/course'
 import { DatePicker, type DatePickerProps } from 'antd'
 import SelectCategories from '@/src/shared/ui/SelectCategories'
 import { RegionCascader } from '@/src/shared/ui/RegionCascader'

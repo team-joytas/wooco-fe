@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import ProfileImage from '@/src/shared/ui/ProfileImage'
 import { Heart, MessageSquare } from 'lucide-react'
-import { CourseType } from '@/src/entities/course/type'
+import { CourseType } from '@/src/entities/course'
 import logo from '@/src/assets/images/(logo)/logo.png'
 
 export default function CardGridCourse({ course }: { course: CourseType }) {

@@ -3,8 +3,8 @@
 import Link from 'next/link'
 import CardCourse from '@/src/features/course/card-course'
 import Spacer from '@/src/shared/ui/Spacer'
-import { useGetCourses } from '@/src/entities/course/query'
-import type { CourseType } from '@/src/entities/course/type'
+import type { CourseType } from '@/src/entities/course'
+import { useGetCourses } from '@/src/entities/course'
 
 export default function SectionNewCourse() {
   const { data: courses } = useGetCourses({ sort: 'RECENT', limit: 4 })

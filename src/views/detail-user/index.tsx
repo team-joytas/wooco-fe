@@ -8,11 +8,10 @@ import Spacer from '@/src/shared/ui/Spacer'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import Header from '@/src/widgets/header'
 import TabButton from '@/src/features/user/user-tab-button'
-import { useGetUserCourses } from '@/src/entities/course/query'
+import { useGetUser, useGetUserCourses } from '@/src/entities/user'
 import UserProfileSection from '@/src/features/user/user-profile-section'
 import useUserStore from '@/src/shared/store/userStore'
 import { useRouter } from 'next/navigation'
-import { useGetUser } from '@/src/entities/user'
 
 const LIST_TYPE = {
   place: 'place',

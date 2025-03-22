@@ -1,4 +1,4 @@
-import { CourseType } from '@/src/entities/course/type'
+import { CourseType } from '@/src/entities/course'
 import CardListCourse from '@/src/features/course/card-list-course'
 import CardGridCourse from '@/src/features/course/card-grid-course'
 import Spacer from '@/src/shared/ui/Spacer'

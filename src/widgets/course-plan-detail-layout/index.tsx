@@ -3,7 +3,7 @@
 import Spacer from '@/src/shared/ui/Spacer'
 import PlaceCollapse from '@/src/shared/ui/PlaceCollapse'
 import ActiveKakaoMap from '@/src/shared/ui/KakaoMap'
-import type { CourseType } from '@/src/entities/course/type'
+import type { CourseType } from '@/src/entities/course'
 import { CATEGORY } from '@/src/entities/category/type'
 import { OptionHeader } from '@/src/widgets/header'
 import useUserStore from '@/src/shared/store/userStore'

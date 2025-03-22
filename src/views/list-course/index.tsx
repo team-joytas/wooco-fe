@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import Header from '@/src/widgets/header'
-import { useGetCourses } from '@/src/entities/course/query'
+import { useGetCourses } from '@/src/entities/course'
 import useRegionStore, { LikeRegion } from '@/src/shared/store/regionStore'
 import CourseListLayout from '@/src/widgets/course-list-layout'
 import SelectCategories from '@/src/shared/ui/SelectCategories'

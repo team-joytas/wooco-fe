@@ -4,9 +4,9 @@ import Spacer from '@/src/shared/ui/Spacer'
 import { useEffect } from 'react'
 import { ChevronLeft, Search } from 'lucide-react'
 import CardCourse from '@/src/features/course/card-course'
-import type { CourseType } from '@/src/entities/course/type'
+import type { CourseType } from '@/src/entities/course'
 import SelectCategories from '@/src/shared/ui/SelectCategories'
-import { useGetCourses } from '@/src/entities/course/query'
+import { useGetCourses } from '@/src/entities/course'
 
 // TODO: 실제 데이터 및 로직 구현 필요
 export default function SearchCourse({
