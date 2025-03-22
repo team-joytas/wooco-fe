@@ -8,7 +8,12 @@ import SearchPlace from '@/src/views/search-place'
 import Header from '@/src/widgets/header'
 import type { CoursePlanPlaceType } from '@/src/entities/place/type'
 import type { CoursePayloadType } from '@/src/entities/course'
-import { PLAN_QUERY_KEY } from '@/src/entities/plan/query'
+import {
+  PLAN_QUERY_KEY,
+  usePostPlan,
+  useGetPlan,
+  useUpdatePlan,
+} from '@/src/entities/plan'
 import FormSections from '@/src/features/course/form-course'
 import { useForm } from 'react-hook-form'
 import {
@@ -17,12 +22,7 @@ import {
   usePostCourse,
   useUpdateCourse,
 } from '@/src/entities/course'
-import {
-  useCreatePlan,
-  useGetPlan,
-  useUpdatePlan,
-} from '@/src/entities/plan/query'
-import { PlanPayloadType } from '@/src/entities/plan/type'
+import { PlanPayloadType } from '@/src/entities/plan'
 import { useQueryClient } from '@tanstack/react-query'
 
 const LAYOUT_TYPE = {
@@ -155,7 +155,7 @@ export default function CoursePlanFormLayout({
   }, [level, type, isDataLoaded])
 
   const { mutate: courseMutate } = usePostCourse()
-  const { mutate: planMutate } = useCreatePlan()
+  const { mutate: planMutate } = usePostPlan()
   const { mutate: courseUpdateMutate } = useUpdateCourse(id || '')
   const { mutate: planUpdateMutate } = useUpdatePlan(id || '')
   const mutateMap = {

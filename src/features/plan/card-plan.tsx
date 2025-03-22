@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import ImageWithIndex from '@/src/shared/ui/ImageWithIndex'
-import { PlanType } from '@/src/entities/plan/type'
+import { PlanType } from '@/src/entities/plan'
 
 export default function CardPlan({ plan }: { plan: PlanType }) {
   return (
