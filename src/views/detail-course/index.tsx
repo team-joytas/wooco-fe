@@ -6,7 +6,7 @@ import Spacer from '@/src/shared/ui/Spacer'
 import CoursePlanDetailLayout from '@/src/widgets/course-plan-detail-layout'
 import { passFromCreate } from '@/src/shared/utils/date'
 import { useGetCourse } from '@/src/entities/course'
-import { useGetComments } from '@/src/entities/comment/query'
+import { useGetComments } from '@/src/entities/comment'
 import defaultImg from '@/src/assets/images/(logo)/logo_default.png'
 import ReviewCommentCard from '@/src/widgets/review-comment-card'
 

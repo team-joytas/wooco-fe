@@ -1,4 +1,4 @@
-import { WriterType } from '../user'
+import { WriterType } from '@/src/entities/user'
 
 export type CommentType = {
   id: string

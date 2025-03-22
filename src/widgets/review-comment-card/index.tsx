@@ -12,11 +12,11 @@ import StarRate from '@/src/shared/ui/StarRate'
 import OptionDropbox from '@/src/shared/ui/OptionDropbox'
 import { useEffect, useRef, useState } from 'react'
 import { useDeletePlaceReview } from '@/src/entities/place'
-import { CommentType } from '@/src/entities/comment/type'
 import {
-  useDeleteComment,
+  CommentType,
   useUpdateComment,
-} from '@/src/entities/comment/query'
+  useDeleteComment,
+} from '@/src/entities/comment'
 import { useForm } from 'react-hook-form'
 import { Send, X } from 'lucide-react'
 

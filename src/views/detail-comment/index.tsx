@@ -3,13 +3,13 @@
 import { Send } from 'lucide-react'
 import Spacer from '@/src/shared/ui/Spacer'
 import { useForm } from 'react-hook-form'
-import { useCreateComment, useGetComments } from '@/src/entities/comment/query'
+import { usePostComment, useGetComments } from '@/src/entities/comment'
 import { HeaderWithBackButton } from '@/src/widgets/header'
 import ReviewCommentCard from '@/src/widgets/review-comment-card'
 
 export default function DetailComment({ courseId }: { courseId: string }) {
   const { data: comments, refetch } = useGetComments(courseId)
-  const { mutate: createComment } = useCreateComment()
+  const { mutate: createComment } = usePostComment()
   const {
     register,
     handleSubmit,
