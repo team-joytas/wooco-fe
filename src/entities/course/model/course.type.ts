@@ -1,5 +1,5 @@
-import type { WriterType } from '@/src/entities/user'
-import type { CoursePlanPlaceType } from '@/src/entities/place/type'
+import type { WriterType } from '@/src/entities/user/model/type'
+import type { CoursePlanPlaceType } from '@/src/entities/place'
 import type { CategoryType } from '@/src/entities/course/model'
 
 export type FavoriteRegionType = {

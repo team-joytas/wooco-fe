@@ -1,4 +1,4 @@
-import { CoursePlanPlaceType } from '../../place/type'
+import { CoursePlanPlaceType } from '@/src/entities/place'
 
 export type PlanType = {
   id: number

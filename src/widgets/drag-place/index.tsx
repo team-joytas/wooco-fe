@@ -1,4 +1,4 @@
-import { CoursePlanPlaceType } from '@/src/entities/place/type'
+import { CoursePlanPlaceType } from '@/src/entities/place'
 import { closestCenter, DndContext, DragEndEvent } from '@dnd-kit/core'
 import DragPlaceItem from '@/src/features/place/drag-place-item'
 import {
@@ -32,12 +32,18 @@ export default function DragPlace({ places, setPlaces }: DragPlaceProps) {
     )
   }
 
-  const memoizedPlaces = useMemo(() => places.map((place) => place.id), [places]);
+  const memoizedPlaces = useMemo(
+    () => places.map((place) => place.id),
+    [places]
+  )
 
   return (
     <div className='w-full flex flex-col gap-[10px]'>
       <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-        <SortableContext items={memoizedPlaces} strategy={verticalListSortingStrategy}>
+        <SortableContext
+          items={memoizedPlaces}
+          strategy={verticalListSortingStrategy}
+        >
           {places.map((place) => (
             <DragPlaceItem
               key={place.id}

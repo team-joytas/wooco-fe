@@ -1,4 +1,4 @@
-import { PlaceReviewStatsType } from '@/src/entities/place/type'
+import { PlaceReviewStatsType } from '@/src/entities/place'
 import Spacer from '@/src/shared/ui/Spacer'
 import StarRate from '@/src/shared/ui/StarRate'
 

@@ -1,4 +1,4 @@
-import { WriterType } from '../user'
+import { WriterType } from '@/src/entities/user/model'
 
 export type PlaceType = {
   id: number

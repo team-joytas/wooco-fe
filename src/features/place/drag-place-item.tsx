@@ -1,6 +1,6 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { CoursePlanPlaceType } from '@/src/entities/place/type'
+import { CoursePlanPlaceType } from '@/src/entities/place'
 import { AlignJustify, X } from 'lucide-react'
 
 interface DragPlaceItemProps {

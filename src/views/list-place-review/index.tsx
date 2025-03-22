@@ -1,6 +1,6 @@
 'use client'
 
-import { useGetPlaceReviews } from '@/src/entities/place/query'
+import { useGetPlaceReviews } from '@/src/entities/place'
 import ReviewCommentCard from '@/src/widgets/review-comment-card'
 import Spacer from '@/src/shared/ui/Spacer'
 import { HeaderWithBackButton } from '@/src/widgets/header'

@@ -1,10 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import type {
-  CoursePlanPlaceType,
-  KakaoPlaceType,
-} from '@/src/entities/place/type'
+import type { CoursePlanPlaceType, KakaoPlaceType } from '@/src/entities/place'
 
 interface ActiveKakaoMapProps {
   places: CoursePlanPlaceType[]

@@ -6,7 +6,7 @@ import { message } from 'antd'
 import Spacer from '@/src/shared/ui/Spacer'
 import SearchPlace from '@/src/views/search-place'
 import Header from '@/src/widgets/header'
-import type { CoursePlanPlaceType } from '@/src/entities/place/type'
+import type { CoursePlanPlaceType } from '@/src/entities/place'
 import type { CoursePayloadType } from '@/src/entities/course'
 import {
   PLAN_QUERY_KEY,

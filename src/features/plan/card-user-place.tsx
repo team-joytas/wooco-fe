@@ -2,7 +2,7 @@
 // import StarRate from '@/src/shared/ui/StarRate'
 // import Spacer from '@/src/shared/ui/Spacer'
 // import Link from 'next/link'
-// import type { PlaceType } from '@/src/entities/place/type'
+// import type { PlaceType } from '@/src/entities/place'
 
 // interface CardUserPlaceProps {
 //   data: PlaceType

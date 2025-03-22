@@ -1,6 +1,6 @@
 'use client'
 
-import { useGetPlace, useGetPlaceReviews } from '@/src/entities/place/query'
+import { useGetPlace, useGetPlaceReviews } from '@/src/entities/place'
 import TabButton from '@/src/features/user/user-tab-button'
 import { HeaderWithBackButton } from '@/src/widgets/header'
 import logo from '@/src/assets/images/(logo)/logo.png'
