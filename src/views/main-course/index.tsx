@@ -1,7 +1,7 @@
 'use client'
 
 import { CourseType } from '@/src/entities/course'
-import CardCourseList from '@/src/features/course/card-list-course'
+import { CourseListCard } from '@/src/features'
 import Spacer from '@/src/shared/ui/Spacer'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import { useRouter } from 'next/navigation'
@@ -54,19 +54,15 @@ export default function MainCourse() {
       <div className='flex flex-col w-full mb-[3px]'>
         <Spacer height={15} />
         <div className='flex flex-col justify-start gap-[3px] px-[20px]'>
-          <span className='text-headline font-bold text-brand'>
-            실시간 인기
-          </span>
+          <span className='text-headline font-bold text-brand'>New</span>
           <span className='text-description text-sub'>
-            실시간 인기 코스를 확인해보세요
+            최근 유저들이 작성한 코스 구경하고 저장해요
           </span>
         </div>
-        <div className='flex flex-col items-center'>
-          {courses.slice(0, 5).map((course: CourseType) => (
-            <Fragment key={course.id}>
-              <CardCourseList course={course} />
-              <Spacer className='bg-bright-gray' height={8} />
-            </Fragment>
+        <Spacer height={17} />
+        <div className='flex flex-col items-center px-[22px] gap-[15px]'>
+          {courses.map((course: CourseType) => (
+            <CourseListCard course={course} key={course.id} />
           ))}
         </div>
       </div>

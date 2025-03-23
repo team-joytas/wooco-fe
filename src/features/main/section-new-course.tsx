@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import CardCourse from '@/src/features/course/card-course'
+import { CoursePlanCard } from '@/src/features'
 import Spacer from '@/src/shared/ui/Spacer'
 import type { CourseType } from '@/src/entities/course'
 import { useGetCourses } from '@/src/entities/course'
@@ -27,7 +27,7 @@ export default function SectionNewCourse() {
       <Spacer height={22} />
       <div className='flex flex-col gap-[15px]'>
         {courses?.map((course: CourseType) => (
-          <CardCourse key={course.id} course={course} />
+          <CoursePlanCard key={course.id} data={course} />
         ))}
       </div>
       <Spacer height={22} />

@@ -81,7 +81,7 @@ export default function ListCourse() {
   if (isLoading) return <div>Loading...</div>
 
   return (
-    <div>
+    <>
       <Header
         title={currentRegion[1]}
         isTitleTag={true}
@@ -100,7 +100,7 @@ export default function ListCourse() {
         }}
       />
       <Spacer height={10} />
-      <div className='w-full flex px-[10px] justify-end items-center'>
+      <div className='w-full flex flex-col px-[22px] justify-center items-start'>
         <Select
           defaultValue='RECENT'
           style={{ width: 80 }}
@@ -111,10 +111,11 @@ export default function ListCourse() {
             { value: 'POPULAR', label: '인기순' },
           ]}
         />
+        <Spacer height={12} />
+        <CourseListLayout isListView={isListView} courses={courses} />
       </div>
-      <CourseListLayout isListView={isListView} courses={courses} />
       <FloatingWriteButton />
-    </div>
+    </>
   )
 }
 
