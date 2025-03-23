@@ -10,11 +10,7 @@ import { message } from 'antd'
 import Spacer from '@/src/shared/ui/Spacer'
 import { useState } from 'react'
 
-export default function PlaceCollapse({
-  places,
-}: {
-  places: CoursePlanPlaceType[]
-}) {
+export function PlaceCollapse({ places }: { places: CoursePlanPlaceType[] }) {
   const [messageApi, contextHolder] = message.useMessage()
 
   const toast = (address: string) => {
@@ -40,15 +36,14 @@ export default function PlaceCollapse({
       </div>
     ),
     children: (
-      <div className='rounded-[10px] bg-light-gray flex flex-col w-full shadow-md'>
-        <div className='h-[224px] overflow-hidden relative rounded-t-[10px]'>
+      <div className='rounded-[10px] flex flex-col w-full shadow-md border border-brand gap-[10px] p-[4px]'>
+        <div className='h-[160px] overflow-hidden relative rounded-t-[10px]'>
           {place.thumbnail_url ? (
             <Image
               className='rounded-t-[10px]'
               src={place.thumbnail_url}
               alt='place image'
-              width={300}
-              height={150}
+              fill
             />
           ) : (
             <Image
@@ -59,25 +54,23 @@ export default function PlaceCollapse({
             />
           )}
         </div>
-        <div className='flex justify-center items-center gap-[10px] py-[10px] bg-black13 text-white'>
+        <div
+          className='flex justify-center items-center rounded-[5px] gap-[10px] py-[10px] bg-black opacity-15 text-white cursor-pointer'
+          onClick={() => toast(place.address)}
+        >
           <span className='block text-sub text-light max-w-[200px] truncate line-clamp-2'>
             {place.address}
           </span>
-          <Copy
-            className='cursor-pointer'
-            onClick={() => toast(place.address)}
-            size={14}
-            strokeWidth={1.5}
-          />
+          <Copy size={14} strokeWidth={1.5} />
         </div>
-        <div className='flex rounded-[10px] justify-between p-[15px]'>
-          <div className='flex flex-col justify-end'>
+        <div className='flex rounded-[10px] items-center justify-between p-[15px]'>
+          <div className='flex flex-col justify-end items-center gap-[5px]'>
             <p className='text-headline text-brand font-semibold'>
               {place.average_rating}
             </p>
-            <StarRate rate={place?.average_rating || 0} size={10} />
+            <StarRate rate={place?.average_rating || 0} size={12} />
             <p className='text-sub opacity-50'>
-              장소 리뷰 {place?.review_count || 0}
+              장소 리뷰 ({place?.review_count || 0})
             </p>
           </div>
           <div className='flex flex-col justify-center items-center gap-[5px]'>
@@ -110,7 +103,7 @@ export default function PlaceCollapse({
       {items.map((item) => {
         const isOpen = openKey === item.key
         return (
-          <div key={item.key}>
+          <div key={item.key} className='flex flex-col gap-[15px]'>
             <button
               onClick={() => toggleItem(item.key)}
               className={`w-full flex justify-between items-center px-[16px] py-[10px] text-left text-middle font-[500] h-[40px]
