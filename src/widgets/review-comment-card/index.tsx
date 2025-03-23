@@ -4,10 +4,10 @@ import ProfileImage from '@/src/shared/ui/ProfileImage'
 import Link from 'next/link'
 import { formatDateToYYYYMMDD, passFromCreate } from '@/src/shared/utils/date'
 import useUserStore from '@/src/shared/store/userStore'
-import { PlaceReviewType } from '@/src/entities/place'
+import { PlaceReviewDetailType } from '@/src/entities/place'
 import emptyProfile from '@/src/assets/images/(logo)/temp_empty.png'
 import Spacer from '@/src/shared/ui/Spacer'
-import ReviewTag from '@/src/features/place/review-tag'
+import { ReviewTag } from '@/src/features'
 import StarRate from '@/src/shared/ui/StarRate'
 import OptionDropbox from '@/src/shared/ui/OptionDropbox'
 import { useEffect, useRef, useState } from 'react'
@@ -22,7 +22,7 @@ import { Send, X } from 'lucide-react'
 
 type ReviewCommentCardProps = {
   id?: string
-  content: PlaceReviewType | CommentType
+  content: PlaceReviewDetailType | CommentType
   isHaveOption?: boolean
   refetch?: () => void
 }
