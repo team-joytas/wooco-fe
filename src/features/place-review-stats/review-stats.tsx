@@ -7,7 +7,7 @@ interface StatsReviewProps {
   AverageRating: number
 }
 
-export default function StatsReview({
+export function ReviewStats({
   placeOnLineReviewStats,
   AverageRating,
 }: StatsReviewProps) {
@@ -43,8 +43,8 @@ export default function StatsReview({
   ]
 
   return (
-    <div className='flex flex-row items-center gap-[33px] h-[190px]'>
-      <div className='flex w-full justify-between px-[10px]'>
+    <div className='flex flex-row items-center max-gap-[33px] h-[190px]'>
+      <div className='flex w-full justify-start gap-[10px] px-[10px]'>
         {placeOnLineReviewStats.map((stats, index) => {
           const height =
             stats.count && (index === 0 ? 120 : (stats.count / maxCount) * 120)
@@ -52,7 +52,7 @@ export default function StatsReview({
           return (
             <div
               key={stats.contents}
-              className='flex flex-col justify-between items-center gap-[10px]'
+              className='flex flex-col min-w-[30px] max-w-[56px] justify-between items-center gap-[10px]'
             >
               <span className='text-xs text-gray-500'>{index + 1}위</span>
               <div
