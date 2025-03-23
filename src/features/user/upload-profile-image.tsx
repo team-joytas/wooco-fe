@@ -1,5 +1,5 @@
 import { Camera } from 'lucide-react'
-import { postImage } from '@/src/shared/entities/api'
+import { postImage } from '@/src/shared/api'
 import Image from 'next/image'
 
 interface UploadProfileImageProps {

@@ -1,4 +1,4 @@
-import { customAxios } from '@/src/shared/axios'
+import { customAxios } from '@/src/shared/api'
 import { COURSE_QUERY_KEY } from './queryKey'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { CoursePayloadType } from '../model'

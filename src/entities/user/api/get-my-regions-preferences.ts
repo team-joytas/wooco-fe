@@ -1,4 +1,4 @@
-import { customAxios } from '@/src/shared/axios'
+import { customAxios } from '@/src/shared/api'
 import { UserLikeRegionType } from '../model'
 import { USER_API } from './endpoint'
 import { LikeRegion } from '@/src/shared/store/regionStore'

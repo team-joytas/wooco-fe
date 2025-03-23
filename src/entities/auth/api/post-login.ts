@@ -1,5 +1,5 @@
 import useUserStore from '@/src/shared/store/userStore'
-import { publicAxios, customAxios } from '@/src/shared/axios'
+import { publicAxios, customAxios } from '@/src/shared/api'
 
 export const postLogin = async (
   code: string | null

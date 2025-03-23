@@ -1,4 +1,4 @@
-import { customAxios } from '@/src/shared/axios'
+import { customAxios } from '@/src/shared/api'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { PlanPayloadType } from '../model'
 import { PLAN_QUERY_KEY } from './queryKey'

@@ -1,4 +1,4 @@
-import { publicAxios } from '@/src/shared/axios'
+import { publicAxios } from '@/src/shared/api'
 
 export const getLoginUrl = async (): Promise<string> => {
   const url = `/auth/kakao/social-login/url`

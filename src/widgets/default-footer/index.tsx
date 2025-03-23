@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Home, SquareChartGantt, UserRound } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { customAxios } from '@/src/shared/axios'
+import { customAxios } from '@/src/shared/api'
 
 export default function DefaultFooter() {
   const path = usePathname()

@@ -1,4 +1,4 @@
-import { customAxios } from '@/src/shared/axios'
+import { customAxios } from '@/src/shared/api'
 import { PLACE_URL } from './endpoint'
 import { PlaceReviewType } from '../model'
 import { useQuery } from '@tanstack/react-query'

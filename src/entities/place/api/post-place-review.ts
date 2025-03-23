@@ -1,4 +1,4 @@
-import { customAxios } from '@/src/shared/axios'
+import { customAxios } from '@/src/shared/api'
 import { ReviewPayloadType } from '../model'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { PLACE_URL } from './endpoint'
