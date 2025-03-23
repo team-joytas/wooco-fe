@@ -19,14 +19,22 @@ export type PlaceReviewStatsType = {
   count: number
 }
 
-export type PlaceReviewType = {
+export interface PlaceReviewType {
   id: number
-  writer: WriterType
   rating: number
   contents: string
   created_at: string
   one_line_reviews: PlaceReviewKeywordType[]
   image_urls: string[]
+}
+
+export interface UserPlaceReviewType extends PlaceReviewType {
+  place_id: number
+  place_name: string
+}
+
+export interface PlaceReviewDetailType extends PlaceReviewType {
+  writer: WriterType
 }
 
 export type PlaceReviewKeywordType = {

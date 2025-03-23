@@ -11,4 +11,6 @@ export const USER_API = {
 
   courses: (id: string) => `${USER_API.baseCourse}/${id}`,
   likeCourses: (id: string) => `${USER_API.baseCourse}/${id}/like`,
+
+  placeReviews: (id: string) => `/reviews/users/${id}`,
 }
