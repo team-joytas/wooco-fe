@@ -1,48 +1,33 @@
+import { UserPlaceReviewType } from '@/src/entities/place'
 import Spacer from '@/src/shared/ui/Spacer'
-import logo from '@/src/assets/images/(logo)/logo.png'
-import Image from 'next/image'
-import { Tooltip } from 'antd'
+import { PlaceCard } from '@/src/features'
 
-export default function ListUserPlace() {
-  const content = (
-    <div className='p-[10px] flex flex-col items-center justify-center gap-[5px]'>
-      <p className='text-main text-black font-semibold'>
-        빠른 시일 내에 찾아 뵙겠습니다.
-      </p>
-      <p className='text-sub opacity-50 text-black'>- Team WOOCO -</p>
-    </div>
-  )
+export default function ListUserPlace({
+  reviews,
+}: {
+  reviews: UserPlaceReviewType[]
+}) {
   return (
-    <div className='relative w-full h-full flex flex-col items-center text-main font-semibold'>
-      <Spacer height={100} />
-      <p className='text-main font-semibold opacity-50'>아직 준비중이에요!</p>
-      <Spacer height={43} />
-      <Tooltip title={content} color='white' placement='top' open zIndex={1}>
-        <Image
-          src={logo}
-          alt='logo'
-          className='absolute top-[250px]'
-          width={55}
-          height={55}
-        />
-      </Tooltip>
-    </div>
-  )
-}
+    <div className='flex flex-col h-full justify-between'>
+      {reviews.length === 0 ? (
+        <section className='flex flex-col items-center'>
+          <Spacer height={143} />
+          <span className='p-[10px] flex flex-col items-center text-description text-middle justify-center gap-[5px]'>
+            아직 작성된 장소 리뷰가 없어요!
+          </span>
+        </section>
+      ) : (
+        <section className='flex flex-col mt-[15px] gap-[20px]'>
+          {reviews.map((review, index) => (
+            <div key={index}>
+              <PlaceCard data={review} />
+              <Spacer height={8} className={'mt-[10px] bg-bright-gray'} />
+            </div>
+          ))}
+        </section>
+      )}
 
-/*
-function ArchiveListUserPlace({ data }: ListUserPlaceProps) {
-  return (
-    <>
-      <section className='flex flex-col mt-[15px] gap-[20px]'>
-        {data.map((place, index) => (
-          <div key={index}>
-            <CardUserPlace data={place} />
-            <Spacer height={8} className={'mt-[10px] bg-bright-gray'} />
-          </div>
-        ))}
-      </section>
-      <Spacer height={15} />
+      {/* TODO: 장소 리뷰 작성 안된 코스 정보 
       <section className='flex flex-col'>
         <div className='flex flex-col px-[20px]'>
           <p className='text-main font-semibold text-header-line'>
@@ -62,9 +47,7 @@ function ArchiveListUserPlace({ data }: ListUserPlaceProps) {
             <div className='bg-light-gray w-[98px] h-[98px] rounded-[10px]'></div>
           </div>
         </div>
-      </section>
-    </>
+      </section> */}
+    </div>
   )
 }
-
-*/

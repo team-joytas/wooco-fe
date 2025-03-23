@@ -8,7 +8,11 @@ import Spacer from '@/src/shared/ui/Spacer'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import Header from '@/src/widgets/header'
 import TabButton from '@/src/features/user/user-tab-button'
-import { useGetUser, useGetUserCourses } from '@/src/entities/user'
+import {
+  useGetMyPlaceReviews,
+  useGetUser,
+  useGetUserCourses,
+} from '@/src/entities/user'
 import UserProfileSection from '@/src/features/user/user-profile-section'
 import useUserStore from '@/src/shared/store/userStore'
 import { useRouter } from 'next/navigation'
@@ -32,14 +36,19 @@ export default function DetailUser({ id }: { id: string }) {
     router.push('/not-found')
   }
   const { data: courses } = useGetUserCourses(id, order)
+  const { data: placeReviews } = useGetMyPlaceReviews(id)
 
   const onChangeOrder = (value: 'RECENT' | 'POPULAR') => {
     setOrder(value)
   }
 
+  if (!user || !courses || !placeReviews) {
+    return <div>Loading ...</div>
+  }
+
   return (
     <>
-      <Header title={isMe ? '마이 페이지' : user?.name || ''} isBack />
+      <Header title={isMe ? '마이 페이지' : user.name} isBack />
       <Spacer height={8} />
       <UserProfileSection user={user} />
       <div className='sticky top-0 bg-white z-10 flex items-center pt-[10px] pb-[5px]'>
@@ -47,18 +56,17 @@ export default function DetailUser({ id }: { id: string }) {
           isActive={type === LIST_TYPE.course}
           onClick={() => setType(LIST_TYPE.course)}
         >
-          {isMe ? '나의 코스' : `${user?.name}님의 코스`}
+          {isMe ? '나의 코스' : `${user.name}님의 코스`} ({courses.length})
         </TabButton>
         <TabButton
           isActive={type === LIST_TYPE.place}
           onClick={() => setType(LIST_TYPE.place)}
         >
-          장소 리뷰
+          장소 리뷰 ({placeReviews.length})
         </TabButton>
       </div>
       <Spacer height={10} />
       <div className='flex px-[20px] justify-between'>
-        <div className='flex gap-[5px] text-main font-bold items-center' />
         {type === LIST_TYPE.course && (
           <Select
             defaultValue='RECENT'
@@ -73,13 +81,9 @@ export default function DetailUser({ id }: { id: string }) {
         )}
       </div>
       {type === LIST_TYPE.place ? (
-        <ListUserPlace />
+        <ListUserPlace reviews={placeReviews} />
       ) : (
-        <>
-          <Spacer height={10} />
-          <Spacer height={8} className='bg-bright-gray' />
-          <ListUserCourse courses={courses || []} />
-        </>
+        <ListUserCourse courses={courses} />
       )}
       <Spacer height={20} />
       <FloatingWriteButton />
