@@ -241,6 +241,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         <div className='flex flex-row gap-[13px] px-[35px] mx-[-5px] min-w-fit'>
           <div className='relative w-[84px] h-[84px] flex justify-center items-center'>
             <button
+              type='button'
               className='w-[74px] h-[74px] bg-[#F2F2F2] flex items-center justify-center rounded-[10px]'
               onClick={() => {
                 const fileRef = fileInput.current
