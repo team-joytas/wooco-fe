@@ -1,8 +1,5 @@
 import { CourseType } from '@/src/entities/course'
-import CardListCourse from '@/src/features/course/card-list-course'
-import CardGridCourse from '@/src/features/course/card-grid-course'
-import Spacer from '@/src/shared/ui/Spacer'
-import { Fragment } from 'react'
+import { CourseGridCard, CourseListCard } from '@/src/features'
 
 interface CourseListLayoutProps {
   isListView: boolean
@@ -14,23 +11,16 @@ export default function CourseListLayout({
   courses,
 }: CourseListLayoutProps) {
   return isListView ? (
-    <div className='flex flex-col items-center'>
+    <div className='flex flex-col w-full items-center gap-[15px]'>
       {courses.map((course: CourseType) => (
-        <Fragment key={course.id}>
-          <CardListCourse course={course} />
-          <Spacer height={8} className='bg-bright-gray' />
-        </Fragment>
+        <CourseListCard key={course.id} course={course} />
       ))}
     </div>
   ) : (
-    <>
-      <Spacer height={15} />
-      <div className='grid grid-cols-2 gap-[15px] px-[10px]'>
-        {courses.map((course: CourseType) => (
-          <CardGridCourse key={course.id} course={course} />
-        ))}
-      </div>
-      <Spacer height={15} />
-    </>
+    <div className='grid grid-cols-2 gap-[15px]'>
+      {courses.map((course: CourseType) => (
+        <CourseGridCard key={course.id} course={course} />
+      ))}
+    </div>
   )
 }

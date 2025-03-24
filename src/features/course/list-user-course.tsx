@@ -1,5 +1,5 @@
-import CardCourse from '@/src/features/course/card-course'
 import Spacer from '@/src/shared/ui/Spacer'
+import { CoursePlanCard } from '@/src/features'
 import type { CourseType } from '@/src/entities/course'
 
 export default function ListUserCourse({ courses }: { courses: CourseType[] }) {
@@ -20,7 +20,7 @@ export default function ListUserCourse({ courses }: { courses: CourseType[] }) {
   return (
     <section className='flex flex-col gap-[20px] px-[20px] mt-[20px]'>
       {courses?.map((course) => (
-        <CardCourse key={course.id} course={course} />
+        <CoursePlanCard key={course.id} data={course} />
       ))}
     </section>
   )

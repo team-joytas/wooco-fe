@@ -12,6 +12,7 @@ export default function DefaultHeader() {
   const isCoursePlanDetail =
     (path.startsWith('/courses') || path.startsWith('/plans')) &&
     !path.includes('/new') &&
+    !path.includes('/by-region') &&
     !path.includes('/update') &&
     !path.includes('/comments')
   const isPlaceDetail = path.startsWith('/places') && !path.includes('/reviews')

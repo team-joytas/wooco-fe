@@ -5,11 +5,11 @@ import ProfileImage from '@/src/shared/ui/ProfileImage'
 import Spacer from '@/src/shared/ui/Spacer'
 import BlankTooltip from '@/src/features/plan/blank-tooltip'
 import { PlanType, useGetPlans } from '@/src/entities/plan'
-import CardPlan from '@/src/features/plan/card-plan'
 import { getLoginUrl } from '@/src/entities/auth'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useGetMyProfile } from '@/src/entities/user'
+import { CoursePlanCard } from '@/src/features'
 
 export default function ListPlan() {
   const { data: plans } = useGetPlans()
@@ -62,7 +62,7 @@ export default function ListPlan() {
       {plans && plans.length > 0 ? (
         <div className='flex flex-col gap-[15px] py-[20px] w-full px-[16px]'>
           {plans?.map((plan: PlanType, index: number) => (
-            <CardPlan key={index} plan={plan} />
+            <CoursePlanCard key={index} data={plan} />
           ))}
         </div>
       ) : (
