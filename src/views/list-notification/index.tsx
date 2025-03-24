@@ -3,7 +3,7 @@
 import Header from '@/src/widgets/header'
 import CardNotification from '@/src/features/notification/card-notification'
 import Spacer from '@/src/shared/ui/Spacer'
-import { useGetNotifications } from '@/src/entities/notification/query'
+import { useGetNotifications } from '@/src/entities/notification'
 import { useEffect } from 'react'
 
 export default function ListNotification() {

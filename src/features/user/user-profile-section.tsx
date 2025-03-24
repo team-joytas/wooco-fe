@@ -1,4 +1,4 @@
-import type { UserProfileType } from '@/src/entities/user/type'
+import type { UserProfileType } from '@/src/entities/user'
 import ProfileImage from '@/src/shared/ui/ProfileImage'
 import UserTag from '@/src/features/user/user-tag'
 import { useRouter } from 'next/navigation'

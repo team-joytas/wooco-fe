@@ -8,15 +8,15 @@ import Image from 'next/image'
 import React from 'react'
 import setting from '@/src/assets/images/setting.png'
 import useUserStore from '@/src/shared/store/userStore'
+import { useQueryClient } from '@tanstack/react-query'
+import { useDeletePlan } from '@/src/entities/plan'
+import OptionDropbox from '@/src/shared/ui/OptionDropbox'
 import {
   useDeleteCourse,
   useDeleteCourseLike,
   usePostCourseLike,
-} from '@/src/entities/course/query'
-import { useQueryClient } from '@tanstack/react-query'
-import { COURSE_QUERY_KEY } from '@/src/entities/course/query'
-import { useDeletePlan } from '@/src/entities/plan/query'
-import OptionDropbox from '@/src/shared/ui/OptionDropbox'
+} from '@/src/entities/course'
+import { USER_QUERY_KEY } from '@/src/entities/user/api'
 
 interface HeaderProps {
   title: string
@@ -164,7 +164,7 @@ export function OptionHeader({
           onSuccess: () => {
             router.push(`/${type}s`)
             queryClient.invalidateQueries({
-              queryKey: COURSE_QUERY_KEY.userCourses(myId, 'RECENT'),
+              queryKey: USER_QUERY_KEY.courses(myId, 'RECENT'),
             })
           },
         })

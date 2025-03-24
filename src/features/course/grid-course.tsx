@@ -3,7 +3,7 @@ import Image from 'next/image'
 import ProfileImage from '@/src/shared/ui/ProfileImage'
 import { Heart, MessageSquare } from 'lucide-react'
 import logo from '@/src/assets/images/(logo)/logo.png'
-import { CourseType } from '@/src/entities/course/type'
+import { CourseType } from '@/src/entities/course'
 
 export default function GridCourse({ course }: { course: CourseType }) {
   return (

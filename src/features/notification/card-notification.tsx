@@ -2,9 +2,9 @@ import { MessageCircle, UserRound } from 'lucide-react'
 import Image from 'next/image'
 import logo from '@/src/assets/images/(logo)/logo.png'
 import courseColor from '@/src/assets/images/course_color.png'
-import { NotificationType } from '@/src/entities/notification/type'
+import { NotificationType } from '@/src/entities/notification/model/type'
 import { formatDateToYYYYMMDD, passFromCreate } from '@/src/shared/utils/date'
-import { usePatchReadNotification } from '@/src/entities/notification/query'
+import { useReadNotification } from '@/src/entities/notification'
 import Link from 'next/link'
 
 export default function CardNotification({
@@ -48,7 +48,7 @@ export default function CardNotification({
 
   const notificationType = TYPE_MAP[type]
 
-  const { mutate: readNotification } = usePatchReadNotification()
+  const { mutate: readNotification } = useReadNotification()
 
   if (!notificationType) {
     return null

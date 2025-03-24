@@ -6,12 +6,12 @@ import Spacer from '@/src/shared/ui/Spacer'
 import { useEffect, useState } from 'react'
 import {
   useGetPlace,
-  useCreatePlaceReview,
+  usePostPlaceReview,
   useGetPlaceReview,
   useUpdatePlaceReview,
-} from '@/src/entities/place/query'
+} from '@/src/entities/place'
 import FormReview from '@/src/features/place/form-review'
-import { ReviewPayloadType } from '@/src/entities/place/type'
+import { ReviewPayloadType } from '@/src/entities/place'
 import { useRouter } from 'next/navigation'
 
 interface ReviewFormLayoutProps {
@@ -43,7 +43,7 @@ export default function ReviewFormLayout({
   const [placeInfo, setPlaceInfo] = useState({ name: '', address: '' })
   const { data: placeData } = useGetPlace(placeId)
   const { data: reviewData } = useGetPlaceReview(reviewId)
-  const { mutateAsync: createPlaceMutate } = useCreatePlaceReview(placeId)
+  const { mutateAsync: createPlaceMutate } = usePostPlaceReview(placeId)
   const { mutateAsync: updatePlaceMutate } = useUpdatePlaceReview(placeId)
   const router = useRouter()
 

@@ -1,10 +1,10 @@
 'use client'
 
 import { Cascader } from 'antd'
-import { getSeoulData } from '@/src/entities/place/api'
+import { getSeoulData } from '@/src/entities/place'
 import { DefaultOptionType } from 'antd/es/cascader'
 import { useMemo } from 'react'
-import { UserLikeRegionType } from '@/src/entities/user/type'
+import { UserLikeRegionType } from '@/src/entities/user'
 
 interface CascaderProps {
   firstRegion: string

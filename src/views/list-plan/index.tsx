@@ -4,13 +4,12 @@ import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import ProfileImage from '@/src/shared/ui/ProfileImage'
 import Spacer from '@/src/shared/ui/Spacer'
 import BlankTooltip from '@/src/features/plan/blank-tooltip'
-import { PlanType } from '@/src/entities/plan/type'
+import { PlanType, useGetPlans } from '@/src/entities/plan'
 import CardPlan from '@/src/features/plan/card-plan'
-import { useGetPlans } from '@/src/entities/plan/query'
-import { getLoginUrl } from '@/src/entities/login/api'
+import { getLoginUrl } from '@/src/entities/auth'
 import { useRouter } from 'next/navigation'
-import { useGetMyProfile } from '@/src/entities/user/query'
 import { useState } from 'react'
+import { useGetMyProfile } from '@/src/entities/user'
 
 export default function ListPlan() {
   const { data: plans } = useGetPlans()

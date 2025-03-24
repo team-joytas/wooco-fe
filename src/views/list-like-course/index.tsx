@@ -1,6 +1,6 @@
 'use client'
 
-import { useGetLikeCourses } from '@/src/entities/course/query'
+import { useGetLikeCourses } from '@/src/entities/user/api'
 import Header from '@/src/widgets/header'
 import SelectCategories from '@/src/shared/ui/SelectCategories'
 import Spacer from '@/src/shared/ui/Spacer'

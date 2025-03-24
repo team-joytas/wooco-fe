@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import ImageWithIndex from '@/src/shared/ui/ImageWithIndex'
-import { CourseType } from '@/src/entities/course/type'
+import { CourseType } from '@/src/entities/course'
 
 export default function CardCourse({ course }: { course: CourseType }) {
   return (

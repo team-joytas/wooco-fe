@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react'
 import { Input } from 'antd'
 import Spacer from '@/src/shared/ui/Spacer'
-import { CoursePlanPlaceType, PlaceSearchType } from '@/src/entities/place/type'
+import { CoursePlanPlaceType, PlaceSearchType } from '@/src/entities/place'
 import { Dispatch, SetStateAction } from 'react'
 import Header from '@/src/widgets/header'
-import { postPlace } from '@/src/entities/place/api'
+import { getPlaceSearchResult, postPlace } from '@/src/entities/place'
 
 type MetaType = {
   total_count: number
@@ -39,15 +39,7 @@ export default function SearchPlace({
   const getResult = async (value: string) => {
     if (!value) return
 
-    const result = await fetch(
-      `https://dapi.kakao.com/v2/local/search/keyword.json?query=${region} ${value}`,
-      {
-        headers: {
-          Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}`,
-        },
-      }
-    )
-    const data = await result.json()
+    const data = await getPlaceSearchResult(region, value)
     setResults(data.documents)
     setMeta(data.meta)
   }
@@ -56,7 +48,7 @@ export default function SearchPlace({
     setOpenSearchPlace(false)
     const placeId = await postPlace(place)
     const placePayload: CoursePlanPlaceType = {
-      id: placeId.results.id,
+      id: placeId.id,
       order: 0,
       name: place.place_name,
       latitude: place.y,

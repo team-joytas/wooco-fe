@@ -3,7 +3,7 @@ import ProfileImage from '@/src/shared/ui/ProfileImage'
 import Spacer from '@/src/shared/ui/Spacer'
 import { Heart, MessageCircle, Share2 } from 'lucide-react'
 import logo from '@/src/assets/images/(logo)/logo.png'
-import type { CourseType } from '@/src/entities/course/type'
+import type { CourseType } from '@/src/entities/course'
 import { formatDateToYYYYMMDD } from '@/src/shared/utils/date'
 import Link from 'next/link'
 export default function CardListCourse({ course }: { course: CourseType }) {

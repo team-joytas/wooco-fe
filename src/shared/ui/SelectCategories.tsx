@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { CATEGORY } from '@/src/entities/category/type'
+import { CATEGORY } from '@/src/entities/course'
 
 export default function SelectCategories({
   isInCourseList,

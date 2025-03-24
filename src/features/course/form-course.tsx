@@ -4,13 +4,13 @@ import {
   FieldErrors,
   UseFormGetValues,
 } from 'react-hook-form'
-import type { CoursePayloadType } from '@/src/entities/course/type'
+import type { CoursePayloadType } from '@/src/entities/course'
 import { DatePicker, type DatePickerProps } from 'antd'
 import SelectCategories from '@/src/shared/ui/SelectCategories'
 import { RegionCascader } from '@/src/shared/ui/RegionCascader'
 import { useEffect, useState } from 'react'
 import dayjs from 'dayjs'
-import type { CoursePlanPlaceType } from '@/src/entities/place/type'
+import type { CoursePlanPlaceType } from '@/src/entities/place'
 import { Dispatch, SetStateAction } from 'react'
 import Spacer from '@/src/shared/ui/Spacer'
 import ActiveKakaoMap from '@/src/shared/ui/KakaoMap'

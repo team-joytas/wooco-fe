@@ -1,7 +1,7 @@
 'use client'
 
 import CoursePlanDetailLayout from '@/src/widgets/course-plan-detail-layout'
-import { useGetPlan } from '@/src/entities/plan/query'
+import { useGetPlan } from '@/src/entities/plan'
 
 interface DetailPlanProps {
   planId: string

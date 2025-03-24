@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import splashLogo from '@/src/assets/images/(logo)/splash_logo.svg'
 import Spacer from '@/src/shared/ui/Spacer'
-import { getLoginUrl } from '@/src/entities/login/api'
+import { getLoginUrl } from '@/src/entities/auth'
 import Link from 'next/link'
 import logo_long from '@/src/assets/images/(logo)/logo_long.png'
 import loading_bar from '@/src/assets/images/loading_bar.svg'
