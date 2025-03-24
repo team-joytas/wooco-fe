@@ -8,7 +8,7 @@ interface CoursePlanCardProps {
 }
 
 export function CoursePlanCard({ data }: CoursePlanCardProps) {
-  const to = 'course_id' in data ? `/courses/${data.id}` : `/plans/${data.id}`
+  const to = 'categories' in data ? `/courses/${data.id}` : `/plans/${data.id}`
 
   return (
     <Link
