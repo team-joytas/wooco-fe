@@ -1,4 +1,4 @@
-import { customAxios } from '@/src/shared/axios'
+import { customAxios } from '@/src/shared/api'
 import {
   NOTIFICATION_URL,
   NOTIFICATION_QUERY_KEY,

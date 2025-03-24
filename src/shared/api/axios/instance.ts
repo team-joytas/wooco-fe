@@ -1,7 +1,7 @@
 'use client'
 
 import axios, { AxiosInstance } from 'axios'
-import { addRequestSignature } from '@/src/shared/axios/signature'
+import { addRequestSignature } from './signature'
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL
 

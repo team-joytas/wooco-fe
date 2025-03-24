@@ -1,4 +1,4 @@
-import { customAxios } from '@/src/shared/axios'
+import { customAxios } from '@/src/shared/api'
 import { KakaoToServerPlaceType, PlaceSearchType } from '../model'
 import { PLACE_URL } from './endpoint'
 

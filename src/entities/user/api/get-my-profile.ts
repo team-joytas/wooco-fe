@@ -1,4 +1,4 @@
-import { customAxios } from '@/src/shared/axios'
+import { customAxios } from '@/src/shared/api'
 import { UserProfileType } from '../model'
 import { USER_QUERY_KEY } from './queryKey'
 import { useQuery } from '@tanstack/react-query'
