@@ -14,7 +14,7 @@ export default function UserProfileSection({
     <section className='px-[20px] py-[10px] gap-[5px] w-full flex flex-col justify-between'>
       <div className='flex items-center justify-between'>
         <div className='flex flex-col justify-center items-start gap-[10px]'>
-          <ProfileImage size={60} src={user?.profile_url || ''} />
+          <ProfileImage size={60} src={user?.profile_url || '/profile.png'} />
           <p className='font-bold text-brand text-headline'>{user?.name}</p>
         </div>
         <div className='flex gap-[30px] items-end'>

@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { formatDateToYYYYMMDD, passFromCreate } from '@/src/shared/utils/date'
 import useUserStore from '@/src/shared/store/userStore'
 import { PlaceReviewDetailType } from '@/src/entities/place'
-import emptyProfile from '@/src/assets/images/(logo)/temp_empty.png'
 import Spacer from '@/src/shared/ui/Spacer'
 import { ReviewTag } from '@/src/features'
 import StarRate from '@/src/shared/ui/StarRate'
@@ -131,7 +130,7 @@ export default function ReviewCommentCard({
         >
           <ProfileImage
             size={40}
-            src={content.writer.profile_url || emptyProfile}
+            src={content.writer.profile_url || '/profile.png'}
           />
           <div className='flex flex-col'>
             <p className='text-middle font-medium'>{content.writer.name}</p>
