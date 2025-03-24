@@ -2,11 +2,11 @@ import { customAxios } from '@/src/shared/api'
 import { useQuery } from '@tanstack/react-query'
 import { PLACE_URL } from './endpoint'
 import { PLACE_QUERY_KEY } from './queryKey'
-import { PlaceReviewType } from '../model'
+import { PlaceReviewDetailType } from '../model'
 
 export const getPlaceReviews = async (
   id: string
-): Promise<PlaceReviewType[]> => {
+): Promise<PlaceReviewDetailType[]> => {
   try {
     const response = await customAxios.get(PLACE_URL.reviewsByPlace(id))
     return response.data.results

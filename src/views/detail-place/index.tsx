@@ -15,7 +15,7 @@ import Link from 'next/link'
 import allReview from '@/src/assets/images/all_review_long.png'
 import kakaoReview from '@/src/assets/images/kakao_review_long.png'
 import { useRouter } from 'next/navigation'
-import StatsReview from '@/src/features/place/stats-review'
+import { ReviewStats } from '@/src/features'
 
 export default function DetailPlace({ id }: { id: string }) {
   const { data: placeData } = useGetPlace(id)
@@ -166,7 +166,7 @@ export default function DetailPlace({ id }: { id: string }) {
           ref={reviewRef}
         >
           <Spacer height={15} />
-          <StatsReview
+          <ReviewStats
             placeOnLineReviewStats={placeData.place_one_line_review_stats}
             AverageRating={placeData.average_rating}
           />

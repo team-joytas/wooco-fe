@@ -9,4 +9,5 @@ export const USER_QUERY_KEY = {
     ['userCourses', id, order] as const,
   likeCourse: (params: { id: string; order?: 'RECENT' | 'POPULAR' }) =>
     ['likeCourse', params.id, params.order] as const,
+  myPlaceReviews: ['myPlaceReviews'] as const,
 }

@@ -1,2 +1,5 @@
 export * from './course-plan-card'
 export * from './place-collapse'
+export * from './place-card'
+export * from './place-review-stats'
+export * from './review-tag'
