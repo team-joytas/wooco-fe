@@ -8,9 +8,8 @@ import StarRate from '@/src/shared/ui/StarRate'
 import type { CoursePlanPlaceType } from '@/src/entities/place'
 import { message } from 'antd'
 import Spacer from '@/src/shared/ui/Spacer'
-import { useState } from 'react'
 
-export function PlaceCollapse({ places }: { places: CoursePlanPlaceType[] }) {
+export function PlaceCollapse({ places, activeIndex, setActiveIndex }: { places: CoursePlanPlaceType[], activeIndex: number | null, setActiveIndex: (key: (prevKey) => null | number) => void  }) {
   const [messageApi, contextHolder] = message.useMessage()
 
   const toast = (address: string) => {
@@ -93,19 +92,17 @@ export function PlaceCollapse({ places }: { places: CoursePlanPlaceType[] }) {
       </div>
     ),
   }))
-  const [openKey, setOpenKey] = useState<string | null>(null)
-  const toggleItem = (key: string) => {
-    setOpenKey((prevKey) => (prevKey === key ? null : key))
+  const toggleItem = (key: number) => {
+    setActiveIndex((prevKey) => (prevKey === key ? null : key))
   }
-
   return (
     <div className='w-full px-[30px]'>
-      {items.map((item) => {
-        const isOpen = openKey === item.key
+      {items.map((item,index) => {
+        const isOpen = activeIndex === index
         return (
           <div key={item.key} className='flex flex-col gap-[15px]'>
             <button
-              onClick={() => toggleItem(item.key)}
+              onClick={() => toggleItem(index)}
               className={`w-full flex justify-between items-center px-[16px] py-[10px] text-left text-middle font-[500] h-[40px]
                 bg-bright-gray rounded-full shadow-sm transition-[border] duration-300 ease-in-out ${
                   isOpen

@@ -90,6 +90,7 @@ export default function CoursePlanDetailLayout({
       </div>
     )
 
+  const [activeIndex, setActiveIndex] = useState<number | null>(null)
   return (
     <>
       <OptionHeader
@@ -122,7 +123,7 @@ export default function CoursePlanDetailLayout({
 
         {data?.places && data?.places.length > 0 && (
           <div className='px-[30px]'>
-            <ActiveKakaoMap places={data?.places || []} />
+            <ActiveKakaoMap places={data?.places || []} activeIndex={activeIndex} />
           </div>
         )}
         <Spacer height={16} />
@@ -136,7 +137,7 @@ export default function CoursePlanDetailLayout({
         </p>
 
         <Spacer height={10} />
-        <PlaceCollapse places={data?.places || []} />
+        <PlaceCollapse places={data?.places || []} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
         <Spacer height={16} />
 
         <Spacer height={8} className='bg-bright-gray' />

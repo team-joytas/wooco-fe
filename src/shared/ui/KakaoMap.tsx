@@ -6,6 +6,7 @@ import type { CoursePlanPlaceType, KakaoPlaceType } from '@/src/entities/place'
 interface ActiveKakaoMapProps {
   places: CoursePlanPlaceType[]
   center?: number[]
+  activeIndex: number | null
 }
 
 interface KakaoMapProps {
@@ -21,6 +22,7 @@ declare global {
 export default function ActiveKakaoMap({
   places,
   center,
+  activeIndex
 }: ActiveKakaoMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null)
 
@@ -53,24 +55,31 @@ export default function ActiveKakaoMap({
     if (!mapContainerRef.current) return
     if (mapRef.current) return
 
-    const map = new window.kakao.maps.Map(mapContainerRef.current, {
+    mapRef.current = new window.kakao.maps.Map(mapContainerRef.current, {
       center: center
         ? new window.kakao.maps.LatLng(center[1], center[0])
         : new window.kakao.maps.LatLng(
-            Number(places[0]?.latitude || 37),
-            Number(places[0]?.longitude || 127)
-          ),
+          Number(places[0]?.latitude || 37),
+          Number(places[0]?.longitude || 127)
+        ),
       level: center ? 8 : 6,
     })
-
-    mapRef.current = map
     updateMarkers(places)
   }
 
   useEffect(() => {
     if (!mapRef.current) return
+    const newCenter = activeIndex
+      ? new window.kakao.maps.LatLng(
+      Number(places[activeIndex]?.latitude || 37),
+      Number(places[activeIndex]?.longitude || 127)
+    ) : new window.kakao.maps.LatLng(
+      Number(places[0]?.latitude || 37),
+      Number(places[0]?.longitude || 127)
+    )
+    mapRef.current?.setCenter(newCenter)
     updateMarkers(places)
-  }, [places])
+  }, [places, activeIndex])
 
   const updateMarkers = (places: CoursePlanPlaceType[]) => {
     const map = mapRef.current
