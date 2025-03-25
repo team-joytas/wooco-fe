@@ -12,8 +12,8 @@ import { message } from 'antd'
 import { KakaoMap } from '@/src/shared/ui/KakaoMap'
 import ReviewCommentCard from '@/src/widgets/review-comment-card'
 import Link from 'next/link'
-import allReview from '@/src/assets/images/all_review_long.png'
-import kakaoReview from '@/src/assets/images/kakao_review_long.png'
+import allReview from '@/src/assets/images/all_review_icon.svg'
+import kakaoReview from '@/src/assets/images/kakao_review_icon.svg'
 import { useRouter } from 'next/navigation'
 import { ReviewStats } from '@/src/features'
 
@@ -192,19 +192,28 @@ export default function DetailPlace({ id }: { id: string }) {
         <Spacer height={8} className='bg-light-gray' />
         <Spacer height={20} />
 
-        <div className='flex flex-col justify-center items-center gap-[5px]'>
+        <div className='flex flex-col justify-center items-center gap-[18px]'>
+
           <Link href={`/places/${id}/reviews`}>
-            <Image src={allReview} alt='all review' width={300} height={30} />
+            <div
+              className="w-[315px] relative h-[45px] flex flex-row items-center justify-start py-0 pl-[64px] gap-[14.73px] shadow-[0px_0px_5.1px_rgba(0,_0,_0,_0.4)] rounded-[99px] overflow-hidden">
+              <div className="font-bold w-[120px] text-main flex items-center">전체 리뷰 바로보기</div>
+              <div className="w-[75px] h-[75px] relative flex justify-center items-center">
+                <Image className="relative" fill alt="" src={allReview} />
+              </div>
+            </div>
           </Link>
+
           <Link
             href={`https://place.map.kakao.com/m/${placeData.kakao_place_id}`}
           >
-            <Image
-              src={kakaoReview}
-              alt='kakao review'
-              width={300}
-              height={30}
-            />
+            <div
+              className="w-[315px] relative h-[45px] flex flex-row items-center justify-start py-0 pl-[64px] gap-[14.73px] shadow-[0px_0px_5.1px_rgba(0,_0,_0,_0.4)] rounded-[99px] overflow-hidden">
+              <div className="font-bold w-[132px] text-main flex items-center">카카오 리뷰 바로가기</div>
+              <div className="w-[73px] h-[68px] relative flex justify-center items-center">
+                <Image className="relative" fill alt="" src={kakaoReview} />
+              </div>
+            </div>
           </Link>
         </div>
 

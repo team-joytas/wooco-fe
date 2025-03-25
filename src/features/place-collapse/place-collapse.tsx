@@ -2,8 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronDown, ChevronUp, Copy } from 'lucide-react'
 import logoDefaultCopy from '@/src/assets/images/(logo)/temp_empty.png'
-import allReview from '@/src/assets/images/all_review.png'
-import kakaoReview from '@/src/assets/images/kakao_review.png'
+import kakaoReview from '@/src/assets/images/kakao_review_icon.svg'
+import allReview from '@/src/assets/images/all_review_icon.svg'
 import StarRate from '@/src/shared/ui/StarRate'
 import type { CoursePlanPlaceType } from '@/src/entities/place'
 import { message } from 'antd'
@@ -63,7 +63,8 @@ export function PlaceCollapse({ places }: { places: CoursePlanPlaceType[] }) {
           </span>
           <Copy size={14} strokeWidth={1.5} />
         </div>
-        <div className='flex rounded-[10px] items-center justify-between p-[15px]'>
+        <Spacer height={28} />
+        <div className='flex rounded-[10px] items-center justify-between px-[15px]'>
           <div className='flex flex-col justify-end items-center gap-[5px]'>
             <p className='text-headline text-brand font-semibold'>
               {place.average_rating}
@@ -73,22 +74,31 @@ export function PlaceCollapse({ places }: { places: CoursePlanPlaceType[] }) {
               장소 리뷰 ({place?.review_count || 0})
             </p>
           </div>
-          <div className='flex flex-col justify-center items-center gap-[5px]'>
+          <div className="flex flex-col justify-center items-center gap-[10px]">
             <Link href={`/places/${place.id}`}>
-              <Image src={allReview} alt='all review' width={175} height={31} />
+              <div
+                className="w-[175px] relative h-[31px] flex flex-row items-center justify-start py-0 pl-[15px] gap-[13px] shadow-[0px_0px_5.1px_rgba(0,_0,_0,_0.4)] rounded-[99px] overflow-hidden">
+                <div className="font-semibold w-[82px] text-sub">전체 리뷰 바로보기</div>
+                <div className="w-[60px] h-[60px] relative flex justify-center items-center">
+                  <Image className="relative" fill alt="" src={allReview} />
+                </div>
+              </div>
             </Link>
+
             <Link
               href={`https://place.map.kakao.com/m/${place.kakao_place_id}`}
             >
-              <Image
-                src={kakaoReview}
-                alt='kakao review'
-                width={175}
-                height={31}
-              />
+              <div
+                className="w-[175px] relative h-[31px] flex flex-row items-center justify-start py-0 pl-[15px] gap-[13px] shadow-[0px_0px_5.1px_rgba(0,_0,_0,_0.4)] rounded-[99px] overflow-hidden">
+                <div className="font-semibold w-[91px] text-sub">카카오 리뷰 바로가기</div>
+                <div className="w-[47px] h-[44px] relative flex justify-center items-center">
+                  <Image className="relative" fill alt="" src={kakaoReview} />
+                </div>
+              </div>
             </Link>
           </div>
         </div>
+        <Spacer height={25}/>
         {contextHolder}
       </div>
     ),
@@ -99,11 +109,11 @@ export function PlaceCollapse({ places }: { places: CoursePlanPlaceType[] }) {
   }
 
   return (
-    <div className='w-full px-[30px]'>
+    <div className="w-full px-[30px]">
       {items.map((item) => {
         const isOpen = openKey === item.key
         return (
-          <div key={item.key} className='flex flex-col gap-[15px]'>
+          <div key={item.key} className="flex flex-col gap-[15px]">
             <button
               onClick={() => toggleItem(item.key)}
               className={`w-full flex justify-between items-center px-[16px] py-[10px] text-left text-middle font-[500] h-[40px]
