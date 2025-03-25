@@ -4,10 +4,11 @@ import Image from 'next/image'
 import course from '@/src/assets/images/course.png'
 import coursePurple from '@/src/assets/images/course_color.png'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { useParams, usePathname } from 'next/navigation'
 import { Home, SquareChartGantt, UserRound } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { customAxios } from '@/src/shared/api'
+import useUserStore from '@/src/shared/store/userStore'
 
 export default function DefaultFooter() {
   const path = usePathname()
@@ -15,7 +16,9 @@ export default function DefaultFooter() {
   const isHome = path === '/'
   const isCourse = path?.includes('/courses')
   const isPlan = path?.includes('/plans')
-  const isMy = path?.includes('/users')
+  const myId = useUserStore((state) => state.user?.user_id)
+  const { id } = useParams()
+  const isMy = path?.includes('/users') && myId === id
   const isLogin = path?.includes('/login')
   const isComment = path?.includes('/comments')
   const isUserSetting = path?.includes('/setting')
