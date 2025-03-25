@@ -1,24 +1,28 @@
 import Image, { StaticImageData } from 'next/image'
-
+import Link from 'next/link'
 export default function ProfileImage({
   size,
   src,
+  userId,
 }: {
   size: number
   src: string | StaticImageData
+  userId: string
 }) {
   const customLoader = ({ src }: { src: string }) => {
     return src
   }
 
   return (
-    <Image
-      loader={customLoader}
-      className={`w-[${size}px] h-[${size}px] bg-white rounded-full border-[0.5px] object-cover border-brand aspect-square`}
-      alt='프로필이미지'
-      src={src}
-      width={size}
-      height={size}
-    />
+    <Link href={`/users/${userId}`}>
+      <Image
+        loader={customLoader}
+        className={`w-[${size}px] h-[${size}px] bg-white rounded-full border-[0.5px] object-cover border-brand aspect-square`}
+        alt='프로필이미지'
+        src={src || '/profile.png'}
+        width={size}
+        height={size}
+      />
+    </Link>
   )
 }

@@ -39,7 +39,11 @@ export function CourseListCard({ course }: { course: CourseType }) {
 
       <section className='flex flex-row h-[20px] w-full justify-between items-center'>
         <div className='flex flex-row gap-[6px] items-center'>
-          <ProfileImage size={18} src={course.writer.profile_url} />
+          <ProfileImage
+            size={18}
+            src={course.writer.profile_url}
+            userId={course.writer.id}
+          />
           <span className='text-sub text-black leading-none'>
             {course.writer.name}
           </span>
