@@ -9,14 +9,19 @@ import { useGetCourse } from '@/src/entities/course'
 import { useGetComments } from '@/src/entities/comment'
 import defaultImg from '@/src/assets/images/(logo)/logo_default.png'
 import ReviewCommentCard from '@/src/widgets/review-comment-card'
+import { useRouter } from 'next/navigation'
 
 interface DetailCourseProps {
   courseId: string
 }
 
 export default function DetailCourse({ courseId }: DetailCourseProps) {
-  const { data: course } = useGetCourse(courseId)
+  const { data: course, isError } = useGetCourse(courseId)
   const { data: comments } = useGetComments(courseId)
+  const router = useRouter()
+  if (isError) {
+    router.push("/not-found")
+  }
   if (!course) return <div>Loading...</div>
 
   return (
