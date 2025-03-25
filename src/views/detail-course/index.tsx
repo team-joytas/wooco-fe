@@ -24,8 +24,9 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
       <section className='w-full px-[20px] py-[10px] text-white bg-brand'>
         <div className='w-full flex gap-[10px] max-w-[375px]'>
           <ProfileImage
-            src={course.writer.profile_url || defaultImg}
+            src={course.writer.profile_url || '/profile.png'}
             size={40}
+            user_id={course.writer.id}
           />
           <div className='flex flex-col gap-[2px]'>
             <span className='font-semibold text-middle'>

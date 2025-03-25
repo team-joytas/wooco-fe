@@ -129,6 +129,7 @@ export default function ReviewCommentCard({
           className='flex w-fit gap-[10px] items-center'
         >
           <ProfileImage
+           user_id={content.writer.id}
             size={40}
             src={content.writer.profile_url || '/profile.png'}
           />

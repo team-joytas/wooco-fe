@@ -22,7 +22,11 @@ export function CourseGridCard({ course }: { course: CourseType }) {
           alt='course-image'
         />
         <div className='absolute top-[80px] left-[10px] w-[27px] h-[27px] bg-gradient-to-r from-[#9997F2] to-[#4341EA] p-[1px] rounded-[50%]'>
-          <ProfileImage size={25} src={course.writer.profile_url} />
+          <ProfileImage
+            size={25}
+            src={course.writer.profile_url}
+            user_id={course.writer.id}
+          />
         </div>
       </section>
 

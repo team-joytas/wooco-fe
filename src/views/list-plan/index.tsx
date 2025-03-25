@@ -53,7 +53,7 @@ export default function ListPlan() {
             <p className='font-bold text-brand text-[20px]'>{user?.name}</p>
             <p className='text-[16px]'>&nbsp; 님의 코스 플랜</p>
           </span>
-          <ProfileImage size={40} src={user.profile_url} />
+          <ProfileImage size={40} src={user.profile_url} user_id={user.user_id} />
         </div>
       </div>
 
