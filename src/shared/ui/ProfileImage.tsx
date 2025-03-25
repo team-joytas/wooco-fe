@@ -3,18 +3,18 @@ import Link from 'next/link'
 export default function ProfileImage({
   size,
   src,
-  user_id,
+  userId,
 }: {
   size: number
   src: string | StaticImageData
-  user_id: string
+  userId: string
 }) {
   const customLoader = ({ src }: { src: string }) => {
     return src
   }
 
   return (
-    <Link href={`/users/${user_id}`}>
+    <Link href={`/users/${userId}`}>
       <Image
         loader={customLoader}
         className={`w-[${size}px] h-[${size}px] bg-white rounded-full border-[0.5px] object-cover border-brand aspect-square`}

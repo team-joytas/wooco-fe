@@ -17,7 +17,7 @@ export default function UserProfileSection({
           <ProfileImage
             size={60}
             src={user?.profile_url || '/profile.png'}
-            user_id={user?.user_id || ''}
+            userId={user?.user_id || ''}
           />
         </div>
         <div className='flex flex-col items-start justify-center'>

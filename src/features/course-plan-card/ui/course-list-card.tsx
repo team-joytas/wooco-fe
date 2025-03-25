@@ -42,7 +42,7 @@ export function CourseListCard({ course }: { course: CourseType }) {
           <ProfileImage
             size={18}
             src={course.writer.profile_url}
-            user_id={course.writer.id}
+            userId={course.writer.id}
           />
           <span className='text-sub text-black leading-none'>
             {course.writer.name}

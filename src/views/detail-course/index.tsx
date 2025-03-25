@@ -26,7 +26,7 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
           <ProfileImage
             src={course.writer.profile_url || '/profile.png'}
             size={40}
-            user_id={course.writer.id}
+            userId={course.writer.id}
           />
           <div className='flex flex-col gap-[2px]'>
             <span className='font-semibold text-middle'>

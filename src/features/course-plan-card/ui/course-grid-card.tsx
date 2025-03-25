@@ -25,7 +25,7 @@ export function CourseGridCard({ course }: { course: CourseType }) {
           <ProfileImage
             size={25}
             src={course.writer.profile_url}
-            user_id={course.writer.id}
+            userId={course.writer.id}
           />
         </div>
       </section>
