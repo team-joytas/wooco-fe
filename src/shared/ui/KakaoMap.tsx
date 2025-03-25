@@ -6,7 +6,7 @@ import type { CoursePlanPlaceType, KakaoPlaceType } from '@/src/entities/place'
 interface ActiveKakaoMapProps {
   places: CoursePlanPlaceType[]
   center?: number[]
-  activeIndex: number | null
+  activeIndex?: number | null
 }
 
 interface KakaoMapProps {

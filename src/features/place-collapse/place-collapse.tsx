@@ -9,7 +9,7 @@ import type { CoursePlanPlaceType } from '@/src/entities/place'
 import { message } from 'antd'
 import Spacer from '@/src/shared/ui/Spacer'
 
-export function PlaceCollapse({ places, activeIndex, setActiveIndex }: { places: CoursePlanPlaceType[], activeIndex: number | null, setActiveIndex: (key: (prevKey) => null | number) => void  }) {
+export function PlaceCollapse({ places, activeIndex, setActiveIndex }: { places: CoursePlanPlaceType[], activeIndex: number | null, setActiveIndex: (key: (prevKey: number | null) => null | number) => void  }) {
   const [messageApi, contextHolder] = message.useMessage()
 
   const toast = (address: string) => {
