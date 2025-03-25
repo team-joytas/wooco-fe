@@ -120,7 +120,7 @@ const KeywordInput: React.FC<KeywordInputProps> = ({ keywords, setValue }) => {
         value={newKeyword}
         onChange={(e) => setNewKeyword(e.target.value)}
         onKeyDown={(e) => {
-          //스페이스바는 구버전에서 Spacebar, 모던 브라우저에서 " "입니다!
+          if (e.nativeEvent.isComposing) return;
           if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
             e.preventDefault()
             handleAddKeyword()
