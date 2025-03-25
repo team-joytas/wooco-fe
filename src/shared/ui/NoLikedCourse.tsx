@@ -5,7 +5,7 @@ export default function NoLikedCourse() {
     <div className='w-full h-[180px] flex items-center justify-center'>
       <div className='flex flex-col shadow-lg w-[280px] h-[130px] rounded-[10px] items-center justify-center'>
         <span className='text-[14px] font-bold text-black'>
-          유저의 관심있는 코스가 없어요.
+          아직 관심있는 코스가 없어요.
         </span>
         <span className='text-[13px]  text-black'>
           인기있는 코스를 구경하러 가볼까요?
