@@ -9,11 +9,12 @@ function LoginHandler() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const code = searchParams.get('code')
+  const state = searchParams.get('state')
 
   useEffect(() => {
     const handleLogin = async () => {
-      if (code) {
-        const isLogin = await postLogin(code)
+      if (code && state) {
+        const isLogin = await postLogin(code,state)
         if (isLogin.success && !isLogin.onBoarding) {
           router.replace('/')
         } else if (isLogin.onBoarding) {
