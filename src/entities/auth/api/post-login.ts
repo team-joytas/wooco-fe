@@ -3,14 +3,13 @@ import { publicAxios, customAxios } from '@/src/shared/api'
 
 export const postLogin = async (
   code: string | null,
-  state: string | null
+  state: string | null,
+  provider: string | null
 ): Promise<{ success: boolean; onBoarding?: boolean; userId?: string }> => {
   try {
-    if (!code || !state) return { success: false }
-    const url = `/oauth2/kakao/login`
-    const body = JSON.stringify({ code,state })
-
-    const response = await publicAxios.post(url, body)
+    if (!code || !state || !provider) return { success: false }
+    const url = `/oauth2/${provider}/login?code=${code}&state=${state}`
+    const response = await publicAxios.get(url)
     const accessToken = response.data.results.access_token
 
     if (accessToken) {

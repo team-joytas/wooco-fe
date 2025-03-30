@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { postLogin } from '@/src/entities/auth'
 import { useRouter } from 'next/navigation'
 
-function LoginHandler() {
+function LoginHandler({ provider }: { provider: string }) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const code = searchParams.get('code')
@@ -14,7 +14,7 @@ function LoginHandler() {
   useEffect(() => {
     const handleLogin = async () => {
       if (code && state) {
-        const isLogin = await postLogin(code,state)
+        const isLogin = await postLogin(code,state,provider)
         if (isLogin.success && !isLogin.onBoarding) {
           router.replace('/')
         } else if (isLogin.onBoarding) {
@@ -31,10 +31,11 @@ function LoginHandler() {
   return null
 }
 
-export default function Page() {
+export default function Page({ params }: { params: { provider: string } }) {
+  console.log(params.provider)
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <LoginHandler />
+      <LoginHandler provider={params.provider} />
     </Suspense>
   )
 }
