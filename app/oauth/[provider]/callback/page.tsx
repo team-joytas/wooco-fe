@@ -32,7 +32,6 @@ function LoginHandler({ provider }: { provider: string }) {
 }
 
 export default function Page({ params }: { params: { provider: string } }) {
-  console.log(params.provider)
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <LoginHandler provider={params.provider} />
