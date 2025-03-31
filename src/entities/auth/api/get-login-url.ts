@@ -1,7 +1,4 @@
-import { publicAxios } from '@/src/shared/api'
-
 export const getLoginUrl = async (): Promise<string> => {
-  const url = `/auth/kakao/social-login/url`
-  const response = await publicAxios.get(url)
-  return response.data.results.url
+  const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL
+  return `${SERVER_URL}/api/v1/oauth2/authorization/kakao`
 }

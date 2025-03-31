@@ -2,14 +2,14 @@ import useUserStore from '@/src/shared/store/userStore'
 import { publicAxios, customAxios } from '@/src/shared/api'
 
 export const postLogin = async (
-  code: string | null
+  code: string | null,
+  state: string | null,
+  provider: string | null
 ): Promise<{ success: boolean; onBoarding?: boolean; userId?: string }> => {
   try {
-    if (!code) return { success: false }
-    const url = `/auth/kakao/social-login`
-    const body = JSON.stringify({ code })
-
-    const response = await publicAxios.post(url, body)
+    if (!code || !state || !provider) return { success: false }
+    const url = `/oauth2/${provider}/login?code=${code}&state=${state}`
+    const response = await publicAxios.get(url)
     const accessToken = response.data.results.access_token
 
     if (accessToken) {
