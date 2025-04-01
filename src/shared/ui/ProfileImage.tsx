@@ -14,7 +14,7 @@ export default function ProfileImage({
   }
 
   return (
-    <Link href={`/users/${userId}`}>
+    <Link href={`/users/${userId}`} legacyBehavior>
       <Image
         loader={customLoader}
         className={`w-[${size}px] h-[${size}px] bg-white rounded-full border-[0.5px] object-cover border-brand aspect-square`}
