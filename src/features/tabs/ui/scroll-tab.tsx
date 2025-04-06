@@ -39,7 +39,7 @@ export function ScrollTabs({
   }, [refs, setActiveTab])
 
   return (
-    <div className='w-full pt-[15px] sticky top-[55px] bg-[#F2F2F2] z-10 flex items-center'>
+    <div className='w-full pt-[15px] sticky top-[55px] bg-white z-10 flex items-center'>
       {tabs.map((tab, index) => (
         <TabButton key={index} tab={tab} />
       ))}

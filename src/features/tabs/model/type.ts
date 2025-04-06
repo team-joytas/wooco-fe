@@ -5,3 +5,4 @@ export interface Tab {
 }
 
 export type ScrollTabType = 'info' | 'review'
+export type NavigationTabType = 'course' | 'place'
