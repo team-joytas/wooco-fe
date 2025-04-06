@@ -1,11 +1,10 @@
 'use client'
 
+import React, { useCallback, useRef, useState } from 'react'
 import { useGetPlace, useGetPlaceReviews } from '@/src/entities/place'
-import TabButton from '@/src/features/user/user-tab-button'
 import { HeaderWithBackButton } from '@/src/widgets/header'
 import logo from '@/src/assets/images/(logo)/logo.png'
 import Image from 'next/image'
-import React, { useEffect, useRef, useState } from 'react'
 import Spacer from '@/src/shared/ui/Spacer'
 import { Copy, Phone } from 'lucide-react'
 import { message } from 'antd'
@@ -15,7 +14,7 @@ import Link from 'next/link'
 import allReview from '@/src/assets/images/all_review_icon.svg'
 import kakaoReview from '@/src/assets/images/kakao_review_icon.svg'
 import { useRouter } from 'next/navigation'
-import { ReviewStats } from '@/src/features'
+import { ReviewStats, ScrollTabs, ScrollTabType } from '@/src/features'
 import { Section } from './section'
 
 export default function DetailPlace({ id }: { id: string }) {
@@ -24,10 +23,10 @@ export default function DetailPlace({ id }: { id: string }) {
 
   const router = useRouter()
 
-  const [isInfoTab, setIsInfoTab] = useState(true)
+  const [activeTab, setActiveTab] = useState<ScrollTabType>('info')
   const infoRef = useRef<HTMLDivElement>(null)
   const reviewRef = useRef<HTMLDivElement>(null)
-  const [isFirstLoad, setIsFirstLoad] = useState(true)
+  const isScrollingRef = useRef<boolean>(false)
 
   const [messageApi, contextHolder] = message.useMessage()
   const toast = (address: string) => {
@@ -40,45 +39,39 @@ export default function DetailPlace({ id }: { id: string }) {
     })
   }
 
-  useEffect(() => {
-    if (!infoRef.current) return
+  const tabs = placeData && [
+    {
+      label: '장소 정보',
+      onClick: () => handleTabClick('info', infoRef),
+      isActive: activeTab === 'info',
+    },
+    {
+      label: `리뷰 (${placeData.review_count})`,
+      onClick: () => handleTabClick('review', reviewRef),
+      isActive: activeTab === 'review',
+    },
+  ]
 
-    const infoObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInfoTab(true)
-        } else {
-          setIsInfoTab(false)
-        }
-      },
-      { threshold: 0.3 }
-    )
+  const handleTabClick = useCallback(
+    (tab: ScrollTabType, ref: React.RefObject<HTMLDivElement | null>) => {
+      isScrollingRef.current = true
+      setActiveTab(tab)
 
-    infoObserver.observe(infoRef.current)
+      if (ref.current) {
+        const top =
+          ref.current.getBoundingClientRect().top + window.scrollY - 120
+        window.scrollTo({
+          top,
+          behavior: 'smooth',
+        })
+      }
 
-    return () => {
-      infoObserver.disconnect()
-    }
-  }, [])
-
-  useEffect(() => {
-    if (!reviewRef.current || !infoRef.current) return
-
-    if (isFirstLoad) {
-      setIsFirstLoad(false)
-      return
-    }
-
-    const offset = isInfoTab
-      ? infoRef.current.offsetTop - 60
-      : reviewRef.current.offsetTop - 60
-
-    if (!isInfoTab) {
-      window.scrollTo({ top: offset, behavior: 'smooth' })
-    } else {
-      window.scrollTo({ top: offset, behavior: 'smooth' })
-    }
-  }, [isInfoTab])
+      setTimeout(() => {
+        isScrollingRef.current = false
+      }, 1000)
+    },
+    []
+  )
 
   if (!placeData || !reviewData) return <div>Loading</div>
 
@@ -96,14 +89,12 @@ export default function DetailPlace({ id }: { id: string }) {
           className='w-[375px] h-[210px] object-cover'
         />
 
-        <div className='w-full pt-[15px] sticky top-0 bg-[#F2F2F2] z-10 flex items-center'>
-          <TabButton isActive={isInfoTab} onClick={() => setIsInfoTab(true)}>
-            장소 정보
-          </TabButton>
-          <TabButton isActive={!isInfoTab} onClick={() => setIsInfoTab(false)}>
-            리뷰 ({placeData.review_count})
-          </TabButton>
-        </div>
+        <ScrollTabs
+          isScrollingRef={isScrollingRef}
+          setActiveTab={setActiveTab}
+          tabs={tabs}
+          refs={{ info: infoRef, review: reviewRef }}
+        />
         <Spacer height={26} />
 
         <div ref={infoRef} className='w-full flex flex-col items-center'>
