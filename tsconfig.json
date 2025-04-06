@@ -31,11 +31,7 @@
     "*.ts",
     ".next/types/**/*.ts",
     "tsconfig.d.ts",
-    "next.config.js",
-    "src/views/detail-comment",
-    "src/shared/ui/ProfileImage",
-    "src/widgets/course-plan-detail-layout",
-    "src/widgets/floating-write-btn"
+    "next.config.js"
   ],
   "exclude": ["node_modules"]
 }

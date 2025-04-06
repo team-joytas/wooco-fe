@@ -123,7 +123,10 @@ export default function CoursePlanDetailLayout({
 
         {data?.places && data?.places.length > 0 && (
           <div className='px-[30px]'>
-            <ActiveKakaoMap places={data?.places || []} activeIndex={activeIndex} />
+            <ActiveKakaoMap
+              places={data?.places || []}
+              activeIndex={activeIndex}
+            />
           </div>
         )}
         <Spacer height={16} />
@@ -137,7 +140,11 @@ export default function CoursePlanDetailLayout({
         </p>
 
         <Spacer height={10} />
-        <PlaceCollapse places={data?.places || []} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
+        <PlaceCollapse
+          places={data?.places || []}
+          activeIndex={activeIndex}
+          setActiveIndex={setActiveIndex}
+        />
         <Spacer height={16} />
 
         <Spacer height={8} className='bg-bright-gray' />
@@ -177,7 +184,7 @@ export default function CoursePlanDetailLayout({
       <Spacer height={25} />
       {!isCourse && (
         <button
-          className='w-full max-w-[375px] h-[54px] text-brand font-bold text-main flex items-center justify-center bg-light-gray cursor-pointer gap-[10px] hover:bg-brand hover:text-white transition-all duration-200 fixed bottom-60'
+          className='w-full max-w-[375px] h-[54px] text-brand font-bold text-main flex items-center justify-center bg-light-gray gap-[10px] hover:bg-brand hover:text-white transition-all duration-200 fixed bottom-60'
           onClick={() => setIsClicked(!isClicked)}
         >
           {isClicked ? (

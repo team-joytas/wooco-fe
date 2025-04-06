@@ -95,7 +95,7 @@ function LoginLikeCourse() {
           </p>
           <Spacer height={30} />
           <button
-            className='h-[32px] w-[186px] font-extrabold cursor-pointer text-search-gray flex flex-row items-center justify-center '
+            className='h-[32px] w-[186px] font-extrabold text-search-gray flex flex-row items-center justify-center '
             onClick={handleLogin}
           >
             <span className='text-kakao'>카카오</span>

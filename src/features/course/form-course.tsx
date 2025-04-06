@@ -242,7 +242,7 @@ export default function FormSections({
           <button
             type='button'
             onClick={handleClickSearchPlace}
-            className='w-full h-[40px] text-[15px] cursor-pointer rounded-full flex items-center justify-center bg-white text-container-light-blue border border-container-light-blue 
+            className='w-full h-[40px] text-[15px] rounded-full flex items-center justify-center bg-white text-container-light-blue border border-container-light-blue
             hover:bg-container-light-blue hover:text-white transition-all duration-300'
           >
             <Plus size={20} strokeWidth={3} />
