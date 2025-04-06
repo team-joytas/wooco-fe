@@ -27,26 +27,18 @@ export default function DefaultHeader() {
 
   return (
     <>
-      <header
-        className="fixed top-0 z-[1000] max-w-[375px]  bg-white w-full h-[55px] pr-[10px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line">
-        <Link
-          href="/"
-          className="text-blue-800 text-3xl font-bold cursor-pointer pl-[10px]"
-        >
-          <Image width={30} height={30} alt="logo" src={logo} />
+      <header className='fixed top-0 z-[1000] max-w-[375px]  bg-white w-full h-[55px] pr-[10px] min-h-[55px] flex justify-between items-center border-b-[1px] border-b-header-line'>
+        <Link href='/' className='text-blue-800 text-3xl font-bold pl-[10px]'>
+          <Image width={30} height={30} alt='logo' src={logo} />
         </Link>
 
-        <div className="flex items-center gap-[10px] right-[10px]">
-          <Link
-            href="/notifications"
-            className="cursor-pointer"
-            aria-label="알림"
-          >
-            <Image src={bell} alt="bell" width={22} height={22} />
+        <div className='flex items-center gap-[10px] right-[10px]'>
+          <Link href='/notifications' aria-label='알림'>
+            <Image src={bell} alt='bell' width={22} height={22} />
           </Link>
         </div>
       </header>
-      <Spacer height={55}/>
+      <Spacer height={55} />
     </>
   )
 }

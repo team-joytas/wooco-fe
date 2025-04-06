@@ -70,9 +70,7 @@ export default function DetailComment({ courseId }: { courseId: string }) {
           <button type='submit'>
             <Send
               size={20}
-              className={`cursor-pointer ${
-                isDirty ? 'text-brand' : 'text-dark-gray'
-              }`}
+              className={isDirty ? 'text-brand' : 'text-dark-gray'}
               strokeWidth={1.5}
             />
           </button>

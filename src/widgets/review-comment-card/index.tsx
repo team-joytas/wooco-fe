@@ -129,7 +129,7 @@ export default function ReviewCommentCard({
           className='flex w-fit gap-[10px] items-center'
         >
           <ProfileImage
-           userId={content.writer.id}
+            userId={content.writer.id}
             size={40}
             src={content.writer.profile_url || '/profile.png'}
           />
@@ -207,9 +207,7 @@ export default function ReviewCommentCard({
           <button type='submit'>
             <Send
               size={20}
-              className={`cursor-pointer ${
-                isDirty ? 'text-brand' : 'text-dark-gray'
-              }`}
+              className={isDirty ? 'text-brand' : 'text-dark-gray'}
               strokeWidth={1.5}
             />
           </button>

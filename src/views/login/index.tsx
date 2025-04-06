@@ -32,7 +32,7 @@ export default function LoginView() {
         <Spacer height={54} />
         <div className='flex flex-col items-center justify-center  gap-[10px]'>
           <button
-            className='h-[32px] w-[238px] rounded-full  text-white font-extrabold cursor-pointer bg-kakao text-[15px]'
+            className='h-[32px] w-[238px] rounded-full  text-white font-extrabold bg-kakao text-[15px]'
             onClick={handleLogin}
           >
             카카오로 시작하기

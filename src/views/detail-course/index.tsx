@@ -20,14 +20,14 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
   const { data: comments } = useGetComments(courseId)
   const router = useRouter()
   if (isError) {
-    router.push("/not-found")
+    router.push('/not-found')
   }
   if (!course) return <div>Loading...</div>
 
   return (
     <CoursePlanDetailLayout type='course' id={courseId} data={course}>
       <section className='w-full px-[20px] py-[10px] text-white bg-brand'>
-        <div className='w-full flex gap-[10px] max-w-[375px]'>
+        <div className='w-full flex gap-[10px] max-w-[375px] cursor-pointer'>
           <ProfileImage
             src={course.writer.profile_url || '/profile.png'}
             size={40}
@@ -72,7 +72,7 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
               })}
               <Link
                 href={`/courses/${courseId}/comments`}
-                className='cursor-pointer text-sub opacity-50 self-end'
+                className='text-sub opacity-50 self-end'
               >
                 더보기
               </Link>

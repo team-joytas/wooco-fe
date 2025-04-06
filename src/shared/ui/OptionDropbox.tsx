@@ -59,7 +59,7 @@ const OptionDropbox = React.forwardRef<HTMLDivElement, OptionDropboxProps>(
               </div>
             ) : (
               <Link
-                className='h-[25px] text-sub flex items-center justify-center cursor-pointer hover:text-brand transition-all duration-200'
+                className='h-[25px] text-sub flex items-center justify-center  hover:text-brand transition-all duration-200'
                 href={
                   placeId
                     ? `/${type}s/${placeId}/reviews/${id}/update`
@@ -70,7 +70,7 @@ const OptionDropbox = React.forwardRef<HTMLDivElement, OptionDropboxProps>(
               </Link>
             )}
             <button
-              className='h-[25px] text-sub flex items-center justify-center cursor-pointer hover:text-brand transition-all duration-200'
+              className='h-[25px] text-sub flex items-center justify-center  hover:text-brand transition-all duration-200'
               onClick={handleDelete}
             >
               삭제하기

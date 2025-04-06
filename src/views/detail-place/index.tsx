@@ -159,7 +159,7 @@ export default function DetailPlace({ id }: { id: string }) {
             subtitle='가장 언급 많은 키워드 랭킹이에요!'
             button={
               <span
-                className='text-sub text-gray-400 cursor-pointer'
+                className='text-sub text-gray-400'
                 onClick={() => router.push(`/places/${id}/reviews/new`)}
               >
                 작성하기

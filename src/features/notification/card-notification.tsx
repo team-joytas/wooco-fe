@@ -58,7 +58,7 @@ export default function CardNotification({
     <Link
       href={`${TYPE_MAP[type]}s/${target_id}`}
       key={id}
-      className={`w-full flex flex-col gap-[5px] cursor-pointer ${
+      className={`w-full flex flex-col gap-[5px] ${
         is_read ? 'opacity-50' : ''
       }`}
       onClick={() => {
