@@ -1,6 +1,6 @@
 import Spacer from '@/src/shared/ui/Spacer'
-import { CoursePlanCard } from '@/src/features'
 import type { CourseType } from '@/src/entities/course'
+import { CoursePlanCard } from '@/src/widgets'
 
 export default function ListUserCourse({ courses }: { courses: CourseType[] }) {
   if (courses?.length === 0) {

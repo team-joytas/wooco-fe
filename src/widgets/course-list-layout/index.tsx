@@ -1,5 +1,5 @@
 import { CourseType } from '@/src/entities/course'
-import { CourseGridCard, CourseListCard } from '@/src/features'
+import { CourseListCard, CourseGridCard } from '@/src/features'
 
 interface CourseListLayoutProps {
   isListView: boolean

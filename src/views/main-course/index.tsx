@@ -1,15 +1,14 @@
 'use client'
 
-import { CourseType } from '@/src/entities/course'
-import { CourseListCard } from '@/src/features'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+import { CourseType, useGetCourses } from '@/src/entities/course'
+import { useGetMyLikeRegions } from '@/src/entities/user'
 import Spacer from '@/src/shared/ui/Spacer'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
-import { useRouter } from 'next/navigation'
-import { Fragment, useEffect } from 'react'
-import { useGetCourses } from '@/src/entities/course'
-import { useGetMyLikeRegions } from '@/src/entities/user'
 import RegionCascaderWithLikes from '@/src/shared/ui/RegionCascader'
 import useRegionStore from '@/src/shared/store/regionStore'
+import { CourseListCard } from '@/src/features'
 
 export default function MainCourse() {
   const router = useRouter()
@@ -24,7 +23,6 @@ export default function MainCourse() {
   }, [likeRegions])
 
   useEffect(() => {
-    // "/courses" 페이지 진입시 저장소의 currentRegion 값 초기화
     if (!currentRegion) return
     setCurrentRegion([])
   }, [])
