@@ -7,7 +7,10 @@ export const USER_QUERY_KEY = {
   myLikeRegions: (data: LikeRegion[]) => ['myLikeRegions', data] as const,
   courses: (id: string, order?: 'RECENT' | 'POPULAR') =>
     ['userCourses', id, order] as const,
-  likeCourse: (params: { id: string; order?: 'RECENT' | 'POPULAR' }) =>
-    ['likeCourse', params.id, params.order] as const,
+  likeCourse: (params: {
+    id: string
+    order?: 'RECENT' | 'POPULAR'
+    category?: string
+  }) => ['likeCourse', params.id, params.order, params.category] as const,
   myPlaceReviews: ['myPlaceReviews'] as const,
 }
