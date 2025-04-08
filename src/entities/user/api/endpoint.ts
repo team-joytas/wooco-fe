@@ -4,6 +4,7 @@ export const USER_API = {
   me: () => `${USER_API.base}/me`,
   user: (id: string) => `${USER_API.base}/${id}`,
   profile: () => `${USER_API.base}/profile`,
+  summary: (id: string) => `${USER_API.base}/${id}/details`,
 
   likeRegions: () => '/regions/preferences',
   deleteLikeRegions: (id: string) =>

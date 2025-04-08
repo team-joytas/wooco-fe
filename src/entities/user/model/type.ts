@@ -6,6 +6,17 @@ export type UserProfileType = {
   on_boarding: boolean
 }
 
+export type UserSummaryType = {
+  user_id: string
+  name: string
+  profile_url: string
+  description?: string
+  status: string
+  review_count: number
+  course_count: number
+  like_course_count: number
+}
+
 export type UpdateUserType = {
   name: string
   description?: string
