@@ -3,13 +3,12 @@
 import { useState } from 'react'
 import ListUserPlace from '@/src/features/plan/list-user-place'
 import ListUserCourse from '@/src/features/course/list-user-course'
-import { Select } from 'antd'
 import Spacer from '@/src/shared/ui/Spacer'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import Header from '@/src/widgets/header'
 import {
   useGetMyPlaceReviews,
-  useGetUser,
+  useGetUserSummary,
   useGetUserCourses,
 } from '@/src/entities/user'
 import UserProfileSection from '@/src/features/user/user-profile-section'
@@ -22,62 +21,44 @@ export default function DetailUser({ id }: { id: string }) {
   const myId = useUserStore((state) => state.user?.user_id)
   const isMe = myId !== undefined && myId === id
   const [activeTab, setActiveTab] = useState<NavigationTabType>('course')
-  const [order, setOrder] = useState<'RECENT' | 'POPULAR'>('RECENT')
 
-  const { data: user, error } = useGetUser(id)
-  if (error) {
-    router.push('/not-found')
-  }
-  const { data: courses } = useGetUserCourses(id, order)
+  const { data: userSummary, error } = useGetUserSummary(id)
+  const { data: courses } = useGetUserCourses(id)
   const { data: placeReviews } = useGetMyPlaceReviews(id)
 
-  const onChangeOrder = (value: 'RECENT' | 'POPULAR') => {
-    setOrder(value)
+  if (error) {
+    router.push('/not-found')
   }
 
   const tabs = [
     {
       label: isMe
-        ? '나의 코스'
-        : `${user?.name}님의 코스` + ` (${courses?.length})`,
+        ? '나의 코스' + ` (${userSummary?.course_count})`
+        : `${userSummary?.name}님의 코스` + ` (${userSummary?.course_count})`,
       isActive: activeTab === 'course',
       onClick: () => setActiveTab('course'),
     },
     {
-      label: `장소 리뷰 (${placeReviews?.length})`,
+      label: `장소 리뷰 (${userSummary?.review_count})`,
       isActive: activeTab === 'place',
       onClick: () => setActiveTab('place'),
     },
   ]
 
-  if (!user || !courses || !placeReviews) {
+  if (!userSummary || !courses || !placeReviews) {
     return <div>Loading ...</div>
   }
 
   return (
     <>
-      <Header title={isMe ? '마이 페이지' : user.name} isBack />
+      <Header title={isMe ? '마이 페이지' : userSummary.name} isBack />
       <Spacer height={8} />
 
-      <UserProfileSection user={user} />
+      <UserProfileSection user={userSummary} />
       <NavigationTabs tabs={tabs} />
 
       <Spacer height={10} />
 
-      <div className='flex px-[20px] justify-between'>
-        {activeTab === 'course' && (
-          <Select
-            defaultValue='RECENT'
-            style={{ width: 80 }}
-            onChange={(value) => onChangeOrder(value as 'RECENT' | 'POPULAR')}
-            size='small'
-            options={[
-              { value: 'RECENT', label: '최신순' },
-              { value: 'POPULAR', label: '인기순' },
-            ]}
-          />
-        )}
-      </div>
       {activeTab === 'place' ? (
         <ListUserPlace reviews={placeReviews} />
       ) : (
