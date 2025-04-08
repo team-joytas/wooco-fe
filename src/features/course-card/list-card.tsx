@@ -5,6 +5,8 @@ import { type CourseType } from '@/src/entities/course'
 import Link from 'next/link'
 import ProfileImage from '@/src/shared/ui/ProfileImage'
 import { CourseActionBar, useCourseLike } from '@/src/features'
+import { CourseModal } from '../modal/course-modal'
+import { useEffect, useState } from 'react'
 
 export function CourseListCard({ course }: { course: CourseType }) {
   const {
@@ -24,6 +26,17 @@ export function CourseListCard({ course }: { course: CourseType }) {
     is_liked,
     likes
   )
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  useEffect(() => {
+    // 모달 열릴 때 body 스크롤 방지
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isModalOpen])
 
   return (
     <div className='w-full h-[144px] py-[13px] pl-[15px] gap-[5px] flex flex-col items-center rounded-[10px] bg-white drop-shadow-[0_0_2px_rgba(0,0,0,0.15)] hover:border-brand border-[1px] transition-all'>
@@ -74,8 +87,15 @@ export function CourseListCard({ course }: { course: CourseType }) {
           commentCount={comments}
           onToggleLike={toggleLike}
           variant='list'
+          setIsModalOpen={setIsModalOpen}
         />
       </section>
+
+      <CourseModal
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        course={course}
+      />
     </div>
   )
 }

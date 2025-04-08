@@ -4,6 +4,8 @@ import ProfileImage from '@/src/shared/ui/ProfileImage'
 import { CourseType } from '@/src/entities/course'
 import logo from '@/src/assets/images/(logo)/logo.png'
 import { CourseActionBar, useCourseLike } from '@/src/features'
+import { useEffect, useState } from 'react'
+import { CourseModal } from '../modal/course-modal'
 
 export function CourseGridCard({ course }: { course: CourseType }) {
   const {
@@ -23,6 +25,17 @@ export function CourseGridCard({ course }: { course: CourseType }) {
     is_liked,
     likes
   )
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  useEffect(() => {
+    // 모달 열릴 때 body 스크롤 방지
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isModalOpen])
 
   return (
     <div className='w-[164px] h-[217px] flex flex-col justify-between pb-[8px] rounded-[10px] bg-white drop-shadow-[0_0_4px_rgba(0,0,0,0.15)]'>
@@ -65,6 +78,13 @@ export function CourseGridCard({ course }: { course: CourseType }) {
         commentCount={comments}
         onToggleLike={toggleLike}
         variant='grid'
+        setIsModalOpen={setIsModalOpen}
+      />
+
+      <CourseModal
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        course={course}
       />
     </div>
   )

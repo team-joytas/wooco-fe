@@ -128,28 +128,38 @@ export default function CoursePlanFormLayout({
     typeof window !== 'undefined' ? !!sessionStorage.getItem('course') : false
 
   useEffect(() => {
+    let storedData: string | null = null
+
     if (
       level === LEVEL_TYPE.add &&
       type === LAYOUT_TYPE.course &&
       typeof window !== 'undefined' &&
       !isDataLoaded
     ) {
-      const storedData = sessionStorage.getItem('course')
-      if (storedData) {
-        const course = JSON.parse(storedData)
-        setValue('title', course.title)
-        setValue('primary_region', course.primary_region)
-        setValue('secondary_region', course.secondary_region)
-        setValue('categories', course.categories)
-        setValue('contents', course.contents)
-        setValue('visit_date', course.visit_date)
-        setPlaces(course.places || [])
-        setIsDataLoaded(true)
-      }
+      storedData = sessionStorage.getItem('course')
+    } else if (
+      level === LEVEL_TYPE.add &&
+      type === LAYOUT_TYPE.plan &&
+      typeof window !== 'undefined' &&
+      !isDataLoaded
+    ) {
+      storedData = sessionStorage.getItem('plan')
     }
+    console.log(storedData)
+
+    if (storedData) {
+      const sharedData = JSON.parse(storedData)
+      setValue('primary_region', sharedData.primary_region)
+      setValue('secondary_region', sharedData.secondary_region)
+      setValue('visit_date', sharedData.visit_date)
+      setPlaces(sharedData.places || [])
+      setIsDataLoaded(true)
+    }
+
     return () => {
       if (typeof window !== 'undefined') {
         sessionStorage.removeItem('course')
+        sessionStorage.removeItem('plan')
       }
     }
   }, [level, type, isDataLoaded])

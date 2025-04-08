@@ -9,7 +9,8 @@ type Props = {
   likeCount: number
   commentCount: number
   onToggleLike: () => void
-  variant?: 'list' | 'grid'
+  variant: 'list' | 'grid'
+  setIsModalOpen: (isModalOpen: boolean) => void
 }
 
 export function CourseActionBar({
@@ -19,6 +20,7 @@ export function CourseActionBar({
   commentCount,
   onToggleLike,
   variant = 'list',
+  setIsModalOpen,
 }: Props) {
   const router = useRouter()
 
@@ -63,7 +65,7 @@ export function CourseActionBar({
         size={16}
         className='cursor-pointer text-brand'
         strokeWidth={1.5}
-        onClick={() => {}}
+        onClick={() => setIsModalOpen(true)}
       />
     </div>
   )
