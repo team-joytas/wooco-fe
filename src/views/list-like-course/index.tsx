@@ -18,28 +18,28 @@ export default function ListLikeCourse({ id }: ListLikeCourseProps) {
   const [category, setCategory] = useState<string[]>(['ALL'])
   const [order, setOrder] = useState<'RECENT' | 'POPULAR'>('RECENT')
 
-  useEffect(() => {
-    const isListView = sessionStorage.getItem('is-list-like')
-    if (isListView) {
-      setIsListView(isListView === 'true')
-    }
-  }, [])
-
   const { data: likeCourses, isLoading } = useGetLikeCourses({
     id,
-    order: order as 'RECENT' | 'POPULAR',
+    sort: order as 'RECENT' | 'POPULAR',
     category: category.includes('ALL') ? undefined : category[0],
   })
 
   const handleSetIsListView = (isListView: boolean) => {
     setIsListView(isListView)
-    sessionStorage.setItem('is-list-like', String(isListView))
+    sessionStorage.setItem('is-list', String(isListView))
   }
+
+  useEffect(() => {
+    const isListView = sessionStorage.getItem('is-list')
+    if (isListView) {
+      setIsListView(isListView === 'true')
+    }
+  }, [])
 
   if (isLoading) return <div>Loading...</div>
 
   return (
-    <div>
+    <>
       <Header
         title={'관심 목록'}
         isHeart={false}
@@ -57,14 +57,14 @@ export default function ListLikeCourse({ id }: ListLikeCourseProps) {
         }}
       />
       <Spacer height={10} />
-      <div className='w-full flex px-[10px] justify-end items-center'>
+      <div className='w-full flex flex-col px-[22px] gap-[10px] justify-center items-end'>
         <SelectSort order={order} setOrder={setOrder} />
+        {likeCourses?.length === 0 ? (
+          <NoLikedCourse />
+        ) : (
+          <CourseListLayout isListView={isListView} courses={likeCourses} />
+        )}
       </div>
-      {likeCourses?.length === 0 ? (
-        <NoLikedCourse />
-      ) : (
-        <CourseListLayout isListView={isListView} courses={likeCourses || []} />
-      )}
-    </div>
+    </>
   )
 }

@@ -100,9 +100,8 @@ export default function ListCourse() {
         }}
       />
       <Spacer height={10} />
-      <div className='w-full flex flex-col px-[22px] justify-center items-start'>
+      <div className='w-full flex flex-col px-[22px] gap-[10px] justify-center items-end'>
         <SelectSort order={order} setOrder={setOrder} />
-        <Spacer height={12} />
         <CourseListLayout isListView={isListView} courses={courses} />
       </div>
       <FloatingWriteButton />
