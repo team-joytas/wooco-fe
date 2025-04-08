@@ -5,9 +5,9 @@ import Header from '@/src/widgets/header'
 import SelectCategories from '@/src/shared/ui/SelectCategories'
 import Spacer from '@/src/shared/ui/Spacer'
 import CourseListLayout from '@/src/widgets/course-list-layout'
-import { Select } from 'antd'
 import { useEffect, useState } from 'react'
 import NoLikedCourse from '@/src/shared/ui/NoLikedCourse'
+import { SelectSort } from '@/src/features'
 
 interface ListLikeCourseProps {
   id: string
@@ -16,7 +16,7 @@ interface ListLikeCourseProps {
 export default function ListLikeCourse({ id }: ListLikeCourseProps) {
   const [isListView, setIsListView] = useState(true)
   const [category, setCategory] = useState<string[]>(['ALL'])
-  const [order, setOrder] = useState('RECENT')
+  const [order, setOrder] = useState<'RECENT' | 'POPULAR'>('RECENT')
 
   useEffect(() => {
     const isListView = sessionStorage.getItem('is-list-like')
@@ -28,6 +28,7 @@ export default function ListLikeCourse({ id }: ListLikeCourseProps) {
   const { data: likeCourses, isLoading } = useGetLikeCourses({
     id,
     order: order as 'RECENT' | 'POPULAR',
+    category: category.includes('ALL') ? undefined : category[0],
   })
 
   const handleSetIsListView = (isListView: boolean) => {
@@ -57,16 +58,7 @@ export default function ListLikeCourse({ id }: ListLikeCourseProps) {
       />
       <Spacer height={10} />
       <div className='w-full flex px-[10px] justify-end items-center'>
-        <Select
-          defaultValue='RECENT'
-          style={{ width: 80 }}
-          onChange={(value) => setOrder(value)}
-          size={'small'}
-          options={[
-            { value: 'RECENT', label: '최신순' },
-            { value: 'POPULAR', label: '인기순' },
-          ]}
-        />
+        <SelectSort order={order} setOrder={setOrder} />
       </div>
       {likeCourses?.length === 0 ? (
         <NoLikedCourse />
