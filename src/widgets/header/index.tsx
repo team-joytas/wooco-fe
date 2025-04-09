@@ -178,7 +178,7 @@ export function OptionHeader({
     <HeaderBase className='px-[20px]'>
       <div className='flex items-center gap-[10px]'>
         <BackButton onClick={handleClickBack} />
-        {showLike && !isMine && <div className='w-[24px] h-[24px]' />}
+        {showLike && isMine && <div className='w-[24px] h-[24px]' />}
       </div>
       <p className='font-semibold text-[13px] text-white px-[20px] py-[8px] rounded-[20px] bg-container-blue leading-normal'>
         {title}
@@ -194,15 +194,17 @@ export function OptionHeader({
             stroke='#5A59F2'
           />
         )}
-        <OptionDropbox
-          ref={menuRef}
-          isOpen={isOpen}
-          onToggle={handleClickOption}
-          isMine={isMine}
-          type={type}
-          id={id}
-          handleDelete={handleDelete}
-        />
+        {isMine && (
+          <OptionDropbox
+            ref={menuRef}
+            isOpen={isOpen}
+            onToggle={handleClickOption}
+            isMine={isMine}
+            type={type}
+            id={id}
+            handleDelete={handleDelete}
+          />
+        )}
       </div>
     </HeaderBase>
   )
