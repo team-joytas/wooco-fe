@@ -1,3 +1,5 @@
+'use client'
+
 import { ReviewPayloadType } from '@/src/entities/place'
 import Image from 'next/image'
 import { useState } from 'react'

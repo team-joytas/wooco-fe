@@ -54,6 +54,7 @@ export default function ListCourse() {
       })
     } else {
       setIsLiked(true)
+
       postLikeMutate(
         {
           primary_region: currentRegion[0],

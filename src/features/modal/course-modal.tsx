@@ -1,3 +1,5 @@
+'use client'
+
 import { Link, Share2, X } from 'lucide-react'
 import { CourseType } from '@/src/entities/course'
 import { Modal } from '@/src/shared/ui'
