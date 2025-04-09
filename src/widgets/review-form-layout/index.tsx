@@ -1,6 +1,6 @@
 'use client'
 
-import Header from '@/src/widgets/header'
+import { ActionHeader } from '@/src/widgets'
 import { useForm } from 'react-hook-form'
 import { Spacer } from '@/src/shared/ui'
 import { useEffect, useState } from 'react'
@@ -80,7 +80,7 @@ export default function ReviewFormLayout({
 
   return (
     <div className='relative flex flex-col h-[calc(100vh-60px)]'>
-      <Header title={headerTitle} isBack />
+      <ActionHeader title={headerTitle} isBack />
       <div className='place_describe bg-brand text-white pl-[19px] pt-[18px] pb-[14px]  '>
         <b className='text-main place_name'>
           {placeInfo.name || '장소 이름 없음'}

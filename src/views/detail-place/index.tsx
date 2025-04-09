@@ -2,7 +2,7 @@
 
 import React, { useCallback, useRef, useState } from 'react'
 import { useGetPlace, useGetPlaceReviews } from '@/src/entities/place'
-import { HeaderWithBackButton } from '@/src/widgets/header'
+import { ActionHeader } from '@/src/widgets'
 import logo from '@/src/assets/images/(logo)/logo.png'
 import Image from 'next/image'
 import { Spacer, KakaoMap } from '@/src/shared/ui'
@@ -76,7 +76,7 @@ export default function DetailPlace({ id }: { id: string }) {
 
   return (
     <>
-      <HeaderWithBackButton title={placeData.name || ''} isTitleTag />
+      <ActionHeader title={placeData.name || ''} isTitleTag isBack />
       <div
         className={'w-full flex flex-col items-center min-h-[100vh] bg-white'}
       >

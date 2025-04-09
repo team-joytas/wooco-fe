@@ -4,7 +4,7 @@ import { Spacer, ActiveKakaoMap } from '@/src/shared/ui'
 import { PlaceCollapse } from '@/src/features'
 import type { CourseType } from '@/src/entities/course'
 import { CATEGORY } from '@/src/entities/course'
-import { OptionHeader } from '@/src/widgets/header'
+import { CoursePlanHeader } from '@/src/widgets'
 import useUserStore from '@/src/shared/store/userStore'
 import { PlanType } from '@/src/entities/plan'
 import { Share2, X } from 'lucide-react'
@@ -92,7 +92,7 @@ export default function CoursePlanDetailLayout({
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   return (
     <>
-      <OptionHeader
+      <CoursePlanHeader
         title={data?.title || ''}
         type={type}
         id={id}

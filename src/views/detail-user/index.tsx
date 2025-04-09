@@ -5,7 +5,7 @@ import ListUserPlace from '@/src/features/plan/list-user-place'
 import { UserCourseList } from '@/src/widgets'
 import { Spacer } from '@/src/shared/ui'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
-import Header from '@/src/widgets/header'
+import { ActionHeader } from '@/src/widgets'
 import {
   useGetMyPlaceReviews,
   useGetUserSummary,
@@ -56,7 +56,7 @@ export default function DetailUser({ id }: { id: string }) {
 
   return (
     <>
-      <Header title={isMe ? '마이 페이지' : userSummary.name} isBack />
+      <ActionHeader title={isMe ? '마이 페이지' : userSummary.name} isBack />
       <Spacer height={8} />
 
       <UserProfileSection user={userSummary} />

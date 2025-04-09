@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import Header from '@/src/widgets/header'
+import { ActionHeader } from '@/src/widgets'
 import { useGetCourses } from '@/src/entities/course'
 import useRegionStore, { LikeRegion } from '@/src/shared/store/regionStore'
 import CourseListLayout from '@/src/widgets/course-list-layout'
@@ -82,13 +82,13 @@ export default function ListCourse() {
 
   return (
     <>
-      <Header
+      <ActionHeader
         title={currentRegion[1]}
         isTitleTag={true}
         isBack
         isListView={isListView}
         setIsListView={handleSetIsListView}
-        isHeart={true}
+        showLike={true}
         isLiked={isLiked}
         setIsLiked={handleClickLike}
       />

@@ -1,7 +1,7 @@
 'use client'
 
 import { useGetLikeCourses } from '@/src/entities/user/api'
-import Header from '@/src/widgets/header'
+import { ActionHeader } from '@/src/widgets'
 import { Spacer, SelectCategories } from '@/src/shared/ui'
 import CourseListLayout from '@/src/widgets/course-list-layout'
 import { useEffect, useState } from 'react'
@@ -39,9 +39,9 @@ export default function ListLikeCourse({ id }: ListLikeCourseProps) {
 
   return (
     <>
-      <Header
+      <ActionHeader
         title={'관심 목록'}
-        isHeart={false}
+        showLike={false}
         isLiked={false}
         isTitleTag={true}
         isBack

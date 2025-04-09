@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Spacer } from '@/src/shared/ui'
-import Header from '@/src/widgets/header'
+import { ActionHeader } from '@/src/widgets'
 import UploadProfileImage from '@/src/features/user/upload-profile-image'
 import { useForm } from 'react-hook-form'
 import useUserStore from '@/src/shared/store/userStore'
@@ -115,7 +115,7 @@ export default function UpdateUser() {
 
   return (
     <>
-      <Header
+      <ActionHeader
         title={isOnBoarding ? '프로필 설정' : '프로필 수정'}
         isBack={!isOnBoarding}
       />

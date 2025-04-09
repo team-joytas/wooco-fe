@@ -4,7 +4,7 @@ import { Send } from 'lucide-react'
 import { Spacer } from '@/src/shared/ui'
 import { useForm } from 'react-hook-form'
 import { usePostComment, useGetComments } from '@/src/entities/comment'
-import { HeaderWithBackButton } from '@/src/widgets/header'
+import { ActionHeader } from '@/src/widgets'
 import ReviewCommentCard from '@/src/widgets/review-comment-card'
 
 export default function DetailComment({ courseId }: { courseId: string }) {
@@ -40,7 +40,7 @@ export default function DetailComment({ courseId }: { courseId: string }) {
 
   return (
     <div className='h-100% flex flex-col'>
-      <HeaderWithBackButton title='댓글' />
+      <ActionHeader title='댓글' isBack />
       <Spacer height={20} />
       <div className='px-[20px] flex flex-col gap-[25px]'>
         {comments.map((comment) => {
