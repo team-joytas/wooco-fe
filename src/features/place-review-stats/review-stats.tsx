@@ -1,5 +1,6 @@
 import { PlaceReviewStatsType } from '@/src/entities/place'
-import { Spacer, StarRate } from '@/src/shared/ui'
+import { Spacer } from '@/src/shared/ui'
+import { StarRateView } from '@/src/features'
 
 interface StatsReviewProps {
   placeOnLineReviewStats: PlaceReviewStatsType[]
@@ -78,7 +79,7 @@ export function ReviewStats({
       <div className='flex flex-col items-center text-brand font-semibold'>
         <span className='text-main'>총점</span>
         <span className='text-headline'>{AverageRating.toFixed(1)}</span>
-        <StarRate rate={AverageRating} size={10} />
+        <StarRateView rate={AverageRating} size={10} />
       </div>
     </div>
   )

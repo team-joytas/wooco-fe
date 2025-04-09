@@ -6,7 +6,8 @@ import kakaoReview from '@/src/assets/images/kakao_review_icon.svg'
 import allReview from '@/src/assets/images/all_review_icon.svg'
 import type { CoursePlanPlaceType } from '@/src/entities/place'
 import { message } from 'antd'
-import { Spacer, StarRate } from '@/src/shared/ui'
+import { Spacer } from '@/src/shared/ui'
+import { StarRateView } from '@/src/features'
 
 export function PlaceCollapse({
   places,
@@ -75,7 +76,7 @@ export function PlaceCollapse({
             <p className='text-headline text-brand font-semibold'>
               {place.average_rating}
             </p>
-            <StarRate rate={place?.average_rating || 0} size={12} />
+            <StarRateView rate={place?.average_rating || 0} size={12} />
             <p className='text-sub opacity-50'>
               장소 리뷰 ({place?.review_count || 0})
             </p>

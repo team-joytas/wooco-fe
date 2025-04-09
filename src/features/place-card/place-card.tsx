@@ -1,9 +1,9 @@
 import Image from 'next/image'
-import { Spacer, StarRate } from '@/src/shared/ui'
+import { Spacer } from '@/src/shared/ui'
 import Link from 'next/link'
 import type { UserPlaceReviewType } from '@/src/entities/place'
 import { formatDateToYYYYMMDD } from '@/src/shared/utils/date'
-import { ReviewTag } from '@/src/features'
+import { ReviewTag, StarRateView } from '@/src/features'
 
 export function PlaceCard({ data }: { data: UserPlaceReviewType }) {
   return (
@@ -23,7 +23,7 @@ export function PlaceCard({ data }: { data: UserPlaceReviewType }) {
             <span className='text-brand text-middle leading-none'>
               {data.rating}
             </span>
-            <StarRate rate={data.rating} size={10} />
+            <StarRateView rate={data.rating} size={10} />
             <div className='flex flex-row gap-[5px] items-center flex-wrap'>
               {data.one_line_reviews.map((keyword, index) => (
                 <ReviewTag key={index} keyword={keyword.toString()} />
