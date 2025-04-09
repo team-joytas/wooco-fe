@@ -1,4 +1,4 @@
-export default function BlankTooltip() {
+export function NoPlanToolTip() {
   return (
     <div className='flex relative justify-end items-center w-full'>
       <div className='fixed bottom-[150px] inline-flex flex-col items-center mr-[20px]'>
