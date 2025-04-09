@@ -184,7 +184,7 @@ export default function CoursePlanDetailLayout({
       <Spacer height={25} />
       {!isCourse && (
         <button
-          className='w-full max-w-[375px] h-[54px] text-brand font-bold text-main flex items-center justify-center bg-light-gray gap-[10px] hover:bg-brand hover:text-white transition-all duration-200 fixed bottom-60'
+          className='group w-full max-w-[375px] h-[54px] text-gray-600 font-bold text-main flex items-center justify-center bg-light-gray gap-[10px] hover:bg-brand hover:text-white transition-all duration-200 fixed bottom-60'
           onClick={() => setIsClicked(!isClicked)}
         >
           {isClicked ? (
@@ -194,7 +194,11 @@ export default function CoursePlanDetailLayout({
             </>
           ) : (
             <>
-              <Share2 size={24} strokeWidth={1.5} />
+              <Share2
+                size={24}
+                strokeWidth={1.5}
+                className='fill-gray-600 group-hover:fill-white transition-colors duration-200'
+              />
               공유하기
             </>
           )}

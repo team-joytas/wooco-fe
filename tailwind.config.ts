@@ -19,6 +19,11 @@ const config: Config = {
         description: 'rgba(0, 0, 0, 0.5)',
         more: 'rgba(0, 0, 0, 0.7)',
         black13: 'rgba(0, 0, 0, 0.13)',
+
+        'gray-300': '#F2F2F2',
+        'gray-500': '#A9A9A9',
+        'gray-600': '#757575',
+        'gray-700': '#3A3A3A',
       },
       fontSize: {
         headline: '20px',

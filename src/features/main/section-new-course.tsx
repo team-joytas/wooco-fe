@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { CoursePlanCard } from '@/src/features'
+import { CoursePlanCard } from '@/src/widgets'
 import Spacer from '@/src/shared/ui/Spacer'
 import type { CourseType } from '@/src/entities/course'
 import { useGetCourses } from '@/src/entities/course'

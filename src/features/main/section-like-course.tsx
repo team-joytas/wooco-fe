@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Spacer from '@/src/shared/ui/Spacer'
-import { CourseGridCard } from '../course-plan-card'
+import { CourseGridCard } from '@/src/features'
 import { CourseType, mockCourse } from '@/src/entities/course'
 import NoLikedCourse from '@/src/shared/ui/NoLikedCourse'
 import { useGetMyProfile, useGetLikeCourses } from '@/src/entities/user'

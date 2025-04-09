@@ -9,7 +9,7 @@ import { getLoginUrl } from '@/src/entities/auth'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useGetMyProfile } from '@/src/entities/user'
-import { CoursePlanCard } from '@/src/features'
+import { CoursePlanCard } from '@/src/widgets'
 
 export default function ListPlan() {
   const { data: plans } = useGetPlans()
