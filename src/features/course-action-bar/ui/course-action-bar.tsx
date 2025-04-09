@@ -64,6 +64,7 @@ export function CourseActionBar({
       <Share2
         size={16}
         className='cursor-pointer text-brand'
+        fill='#5A59F2'
         strokeWidth={1.5}
         onClick={() => setIsModalOpen(true)}
       />

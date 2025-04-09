@@ -73,7 +73,7 @@ export function CourseModal({ isOpen, setIsOpen, course }: CourseModalProps) {
           onClick={onClickAddPlan}
           className='flex-1 items-center justify-center flex gap-[10px] bg-brand  text-white rounded-br-[10px]'
         >
-          <Share2 size={16} />
+          <Share2 size={16} fill='#fff' />
           추가하기
         </button>
       </div>

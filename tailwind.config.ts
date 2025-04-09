@@ -22,6 +22,7 @@ const config: Config = {
 
         'gray-300': '#F2F2F2',
         'gray-500': '#A9A9A9',
+        'gray-600': '#757575',
         'gray-700': '#3A3A3A',
       },
       fontSize: {
