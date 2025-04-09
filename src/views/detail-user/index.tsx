@@ -14,13 +14,14 @@ import {
 import UserProfileSection from '@/src/features/user/user-profile-section'
 import useUserStore from '@/src/shared/store/userStore'
 import { useRouter } from 'next/navigation'
-import { NavigationTabs, NavigationTabType } from '@/src/features'
+import { NavigationTabs, NavigationTabType, SelectSort } from '@/src/features'
 
 export default function DetailUser({ id }: { id: string }) {
   const router = useRouter()
   const myId = useUserStore((state) => state.user?.user_id)
   const isMe = myId !== undefined && myId === id
   const [activeTab, setActiveTab] = useState<NavigationTabType>('course')
+  const [order, setOrder] = useState<'RECENT' | 'POPULAR'>('RECENT')
 
   const { data: userSummary, error } = useGetUserSummary(id)
   const { data: courses } = useGetUserCourses(id)
@@ -45,6 +46,10 @@ export default function DetailUser({ id }: { id: string }) {
     },
   ]
 
+  if (error) {
+    router.push('/not-found')
+  }
+
   if (!userSummary || !courses || !placeReviews) {
     return <div>Loading ...</div>
   }
@@ -59,6 +64,11 @@ export default function DetailUser({ id }: { id: string }) {
 
       <Spacer height={10} />
 
+      <div className='w-full flex flex-col px-[22px] justify-center items-end'>
+        {activeTab === 'course' && (
+          <SelectSort order={order} setOrder={setOrder} />
+        )}
+      </div>
       {activeTab === 'place' ? (
         <ListUserPlace reviews={placeReviews} />
       ) : (

@@ -7,13 +7,13 @@ import useRegionStore, { LikeRegion } from '@/src/shared/store/regionStore'
 import CourseListLayout from '@/src/widgets/course-list-layout'
 import SelectCategories from '@/src/shared/ui/SelectCategories'
 import Spacer from '@/src/shared/ui/Spacer'
-import { Select } from 'antd'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import { useDeleteMyLikeRegion, usePostMyLikeRegion } from '@/src/entities/user'
+import { SelectSort } from '@/src/features'
 
 export default function ListCourse() {
   const [isListView, setIsListView] = useState(true)
-  const [order, setOrder] = useState('RECENT')
+  const [order, setOrder] = useState<'RECENT' | 'POPULAR'>('RECENT')
   const { currentRegion, likedRegions, addLikedRegion, removeLikedRegion } =
     useRegionStore()
   const [isLiked, setIsLiked] = useState(false)
@@ -100,18 +100,8 @@ export default function ListCourse() {
         }}
       />
       <Spacer height={10} />
-      <div className='w-full flex flex-col px-[22px] justify-center items-start'>
-        <Select
-          defaultValue='RECENT'
-          style={{ width: 80 }}
-          onChange={(value) => setOrder(value)}
-          size={'small'}
-          options={[
-            { value: 'RECENT', label: '최신순' },
-            { value: 'POPULAR', label: '인기순' },
-          ]}
-        />
-        <Spacer height={12} />
+      <div className='w-full flex flex-col px-[22px] gap-[10px] justify-center items-end'>
+        <SelectSort order={order} setOrder={setOrder} />
         <CourseListLayout isListView={isListView} courses={courses} />
       </div>
       <FloatingWriteButton />
