@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 // TODO: 실제 데이터로 변경
-export default function EventItem() {
+export function CardEvent() {
   return (
     <Link
       href={'/events/1'}

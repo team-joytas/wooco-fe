@@ -2,14 +2,14 @@
 
 import Link from 'next/link'
 import { Spacer } from '@/src/shared/ui'
-import { CourseGridCard, NoLikedCourse } from '@/src/features'
-import { CourseType, mockCourse } from '@/src/entities/course'
+import { CourseGridCard } from '@/src/features'
+import { CourseType, mockCourse, NoLikedCourse } from '@/src/entities/course'
 import { useGetMyProfile, useGetLikeCourses } from '@/src/entities/user'
 import { getLoginUrl } from '@/src/entities/auth'
 import { useRouter } from 'next/navigation'
 import { ChevronRight } from 'lucide-react'
 
-export default function SectionLikeCourse() {
+export function SectionLikeCourse() {
   const { data: user } = useGetMyProfile()
 
   if (!user) return <LoginLikeCourse />

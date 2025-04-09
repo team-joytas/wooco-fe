@@ -1,12 +1,12 @@
 'use client'
 
 import Link from 'next/link'
-import { CoursePlanCard } from '@/src/widgets'
+import { CoursePlanCard } from '@/src/features'
 import { Spacer } from '@/src/shared/ui'
 import type { CourseType } from '@/src/entities/course'
 import { useGetCourses } from '@/src/entities/course'
 
-export default function SectionNewCourse() {
+export function SectionNewCourse() {
   const { data: courses } = useGetCourses({ sort: 'RECENT', limit: 4 })
 
   if (!courses) return <div>Loading...</div>

@@ -2,9 +2,9 @@
 
 import Link from 'next/link'
 import { Spacer } from '@/src/shared/ui'
-import CardEvent from '@/src/features/main/card-event'
+import { CardEvent } from '@/src/features'
 
-export default function SectionEvent() {
+export function SectionEvent() {
   return (
     <section className='w-full h-fit py-[22px]'>
       <div className='flex items-center justify-between px-[20px]'>
