@@ -15,7 +15,10 @@ interface OptionDropboxProps {
   setIsEditingComment?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const OptionDropbox = React.forwardRef<HTMLDivElement, OptionDropboxProps>(
+export const OptionDropbox = React.forwardRef<
+  HTMLDivElement,
+  OptionDropboxProps
+>(
   (
     {
       isOpen,
@@ -83,5 +86,3 @@ const OptionDropbox = React.forwardRef<HTMLDivElement, OptionDropboxProps>(
 )
 
 OptionDropbox.displayName = 'OptionDropbox'
-
-export default OptionDropbox

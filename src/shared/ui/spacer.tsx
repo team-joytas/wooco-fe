@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 
-export default function Spacer({
+export function Spacer({
   className,
   height,
   notShowURLs,

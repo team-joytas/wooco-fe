@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer } from '@/src/shared/ui'
 import { CoursePlanPlaceType, PlaceSearchType } from '@/src/entities/place'
 import { Dispatch, SetStateAction } from 'react'
 import Header from '@/src/widgets/header'
@@ -65,18 +65,17 @@ export default function SearchPlace({
       <Header title='장소 추가하기' close={() => setOpenSearchPlace(false)} />
       <Spacer height={18} />
       <div className='px-[20px] w-full flex flex-col gap-[15px]'>
-        <div className="flex flex-col gap-[15px]">
-          <span className="text-main font-semibold">장소명</span>
-          <div className="flex items-center justify-center ">
-            <div
-              className="w-[304px] h-[36px] px-[14px] py-[10px] relative rounded-[2025px] bg-bright-gray flex flex-row items-center justify-start box-border gap-[10px]">
+        <div className='flex flex-col gap-[15px]'>
+          <span className='text-main font-semibold'>장소명</span>
+          <div className='flex items-center justify-center '>
+            <div className='w-[304px] h-[36px] px-[14px] py-[10px] relative rounded-[2025px] bg-bright-gray flex flex-row items-center justify-start box-border gap-[10px]'>
               <Search width={14} size={14} />
               <input
-                className="relative font-medium text-middle text-black bg-transparent outline-0"
-                placeholder="장소 이름을 입력해주세요."
+                className='relative font-medium text-middle text-black bg-transparent outline-0'
+                placeholder='장소 이름을 입력해주세요.'
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={e => {
+                onKeyDown={(e) => {
                   if (e.nativeEvent.isComposing) return
                   if (e.key === 'Enter') {
                     getResult(inputValue)
@@ -85,16 +84,16 @@ export default function SearchPlace({
               />
             </div>
           </div>
-          <Spacer height={8} className="bg-bright-gray opacity-50" />
+          <Spacer height={8} className='bg-bright-gray opacity-50' />
         </div>
-        <div className=" overflow-y-auto h-[calc(100vh-200px)]">
-          <div className="h-fit w-full flex flex-col gap-[9px] pt-1 justify-center items-center">
+        <div className=' overflow-y-auto h-[calc(100vh-200px)]'>
+          <div className='h-fit w-full flex flex-col gap-[9px] pt-1 justify-center items-center'>
             {results.length > 0 ? (
               results.map((result) => {
                 return (
                   <div
                     key={result.id}
-                    className="shadow-[0px_0px_4px_rgba(0,_0,_0,_0.25)] rounded-[10px] bg-white flex flex-col w-[320px] gap-[6px] px-[13px] py-[10px] cursor-pointer outline-none hover:outline-[#4341EA] hover:outline-solid hover:shadow-none"
+                    className='shadow-[0px_0px_4px_rgba(0,_0,_0,_0.25)] rounded-[10px] bg-white flex flex-col w-[320px] gap-[6px] px-[13px] py-[10px] cursor-pointer outline-none hover:outline-[#4341EA] hover:outline-solid hover:shadow-none'
                     onClick={() => selectPlace(result)}
                   >
                     <span className='text-[15px] font-medium flex gap-[10px] items-center'>

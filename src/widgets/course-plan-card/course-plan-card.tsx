@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import ImageWithIndex from '@/src/shared/ui/ImageWithIndex'
+import { ImageWithIndex } from '@/src/shared/ui'
 import { CourseType } from '@/src/entities/course'
 import { PlanType } from '@/src/entities/plan'
 

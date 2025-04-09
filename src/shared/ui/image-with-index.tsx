@@ -5,7 +5,7 @@ interface ImageWithIndexProps {
   index: number
 }
 
-export default function ImageWithIndex({ src, index }: ImageWithIndexProps) {
+export function ImageWithIndex({ src, index }: ImageWithIndexProps) {
   return (
     <div className='w-[60px] h-[58px] relative flex items-center justify-center rounded-[5px] flex-shrink-0'>
       <Image

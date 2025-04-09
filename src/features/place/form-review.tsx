@@ -4,7 +4,7 @@ import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { ReviewPayloadType } from '@/src/entities/place'
 import { postImage } from '@/src/shared/api'
 import { message } from 'antd'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer } from '@/src/shared/ui'
 
 // 별점
 interface StarRatingProps {
@@ -120,7 +120,7 @@ const KeywordInput: React.FC<KeywordInputProps> = ({ keywords, setValue }) => {
         value={newKeyword}
         onChange={(e) => setNewKeyword(e.target.value)}
         onKeyDown={(e) => {
-          if (e.nativeEvent.isComposing) return;
+          if (e.nativeEvent.isComposing) return
           if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
             e.preventDefault()
             handleAddKeyword()

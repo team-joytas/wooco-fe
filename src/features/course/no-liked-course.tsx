@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export default function NoLikedCourse() {
+export function NoLikedCourse() {
   return (
     <div className='w-full h-[180px] flex items-center justify-center'>
       <div className='flex flex-col shadow-lg w-[280px] h-[130px] rounded-[10px] items-center justify-center'>

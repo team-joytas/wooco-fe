@@ -1,8 +1,7 @@
 'use client'
 
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
-import ProfileImage from '@/src/shared/ui/ProfileImage'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer, ProfileImage } from '@/src/shared/ui'
 import BlankTooltip from '@/src/features/plan/blank-tooltip'
 import { PlanType, useGetPlans } from '@/src/entities/plan'
 import { getLoginUrl } from '@/src/entities/auth'

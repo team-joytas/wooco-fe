@@ -5,7 +5,7 @@ import Link from 'next/link'
 import logo from '@/src/assets/images/(logo)/logo.png'
 import { usePathname } from 'next/navigation'
 import bell from '@/public/bell.svg'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer } from '@/src/shared/ui'
 
 export default function DefaultHeader() {
   const path = usePathname()

@@ -1,8 +1,7 @@
 'use client'
 
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer, ActiveKakaoMap } from '@/src/shared/ui'
 import { PlaceCollapse } from '@/src/features'
-import ActiveKakaoMap from '@/src/shared/ui/KakaoMap'
 import type { CourseType } from '@/src/entities/course'
 import { CATEGORY } from '@/src/entities/course'
 import { OptionHeader } from '@/src/widgets/header'

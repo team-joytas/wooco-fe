@@ -1,7 +1,7 @@
 'use client'
 
 import { Send } from 'lucide-react'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer } from '@/src/shared/ui'
 import { useForm } from 'react-hook-form'
 import { usePostComment, useGetComments } from '@/src/entities/comment'
 import { HeaderWithBackButton } from '@/src/widgets/header'

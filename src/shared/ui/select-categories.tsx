@@ -1,7 +1,9 @@
+'use client'
+
 import { useState, useEffect } from 'react'
 import { CATEGORY } from '@/src/entities/course'
 
-export default function SelectCategories({
+export function SelectCategories({
   isInCourseList,
   setCategories,
   prevCategories,

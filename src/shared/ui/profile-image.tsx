@@ -1,6 +1,7 @@
 import Image, { StaticImageData } from 'next/image'
 import Link from 'next/link'
-export default function ProfileImage({
+
+export function ProfileImage({
   size,
   src,
   userId,

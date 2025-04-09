@@ -2,7 +2,7 @@
 
 import { useGetPlaceReviews } from '@/src/entities/place'
 import ReviewCommentCard from '@/src/widgets/review-comment-card'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer } from '@/src/shared/ui'
 import { HeaderWithBackButton } from '@/src/widgets/header'
 
 export default function ListPlaceReview({ placeId }: { placeId: string }) {

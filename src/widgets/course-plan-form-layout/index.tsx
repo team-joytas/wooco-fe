@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, useMemo } from 'react'
 import { message } from 'antd'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer } from '@/src/shared/ui'
 import SearchPlace from '@/src/views/search-place'
 import Header from '@/src/widgets/header'
 import type { CoursePlanPlaceType } from '@/src/entities/place'

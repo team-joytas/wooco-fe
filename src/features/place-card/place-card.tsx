@@ -1,6 +1,5 @@
 import Image from 'next/image'
-import StarRate from '@/src/shared/ui/StarRate'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer, StarRate } from '@/src/shared/ui'
 import Link from 'next/link'
 import type { UserPlaceReviewType } from '@/src/entities/place'
 import { formatDateToYYYYMMDD } from '@/src/shared/utils/date'

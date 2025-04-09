@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { CoursePlanCard } from '@/src/widgets'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer } from '@/src/shared/ui'
 import type { CourseType } from '@/src/entities/course'
 import { useGetCourses } from '@/src/entities/course'
 

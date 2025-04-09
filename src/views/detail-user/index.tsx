@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import ListUserPlace from '@/src/features/plan/list-user-place'
 import ListUserCourse from '@/src/features/course/list-user-course'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer } from '@/src/shared/ui'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import Header from '@/src/widgets/header'
 import {

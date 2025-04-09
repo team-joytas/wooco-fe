@@ -1,10 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import Spacer from '@/src/shared/ui/Spacer'
-import { CourseGridCard } from '@/src/features'
+import { Spacer } from '@/src/shared/ui'
+import { CourseGridCard, NoLikedCourse } from '@/src/features'
 import { CourseType, mockCourse } from '@/src/entities/course'
-import NoLikedCourse from '@/src/shared/ui/NoLikedCourse'
 import { useGetMyProfile, useGetLikeCourses } from '@/src/entities/user'
 import { getLoginUrl } from '@/src/entities/auth'
 import { useRouter } from 'next/navigation'

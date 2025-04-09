@@ -1,4 +1,4 @@
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer } from '@/src/shared/ui'
 import type { CourseType } from '@/src/entities/course'
 import { CoursePlanCard } from '@/src/widgets'
 

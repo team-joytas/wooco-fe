@@ -19,10 +19,10 @@ declare global {
   }
 }
 
-export default function ActiveKakaoMap({
+export function ActiveKakaoMap({
   places,
   center,
-  activeIndex
+  activeIndex,
 }: ActiveKakaoMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null)
 
@@ -59,9 +59,9 @@ export default function ActiveKakaoMap({
       center: center
         ? new window.kakao.maps.LatLng(center[1], center[0])
         : new window.kakao.maps.LatLng(
-          Number(places[0]?.latitude || 37),
-          Number(places[0]?.longitude || 127)
-        ),
+            Number(places[0]?.latitude || 37),
+            Number(places[0]?.longitude || 127)
+          ),
       level: center ? 8 : 6,
     })
     updateMarkers(places)
@@ -71,12 +71,13 @@ export default function ActiveKakaoMap({
     if (!mapRef.current) return
     const newCenter = activeIndex
       ? new window.kakao.maps.LatLng(
-      Number(places[activeIndex]?.latitude || 37),
-      Number(places[activeIndex]?.longitude || 127)
-    ) : new window.kakao.maps.LatLng(
-      Number(places[0]?.latitude || 37),
-      Number(places[0]?.longitude || 127)
-    )
+          Number(places[activeIndex]?.latitude || 37),
+          Number(places[activeIndex]?.longitude || 127)
+        )
+      : new window.kakao.maps.LatLng(
+          Number(places[0]?.latitude || 37),
+          Number(places[0]?.longitude || 127)
+        )
     mapRef.current?.setCenter(newCenter)
     updateMarkers(places)
   }, [places, activeIndex])

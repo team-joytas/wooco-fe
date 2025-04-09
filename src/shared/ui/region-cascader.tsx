@@ -57,7 +57,7 @@ export function RegionCascader({
   )
 }
 
-export default function RegionCascaderWithLikes({
+export function RegionCascaderWithLikes({
   placeholder,
   setRegion,
   likedRegions,

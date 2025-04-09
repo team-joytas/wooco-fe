@@ -10,7 +10,7 @@ import setting from '@/src/assets/images/setting.png'
 import useUserStore from '@/src/shared/store/userStore'
 import { useQueryClient } from '@tanstack/react-query'
 import { useDeletePlan } from '@/src/entities/plan'
-import OptionDropbox from '@/src/shared/ui/OptionDropbox'
+import { OptionDropbox } from '@/src/shared/ui'
 import {
   useDeleteCourse,
   useDeleteCourseLike,

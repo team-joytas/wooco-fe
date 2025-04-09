@@ -1,6 +1,6 @@
 'use client'
 
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer } from '@/src/shared/ui'
 import CardAnnouncement from '@/src/features/main/card-announcement'
 
 export default function SectionAnnouncement() {

@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer } from '@/src/shared/ui'
 import CardEvent from '@/src/features/main/card-event'
 
 export default function SectionEvent() {

@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { FieldErrors, useForm, UseFormRegister } from 'react-hook-form'
 import { useGetMyProfile, useUpdateUser } from '@/src/entities/user'
 import { useRouter } from 'next/navigation'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer } from '@/src/shared/ui'
 
 export default function OnBoardView() {
   const router = useRouter()
