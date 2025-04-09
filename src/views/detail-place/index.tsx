@@ -158,7 +158,7 @@ export default function DetailPlace({ id }: { id: string }) {
             }
           >
             <Spacer height={15} />
-            {reviewData.length === 0 ? (
+            {placeData.review_count !== 0 ? (
               <ReviewStats
                 placeOnLineReviewStats={placeData.place_one_line_review_stats}
                 AverageRating={placeData.average_rating}
@@ -173,7 +173,7 @@ export default function DetailPlace({ id }: { id: string }) {
             <Spacer height={15} />
           </Section>
 
-          {reviewData.length === 0 && (
+          {placeData.review_count !== 0 && (
             <>
               <Spacer height={20} />
               <Spacer height={8} className='bg-light-gray' />
@@ -193,39 +193,34 @@ export default function DetailPlace({ id }: { id: string }) {
 
               <Spacer height={8} className='bg-light-gray' />
               <Spacer height={20} />
-
-              <div className='flex flex-col justify-center items-center gap-[18px]'>
-                <Link href={`/places/${id}/reviews`}>
-                  <div className='w-[315px] relative h-[45px] flex flex-row items-center justify-start py-0 pl-[64px] gap-[14.73px] shadow-[0px_0px_5.1px_rgba(0,_0,_0,_0.4)] rounded-[99px] overflow-hidden'>
-                    <div className='font-bold w-[120px] text-main flex items-center'>
-                      전체 리뷰 바로보기
-                    </div>
-                    <div className='w-[75px] h-[75px] relative flex justify-center items-center'>
-                      <Image className='relative' fill alt='' src={allReview} />
-                    </div>
-                  </div>
-                </Link>
-
-                <Link
-                  href={`https://place.map.kakao.com/m/${placeData.kakao_place_id}`}
-                >
-                  <div className='w-[315px] relative h-[45px] flex flex-row items-center justify-start py-0 pl-[64px] gap-[14.73px] shadow-[0px_0px_5.1px_rgba(0,_0,_0,_0.4)] rounded-[99px] overflow-hidden'>
-                    <div className='font-bold w-[132px] text-main flex items-center'>
-                      카카오 리뷰 바로가기
-                    </div>
-                    <div className='w-[73px] h-[68px] relative flex justify-center items-center'>
-                      <Image
-                        className='relative'
-                        fill
-                        alt=''
-                        src={kakaoReview}
-                      />
-                    </div>
-                  </div>
-                </Link>
-              </div>
             </>
           )}
+
+          <div className='flex flex-col justify-center items-center gap-[18px]'>
+            <Link href={`/places/${id}/reviews`}>
+              <div className='w-[315px] relative h-[45px] flex flex-row items-center justify-start py-0 pl-[64px] gap-[14.73px] shadow-[0px_0px_5.1px_rgba(0,_0,_0,_0.4)] rounded-[99px] overflow-hidden'>
+                <div className='font-bold w-[120px] text-main flex items-center'>
+                  전체 리뷰 바로보기
+                </div>
+                <div className='w-[75px] h-[75px] relative flex justify-center items-center'>
+                  <Image className='relative' fill alt='' src={allReview} />
+                </div>
+              </div>
+            </Link>
+
+            <Link
+              href={`https://place.map.kakao.com/m/${placeData.kakao_place_id}`}
+            >
+              <div className='w-[315px] relative h-[45px] flex flex-row items-center justify-start py-0 pl-[64px] gap-[14.73px] shadow-[0px_0px_5.1px_rgba(0,_0,_0,_0.4)] rounded-[99px] overflow-hidden'>
+                <div className='font-bold w-[132px] text-main flex items-center'>
+                  카카오 리뷰 바로가기
+                </div>
+                <div className='w-[73px] h-[68px] relative flex justify-center items-center'>
+                  <Image className='relative' fill alt='' src={kakaoReview} />
+                </div>
+              </div>
+            </Link>
+          </div>
         </div>
         {contextHolder}
       </div>
