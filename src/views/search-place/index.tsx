@@ -1,12 +1,16 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Dispatch, SetStateAction } from 'react'
 import { Spacer } from '@/src/shared/ui'
-import { CoursePlanPlaceType, PlaceSearchType } from '@/src/entities/place'
-import { Dispatch, SetStateAction } from 'react'
 import Header from '@/src/widgets/header'
-import { getPlaceSearchResult, postPlace } from '@/src/entities/place'
+import {
+  getPlaceSearchResult,
+  postPlace,
+  CoursePlanPlaceType,
+  PlaceSearchType,
+} from '@/src/entities/place'
 import { Search } from 'lucide-react'
+
 type MetaType = {
   total_count: number
   pageable_count: number
