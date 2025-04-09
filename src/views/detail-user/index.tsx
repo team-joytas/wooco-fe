@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import ListUserPlace from '@/src/features/plan/list-user-place'
-import ListUserCourse from '@/src/features/course/list-user-course'
+import { UserCourseList } from '@/src/widgets'
 import { Spacer } from '@/src/shared/ui'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import Header from '@/src/widgets/header'
@@ -72,7 +72,7 @@ export default function DetailUser({ id }: { id: string }) {
       {activeTab === 'place' ? (
         <ListUserPlace reviews={placeReviews} />
       ) : (
-        <ListUserCourse courses={courses} />
+        <UserCourseList courses={courses} />
       )}
       <Spacer height={20} />
       <FloatingWriteButton />

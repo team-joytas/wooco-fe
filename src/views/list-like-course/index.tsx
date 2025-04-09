@@ -5,7 +5,8 @@ import Header from '@/src/widgets/header'
 import { Spacer, SelectCategories } from '@/src/shared/ui'
 import CourseListLayout from '@/src/widgets/course-list-layout'
 import { useEffect, useState } from 'react'
-import { NoLikedCourse, SelectSort } from '@/src/features'
+import { SelectSort } from '@/src/features'
+import { NoLikedCourse } from '@/src/entities/course'
 
 interface ListLikeCourseProps {
   id: string

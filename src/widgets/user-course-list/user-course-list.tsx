@@ -1,8 +1,8 @@
 import { Spacer } from '@/src/shared/ui'
 import type { CourseType } from '@/src/entities/course'
-import { CoursePlanCard } from '@/src/widgets'
+import { CoursePlanCard } from '@/src/features'
 
-export default function ListUserCourse({ courses }: { courses: CourseType[] }) {
+export function UserCourseList({ courses }: { courses: CourseType[] }) {
   if (courses?.length === 0) {
     return (
       <section className='relative w-full h-full flex flex-col items-center text-main font-semibold'>
@@ -27,7 +27,7 @@ export default function ListUserCourse({ courses }: { courses: CourseType[] }) {
 }
 
 /*
-function ArchiveListUserCourse({ courses }: { courses: CourseType[] }) {
+function ArchiveUserCourseList({ courses }: { courses: CourseType[] }) {
   return (
     <>
       <section className='flex flex-col gap-[20px] px-[20px] mt-[20px]'>
