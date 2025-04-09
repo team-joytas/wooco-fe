@@ -1,5 +1,6 @@
 'use client'
 
+import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, useMemo } from 'react'
 import { message } from 'antd'
@@ -13,16 +14,15 @@ import {
   usePostPlan,
   useGetPlan,
   useUpdatePlan,
+  PlanPayloadType,
 } from '@/src/entities/plan'
-import FormSections from '@/src/features/course/form-course'
-import { useForm } from 'react-hook-form'
+import { CourseForm } from '@/src/features'
 import {
   COURSE_QUERY_KEY,
   useGetCourse,
   usePostCourse,
   useUpdateCourse,
 } from '@/src/entities/course'
-import { PlanPayloadType } from '@/src/entities/plan'
 import { useQueryClient } from '@tanstack/react-query'
 
 const LAYOUT_TYPE = {
@@ -270,7 +270,7 @@ export default function CoursePlanFormLayout({
       <Spacer height={25} />
       <form onSubmit={handleSubmit(onSubmit)}>
         {shouldRenderForm && (
-          <FormSections
+          <CourseForm
             pageType={pageType}
             register={register}
             places={places}
