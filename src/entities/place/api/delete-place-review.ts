@@ -12,13 +12,13 @@ export const deletePlaceReview = async (id: string) => {
     throw error
   }
 }
-export const useDeletePlaceReview = () => {
+export const useDeletePlaceReview = (id: string) => {
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: (id: string) => deletePlaceReview(id),
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: PLACE_QUERY_KEY.reviews })
+      queryClient.refetchQueries({ queryKey: PLACE_QUERY_KEY.reviews(id) })
     },
   })
 }

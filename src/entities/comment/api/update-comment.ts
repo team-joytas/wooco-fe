@@ -19,14 +19,14 @@ export const patchComment = async (
   }
 }
 
-export const useUpdateComment = () => {
+export const useUpdateComment = (id: string) => {
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: ({ id, contents }: { id: string; contents: string }) =>
       patchComment(id, contents),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: COMMENT_QUERY_KEY.detail })
+      queryClient.invalidateQueries({ queryKey: COMMENT_QUERY_KEY.detail(id) })
     },
   })
 }

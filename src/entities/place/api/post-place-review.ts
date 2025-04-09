@@ -26,7 +26,7 @@ export const usePostPlaceReview = (id: string) => {
   return useMutation({
     mutationFn: (data: ReviewPayloadType) => postPlaceReview(id, data),
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: PLACE_QUERY_KEY.reviews })
+      queryClient.refetchQueries({ queryKey: PLACE_QUERY_KEY.reviews(id) })
     },
   })
 }

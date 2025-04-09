@@ -14,13 +14,15 @@ export const patchNotification = async (id: string) => {
   }
 }
 
-export const useReadNotification = () => {
+export const useReadNotification = (id: string) => {
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: (id: string) => patchNotification(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: NOTIFICATION_QUERY_KEY.read })
+      queryClient.invalidateQueries({
+        queryKey: NOTIFICATION_QUERY_KEY.read(id),
+      })
     },
   })
 }

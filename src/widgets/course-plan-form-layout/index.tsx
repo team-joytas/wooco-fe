@@ -223,7 +223,7 @@ export default function CoursePlanFormLayout({
           router.push(redirectPath)
           queryClient.refetchQueries({
             queryKey: LAYOUT_TYPE.course
-              ? COURSE_QUERY_KEY.all
+              ? COURSE_QUERY_KEY.post
               : PLAN_QUERY_KEY.all,
           })
         },

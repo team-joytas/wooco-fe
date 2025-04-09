@@ -19,7 +19,7 @@ export const useDeleteMyLikeRegion = () => {
   return useMutation({
     mutationFn: (id: string) => deleteMyLikeRegion(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: USER_QUERY_KEY.myLikeRegions })
+      queryClient.invalidateQueries({ queryKey: USER_QUERY_KEY.all })
     },
   })
 }
