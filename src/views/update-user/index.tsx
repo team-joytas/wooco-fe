@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { Spacer } from '@/src/shared/ui'
+import { Divider, Spacer } from '@/src/shared/ui'
 import { ActionHeader } from '@/src/widgets'
 import UploadProfileImage from '@/src/features/user/upload-profile-image'
 import { useForm } from 'react-hook-form'
@@ -143,9 +143,7 @@ export default function UpdateUser() {
               )}
             </div>
           </div>
-          <Spacer height={15} />
-          <Spacer height={8} className='bg-bright-gray' />
-          <Spacer height={15} />
+          <Divider margin={15} />
           <div className='px-[20px] flex flex-col gap-[15px] items-start w-full'>
             <p className='text-main w-[80px] font-bold'>소개</p>
             <div className='flex px-[20px] flex-col w-full'>
