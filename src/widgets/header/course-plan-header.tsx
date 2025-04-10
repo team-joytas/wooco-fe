@@ -99,9 +99,14 @@ export function CoursePlanHeader({
       <div className='flex items-center gap-[10px]'>
         <BackButton onClick={handleClickBack} />
       </div>
-      <p className='font-semibold text-[13px] text-white px-[20px] py-[8px] rounded-[20px] bg-container-blue leading-normal'>
-        {title}
-      </p>
+      {title.length < 1 ? (
+        <p className='font-semibold w-[100px] h-[30px] px-[20px] py-[8px] rounded-[20px] bg-container-blue leading-normal' />
+      ) : (
+        <p className='font-semibold text-[13px] text-white px-[20px] py-[8px] rounded-[20px] bg-container-blue leading-normal'>
+          {title}
+        </p>
+      )}
+
       <div className='flex items-center gap-[10px]'>
         {showLike && !isMine && (
           <Heart

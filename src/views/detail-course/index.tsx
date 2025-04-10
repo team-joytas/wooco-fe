@@ -2,26 +2,46 @@
 
 import Link from 'next/link'
 import { Spacer, ProfileImage } from '@/src/shared/ui'
-import CoursePlanDetailLayout from '@/src/widgets/course-plan-detail-layout'
+import { CoursePlanDetailLayout } from '@/src/widgets'
 import { passFromCreate } from '@/src/shared/utils/date'
 import { useGetCourse } from '@/src/entities/course'
 import { useGetComments } from '@/src/entities/comment'
 import defaultImg from '@/src/assets/images/(logo)/logo_default.png'
 import ReviewCommentCard from '@/src/widgets/review-comment-card'
 import { useRouter } from 'next/navigation'
+import { SkeletonCoursePlanDetailLayout } from '@/src/widgets/course-plan-detail-layout/skeleton-layout'
+import { useEffect } from 'react'
 
 interface DetailCourseProps {
   courseId: string
 }
 
 export default function DetailCourse({ courseId }: DetailCourseProps) {
-  const { data: course, isError } = useGetCourse(courseId)
-  const { data: comments } = useGetComments(courseId)
+  const {
+    data: course,
+    isLoading: isCourseLoading,
+    isError,
+  } = useGetCourse(courseId)
+  const { data: comments, isLoading: isCommentLoading } =
+    useGetComments(courseId)
+
   const router = useRouter()
+
+  useEffect(() => {
+    // 로딩 중일때 스크롤 금지
+    if (isCourseLoading || isCommentLoading) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isCourseLoading, isCommentLoading])
+
   if (isError) {
     router.push('/not-found')
   }
-  if (!course) return <div>Loading...</div>
+
+  if (isCourseLoading || isCommentLoading || !course)
+    return <SkeletonCoursePlanDetailLayout type='course' />
 
   return (
     <CoursePlanDetailLayout type='course' id={courseId} data={course}>
