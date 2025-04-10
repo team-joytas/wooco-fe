@@ -18,5 +18,6 @@ export const useGetUserSummary = (id: string) => {
   return useQuery({
     queryKey: USER_QUERY_KEY.detail(id),
     queryFn: () => getUserSummary(id),
+    gcTime: 0,
   })
 }
