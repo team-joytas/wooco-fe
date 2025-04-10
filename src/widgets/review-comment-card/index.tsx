@@ -20,7 +20,7 @@ import { useForm } from 'react-hook-form'
 import { Send, X } from 'lucide-react'
 
 type ReviewCommentCardProps = {
-  id?: string
+  id: string
   content: PlaceReviewDetailType | CommentType
   isHaveOption?: boolean
   refetch?: () => void
@@ -39,7 +39,7 @@ export default function ReviewCommentCard({
   const [isOpen, setIsOpen] = useState(false)
   const [isEditingComment, setIsEditingComment] = useState(false)
 
-  const { mutate: updateComment } = useUpdateComment()
+  const { mutate: updateComment } = useUpdateComment(id)
   const {
     register,
     handleSubmit,
@@ -77,8 +77,8 @@ export default function ReviewCommentCard({
     }
   }
 
-  const { mutate: deletePlaceReview } = useDeletePlaceReview()
-  const { mutate: deleteComment } = useDeleteComment()
+  const { mutate: deletePlaceReview } = useDeletePlaceReview(id)
+  const { mutate: deleteComment } = useDeleteComment(id)
   const handleDelete = () => {
     try {
       if (isPlaceReview) {

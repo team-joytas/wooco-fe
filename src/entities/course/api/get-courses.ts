@@ -43,5 +43,7 @@ export const useGetCourses = (params: {
   return useQuery({
     queryKey: COURSE_QUERY_KEY.all(params),
     queryFn: () => getCourses(params),
+    staleTime: 0,
+    gcTime: 0,
   })
 }

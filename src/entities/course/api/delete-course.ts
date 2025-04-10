@@ -13,13 +13,13 @@ export const deleteCourse = async (id: string) => {
   }
 }
 
-export const useDeleteCourse = () => {
+export const useDeleteCourse = (id: string) => {
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: (id: string) => deleteCourse(id),
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: COURSE_QUERY_KEY.all })
+      queryClient.refetchQueries({ queryKey: COURSE_QUERY_KEY.detail(id) })
     },
   })
 }

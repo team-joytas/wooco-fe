@@ -20,7 +20,7 @@ export const usePostCourse = () => {
   return useMutation({
     mutationFn: (data: CoursePayloadType) => postCourse(data),
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: COURSE_QUERY_KEY.all })
+      queryClient.refetchQueries({ queryKey: COURSE_QUERY_KEY.post })
     },
   })
 }

@@ -23,7 +23,7 @@ export const usePostMyLikeRegion = () => {
     mutationFn: (data: { primary_region: string; secondary_region: string }) =>
       postMyLikeRegion(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: USER_QUERY_KEY.myLikeRegions })
+      queryClient.invalidateQueries({ queryKey: USER_QUERY_KEY.all })
     },
   })
 }
