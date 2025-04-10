@@ -7,23 +7,16 @@ import { ActionHeader } from '@/src/widgets'
 import UploadProfileImage from '@/src/features/user/upload-profile-image'
 import { useForm } from 'react-hook-form'
 import useUserStore from '@/src/shared/store/userStore'
-import {
-  useGetMyProfile,
-  USER_QUERY_KEY,
-  useUpdateUser,
-} from '@/src/entities/user'
-import { useQueryClient } from '@tanstack/react-query'
+import { useGetMyProfile, useUpdateUser } from '@/src/entities/user'
 
 export default function UpdateUser() {
   const router = useRouter()
   const [imageUrl, setImageUrl] = useState('')
   const [isOnBoarding, setIsOnBoarding] = useState(false)
-
   const updateStateUser = useUserStore((state) => state.updateStateUser)
-  const { mutate: updateUser } = useUpdateUser()
 
-  const { data: profile } = useGetMyProfile()
-  const queryClient = useQueryClient()
+  const { data: profile, isLoading } = useGetMyProfile()
+  const { mutate: updateUser } = useUpdateUser()
 
   const {
     register,
@@ -32,21 +25,11 @@ export default function UpdateUser() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      nickname: profile?.name || '',
-      description: profile?.description || '',
-      profile_url: profile?.profile_url || '',
+      nickname: '',
+      description: '',
+      profile_url: '',
     },
   })
-
-  useEffect(() => {
-    if (profile) {
-      setImageUrl(profile.profile_url)
-      setIsOnBoarding(profile.on_boarding)
-      setValue('nickname', profile.name)
-      setValue('description', profile.description || '')
-      setValue('profile_url', profile.profile_url)
-    }
-  }, [setValue])
 
   const validateNickname = (value: string) => {
     if (!value) {
@@ -99,7 +82,6 @@ export default function UpdateUser() {
             description: data.description,
             profile_url: data.profile_url,
           })
-          queryClient.refetchQueries({ queryKey: USER_QUERY_KEY.all })
           router.push(`/users/${profile?.user_id}`)
         },
       }
@@ -109,9 +91,20 @@ export default function UpdateUser() {
   const handleLogout = async () => {
     localStorage.removeItem('accessToken')
     useUserStore.getState().clearUser()
-    queryClient.clear()
     router.push('/login')
   }
+
+  useEffect(() => {
+    if (isLoading) return
+
+    if (profile) {
+      setImageUrl(profile.profile_url)
+      setIsOnBoarding(profile.on_boarding)
+      setValue('nickname', profile.name)
+      setValue('description', profile.description || '')
+      setValue('profile_url', profile.profile_url)
+    }
+  }, [setValue, profile])
 
   return (
     <>
