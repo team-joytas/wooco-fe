@@ -22,3 +22,13 @@ export function Spacer({
     />
   )
 }
+
+export function Divider({ margin }: { margin: number }) {
+  return (
+    <>
+      <Spacer height={margin} />
+      <Spacer height={8} className='bg-bright-gray' />
+      <Spacer height={margin} />
+    </>
+  )
+}

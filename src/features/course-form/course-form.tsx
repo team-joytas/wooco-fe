@@ -6,11 +6,10 @@ import {
   UseFormGetValues,
 } from 'react-hook-form'
 import type { CoursePayloadType } from '@/src/entities/course'
-import { Spacer, ActiveKakaoMap, HelperText } from '@/src/shared/ui'
+import { Spacer, ActiveKakaoMap, HelperText, Divider } from '@/src/shared/ui'
 import type { CoursePlanPlaceType } from '@/src/entities/place'
 import {
   Section,
-  Divider,
   FormTitle,
   FormRegion,
   FormContents,
@@ -46,7 +45,7 @@ export function CourseForm({
       <Section title={`${pageType} 제목을 만들어주세요.`} padding>
         <FormTitle register={register} errors={errors} />
       </Section>
-      <Divider />
+      <Divider margin={25} />
       <Section title={`${pageType} 지역을 선택하세요.`} padding>
         <FormRegion
           getValues={getValues}
@@ -55,7 +54,7 @@ export function CourseForm({
           isSubmitted={isSubmitted}
         />
       </Section>
-      <Divider />
+      <Divider margin={25} />
       <Section title={`${pageType} 장소를 선택하세요.`}>
         <div
           className='px-[20px] w-full flex flex-col gap-[15px] padding'
@@ -78,11 +77,11 @@ export function CourseForm({
           )}
         </div>
       </Section>
-      <Divider />
+      <Divider margin={25} />
       <Section title={`${pageType} 설명을 적어주세요.`} padding>
         <FormContents register={register} errors={errors} />
       </Section>
-      <Divider />
+      <Divider margin={25} />
       <Section title='방문 날짜를 등록하세요.' padding>
         <FormDate
           register={register}
@@ -94,7 +93,7 @@ export function CourseForm({
       </Section>
       {pageType === '코스' && (
         <>
-          <Divider />
+          <Divider margin={25} />
           <Section title='관련 태그를 눌러 주세요.' padding>
             <FormCategories
               setValue={setValue}

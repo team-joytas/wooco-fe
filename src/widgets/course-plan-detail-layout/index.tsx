@@ -1,6 +1,6 @@
 'use client'
 
-import { Spacer, ActiveKakaoMap } from '@/src/shared/ui'
+import { Spacer, ActiveKakaoMap, Divider } from '@/src/shared/ui'
 import { PlaceCollapse } from '@/src/features'
 import type { CourseType } from '@/src/entities/course'
 import { CATEGORY } from '@/src/entities/course'
@@ -144,10 +144,9 @@ export default function CoursePlanDetailLayout({
           activeIndex={activeIndex}
           setActiveIndex={setActiveIndex}
         />
-        <Spacer height={16} />
 
-        <Spacer height={8} className='bg-bright-gray' />
-        <Spacer height={16} />
+        <Divider margin={16} />
+
         <section className='w-full flex flex-col gap-[10px] text-[rgba(0,0,0,0.8)]'>
           <p className='px-[50px] text-sub'>
             <span className='text-brand font-normal'>
@@ -160,9 +159,7 @@ export default function CoursePlanDetailLayout({
           </span>
         </section>
 
-        <Spacer height={16} />
-        <Spacer height={8} className='bg-bright-gray' />
-        <Spacer height={16} />
+        <Divider margin={16} />
 
         <section className='w-full flex flex-col gap-[10px] text-[rgba(0,0,0,0.8)]'>
           <p className='px-[50px] text-sub'>
