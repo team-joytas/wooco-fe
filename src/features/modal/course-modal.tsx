@@ -1,6 +1,8 @@
+'use client'
+
 import { Link, Share2, X } from 'lucide-react'
 import { CourseType } from '@/src/entities/course'
-import { Modal } from '@/src/shared/ui/modal'
+import { Modal } from '@/src/shared/ui'
 import { message } from 'antd'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'

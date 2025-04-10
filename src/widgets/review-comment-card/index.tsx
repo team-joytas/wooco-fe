@@ -1,14 +1,11 @@
 'use client'
 
-import ProfileImage from '@/src/shared/ui/ProfileImage'
 import Link from 'next/link'
 import { formatDateToYYYYMMDD, passFromCreate } from '@/src/shared/utils/date'
 import useUserStore from '@/src/shared/store/userStore'
 import { PlaceReviewDetailType } from '@/src/entities/place'
-import Spacer from '@/src/shared/ui/Spacer'
-import { ReviewTag } from '@/src/features'
-import StarRate from '@/src/shared/ui/StarRate'
-import OptionDropbox from '@/src/shared/ui/OptionDropbox'
+import { ProfileImage, Spacer, OptionDropbox } from '@/src/shared/ui'
+import { ReviewTag, StarRateView } from '@/src/features'
 import { useEffect, useRef, useState } from 'react'
 import { useDeletePlaceReview } from '@/src/entities/place'
 import {
@@ -186,7 +183,7 @@ export default function ReviewCommentCard({
                 ))}
               </div>
             )}
-            <StarRate rate={content.rating} size={10} />
+            <StarRateView rate={content.rating} size={10} />
           </section>
           <Spacer height={10} />
         </>

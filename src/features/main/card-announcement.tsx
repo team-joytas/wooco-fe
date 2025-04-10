@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 // TODO: 실제 데이터로 변경
-export default function CardAnnouncement() {
+export function CardAnnouncement() {
   return (
     <Link
       href={`/notices/1`}

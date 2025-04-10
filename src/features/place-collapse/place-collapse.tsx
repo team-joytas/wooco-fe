@@ -4,12 +4,20 @@ import { ChevronDown, ChevronUp, Copy } from 'lucide-react'
 import logoDefaultCopy from '@/src/assets/images/(logo)/temp_empty.png'
 import kakaoReview from '@/src/assets/images/kakao_review_icon.svg'
 import allReview from '@/src/assets/images/all_review_icon.svg'
-import StarRate from '@/src/shared/ui/StarRate'
 import type { CoursePlanPlaceType } from '@/src/entities/place'
 import { message } from 'antd'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer } from '@/src/shared/ui'
+import { StarRateView } from '@/src/features'
 
-export function PlaceCollapse({ places, activeIndex, setActiveIndex }: { places: CoursePlanPlaceType[], activeIndex: number | null, setActiveIndex: (key: (prevKey: number | null) => null | number) => void  }) {
+export function PlaceCollapse({
+  places,
+  activeIndex,
+  setActiveIndex,
+}: {
+  places: CoursePlanPlaceType[]
+  activeIndex: number | null
+  setActiveIndex: (key: (prevKey: number | null) => null | number) => void
+}) {
   const [messageApi, contextHolder] = message.useMessage()
 
   const toast = (address: string) => {
@@ -68,18 +76,19 @@ export function PlaceCollapse({ places, activeIndex, setActiveIndex }: { places:
             <p className='text-headline text-brand font-semibold'>
               {place.average_rating}
             </p>
-            <StarRate rate={place?.average_rating || 0} size={12} />
+            <StarRateView rate={place?.average_rating || 0} size={12} />
             <p className='text-sub opacity-50'>
               장소 리뷰 ({place?.review_count || 0})
             </p>
           </div>
-          <div className="flex flex-col justify-center items-center gap-[10px]">
+          <div className='flex flex-col justify-center items-center gap-[10px]'>
             <Link href={`/places/${place.id}`}>
-              <div
-                className="w-[175px] relative h-[31px] flex flex-row items-center justify-start py-0 pl-[15px] gap-[13px] shadow-[0px_0px_5.1px_rgba(0,_0,_0,_0.4)] rounded-[99px] overflow-hidden">
-                <div className="font-semibold w-[82px] text-sub">전체 리뷰 바로보기</div>
-                <div className="w-[60px] h-[60px] relative flex justify-center items-center">
-                  <Image className="relative" fill alt="" src={allReview} />
+              <div className='w-[175px] relative h-[31px] flex flex-row items-center justify-start py-0 pl-[15px] gap-[13px] shadow-[0px_0px_5.1px_rgba(0,_0,_0,_0.4)] rounded-[99px] overflow-hidden'>
+                <div className='font-semibold w-[82px] text-sub'>
+                  전체 리뷰 바로보기
+                </div>
+                <div className='w-[60px] h-[60px] relative flex justify-center items-center'>
+                  <Image className='relative' fill alt='' src={allReview} />
                 </div>
               </div>
             </Link>
@@ -87,17 +96,18 @@ export function PlaceCollapse({ places, activeIndex, setActiveIndex }: { places:
             <Link
               href={`https://place.map.kakao.com/m/${place.kakao_place_id}`}
             >
-              <div
-                className="w-[175px] relative h-[31px] flex flex-row items-center justify-start py-0 pl-[15px] gap-[13px] shadow-[0px_0px_5.1px_rgba(0,_0,_0,_0.4)] rounded-[99px] overflow-hidden">
-                <div className="font-semibold w-[91px] text-sub">카카오 리뷰 바로가기</div>
-                <div className="w-[47px] h-[44px] relative flex justify-center items-center">
-                  <Image className="relative" fill alt="" src={kakaoReview} />
+              <div className='w-[175px] relative h-[31px] flex flex-row items-center justify-start py-0 pl-[15px] gap-[13px] shadow-[0px_0px_5.1px_rgba(0,_0,_0,_0.4)] rounded-[99px] overflow-hidden'>
+                <div className='font-semibold w-[91px] text-sub'>
+                  카카오 리뷰 바로가기
+                </div>
+                <div className='w-[47px] h-[44px] relative flex justify-center items-center'>
+                  <Image className='relative' fill alt='' src={kakaoReview} />
                 </div>
               </div>
             </Link>
           </div>
         </div>
-        <Spacer height={25}/>
+        <Spacer height={25} />
         {contextHolder}
       </div>
     ),
@@ -106,12 +116,11 @@ export function PlaceCollapse({ places, activeIndex, setActiveIndex }: { places:
     setActiveIndex((prevKey) => (prevKey === key ? null : key))
   }
   return (
-
     <div className='w-full px-[30px]'>
-      {items.map((item,index) => {
+      {items.map((item, index) => {
         const isOpen = activeIndex === index
         return (
-          <div key={item.key} className="flex flex-col gap-[15px]">
+          <div key={item.key} className='flex flex-col gap-[15px]'>
             <button
               onClick={() => toggleItem(index)}
               className={`w-full flex justify-between items-center px-[16px] py-[10px] text-left text-middle font-[500] h-[40px]

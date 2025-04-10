@@ -1,11 +1,13 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
-import ProfileImage from '@/src/shared/ui/ProfileImage'
+import { ProfileImage } from '@/src/shared/ui'
 import { CourseType } from '@/src/entities/course'
 import logo from '@/src/assets/images/(logo)/logo.png'
 import { CourseActionBar, useCourseLike } from '@/src/features'
 import { useEffect, useState } from 'react'
-import { CourseModal } from '../modal/course-modal'
+import { CourseModal } from '@/src/features'
 
 export function CourseGridCard({ course }: { course: CourseType }) {
   const {

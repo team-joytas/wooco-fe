@@ -1,5 +1,5 @@
 import type { UserSummaryType } from '@/src/entities/user'
-import ProfileImage from '@/src/shared/ui/ProfileImage'
+import { ProfileImage } from '@/src/shared/ui'
 import logo from '@/src/assets/images/(logo)/logo.png'
 import { Heart, ChevronRight } from 'lucide-react'
 import Link from 'next/link'

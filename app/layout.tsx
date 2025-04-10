@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer } from '@/src/shared/ui'
 import DefaultHeader from '@/src/widgets/default-header'
 import DefaultFooter from '@/src/widgets/default-footer'
 import localFont from 'next/font/local'

@@ -2,7 +2,7 @@
 
 import Header from '@/src/widgets/header'
 import { useForm } from 'react-hook-form'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer } from '@/src/shared/ui'
 import { useEffect, useState } from 'react'
 import {
   useGetPlace,

@@ -2,7 +2,7 @@
 
 import Header from '@/src/widgets/header'
 import CardNotification from '@/src/features/notification/card-notification'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer } from '@/src/shared/ui'
 import { useGetNotifications } from '@/src/entities/notification'
 import { useEffect } from 'react'
 

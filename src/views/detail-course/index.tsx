@@ -1,8 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import ProfileImage from '@/src/shared/ui/ProfileImage'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer, ProfileImage } from '@/src/shared/ui'
 import CoursePlanDetailLayout from '@/src/widgets/course-plan-detail-layout'
 import { passFromCreate } from '@/src/shared/utils/date'
 import { useGetCourse } from '@/src/entities/course'
@@ -29,7 +28,7 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
       <section className='w-full px-[20px] py-[10px] text-white bg-brand'>
         <div className='w-full flex gap-[10px] max-w-[375px] cursor-pointer'>
           <ProfileImage
-            src={course.writer.profile_url || '/profile.png'}
+            src={course.writer.profile_url || defaultImg}
             size={40}
             userId={course.writer.id}
           />

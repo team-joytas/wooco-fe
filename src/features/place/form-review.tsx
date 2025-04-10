@@ -4,47 +4,8 @@ import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { ReviewPayloadType } from '@/src/entities/place'
 import { postImage } from '@/src/shared/api'
 import { message } from 'antd'
-import Spacer from '@/src/shared/ui/Spacer'
-
-// 별점
-interface StarRatingProps {
-  rating: number
-  setValue: UseFormSetValue<ReviewPayloadType>
-}
-
-const StarRating = ({ rating, setValue }: StarRatingProps) => {
-  const [hover, setHover] = useState(0)
-
-  const handleStarClick = (ratingValue: number) => {
-    setValue('rating', ratingValue)
-  }
-
-  return (
-    <div className='flex w-full gap-[7px] items-center justify-center'>
-      {[...Array(5)].map((_, index) => {
-        const ratingValue = index + 1
-        const isActive = ratingValue <= (hover || rating)
-
-        return (
-          <div
-            key={index}
-            className='relative  w-[30px] h-[30px] pointer-events-none'
-          >
-            <Image
-              src={isActive ? '/star_colored.svg' : '/star.svg'}
-              alt={`Star ${ratingValue}`}
-              fill
-              className='cursor-pointer pointer-events-auto transition-transform'
-              onClick={() => handleStarClick(ratingValue)}
-              onMouseEnter={() => setHover(ratingValue)}
-              onMouseLeave={() => setHover(0)}
-            />
-          </div>
-        )
-      })}
-    </div>
-  )
-}
+import { Spacer } from '@/src/shared/ui'
+import { StarRateForm } from '@/src/features'
 
 // 리뷰
 interface ReviewTextareaProps {
@@ -120,7 +81,7 @@ const KeywordInput: React.FC<KeywordInputProps> = ({ keywords, setValue }) => {
         value={newKeyword}
         onChange={(e) => setNewKeyword(e.target.value)}
         onKeyDown={(e) => {
-          if (e.nativeEvent.isComposing) return;
+          if (e.nativeEvent.isComposing) return
           if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
             e.preventDefault()
             handleAddKeyword()
@@ -340,12 +301,13 @@ const FormReview: React.FC<FormReviewProps> = ({
       return
     }
   }, [isSubmitting])
+
   return (
     <div className='w-full bg-white flex flex-col gap-[10px]'>
       {/* Star Rating Section */}
       <div className='flex flex-col items-start justify-start gap-[15px] relative'>
         <b className='text-main pl-[20px]'>별점을 남겨볼까요?</b>
-        <StarRating rating={formValues.rating} setValue={setValue} />
+        <StarRateForm rate={formValues.rating} setValue={setValue} />
         <Spacer height={8} />
       </div>
 

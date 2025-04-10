@@ -1,15 +1,13 @@
 'use client'
 
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
-import ProfileImage from '@/src/shared/ui/ProfileImage'
-import Spacer from '@/src/shared/ui/Spacer'
-import BlankTooltip from '@/src/features/plan/blank-tooltip'
-import { PlanType, useGetPlans } from '@/src/entities/plan'
+import { Spacer, ProfileImage } from '@/src/shared/ui'
+import { PlanType, useGetPlans, NoPlanToolTip } from '@/src/entities/plan'
 import { getLoginUrl } from '@/src/entities/auth'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useGetMyProfile } from '@/src/entities/user'
-import { CoursePlanCard } from '@/src/widgets'
+import { CoursePlanCard } from '@/src/features'
 
 export default function ListPlan() {
   const { data: plans } = useGetPlans()
@@ -75,7 +73,7 @@ export default function ListPlan() {
           <div className='text-center text-black text-[14px] font-medium'>
             아직 플랜이 없어요!
           </div>
-          {!isClick && <BlankTooltip />}
+          {!isClick && <NoPlanToolTip />}
         </>
       )}
       <Spacer height={20} />

@@ -5,8 +5,7 @@ import Header from '@/src/widgets/header'
 import { useGetCourses } from '@/src/entities/course'
 import useRegionStore, { LikeRegion } from '@/src/shared/store/regionStore'
 import CourseListLayout from '@/src/widgets/course-list-layout'
-import SelectCategories from '@/src/shared/ui/SelectCategories'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer, SelectCategories } from '@/src/shared/ui'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import { useDeleteMyLikeRegion, usePostMyLikeRegion } from '@/src/entities/user'
 import { SelectSort } from '@/src/features'
@@ -55,6 +54,7 @@ export default function ListCourse() {
       })
     } else {
       setIsLiked(true)
+
       postLikeMutate(
         {
           primary_region: currentRegion[0],

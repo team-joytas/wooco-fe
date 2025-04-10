@@ -2,12 +2,11 @@
 
 import { useGetLikeCourses } from '@/src/entities/user/api'
 import Header from '@/src/widgets/header'
-import SelectCategories from '@/src/shared/ui/SelectCategories'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer, SelectCategories } from '@/src/shared/ui'
 import CourseListLayout from '@/src/widgets/course-list-layout'
 import { useEffect, useState } from 'react'
-import NoLikedCourse from '@/src/shared/ui/NoLikedCourse'
 import { SelectSort } from '@/src/features'
+import { NoLikedCourse } from '@/src/entities/course'
 
 interface ListLikeCourseProps {
   id: string

@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer } from '@/src/shared/ui'
 import Header from '@/src/widgets/header'
 import UploadProfileImage from '@/src/features/user/upload-profile-image'
 import { useForm } from 'react-hook-form'

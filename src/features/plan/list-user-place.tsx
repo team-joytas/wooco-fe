@@ -1,6 +1,5 @@
-import { UserPlaceReviewType } from '@/src/entities/place'
-import Spacer from '@/src/shared/ui/Spacer'
-import { PlaceCard } from '@/src/features'
+import { UserPlaceReviewType, PlaceCard } from '@/src/entities/place'
+import { Spacer } from '@/src/shared/ui'
 
 export default function ListUserPlace({
   reviews,

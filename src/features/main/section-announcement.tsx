@@ -1,9 +1,9 @@
 'use client'
 
-import Spacer from '@/src/shared/ui/Spacer'
-import CardAnnouncement from '@/src/features/main/card-announcement'
+import { Spacer } from '@/src/shared/ui'
+import { CardAnnouncement } from './card-announcement'
 
-export default function SectionAnnouncement() {
+export function SectionAnnouncement() {
   return (
     <section className='w-full h-fit py-[14px] px-[20px] border-b-[1px] border-container-blue'>
       <div className='flex items-center justify-between'>
