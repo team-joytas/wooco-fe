@@ -2,7 +2,7 @@
 
 import { useEffect, useState, Dispatch, SetStateAction } from 'react'
 import { Spacer } from '@/src/shared/ui'
-import Header from '@/src/widgets/header'
+import { ActionHeader } from '@/src/widgets'
 import {
   getPlaceSearchResult,
   postPlace,
@@ -66,7 +66,10 @@ export default function SearchPlace({
 
   return (
     <div className='fixed top-0 transform z-[1000] w-full max-w-[375px] h-full bg-white'>
-      <Header title='장소 추가하기' close={() => setOpenSearchPlace(false)} />
+      <ActionHeader
+        title='장소 추가하기'
+        close={() => setOpenSearchPlace(false)}
+      />
       <Spacer height={18} />
       <div className='px-[20px] w-full flex flex-col gap-[15px]'>
         <div className='flex flex-col gap-[15px]'>

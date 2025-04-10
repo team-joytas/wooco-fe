@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { Spacer } from '@/src/shared/ui'
-import DefaultHeader from '@/src/widgets/default-header'
+import { MainHeader } from '@/src/widgets'
 import DefaultFooter from '@/src/widgets/default-footer'
 import localFont from 'next/font/local'
 import { AnimatePresence } from 'framer-motion'
@@ -45,7 +45,7 @@ export default function RootLayout({
         className={`${pretendard.className} h-full flex items-center flex-col overflow-y-scroll`}
       >
         <ReactQueryProvider>
-          <DefaultHeader />
+          <MainHeader />
           <ConfigProvider theme={theme}>
             <AnimatePresence>
               <div className='mx-auto flex-1 text-black h-full w-full max-w-[375px]'>

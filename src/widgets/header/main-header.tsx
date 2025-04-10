@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation'
 import bell from '@/public/bell.svg'
 import { Spacer } from '@/src/shared/ui'
 
-export default function DefaultHeader() {
+export function MainHeader() {
   const path = usePathname()
 
   const isCoursePlanDetail =

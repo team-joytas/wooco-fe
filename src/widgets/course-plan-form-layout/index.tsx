@@ -6,7 +6,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { message } from 'antd'
 import { Spacer } from '@/src/shared/ui'
 import SearchPlace from '@/src/views/search-place'
-import Header from '@/src/widgets/header'
+import { ActionHeader } from '@/src/widgets'
 import type { CoursePlanPlaceType } from '@/src/entities/place'
 import type { CoursePayloadType } from '@/src/entities/course'
 import {
@@ -266,7 +266,7 @@ export default function CoursePlanFormLayout({
 
   return (
     <div className='relative h-100% flex flex-col'>
-      <Header title={headerTitle} isBack />
+      <ActionHeader title={headerTitle} isBack />
       <Spacer height={25} />
       <form onSubmit={handleSubmit(onSubmit)}>
         {shouldRenderForm && (

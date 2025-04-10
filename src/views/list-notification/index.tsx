@@ -1,6 +1,6 @@
 'use client'
 
-import Header from '@/src/widgets/header'
+import { ActionHeader } from '@/src/widgets'
 import CardNotification from '@/src/features/notification/card-notification'
 import { Spacer } from '@/src/shared/ui'
 import { useGetNotifications } from '@/src/entities/notification'
@@ -15,7 +15,7 @@ export default function ListNotification() {
 
   return (
     <>
-      <Header title='알림' isBack />
+      <ActionHeader title='알림' isBack />
       <Spacer height={20} />
       <div className='px-[17px] gap-[15px] w-full h-[calc(100vh-75px)] flex flex-col'>
         {notificationData &&
