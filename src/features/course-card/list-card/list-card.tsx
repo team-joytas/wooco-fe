@@ -4,7 +4,7 @@ import { ImageWithIndex, ProfileImage } from '@/src/shared/ui'
 import { type CourseType } from '@/src/entities/course'
 import Link from 'next/link'
 import { CourseActionBar, useCourseLike } from '@/src/features'
-import { CourseModal } from '../modal/course-modal'
+import { CourseModal } from '../../modal/course-modal'
 import { useEffect, useState } from 'react'
 
 export function CourseListCard({ course }: { course: CourseType }) {

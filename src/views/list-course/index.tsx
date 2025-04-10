@@ -35,7 +35,6 @@ export default function ListCourse() {
 
   const { mutate: postLikeMutate } = usePostMyLikeRegion()
   const { mutate: deleteLikeMutate } = useDeleteMyLikeRegion()
-
   const { data: courses, isLoading } = useGetCourses({
     sort: order as 'RECENT' | 'POPULAR',
     primary_region: currentRegion[0],
@@ -78,7 +77,14 @@ export default function ListCourse() {
     sessionStorage.setItem('is-list', String(isListView))
   }
 
-  if (isLoading) return <div>Loading...</div>
+  useEffect(() => {
+    // 로딩 중일때 스크롤 금지
+    if (isLoading) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isLoading])
 
   return (
     <>
@@ -102,7 +108,10 @@ export default function ListCourse() {
       <Spacer height={10} />
       <div className='w-full flex flex-col px-[22px] gap-[10px] justify-center items-end'>
         <SelectSort order={order} setOrder={setOrder} />
-        <CourseListLayout isListView={isListView} courses={courses} />
+        <CourseListLayout
+          isListView={isListView}
+          courses={isLoading ? undefined : courses}
+        />
       </div>
       <FloatingWriteButton />
     </>
