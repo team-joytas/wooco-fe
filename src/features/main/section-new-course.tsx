@@ -1,15 +1,26 @@
 'use client'
 
 import Link from 'next/link'
-import { CoursePlanCard } from '@/src/features'
+import { CoursePlanCard, SkeletonCoursePlanCard } from '@/src/features'
 import { Spacer } from '@/src/shared/ui'
 import type { CourseType } from '@/src/entities/course'
 import { useGetCourses } from '@/src/entities/course'
+import { useEffect } from 'react'
 
 export function SectionNewCourse() {
-  const { data: courses } = useGetCourses({ sort: 'RECENT', limit: 4 })
+  const { data: courses, isLoading } = useGetCourses({
+    sort: 'RECENT',
+    limit: 4,
+  })
 
-  if (!courses) return <div>Loading...</div>
+  useEffect(() => {
+    // 로딩 중일때 스크롤 금지
+    if (isLoading) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isLoading])
 
   return (
     <section className='w-full h-fit px-[22px] py-[7px]'>
@@ -26,9 +37,13 @@ export function SectionNewCourse() {
       </div>
       <Spacer height={22} />
       <div className='flex flex-col gap-[15px]'>
-        {courses?.map((course: CourseType) => (
-          <CoursePlanCard key={course.id} data={course} />
-        ))}
+        {isLoading
+          ? Array.from({ length: 4 }).map((_, index) => (
+              <SkeletonCoursePlanCard key={index} />
+            ))
+          : courses.map((course: CourseType) => (
+              <CoursePlanCard key={course.id} data={course} />
+            ))}
       </div>
       <Spacer height={22} />
     </section>
