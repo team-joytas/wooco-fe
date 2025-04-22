@@ -5,8 +5,7 @@ import {
 } from '@/src/entities/notification'
 export const postDeviceToken = async (payload:DeviceTokenType) => {
   try {
-    const response = await customAxios.post(NOTIFICATION_URL.base,payload)
-    console.log(response.data)
+    await customAxios.post(NOTIFICATION_URL.base,payload)
   } catch (error) {
     console.error(error)
     throw error

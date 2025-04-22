@@ -14,7 +14,6 @@ export const initFCM = () => {
         });
 
         if (fcmToken && loginToken) {
-          console.log("FCM 토큰:", fcmToken);
           await postDeviceToken({token: fcmToken
         });
         } else {
