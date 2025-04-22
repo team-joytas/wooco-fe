@@ -27,7 +27,7 @@ interface CoursePlanDetailLayoutProps {
   data: CourseType | PlanType
 }
 
-export default function CoursePlanDetailLayout({
+export function CoursePlanDetailLayout({
   type,
   id,
   children,

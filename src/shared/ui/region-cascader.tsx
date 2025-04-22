@@ -17,6 +17,7 @@ interface LikeCascaderProps {
   placeholder: string
   setRegion: (value: string[]) => void
   likedRegions: UserLikeRegionType[]
+  clickable: boolean
 }
 
 export function RegionCascader({
@@ -49,9 +50,7 @@ export function RegionCascader({
       onChange={onChange}
       size='large'
       showSearch={{ filter }}
-      style={{
-        width: '100%',
-      }}
+      style={{ width: '100%' }}
       expandTrigger='hover'
     />
   )
@@ -61,6 +60,7 @@ export function RegionCascaderWithLikes({
   placeholder,
   setRegion,
   likedRegions,
+  clickable,
 }: LikeCascaderProps) {
   const seoulData = getSeoulData()
   const likedRegionOptions = transformLikedRegions(likedRegions)
@@ -94,10 +94,9 @@ export function RegionCascaderWithLikes({
         onChange={onChange}
         size='large'
         showSearch={{ filter }}
-        style={{
-          width: '100%',
-        }}
+        style={{ width: '100%' }}
         expandTrigger='hover'
+        {...(!clickable ? { disabled: true } : {})}
       />
     </div>
   )

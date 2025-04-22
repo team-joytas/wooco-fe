@@ -20,7 +20,7 @@ export function SectionLikeCourse() {
         <div className='flex flex-col'>
           <p>
             <span className='text-headline text-brand font-bold'>
-              {user?.name}
+              {user.name}
             </span>
             <span className='text-main font-bold'>&nbsp;님의 관심코스</span>
           </p>
@@ -29,14 +29,14 @@ export function SectionLikeCourse() {
           </span>
         </div>
         <Link
-          href={`/users/${user?.user_id}/wishlist`}
+          href={`/users/${user.user_id}/wishlist`}
           className='text-[10px] text-black opacity-50'
         >
           더보기
         </Link>
       </div>
       <Spacer height={12} />
-      {user?.user_id && <UserLikeCourse id={user?.user_id} />}
+      {user.user_id && <UserLikeCourse id={user.user_id} />}
     </section>
   )
 }
