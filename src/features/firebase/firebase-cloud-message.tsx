@@ -1,5 +1,5 @@
 import { postDeviceToken } from "@/src/entities/notification";
-import { app } from "../../../firbase";
+import { app } from '@/firbase';
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 export const initFCM = () => {
