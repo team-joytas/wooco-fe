@@ -9,10 +9,8 @@ import Link from 'next/link'
 
 export default function CardNotification({
   notification,
-  key,
 }: {
   notification: NotificationType,
-  key: number
 }) {
   const { id, type, target_id, target_name, read_status, created_at } = notification
   const TYPE_MAP: { [key: string]: string } = {
@@ -58,7 +56,6 @@ export default function CardNotification({
   return (
     <Link
       href={`${TYPE_MAP[type]}s/${target_id}`}
-      key={key}
       className={`w-full flex flex-col gap-[5px] ${
         read_status =='READ' ? 'opacity-50' : ''
       }`}
