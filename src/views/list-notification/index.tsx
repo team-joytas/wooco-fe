@@ -12,7 +12,6 @@ export default function ListNotification() {
   useEffect(() => {
     refetch()
   }, [])
-
   return (
     <>
       <ActionHeader title='알림' isBack />

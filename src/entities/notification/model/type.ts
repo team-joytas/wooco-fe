@@ -3,13 +3,15 @@ export type NotificationType = {
   user_id: number
   target_id: number
   target_name: string
-  is_read: true
   type:
     | 'COURSE_COMMENT_CREATED'
     | 'PLAN_SHARE_REQUEST'
     | 'PLACE_REVIEW_REQUEST'
     | 'SYSTEM'
-  sent_at: string
+  created_at: string
+  read_status:
+    | 'READ'
+    | 'UNREAD'
 }
 
 export type DeviceTokenType = {
