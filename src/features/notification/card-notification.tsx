@@ -10,10 +10,9 @@ import Link from 'next/link'
 export default function CardNotification({
   notification,
 }: {
-  notification: NotificationType
+  notification: NotificationType,
 }) {
-  const { id, type, target_id, target_name, is_read, sent_at } = notification
-
+  const { id, type, target_id, target_name, read_status, created_at } = notification
   const TYPE_MAP: { [key: string]: string } = {
     COURSE_COMMENT_CREATED: 'course',
     PLAN_SHARE_REQUEST: 'plan',
@@ -57,12 +56,11 @@ export default function CardNotification({
   return (
     <Link
       href={`${TYPE_MAP[type]}s/${target_id}`}
-      key={id}
       className={`w-full flex flex-col gap-[5px] ${
-        is_read ? 'opacity-50' : ''
+        read_status =='READ' ? 'opacity-50' : ''
       }`}
       onClick={() => {
-        if (!is_read) {
+        if (read_status == 'UNREAD') {
           readNotification(id.toString())
         }
       }}
@@ -77,10 +75,10 @@ export default function CardNotification({
         </span>
         <div className='w-[60px] flex flex-col justify-between items-end'>
           <span className='text-sub text-black opacity-80'>
-            {passFromCreate(sent_at)}
+            {passFromCreate(created_at)}
           </span>
           <span className='text-sub text-black opacity-80'>
-            {formatDateToYYYYMMDD(sent_at, 'slash')}
+            {formatDateToYYYYMMDD(created_at, 'slash')}
           </span>
         </div>
       </div>
