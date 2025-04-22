@@ -11,3 +11,7 @@ export type NotificationType = {
     | 'SYSTEM'
   sent_at: string
 }
+
+export type DeviceTokenType = {
+  token: string
+}

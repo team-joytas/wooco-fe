@@ -1,5 +1,6 @@
 import useUserStore from '@/src/shared/store/userStore'
 import { publicAxios, customAxios } from '@/src/shared/api'
+import { initFCM } from '@/src/features';
 
 export const postLogin = async (
   code: string | null,
@@ -18,6 +19,9 @@ export const postLogin = async (
       const onBoarding = me.data.results.on_boarding
 
       useUserStore.getState().setUser(me.data.results)
+
+      initFCM()
+
       return { success: true, onBoarding, userId: me.data.results.user_id }
     } else return { success: false }
   } catch (error) {
