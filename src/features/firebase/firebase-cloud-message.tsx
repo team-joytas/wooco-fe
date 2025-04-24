@@ -25,7 +25,7 @@ export const initFCM = () => {
     }
   }
   if ('serviceWorker' in navigator) {
-    ;(async () => {
+    (async () => {
       try {
         await navigator.serviceWorker.register('/firebase-messaging-sw.js')
         await requestPermissionAndGetToken()
