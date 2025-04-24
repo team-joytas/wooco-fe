@@ -45,8 +45,6 @@ messaging.onBackgroundMessage((payload) => {
   const title = payload.data?.title
   const body = payload.data?.body
 
-  // const notification_id = payload.data?.notification_id;
-  // const user_id = payload.data?.user_id;
   const target_id = payload.data?.target_id
   const target_name = payload.data?.target_name
   const type = payload.data?.type
