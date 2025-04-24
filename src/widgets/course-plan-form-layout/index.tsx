@@ -24,6 +24,7 @@ import {
   useUpdateCourse,
 } from '@/src/entities/course'
 import { useQueryClient } from '@tanstack/react-query'
+import useRegionStore from '@/src/shared/store/regionStore'
 
 const LAYOUT_TYPE = {
   course: 'course' as const,
@@ -145,14 +146,16 @@ export default function CoursePlanFormLayout({
     ) {
       storedData = sessionStorage.getItem('plan')
     }
-    console.log(storedData)
 
     if (storedData) {
       const sharedData = JSON.parse(storedData)
+      setValue('title',sharedData.title)
+      setValue('contents',sharedData.contents)
       setValue('primary_region', sharedData.primary_region)
       setValue('secondary_region', sharedData.secondary_region)
-      setValue('visit_date', sharedData.visit_date)
+      setValue('visit_date', sharedData?.visit_date ? sharedData.visit_date : "")
       setPlaces(sharedData.places || [])
+      useRegionStore.setState({ currentRegion: [sharedData.primary_region,sharedData.secondary_region] })
       setIsDataLoaded(true)
     }
 

@@ -69,12 +69,13 @@ export function CoursePlanDetailLayout({
   const handleClickShareCourse = () => {
     setIsClicked(!isClicked)
 
-    const { primary_region, secondary_region, places, visit_date } = data
+    const { primary_region, secondary_region, places,title,contents } = data
     const filteredData = {
+      title,
+      contents,
       primary_region,
       secondary_region,
       places,
-      visit_date,
     }
 
     sessionStorage.setItem('course', JSON.stringify(filteredData))
