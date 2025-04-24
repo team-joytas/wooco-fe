@@ -76,7 +76,12 @@ export default function DetailPlace({ id }: { id: string }) {
 
   return (
     <>
-      <ActionHeader title={placeData.name || ''} isTitleTag isBack />
+      <ActionHeader
+        title={placeData.name || ''}
+        isTitleTag
+        isTitleCenter
+        isBack
+      />
       <div
         className={'w-full flex flex-col items-center min-h-[100vh] bg-white'}
       >
