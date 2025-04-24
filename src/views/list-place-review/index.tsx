@@ -13,13 +13,14 @@ export default function ListPlaceReview({ placeId }: { placeId: string }) {
   return (
     <>
       <ActionHeader title='전체 리뷰' isBack />
-      <div className='flex flex-col'>
+      <div className='flex flex-col px-[20px]'>
+        <Spacer height={20} />
         {reviewData.map((review) => (
           <div key={review.id}>
             <ReviewCommentCard id={placeId} content={review} />
-            <Spacer height={8} className='bg-light-gray' />
           </div>
         ))}
+        <Spacer height={20} />
       </div>
     </>
   )

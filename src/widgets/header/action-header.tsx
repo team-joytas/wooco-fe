@@ -19,6 +19,7 @@ interface ActionHeaderProps {
   title: string
   isBack?: boolean
   isTitleTag?: boolean
+  isTitleCenter?: boolean
   isOnBoarding?: boolean
   isBlue?: boolean
   close?: () => void
@@ -33,6 +34,7 @@ export function ActionHeader({
   title,
   isBack,
   isTitleTag,
+  isTitleCenter,
   isListView,
   setIsListView,
   isOnBoarding,
@@ -91,8 +93,13 @@ export function ActionHeader({
   return (
     <HeaderBase className='px-[10px] border-b-[1px] border-container-blue'>
       {isTitleTag ? (
-        <div className='flex items-center gap-[10px]'>
-          <TitleWithTagStyle title={title} handleClickBack={handleClickBack} />
+        <div
+          className={`flex items-center ${
+            isTitleCenter ? 'w-full relative' : 'gap-[10px]'
+          }`}
+        >
+          <BackButton onClick={handleClickBack} />
+          <TitleWithTagStyle title={title} isTitleCenter={!!isTitleCenter} />
           {showLike && (
             <Heart
               onClick={() => setIsLiked && setIsLiked(!isLiked)}
