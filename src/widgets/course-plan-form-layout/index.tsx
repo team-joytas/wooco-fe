@@ -89,9 +89,8 @@ export default function CoursePlanFormLayout({
       visit_date: '',
     },
   })
-
-  const { data: courseData } = useGetCourse(id || '')
-  const { data: planData } = useGetPlan(id || '')
+  const { data: courseData } = useGetCourse(id || '', type == 'course' && !!id)
+  const { data: planData } = useGetPlan(id || '',type == 'plan' && !!id)
   const fetchData = useMemo(() => {
     return type === LAYOUT_TYPE.course
       ? courseData
