@@ -49,7 +49,6 @@ export default function DetailComment({ courseId }: { courseId: string }) {
               key={comment.id}
               id={comment.id}
               content={comment}
-              isHaveOption={true}
               refetch={refetch}
             />
           )

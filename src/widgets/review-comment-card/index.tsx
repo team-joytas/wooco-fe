@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { formatDateToYYYYMMDD, passFromCreate } from '@/src/shared/utils/date'
 import useUserStore from '@/src/shared/store/userStore'
 import { PlaceReviewDetailType } from '@/src/entities/place'
-import { ProfileImage, Spacer, OptionDropbox } from '@/src/shared/ui'
+import { ProfileImage, OptionDropbox } from '@/src/shared/ui'
 import { ReviewTag, StarRateView } from '@/src/features'
 import { useEffect, useRef, useState } from 'react'
 import { useDeletePlaceReview } from '@/src/entities/place'
@@ -14,19 +14,18 @@ import {
   useDeleteComment,
 } from '@/src/entities/comment'
 import { useForm } from 'react-hook-form'
-import { Send, X } from 'lucide-react'
+import { Send } from 'lucide-react'
+import Image from 'next/image'
 
 type ReviewCommentCardProps = {
   id: string
   content: PlaceReviewDetailType | CommentType
-  isHaveOption?: boolean
   refetch?: () => void
 }
 
 export default function ReviewCommentCard({
   id,
   content,
-  isHaveOption,
   refetch,
 }: ReviewCommentCardProps) {
   const { user } = useUserStore()
@@ -119,7 +118,7 @@ export default function ReviewCommentCard({
   }, [isOpen])
 
   return (
-    <div className='w-full flex items-end flex-col'>
+    <div className='w-full flex items-end flex-col gap-[10px]'>
       <div className='w-full justify-between flex items-center'>
         <Link
           href={`/users/${content.writer.id}`}
@@ -143,39 +142,30 @@ export default function ReviewCommentCard({
           </div>
         </Link>
 
-        {isHaveOption &&
-          isMine &&
-          (isEditingComment ? (
-            <X
-              size={20}
-              className='cursor-pointer text-black'
-              strokeWidth={1.5}
-              onClick={() => setIsEditingComment(false)}
-            />
-          ) : (
-            <OptionDropbox
-              isMine={isMine}
-              isOpen={isOpen}
-              setIsOpen={setIsOpen}
-              onToggle={() => setIsOpen(!isOpen)}
-              ref={menuRef}
-              type={isPlaceReview ? 'review' : 'comment'}
-              id={content.id.toString()}
-              handleDelete={handleDelete}
-              {...(isPlaceReview
-                ? { placeId: id && id.toString() }
-                : {
-                    isComment: true,
-                    setIsEditingComment: setIsEditingComment,
-                  })}
-            />
-          ))}
+        {isMine && (
+          <OptionDropbox
+            isMine={isMine}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            onToggle={() => setIsOpen(!isOpen)}
+            ref={menuRef}
+            type={isPlaceReview ? 'review' : 'comment'}
+            id={content.id.toString()}
+            handleDelete={handleDelete}
+            {...(isPlaceReview
+              ? { placeId: id && id.toString() }
+              : {
+                  isComment: true,
+                  setIsEditingComment: setIsEditingComment,
+                })}
+          />
+        )}
       </div>
 
-      <Spacer height={21} />
       {isPlaceReview && (
         <>
-          <section className='w-full flex flex-col items-start gap-[10px] px-[12px]'>
+          <section className='w-full flex flex-col items-start gap-[5px]'>
+            <StarRateView rate={content.rating} size={15} />
             {content.one_line_reviews.length > 0 && (
               <div className='flex flex-row items-center gap-[5px]'>
                 {content.one_line_reviews.map((tag, index) => (
@@ -183,9 +173,7 @@ export default function ReviewCommentCard({
                 ))}
               </div>
             )}
-            <StarRateView rate={content.rating} size={10} />
           </section>
-          <Spacer height={10} />
         </>
       )}
 
@@ -210,7 +198,23 @@ export default function ReviewCommentCard({
           </button>
         </form>
       ) : (
-        <span className='w-full text-sub px-[12px]'>{content.contents}</span>
+        <span className='w-full text-sub'>{content.contents}</span>
+      )}
+
+      {isPlaceReview && (
+        <div className='h-full w-full overflow-x-auto flex flex-1 items-center justify-start gap-[5px] scrollbar-hide pr-[10px]'>
+          {content.image_urls.map((image, index) => (
+            <Image
+              key={index}
+              alt='place'
+              width={74}
+              height={74}
+              src={image}
+              className='w-[74px] h-[74px] rounded-[5px] object-cover'
+              layout='fixed'
+            />
+          ))}
+        </div>
       )}
     </div>
   )
