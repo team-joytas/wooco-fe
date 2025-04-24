@@ -20,5 +20,6 @@ export const useGetPlaceReviews = (id: string) => {
   return useQuery({
     queryKey: PLACE_QUERY_KEY.reviews(id),
     queryFn: () => getPlaceReviews(id),
+    gcTime: 0,
   })
 }
