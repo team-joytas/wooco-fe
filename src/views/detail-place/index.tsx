@@ -151,38 +151,39 @@ export default function DetailPlace({ id }: { id: string }) {
         <div ref={reviewRef} className='w-full flex flex-col items-center'>
           <Section
             title='리뷰'
-            subtitle='가장 언급 많은 키워드 랭킹이에요!'
+            subtitle={
+              placeData.place_one_line_review_stats.length > 0
+                ? '가장 언급 많은 키워드 랭킹이에요!'
+                : ''
+            }
             button={
               <button
-                className='text-sub text-gray-400'
+                className='text-middle text-gray-400'
                 onClick={() => router.push(`/places/${id}/reviews/new`)}
               >
                 작성하기
               </button>
             }
           >
-            <Spacer height={15} />
-            {placeData.review_count !== 0 ? (
-              <ReviewStats
-                placeOnLineReviewStats={placeData.place_one_line_review_stats}
-                AverageRating={placeData.average_rating}
-              />
-            ) : (
-              <div className='h-[100px] flex items-center justify-center'>
-                <span className='text-description text-sub'>
-                  아직 리뷰를 기다리고 있어요!
-                </span>
-              </div>
-            )}
-            <Spacer height={15} />
+            {placeData.review_count !== 0 &&
+              placeData.place_one_line_review_stats.length > 0 && (
+                <>
+                  <Spacer height={15} />
+                  <ReviewStats
+                    placeOnLineReviewStats={
+                      placeData.place_one_line_review_stats
+                    }
+                    AverageRating={placeData.average_rating}
+                  />
+                  <Spacer height={15} />
+                  <Spacer height={4} className='bg-light-gray' />
+                </>
+              )}
           </Section>
 
-          {placeData.review_count !== 0 && (
+          {placeData.review_count !== 0 ? (
             <>
-              <Spacer height={4} className='bg-light-gray' />
-
-              <div className='flex flex-col w-full px-[20px]'>
-                <Spacer height={20} />
+              <div className='flex flex-col w-full px-[20px] py-[20px]'>
                 {reviewData.map((review) => (
                   <ReviewCommentCard
                     key={review.id}
@@ -192,9 +193,13 @@ export default function DetailPlace({ id }: { id: string }) {
                   />
                 ))}
               </div>
-
-              <Spacer height={20} />
             </>
+          ) : (
+            <div className='h-[200px] flex items-center justify-center'>
+              <span className='text-description text-middle'>
+                아직 리뷰를 기다리고 있어요!
+              </span>
+            </div>
           )}
 
           <div className='flex flex-col justify-center items-center gap-[18px]'>
