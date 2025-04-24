@@ -15,10 +15,10 @@ export const initFCM = () => {
         if (fcmToken && loginToken) {
           await postDeviceToken({ token: fcmToken })
         } else {
-          console.log('FCM 토큰을 가져올 수 없습니다.')
+          //TODO: FCM token 획득 실패, 예외 처리 필요
         }
       } else {
-        console.log('알림 권한이 거부되었습니다.')
+        //TODO: 알림 권환 획득 실패, 예외 처리 필요
       }
     } catch (error) {
       console.error('FCM 토큰 요청 실패:', error)
