@@ -44,8 +44,8 @@ export const initFCM = () => {
       // const user_id = payload.data?.user_id;
       const target_id = payload.data?.target_id
       const target_name = payload.data?.target_name
-      const type = payload.data?.type
-
+      type typeGuard = "COURSE_COMMENT_CREATED" |"PLAN_SHARE_REQUEST" | "PLACE_REVIEW_REQUEST" | "SYSTEM"
+      const type= payload.data?.type as typeGuard
       const contentMap = {
         COURSE_COMMENT_CREATED: `[${target_name}]에 새로운 댓글이 달렸어요!`,
         PLAN_SHARE_REQUEST: `[${target_name}]가 좋았다면 사람들에게 공유해주세요`,
