@@ -118,7 +118,7 @@ export default function ReviewCommentCard({
   }, [isOpen])
 
   return (
-    <div className='w-full flex items-end flex-col gap-[10px]'>
+    <div className='w-full flex items-end flex-col gap-[10px] py-[5px]'>
       <div className='w-full justify-between flex items-center'>
         <Link
           href={`/users/${content.writer.id}`}

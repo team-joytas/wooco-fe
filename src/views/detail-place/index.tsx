@@ -144,7 +144,7 @@ export default function DetailPlace({ id }: { id: string }) {
           />
 
           <Spacer height={20} />
-          <Spacer height={8} className='bg-light-gray' />
+          <Spacer height={4} className='bg-light-gray' />
           <Spacer height={20} />
         </div>
 
@@ -179,11 +179,10 @@ export default function DetailPlace({ id }: { id: string }) {
 
           {placeData.review_count !== 0 && (
             <>
-              <Spacer height={20} />
-              <Spacer height={8} className='bg-light-gray' />
+              <Spacer height={4} className='bg-light-gray' />
 
-              <div className='flex flex-col w-full gap-[25px] px-[20px]'>
-                <Spacer height={4} />
+              <div className='flex flex-col w-full px-[20px]'>
+                <Spacer height={20} />
                 {reviewData.map((review) => (
                   <ReviewCommentCard
                     key={review.id}
@@ -192,10 +191,8 @@ export default function DetailPlace({ id }: { id: string }) {
                     refetch={refetch}
                   />
                 ))}
-                <Spacer height={24} />
               </div>
 
-              <Spacer height={8} className='bg-light-gray' />
               <Spacer height={20} />
             </>
           )}
