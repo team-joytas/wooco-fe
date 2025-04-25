@@ -69,10 +69,8 @@ export function CoursePlanDetailLayout({
   const handleClickShareCourse = () => {
     setIsClicked(!isClicked)
 
-    const { primary_region, secondary_region, places,title,contents } = data
+    const { primary_region, secondary_region, places} = data
     const filteredData = {
-      title,
-      contents,
       primary_region,
       secondary_region,
       places,
