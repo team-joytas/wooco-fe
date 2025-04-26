@@ -1,16 +1,18 @@
 'use client'
 
 import Link from 'next/link'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Spacer, ProfileImage } from '@/src/shared/ui'
-import { CoursePlanDetailLayout } from '@/src/widgets'
-import { passFromCreate } from '@/src/shared/utils/date'
+import {
+  CoursePlanDetailLayout,
+  SkeletonCoursePlanDetailLayout,
+} from '@/src/widgets'
+import { formatDateToYYYYMMDD, passFromCreate } from '@/src/shared/utils/date'
 import { useGetCourse } from '@/src/entities/course'
 import { useGetComments } from '@/src/entities/comment'
 import defaultImg from '@/src/assets/images/(logo)/logo_default.png'
 import ReviewCommentCard from '@/src/widgets/review-comment-card'
-import { useRouter } from 'next/navigation'
-import { SkeletonCoursePlanDetailLayout } from '@/src/widgets/course-plan-detail-layout/skeleton-layout'
-import { useEffect } from 'react'
 
 interface DetailCourseProps {
   courseId: string
@@ -61,7 +63,7 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
                 {passFromCreate(course?.created_at || '')}
               </span>
               <span className='text-sub opacity-50'>
-                {course.visit_date || ''}
+                {formatDateToYYYYMMDD(course.created_at, 'slash')}
               </span>
             </div>
           </div>
