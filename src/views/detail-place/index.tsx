@@ -1,19 +1,23 @@
 'use client'
 
 import React, { useCallback, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import Image from 'next/image'
+import Link from 'next/link'
 import { useGetPlace, useGetPlaceReviews } from '@/src/entities/place'
 import { ActionHeader } from '@/src/widgets'
 import logo from '@/src/assets/images/(logo)/logo.png'
-import Image from 'next/image'
 import { Spacer, KakaoMap } from '@/src/shared/ui'
 import { Copy, Phone } from 'lucide-react'
 import { message } from 'antd'
-import ReviewCommentCard from '@/src/widgets/review-comment-card'
-import Link from 'next/link'
 import allReview from '@/src/assets/images/all_review_icon.svg'
 import kakaoReview from '@/src/assets/images/kakao_review_icon.svg'
-import { useRouter } from 'next/navigation'
-import { ReviewStats, ScrollTabs, ScrollTabType } from '@/src/features'
+import {
+  ReviewStats,
+  PlaceReviewCard,
+  ScrollTabs,
+  ScrollTabType,
+} from '@/src/features'
 import { Section } from './section'
 
 export default function DetailPlace({ id }: { id: string }) {
@@ -185,7 +189,7 @@ export default function DetailPlace({ id }: { id: string }) {
             <>
               <div className='flex flex-col w-full px-[20px] py-[20px]'>
                 {reviewData.map((review) => (
-                  <ReviewCommentCard
+                  <PlaceReviewCard
                     key={review.id}
                     id={placeData.id.toString()}
                     content={review}
