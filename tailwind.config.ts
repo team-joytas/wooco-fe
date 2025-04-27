@@ -24,6 +24,7 @@ const config: Config = {
         'gray-500': '#A9A9A9',
         'gray-600': '#757575',
         'gray-700': '#3A3A3A',
+        'gray-800': '#4E4E4E',
       },
       fontSize: {
         headline: '20px',

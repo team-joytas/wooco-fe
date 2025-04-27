@@ -24,8 +24,11 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
     isLoading: isCourseLoading,
     isError,
   } = useGetCourse(courseId)
-  const { data: comments, isLoading: isCommentLoading } =
-    useGetComments(courseId)
+  const {
+    data: comments,
+    isLoading: isCommentLoading,
+    refetch,
+  } = useGetComments(courseId)
 
   const router = useRouter()
 
@@ -88,6 +91,7 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
                     key={comment.id}
                     id={comment.id}
                     content={comment}
+                    refetch={refetch}
                   />
                 )
               })}
