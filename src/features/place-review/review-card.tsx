@@ -114,6 +114,8 @@ export function PlaceReviewCard({
         )}
       </section>
 
+      <span className='w-full text-sub'>{content.contents}</span>
+
       <div className='h-full w-full overflow-x-auto flex flex-1 items-center justify-start gap-[5px] scrollbar-hide pr-[10px]'>
         {image_urls.map((image, index) => (
           <Image
