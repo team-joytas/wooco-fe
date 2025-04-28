@@ -1,7 +1,7 @@
 'use client'
 
 import { useGetPlaceReviews } from '@/src/entities/place'
-import ReviewCommentCard from '@/src/widgets/review-comment-card'
+import { PlaceReviewCard } from '@/src/features'
 import { Spacer } from '@/src/shared/ui'
 import { ActionHeader } from '@/src/widgets'
 
@@ -17,7 +17,7 @@ export default function ListPlaceReview({ placeId }: { placeId: string }) {
         <Spacer height={20} />
         {reviewData.map((review) => (
           <div key={review.id}>
-            <ReviewCommentCard id={placeId} content={review} />
+            <PlaceReviewCard id={placeId} content={review} />
           </div>
         ))}
         <Spacer height={20} />
