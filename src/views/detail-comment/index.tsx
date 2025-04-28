@@ -5,7 +5,7 @@ import { Spacer } from '@/src/shared/ui'
 import { useForm } from 'react-hook-form'
 import { usePostComment, useGetComments } from '@/src/entities/comment'
 import { ActionHeader } from '@/src/widgets'
-import ReviewCommentCard from '@/src/widgets/review-comment-card'
+import { CommentCard } from '@/src/features'
 
 export default function DetailComment({ courseId }: { courseId: string }) {
   const { data: comments, refetch } = useGetComments(courseId)
@@ -45,7 +45,7 @@ export default function DetailComment({ courseId }: { courseId: string }) {
       <div className='px-[20px] flex flex-col gap-[25px]'>
         {comments.map((comment) => {
           return (
-            <ReviewCommentCard
+            <CommentCard
               key={comment.id}
               id={comment.id}
               content={comment}

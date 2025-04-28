@@ -1,16 +1,17 @@
 'use client'
 
 import Link from 'next/link'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Spacer, ProfileImage } from '@/src/shared/ui'
-import { CoursePlanDetailLayout } from '@/src/widgets'
-import { passFromCreate } from '@/src/shared/utils/date'
+import {
+  CoursePlanDetailLayout,
+  SkeletonCoursePlanDetailLayout,
+} from '@/src/widgets'
+import { formatDateToYYYYMMDD, passFromCreate } from '@/src/shared/utils/date'
 import { useGetCourse } from '@/src/entities/course'
 import { useGetComments } from '@/src/entities/comment'
-import defaultImg from '@/src/assets/images/(logo)/logo_default.png'
-import ReviewCommentCard from '@/src/widgets/review-comment-card'
-import { useRouter } from 'next/navigation'
-import { SkeletonCoursePlanDetailLayout } from '@/src/widgets/course-plan-detail-layout/skeleton-layout'
-import { useEffect } from 'react'
+import { CommentCard } from '@/src/features'
 
 interface DetailCourseProps {
   courseId: string
@@ -22,8 +23,11 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
     isLoading: isCourseLoading,
     isError,
   } = useGetCourse(courseId)
-  const { data: comments, isLoading: isCommentLoading } =
-    useGetComments(courseId)
+  const {
+    data: comments,
+    isLoading: isCommentLoading,
+    refetch,
+  } = useGetComments(courseId)
 
   const router = useRouter()
 
@@ -40,7 +44,7 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
     router.push('/not-found')
   }
 
-  if (isCourseLoading || isCommentLoading || !course)
+  if (isCourseLoading || isCommentLoading || !course || !comments)
     return <SkeletonCoursePlanDetailLayout type='course' />
 
   return (
@@ -48,7 +52,7 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
       <section className='w-full px-[20px] py-[10px] text-white bg-brand'>
         <div className='w-full flex gap-[10px] max-w-[375px] cursor-pointer'>
           <ProfileImage
-            src={course.writer.profile_url || defaultImg}
+            src={course.writer.profile_url || './profile.png'}
             size={40}
             userId={course.writer.id}
           />
@@ -61,7 +65,7 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
                 {passFromCreate(course?.created_at || '')}
               </span>
               <span className='text-sub opacity-50'>
-                {course.visit_date || ''}
+                {formatDateToYYYYMMDD(course.created_at, 'slash')}
               </span>
             </div>
           </div>
@@ -78,20 +82,21 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
         </div>
         <Spacer height={20} />
         <div className='px-[20px] flex flex-col gap-[20px] min-h-[50px]'>
-          {comments && comments.length > 0 ? (
+          {comments.length > 0 ? (
             <>
-              {comments?.map((comment) => {
+              {comments.map((comment) => {
                 return (
-                  <ReviewCommentCard
+                  <CommentCard
                     key={comment.id}
                     id={comment.id}
                     content={comment}
+                    refetch={refetch}
                   />
                 )
               })}
               <Link
                 href={`/courses/${courseId}/comments`}
-                className='text-sub opacity-50 self-end'
+                className='text-sub text-[#CCCCCC] self-end'
               >
                 더보기
               </Link>
