@@ -14,7 +14,7 @@ import {
   usePostCourseLike,
 } from '@/src/entities/course'
 import { USER_QUERY_KEY } from '@/src/entities/user/api'
-import { HeaderBase } from '@/src/features'
+import { HeaderBase, TitleWithTagStyle } from '@/src/features'
 
 interface CoursePlanHeaderProps {
   title: string
@@ -99,13 +99,8 @@ export function CoursePlanHeader({
       <div className='flex items-center gap-[10px]'>
         <BackButton onClick={handleClickBack} />
       </div>
-      {title.length < 1 ? (
-        <p className='font-semibold w-[100px] h-[30px] px-[20px] py-[8px] rounded-[20px] bg-container-blue leading-normal' />
-      ) : (
-        <p className='font-semibold text-[13px] text-white px-[20px] py-[8px] rounded-[20px] bg-container-blue leading-normal'>
-          {title}
-        </p>
-      )}
+
+      <TitleWithTagStyle title={title} isTitleCenter />
 
       <div className='flex items-center gap-[10px]'>
         {showLike && !isMine && (
