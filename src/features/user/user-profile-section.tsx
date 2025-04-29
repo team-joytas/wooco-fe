@@ -4,11 +4,7 @@ import logo from '@/src/assets/images/(logo)/logo.png'
 import { Heart, ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 
-export default function UserProfileSection({
-  user,
-}: {
-  user: UserSummaryType
-}) {
+export function UserProfileSection({ user }: { user: UserSummaryType }) {
   const { user_id, profile_url, name, description, like_course_count } = user
 
   return (

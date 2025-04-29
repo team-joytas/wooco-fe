@@ -2,10 +2,10 @@
 
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { Divider, Spacer } from '@/src/shared/ui'
 import { ActionHeader } from '@/src/widgets'
-import UploadProfileImage from '@/src/features/user/upload-profile-image'
-import { useForm } from 'react-hook-form'
+import { UploadProfileImage } from '@/src/features'
 import useUserStore from '@/src/shared/store/userStore'
 import { useGetMyProfile, useUpdateUser } from '@/src/entities/user'
 

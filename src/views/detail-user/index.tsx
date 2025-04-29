@@ -12,15 +12,15 @@ import {
   useGetUserSummary,
   useGetUserCourses,
 } from '@/src/entities/user'
-import UserProfileSection from '@/src/features/user/user-profile-section'
 import useUserStore from '@/src/shared/store/userStore'
 import {
   NavigationTabs,
   NavigationTabType,
   SelectSort,
-  SkeletonCoursePlanCard,
-  SkeletonTab,
+  UserProfileSection,
   SkeletonUserProfileSection,
+  SkeletonTab,
+  SkeletonCoursePlanCard,
 } from '@/src/features'
 
 export default function DetailUser({ id }: { id: string }) {
