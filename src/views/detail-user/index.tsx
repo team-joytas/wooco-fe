@@ -1,10 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import ListUserPlace from '@/src/features/plan/list-user-place'
+import { useRouter } from 'next/navigation'
 import { UserCourseList } from '@/src/widgets'
 import { Spacer } from '@/src/shared/ui'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
+import ListUserPlace from '@/src/features/plan/list-user-place'
 import { ActionHeader } from '@/src/widgets'
 import {
   useGetMyPlaceReviews,
@@ -13,8 +14,14 @@ import {
 } from '@/src/entities/user'
 import UserProfileSection from '@/src/features/user/user-profile-section'
 import useUserStore from '@/src/shared/store/userStore'
-import { useRouter } from 'next/navigation'
-import { NavigationTabs, NavigationTabType, SelectSort } from '@/src/features'
+import {
+  NavigationTabs,
+  NavigationTabType,
+  SelectSort,
+  SkeletonCoursePlanCard,
+  SkeletonTab,
+  SkeletonUserProfileSection,
+} from '@/src/features'
 
 export default function DetailUser({ id }: { id: string }) {
   const router = useRouter()
@@ -51,7 +58,22 @@ export default function DetailUser({ id }: { id: string }) {
   }
 
   if (!userSummary || !courses || !placeReviews) {
-    return <div>Loading ...</div>
+    return (
+      <>
+        <ActionHeader title={isMe ? '마이 페이지' : ''} isBack />
+        <Spacer height={8} />
+        <SkeletonUserProfileSection />
+        <SkeletonTab />
+        <Spacer height={10} />
+        <div className='flex flex-col gap-[20px] px-[20px] mt-[20px]'>
+          {Array.from({ length: 5 }).map((_, index) => (
+            <SkeletonCoursePlanCard key={index} />
+          ))}
+        </div>
+        <Spacer height={20} />
+        <FloatingWriteButton />
+      </>
+    )
   }
 
   return (
