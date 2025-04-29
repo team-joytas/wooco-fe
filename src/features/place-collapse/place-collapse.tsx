@@ -74,7 +74,7 @@ export function PlaceCollapse({
         <div className='flex rounded-[10px] items-center justify-between px-[15px]'>
           <div className='flex flex-col justify-end items-center gap-[5px]'>
             <p className='text-headline text-brand font-semibold'>
-              {place.average_rating}
+              {place.average_rating?.toFixed(1)}
             </p>
             <StarRateView rate={place?.average_rating || 0} size={12} />
             <p className='text-sub opacity-50'>
