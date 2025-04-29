@@ -7,7 +7,7 @@ interface UploadProfileImageProps {
   setImageUrl: (imageUrl: string) => void
 }
 
-export default function UploadProfileImage({
+export function UploadProfileImage({
   imageUrl,
   setImageUrl,
 }: UploadProfileImageProps) {
