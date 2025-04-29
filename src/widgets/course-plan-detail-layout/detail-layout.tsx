@@ -1,17 +1,14 @@
 'use client'
 
-import { Spacer, ActiveKakaoMap, Divider } from '@/src/shared/ui'
-import { PlaceCollapse } from '@/src/features'
+import { Share2 } from 'lucide-react'
+import { useMemo, useState } from 'react'
+import { ShareModal, PlaceCollapse } from '@/src/features'
 import type { CourseType } from '@/src/entities/course'
 import { CATEGORY } from '@/src/entities/course'
 import { CoursePlanHeader } from '@/src/widgets'
 import useUserStore from '@/src/shared/store/userStore'
 import { PlanType } from '@/src/entities/plan'
-import { Share2, X } from 'lucide-react'
-import { useRouter } from 'next/navigation'
-import { useMemo, useState } from 'react'
-import { message } from 'antd'
-import { FloatingMenuButton } from '@/src/widgets/floating-write-btn'
+import { Spacer, ActiveKakaoMap, Divider } from '@/src/shared/ui'
 
 const COURSE_PLAN = {
   course: 'course' as const,
@@ -33,11 +30,13 @@ export function CoursePlanDetailLayout({
   children,
   data,
 }: CoursePlanDetailLayoutProps) {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   const userId = useUserStore((state) => state.user?.user_id)
   const userName = useUserStore((state) => state.user?.name)
   const typeName = type === COURSE_PLAN.course ? '코스' : '플랜'
   const visit = type === COURSE_PLAN.course ? '방문한' : '방문할'
-  const router = useRouter()
 
   const isCourseType = (data: CourseType | PlanType) =>
     'writer' in data && 'is_liked' in data
@@ -48,47 +47,6 @@ export function CoursePlanDetailLayout({
     [isCourse, userId, data]
   )
 
-  const [isClicked, setIsClicked] = useState(false)
-  const handleClick = (path: string) => {
-    setIsClicked(!isClicked)
-    document.scrollingElement?.scrollTo({ top: 0, behavior: 'smooth' })
-    router.push(path)
-  }
-
-  const [messageApi, contextHolder] = message.useMessage()
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(window.location.href).then(() => {
-      messageApi.success({
-        content: '링크가 클립보드에 복사되었습니다.',
-        duration: 1,
-      })
-    })
-    setIsClicked(!isClicked)
-  }
-
-  const handleClickShareCourse = () => {
-    setIsClicked(!isClicked)
-
-    const { primary_region, secondary_region, places} = data
-    const filteredData = {
-      primary_region,
-      secondary_region,
-      places,
-    }
-
-    sessionStorage.setItem('course', JSON.stringify(filteredData))
-    handleClick('/courses/new')
-  }
-
-  const renderFloatingButtons = () =>
-    isClicked && (
-      <div className='flex flex-col gap-[5px] absolute bottom-[120px]'>
-        <FloatingMenuButton onClick={copyToClipboard} text='링크 복사' />
-        <FloatingMenuButton onClick={handleClickShareCourse} text='코스 작성' />
-      </div>
-    )
-
-  const [activeIndex, setActiveIndex] = useState<number | null>(null)
   return (
     <>
       <CoursePlanHeader
@@ -180,27 +138,23 @@ export function CoursePlanDetailLayout({
       {!isCourse && (
         <button
           className='group w-full max-w-[375px] h-[54px] text-gray-600 font-bold text-main flex items-center justify-center bg-light-gray gap-[10px] hover:bg-brand hover:text-white transition-all duration-200 fixed bottom-60'
-          onClick={() => setIsClicked(!isClicked)}
+          onClick={() => setIsModalOpen(true)}
         >
-          {isClicked ? (
-            <>
-              <X size={24} strokeWidth={1.5} />
-              닫기
-            </>
-          ) : (
-            <>
-              <Share2
-                size={24}
-                strokeWidth={1.5}
-                className='fill-gray-600 group-hover:fill-white transition-colors duration-200'
-              />
-              공유하기
-            </>
-          )}
+          <Share2
+            size={24}
+            strokeWidth={1.5}
+            className='fill-gray-600 group-hover:fill-white transition-colors duration-200'
+          />
+          공유하기
         </button>
       )}
-      {isClicked && renderFloatingButtons()}
-      {contextHolder}
+
+      <ShareModal
+        type='plan'
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        data={data}
+      />
     </>
   )
 }
