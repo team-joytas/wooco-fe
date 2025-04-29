@@ -8,7 +8,7 @@ import { getLoginUrl } from '@/src/entities/auth'
 import { useRouter } from 'next/navigation'
 import { useGetMyProfile } from '@/src/entities/user'
 import { CoursePlanCard, SkeletonCoursePlanCard } from '@/src/features'
-import { SkeletonDiv } from '@/src/shared/ui/skeleton'
+import { SkeletonDiv } from '@/src/shared/ui'
 
 export default function ListPlan() {
   const [isClick, setIsClick] = useState(false)
