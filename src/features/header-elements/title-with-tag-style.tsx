@@ -7,7 +7,7 @@ export function TitleWithTagStyle({
 }) {
   if (!title) return null
 
-  return title.length > 0 ? (
+  return title.length === 0 ? (
     <div
       className={`font-semibold w-[100px] h-[35.5px] rounded-[20px] bg-container-blue leading-normal ${
         isTitleCenter && 'absolute left-1/2 transform -translate-x-1/2'
