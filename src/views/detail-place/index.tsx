@@ -4,11 +4,10 @@ import React, { useCallback, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Copy, Phone } from 'lucide-react'
-import { message } from 'antd'
 import { useGetPlace, useGetPlaceReviews } from '@/src/entities/place'
 import { ActionHeader } from '@/src/widgets'
 import { Spacer, KakaoMap } from '@/src/shared/ui'
+import { Copy, Phone } from 'lucide-react'
 import {
   ReviewStats,
   PlaceReviewCard,
@@ -19,6 +18,7 @@ import { Section } from './section'
 import logo from '@/src/assets/images/(logo)/logo.png'
 import allReview from '@/src/assets/images/all_review_icon.svg'
 import kakaoReview from '@/src/assets/images/kakao_review_icon.svg'
+import { useMessageApi } from '@/src/shared/lib'
 import { SkeletonDetailPlaceLayout } from './skeleton-layout'
 
 export default function DetailPlace({ id }: { id: string }) {
@@ -26,17 +26,16 @@ export default function DetailPlace({ id }: { id: string }) {
   const { data: reviewData, refetch } = useGetPlaceReviews(id)
 
   const router = useRouter()
+  const messageApi = useMessageApi()
 
   const [activeTab, setActiveTab] = useState<ScrollTabType>('info')
   const infoRef = useRef<HTMLDivElement>(null)
   const reviewRef = useRef<HTMLDivElement>(null)
   const isScrollingRef = useRef<boolean>(false)
 
-  const [messageApi, contextHolder] = message.useMessage()
   const toast = (address: string) => {
     navigator.clipboard.writeText(address).then(() => {
-      messageApi.open({
-        type: 'success',
+      messageApi.success({
         content: '주소가 클립보드에 복사되었습니다.',
         duration: 1,
       })
@@ -235,7 +234,6 @@ export default function DetailPlace({ id }: { id: string }) {
             </Link>
           </div>
         </div>
-        {contextHolder}
       </div>
 
       <Spacer height={25} />

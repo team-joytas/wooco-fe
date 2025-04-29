@@ -3,7 +3,6 @@
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, useMemo } from 'react'
-import { message } from 'antd'
 import { Spacer } from '@/src/shared/ui'
 import SearchPlace from '@/src/views/search-place'
 import { ActionHeader } from '@/src/widgets'
@@ -25,6 +24,7 @@ import {
 } from '@/src/entities/course'
 import { useQueryClient } from '@tanstack/react-query'
 import useRegionStore from '@/src/shared/store/regionStore'
+import { useMessageApi } from '@/src/shared/lib'
 
 const LAYOUT_TYPE = {
   course: 'course' as const,
@@ -62,9 +62,10 @@ export default function CoursePlanFormLayout({
 }: CoursePlanFormLayoutProps) {
   const router = useRouter()
   const queryClient = useQueryClient()
+  const messageApi = useMessageApi()
+
   const [places, setPlaces] = useState<CoursePlanPlaceType[]>([])
   const [openSearchPlace, setOpenSearchPlace] = useState<boolean>(false)
-  const [messageApi, contextHolder] = message.useMessage()
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
   const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false)
 
@@ -90,7 +91,7 @@ export default function CoursePlanFormLayout({
     },
   })
   const { data: courseData } = useGetCourse(id || '', type == 'course' && !!id)
-  const { data: planData } = useGetPlan(id || '',type == 'plan' && !!id)
+  const { data: planData } = useGetPlan(id || '', type == 'plan' && !!id)
   const fetchData = useMemo(() => {
     return type === LAYOUT_TYPE.course
       ? courseData
@@ -148,13 +149,18 @@ export default function CoursePlanFormLayout({
 
     if (storedData) {
       const sharedData = JSON.parse(storedData)
-      setValue('title',sharedData.title)
-      setValue('contents',sharedData.contents)
+      setValue('title', sharedData.title)
+      setValue('contents', sharedData.contents)
       setValue('primary_region', sharedData.primary_region)
       setValue('secondary_region', sharedData.secondary_region)
-      setValue('visit_date', sharedData?.visit_date ? sharedData.visit_date : "")
+      setValue(
+        'visit_date',
+        sharedData?.visit_date ? sharedData.visit_date : ''
+      )
       setPlaces(sharedData.places || [])
-      useRegionStore.setState({ currentRegion: [sharedData.primary_region,sharedData.secondary_region] })
+      useRegionStore.setState({
+        currentRegion: [sharedData.primary_region, sharedData.secondary_region],
+      })
       setIsDataLoaded(true)
     }
 
@@ -302,7 +308,6 @@ export default function CoursePlanFormLayout({
           setPlaces={setPlaces}
         />
       )}
-      {contextHolder}
     </div>
   )
 }
