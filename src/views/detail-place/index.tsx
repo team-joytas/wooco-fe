@@ -4,14 +4,11 @@ import React, { useCallback, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useGetPlace, useGetPlaceReviews } from '@/src/entities/place'
-import { ActionHeader } from '@/src/widgets'
-import logo from '@/src/assets/images/(logo)/logo.png'
-import { Spacer, KakaoMap } from '@/src/shared/ui'
 import { Copy, Phone } from 'lucide-react'
 import { message } from 'antd'
-import allReview from '@/src/assets/images/all_review_icon.svg'
-import kakaoReview from '@/src/assets/images/kakao_review_icon.svg'
+import { useGetPlace, useGetPlaceReviews } from '@/src/entities/place'
+import { ActionHeader } from '@/src/widgets'
+import { Spacer, KakaoMap } from '@/src/shared/ui'
 import {
   ReviewStats,
   PlaceReviewCard,
@@ -19,6 +16,10 @@ import {
   ScrollTabType,
 } from '@/src/features'
 import { Section } from './section'
+import logo from '@/src/assets/images/(logo)/logo.png'
+import allReview from '@/src/assets/images/all_review_icon.svg'
+import kakaoReview from '@/src/assets/images/kakao_review_icon.svg'
+import { SkeletonDetailPlaceLayout } from './skeleton-layout'
 
 export default function DetailPlace({ id }: { id: string }) {
   const { data: placeData } = useGetPlace(id)
@@ -76,7 +77,9 @@ export default function DetailPlace({ id }: { id: string }) {
     []
   )
 
-  if (!placeData || !reviewData) return <div>Loading</div>
+  if (!placeData || !reviewData) {
+    return <SkeletonDetailPlaceLayout />
+  }
 
   return (
     <>

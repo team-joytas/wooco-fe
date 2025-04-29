@@ -1,4 +1,4 @@
-import { SkeletonDiv } from '@/src/shared/ui/skeleton'
+import { SkeletonDiv } from '@/src/shared/ui'
 
 export function SkeletonCourseGridCard() {
   return (

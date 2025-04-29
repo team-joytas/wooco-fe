@@ -35,8 +35,6 @@ export default function ListLikeCourse({ id }: ListLikeCourseProps) {
     }
   }, [])
 
-  if (isLoading) return <div>Loading...</div>
-
   return (
     <>
       <ActionHeader
@@ -61,7 +59,10 @@ export default function ListLikeCourse({ id }: ListLikeCourseProps) {
         {likeCourses?.length === 0 ? (
           <NoLikedCourse />
         ) : (
-          <CourseListLayout isListView={isListView} courses={likeCourses} />
+          <CourseListLayout
+            isListView={isListView}
+            courses={isLoading ? undefined : likeCourses}
+          />
         )}
       </div>
     </>

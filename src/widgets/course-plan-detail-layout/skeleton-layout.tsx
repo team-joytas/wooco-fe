@@ -1,8 +1,7 @@
 'use client'
 
-import { Spacer, Divider } from '@/src/shared/ui'
+import { Spacer, Divider, SkeletonDiv } from '@/src/shared/ui'
 import { CoursePlanHeader } from '@/src/widgets'
-import { SkeletonDiv } from '@/src/shared/ui/skeleton'
 
 const COURSE_PLAN = {
   course: 'course' as const,
