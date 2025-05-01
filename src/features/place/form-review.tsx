@@ -3,9 +3,9 @@ import React, { useState, useRef, useEffect } from 'react'
 import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { ReviewPayloadType } from '@/src/entities/place'
 import { postImage } from '@/src/shared/api'
-import { message } from 'antd'
 import { Spacer } from '@/src/shared/ui'
 import { StarRateForm } from '@/src/features'
+import { useMessageApi } from '@/src/shared/lib'
 
 // 리뷰
 interface ReviewTextareaProps {
@@ -119,7 +119,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
 }) => {
   const fileInput = useRef<HTMLInputElement | null>(null)
   const scrollRef = useRef<HTMLDivElement | null>(null)
-  const [messageApi, contextHolder] = message.useMessage()
+  const messageApi = useMessageApi()
 
   // Drag and Touch Scrolling
   let isDragging = false
@@ -247,7 +247,6 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
           ))}
         </div>
       </div>
-      {contextHolder}
     </div>
   )
 }
@@ -274,7 +273,7 @@ const FormReview: React.FC<FormReviewProps> = ({
   formValues,
 }) => {
   // toast
-  const [messageApi, contextHolder] = message.useMessage()
+  const messageApi = useMessageApi()
   const toast = (type: 'success' | 'error', content: string) => {
     messageApi.open({
       type,
@@ -340,7 +339,6 @@ const FormReview: React.FC<FormReviewProps> = ({
           setValue={setValue}
         />
       </div>
-      {contextHolder}
     </div>
   )
 }

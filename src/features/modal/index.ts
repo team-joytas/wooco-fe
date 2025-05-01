@@ -1,1 +1,1 @@
-export * from './course-modal'
+export * from './share-modal'

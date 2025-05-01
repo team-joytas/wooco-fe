@@ -7,6 +7,7 @@ import localFont from 'next/font/local'
 import { AnimatePresence } from 'framer-motion'
 import { ConfigProvider } from 'antd'
 import ReactQueryProvider from '@/src/shared/provider/ReactQueryProvider'
+import { MessageProvider } from '@/src/shared/lib'
 
 export const metadata: Metadata = {
   title: 'WOOCO - 우코',
@@ -48,10 +49,12 @@ export default function RootLayout({
           <MainHeader />
           <ConfigProvider theme={theme}>
             <AnimatePresence>
-              <div className='mx-auto flex-1 text-black h-full w-full max-w-[375px]'>
-                {children}
-                <Spacer height={60} notShowURLs={['/login']} />
-              </div>
+              <MessageProvider>
+                <div className='mx-auto flex-1 text-black h-full w-full max-w-[375px]'>
+                  {children}
+                  <Spacer height={60} notShowURLs={['/login']} />
+                </div>
+              </MessageProvider>
             </AnimatePresence>
           </ConfigProvider>
           <DefaultFooter />

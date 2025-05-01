@@ -7,7 +7,7 @@ import { CourseType } from '@/src/entities/course'
 import logo from '@/src/assets/images/(logo)/logo.png'
 import { CourseActionBar, useCourseLike } from '@/src/features'
 import { useEffect, useState } from 'react'
-import { CourseModal } from '@/src/features'
+import { ShareModal } from '@/src/features'
 
 export function CourseGridCard({ course }: { course: CourseType }) {
   const {
@@ -83,10 +83,11 @@ export function CourseGridCard({ course }: { course: CourseType }) {
         setIsModalOpen={setIsModalOpen}
       />
 
-      <CourseModal
+      <ShareModal
+        type='course'
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
-        course={course}
+        data={course}
       />
     </div>
   )

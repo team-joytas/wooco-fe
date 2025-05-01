@@ -26,12 +26,11 @@ export default function DetailPlan({ planId }: DetailPlanProps) {
     }
   }, [isLoading])
 
-  if (isError) {
+  if (isLoading) return <SkeletonCoursePlanDetailLayout type='course' />
+
+  if (isError || !plan) {
     router.push('/not-found')
   }
-
-  if (isLoading || !plan)
-    return <SkeletonCoursePlanDetailLayout type='course' />
 
   return <CoursePlanDetailLayout type='plan' id={planId} data={plan} />
 }

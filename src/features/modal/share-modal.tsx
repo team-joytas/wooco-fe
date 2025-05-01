@@ -3,21 +3,26 @@
 import { Link, Share2, X } from 'lucide-react'
 import { CourseType } from '@/src/entities/course'
 import { Modal } from '@/src/shared/ui'
-import { message } from 'antd'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { PlanType } from '@/src/entities/plan'
+import { useMessageApi } from '@/src/shared/lib'
 
-interface CourseModalProps {
+interface ShareModalProps {
+  type: 'course' | 'plan'
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
-  course: CourseType
+  data: CourseType | PlanType
 }
 
-export function CourseModal({ isOpen, setIsOpen, course }: CourseModalProps) {
-  const router = useRouter()
-
-  const [messageApi, contextHolder] = message.useMessage()
+export function ShareModal({ type, isOpen, setIsOpen, data }: ShareModalProps) {
   const [isClicked, setIsClicked] = useState(false)
+
+  const router = useRouter()
+  const messageApi = useMessageApi()
+  const title = type === 'course' ? '플랜으로' : '코스로'
+  const button = type === 'course' ? '추가하기' : '공유하기'
+  const shareType = type === 'course' ? 'plan' : 'course'
 
   const handleClick = (path: string) => {
     setIsClicked(!isClicked)
@@ -26,7 +31,11 @@ export function CourseModal({ isOpen, setIsOpen, course }: CourseModalProps) {
   }
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(window.location.href).then(() => {
+    const url = window.location.href
+    const postId = data.id.toString()
+    const to = url.includes(postId) ? url : url + `/${postId}`
+
+    navigator.clipboard.writeText(to).then(() => {
       messageApi.success({
         content: '링크가 클립보드에 복사되었습니다.',
         duration: 1,
@@ -36,17 +45,17 @@ export function CourseModal({ isOpen, setIsOpen, course }: CourseModalProps) {
     setIsOpen(false)
   }
 
-  const onClickAddPlan = () => {
-    const { primary_region, secondary_region, places } = course
+  const handleShare = () => {
+    const { primary_region, secondary_region, places } = data
     const filteredData = {
       primary_region,
       secondary_region,
       places,
     }
 
-    sessionStorage.setItem('plan', JSON.stringify(filteredData))
+    sessionStorage.setItem(shareType, JSON.stringify(filteredData))
     document.body.style.overflow = 'unset'
-    handleClick('/plans/new')
+    handleClick(`/${shareType}s/new`)
   }
 
   return (
@@ -60,7 +69,7 @@ export function CourseModal({ isOpen, setIsOpen, course }: CourseModalProps) {
       </div>
 
       <span className='text-main text-gray-700 font-bold flex items-center justify-center'>
-        플랜으로 추가할까요?
+        {title} 공유할까요?
       </span>
 
       <div className='flex flex-row h-[50px] w-full bg-gray-300 text-gray-500 text-main font-bold'>
@@ -72,15 +81,13 @@ export function CourseModal({ isOpen, setIsOpen, course }: CourseModalProps) {
           링크 복사
         </button>
         <button
-          onClick={onClickAddPlan}
+          onClick={handleShare}
           className='flex-1 items-center justify-center flex gap-[10px] bg-brand  text-white rounded-br-[10px]'
         >
           <Share2 size={16} fill='#fff' />
-          추가하기
+          {button}
         </button>
       </div>
-
-      {contextHolder}
     </Modal>
   )
 }

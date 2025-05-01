@@ -4,7 +4,7 @@ import { ImageWithIndex, ProfileImage } from '@/src/shared/ui'
 import { type CourseType } from '@/src/entities/course'
 import Link from 'next/link'
 import { CourseActionBar, useCourseLike } from '@/src/features'
-import { CourseModal } from '../../modal/course-modal'
+import { ShareModal } from '../../modal/share-modal'
 import { useEffect, useState } from 'react'
 
 export function CourseListCard({ course }: { course: CourseType }) {
@@ -90,10 +90,11 @@ export function CourseListCard({ course }: { course: CourseType }) {
         />
       </section>
 
-      <CourseModal
+      <ShareModal
+        type='course'
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
-        course={course}
+        data={course}
       />
     </div>
   )

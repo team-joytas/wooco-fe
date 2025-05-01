@@ -5,9 +5,9 @@ import logoDefaultCopy from '@/src/assets/images/(logo)/temp_empty.png'
 import kakaoReview from '@/src/assets/images/kakao_review_icon.svg'
 import allReview from '@/src/assets/images/all_review_icon.svg'
 import type { CoursePlanPlaceType } from '@/src/entities/place'
-import { message } from 'antd'
 import { Spacer } from '@/src/shared/ui'
 import { StarRateView } from '@/src/features'
+import { useMessageApi } from '@/src/shared/lib'
 
 export function PlaceCollapse({
   places,
@@ -18,12 +18,10 @@ export function PlaceCollapse({
   activeIndex: number | null
   setActiveIndex: (key: (prevKey: number | null) => null | number) => void
 }) {
-  const [messageApi, contextHolder] = message.useMessage()
-
+  const messageApi = useMessageApi()
   const toast = (address: string) => {
     navigator.clipboard.writeText(address).then(() => {
-      messageApi.open({
-        type: 'success',
+      messageApi.success({
         content: '주소가 클립보드에 복사되었습니다.',
         duration: 1,
       })
@@ -108,13 +106,14 @@ export function PlaceCollapse({
           </div>
         </div>
         <Spacer height={25} />
-        {contextHolder}
       </div>
     ),
   }))
+
   const toggleItem = (key: number) => {
     setActiveIndex((prevKey) => (prevKey === key ? null : key))
   }
+
   return (
     <div className='w-full px-[30px]'>
       {items.map((item, index) => {
