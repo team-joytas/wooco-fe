@@ -7,7 +7,7 @@ import React from 'react'
 import useUserStore from '@/src/shared/store/userStore'
 import { useQueryClient } from '@tanstack/react-query'
 import { useDeletePlan } from '@/src/entities/plan'
-import { BackButton, OptionDropbox } from '@/src/shared/ui'
+import { BackButton, OptionDropbox, useToast } from '@/src/shared/ui'
 import {
   useDeleteCourse,
   useDeleteCourseLike,
@@ -15,6 +15,7 @@ import {
 } from '@/src/entities/course'
 import { USER_QUERY_KEY } from '@/src/entities/user/api'
 import { HeaderBase, TitleWithTagStyle } from '@/src/features'
+import { useAuth } from '@/src/shared/provider'
 
 interface CoursePlanHeaderProps {
   title: string
@@ -38,6 +39,8 @@ export function CoursePlanHeader({
   const menuRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
   const queryClient = useQueryClient()
+  const { show } = useToast()
+  const { token } = useAuth()
 
   const { mutate: deleteCourseLike } = useDeleteCourseLike(id)
   const { mutate: postCourseLike } = usePostCourseLike(id)
@@ -64,6 +67,11 @@ export function CoursePlanHeader({
   const handleClickBack = () => router.back()
   const handleClickOption = () => setIsOpen(!isOpen)
   const handleClickLike = async () => {
+    if (!token) {
+      show('로그인 후 이용해주세요')
+      return
+    }
+
     try {
       if (isLiked) {
         setClickedLike(false)

@@ -2,11 +2,12 @@
 
 import { Link, Share2, X } from 'lucide-react'
 import { CourseType } from '@/src/entities/course'
-import { Modal } from '@/src/shared/ui'
+import { Modal, useToast } from '@/src/shared/ui'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { PlanType } from '@/src/entities/plan'
 import { useMessageApi } from '@/src/shared/lib'
+import { useAuth } from '@/src/shared/provider'
 
 interface ShareModalProps {
   type: 'course' | 'plan'
@@ -20,6 +21,8 @@ export function ShareModal({ type, isOpen, setIsOpen, data }: ShareModalProps) {
 
   const router = useRouter()
   const messageApi = useMessageApi()
+  const { show } = useToast()
+  const { token } = useAuth()
   const title = type === 'course' ? '플랜으로' : '코스로'
   const button = type === 'course' ? '추가하기' : '공유하기'
   const shareType = type === 'course' ? 'plan' : 'course'
@@ -46,6 +49,12 @@ export function ShareModal({ type, isOpen, setIsOpen, data }: ShareModalProps) {
   }
 
   const handleShare = () => {
+    if (!token) {
+      show('로그인 후 이용해주세요')
+      setIsOpen(false)
+      return
+    }
+
     const { primary_region, secondary_region, places } = data
     const filteredData = {
       primary_region,

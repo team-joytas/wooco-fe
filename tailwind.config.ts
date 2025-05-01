@@ -45,7 +45,7 @@ const config: Config = {
       },
       boxShadow: {
         custom: '0 -2px 4px rgba(0, 0, 0, 0.05)',
-        'floating-button': '0 0 5.1px rgba(0, 0, 0, 0.4)',
+        grid: '0 0 5.1px rgba(0, 0, 0, 0.4)',
       },
     },
   },

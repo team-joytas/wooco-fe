@@ -1,8 +1,9 @@
 'use client'
 
+import { useAuth } from '@/src/shared/provider'
 import { Pencil, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 interface FloatingButtonProps {
   onClick: () => void
@@ -20,6 +21,7 @@ export default function FloatingWriteButton({
 }: FloatingWriteButtonProps) {
   const router = useRouter()
   const [internalIsClick, setInternalIsClick] = useState(false)
+  const { token } = useAuth()
 
   const isClick = isClickProp ?? internalIsClick
   const setIsClick = setIsClickProp ?? setInternalIsClick
@@ -30,6 +32,10 @@ export default function FloatingWriteButton({
     }
     document.scrollingElement?.scrollTo({ top: 0, behavior: 'smooth' })
     router.push(path)
+  }
+
+  if (!token) {
+    return null
   }
 
   return (
@@ -65,7 +71,7 @@ export default function FloatingWriteButton({
 export function FloatingMenuButton({ onClick, text }: FloatingButtonProps) {
   return (
     <button
-      className='w-[80px] h-[30px] bg-white shadow-floating-button text-[14px] rounded-full flex items-center justify-center hover:bg-brand hover:text-white transition-all duration-200'
+      className='w-[80px] h-[30px] bg-white shadow-grid text-[14px] rounded-full flex items-center justify-center hover:bg-brand hover:text-white transition-all duration-200'
       onClick={onClick}
     >
       {text}

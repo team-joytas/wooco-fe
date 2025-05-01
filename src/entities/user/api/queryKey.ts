@@ -3,7 +3,7 @@ import { LikeRegion } from '@/src/shared/store/regionStore'
 export const USER_QUERY_KEY = {
   all: ['users'] as const,
   detail: (id: string) => [...USER_QUERY_KEY.all, id] as const,
-  myProfile: ['myProfile'] as const,
+  myProfile: (token: string) => ['myProfile', token] as const,
   myLikeRegions: (data: LikeRegion[]) => ['myLikeRegions', data] as const,
   courses: (id: string, order?: 'RECENT' | 'POPULAR') =>
     ['userCourses', id, order] as const,
