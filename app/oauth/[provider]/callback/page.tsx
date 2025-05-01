@@ -4,6 +4,7 @@ import { useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { postLogin } from '@/src/entities/auth'
 import { useRouter } from 'next/navigation'
+import Error from '@/app/error'
 
 function LoginHandler({ provider }: { provider: string }) {
   const router = useRouter()
@@ -14,7 +15,7 @@ function LoginHandler({ provider }: { provider: string }) {
   useEffect(() => {
     const handleLogin = async () => {
       if (code && state) {
-        const isLogin = await postLogin(code,state,provider)
+        const isLogin = await postLogin(code, state, provider)
         if (isLogin.success && !isLogin.onBoarding) {
           router.replace('/')
         } else if (isLogin.onBoarding) {
@@ -33,7 +34,7 @@ function LoginHandler({ provider }: { provider: string }) {
 
 export default function Page({ params }: { params: { provider: string } }) {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Error />}>
       <LoginHandler provider={params.provider} />
     </Suspense>
   )

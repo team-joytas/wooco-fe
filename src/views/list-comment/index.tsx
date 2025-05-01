@@ -5,10 +5,10 @@ import { Spacer } from '@/src/shared/ui'
 import { useForm } from 'react-hook-form'
 import { usePostComment, useGetComments } from '@/src/entities/comment'
 import { ActionHeader } from '@/src/widgets'
-import { CommentCard } from '@/src/features'
+import { CommentCard, SkeletonCommentCard } from '@/src/features'
 
 export default function DetailComment({ courseId }: { courseId: string }) {
-  const { data: comments, refetch } = useGetComments(courseId)
+  const { data: comments, isLoading, refetch } = useGetComments(courseId)
   const { mutate: createComment } = usePostComment()
   const {
     register,
@@ -36,7 +36,20 @@ export default function DetailComment({ courseId }: { courseId: string }) {
     }
   }
 
-  if (!comments) return <div>Loading...</div>
+  if (isLoading || !comments) {
+    return (
+      <div className='h-100% flex flex-col'>
+        <ActionHeader title='댓글' isBack />
+        <Spacer height={20} />
+        <div className='px-[20px] flex flex-col gap-[25px]'>
+          {Array.from({ length: 5 }).map((_, index) => (
+            <SkeletonCommentCard key={index} />
+          ))}
+          <Spacer height={20} />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className='h-100% flex flex-col'>
