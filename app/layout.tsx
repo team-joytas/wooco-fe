@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { Spacer } from '@/src/shared/ui'
+import { ToastProvider, Spacer } from '@/src/shared/ui'
 import { MainHeader } from '@/src/widgets'
 import DefaultFooter from '@/src/widgets/default-footer'
 import localFont from 'next/font/local'
@@ -46,18 +46,20 @@ export default function RootLayout({
         className={`${pretendard.className} h-full flex items-center flex-col overflow-y-scroll`}
       >
         <ReactQueryProvider>
-          <MainHeader />
-          <ConfigProvider theme={theme}>
-            <AnimatePresence>
-              <MessageProvider>
-                <div className='mx-auto flex-1 text-black h-full w-full max-w-[375px]'>
-                  {children}
-                  <Spacer height={60} notShowURLs={['/login']} />
-                </div>
-              </MessageProvider>
-            </AnimatePresence>
-          </ConfigProvider>
-          <DefaultFooter />
+          <ToastProvider>
+            <MainHeader />
+            <ConfigProvider theme={theme}>
+              <AnimatePresence>
+                <MessageProvider>
+                  <div className='mx-auto flex-1 text-black h-full w-full max-w-[375px]'>
+                    {children}
+                    <Spacer height={60} notShowURLs={['/login']} />
+                  </div>
+                </MessageProvider>
+              </AnimatePresence>
+            </ConfigProvider>
+            <DefaultFooter />
+          </ToastProvider>
         </ReactQueryProvider>
       </body>
     </html>
