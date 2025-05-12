@@ -91,11 +91,11 @@ export function ActionHeader({
   }
 
   return (
-    <HeaderBase className='px-[10px] border-b-[1px] border-container-blue'>
+    <HeaderBase className='px-[10px] border-b-[1px] border-container-blue z-[30] sticky top-0'>
       {isTitleTag ? (
         <div
           className={`flex items-center ${
-            isTitleCenter ? 'w-full relative' : 'gap-[10px]'
+            isTitleCenter ? 'w-full relative justify-between' : 'gap-[10px] justify-center'
           }`}
         >
           <BackButton onClick={handleClickBack} />
@@ -110,6 +110,7 @@ export function ActionHeader({
               stroke='#5A59F2'
             />
           )}
+          {rightSection()}
         </div>
       ) : (
         <>
@@ -127,9 +128,9 @@ export function ActionHeader({
           >
             {title}
           </p>
+          {rightSection()}
         </>
       )}
-      {rightSection()}
     </HeaderBase>
   )
 }
