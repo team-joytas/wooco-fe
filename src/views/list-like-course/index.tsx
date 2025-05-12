@@ -38,7 +38,7 @@ export default function ListLikeCourse({ id }: ListLikeCourseProps) {
   return (
     <>
       <ActionHeader
-        title={'관심 목록'}
+        title={'찜 목록'}
         showLike={false}
         isLiked={false}
         isTitleTag={true}
