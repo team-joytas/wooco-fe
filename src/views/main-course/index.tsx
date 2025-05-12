@@ -3,12 +3,14 @@
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { CourseType, useGetCourses } from '@/src/entities/course'
-import { useGetMyLikeRegions } from '@/src/entities/user'
+import { useGetMyLikeRegions, useGetMyProfile } from '@/src/entities/user'
 import { Spacer, RegionCascaderWithLikes } from '@/src/shared/ui'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import useRegionStore from '@/src/shared/store/regionStore'
 import { CourseListCard, SkeletonCourseListCard } from '@/src/features'
-
+import  Heart  from '@/src/assets/icon/heart_fullfill_20.svg'
+import Image from 'next/image'
+import Link from 'next/link'
 export default function MainCourse() {
   const router = useRouter()
   const { setLikedRegions, likedRegions, setCurrentRegion, currentRegion } =
@@ -16,6 +18,7 @@ export default function MainCourse() {
 
   const { data: courses, isLoading } = useGetCourses({ sort: 'POPULAR' })
   const { data: likeRegions } = useGetMyLikeRegions(likedRegions)
+  const { data: user, isError } = useGetMyProfile()
 
   const onChangeRegion = (value: string[]) => {
     useRegionStore.setState({ currentRegion: value })
@@ -54,11 +57,28 @@ export default function MainCourse() {
         <Spacer className='bg-bright-gray' height={8} />
         <div className='flex flex-col w-full mb-[3px]'>
           <Spacer height={15} />
-          <div className='flex flex-col justify-start gap-[3px] px-[20px]'>
-            <span className='text-headline font-bold text-brand'>New</span>
-            <span className='text-description text-sub'>
-              최근 유저들이 작성한 코스 구경하고 저장해요
-            </span>
+          <div className='flex flex-row px-[20px]'>
+            <div className='flex flex-col w-[228px] justify-start gap-[3px]'>
+              <span className='text-headline02 font-bold text-brand'>
+                Weekly Best
+              </span>
+              <span className='text-description text-sub02 font-sub02'>
+                이번 주 가장 인기 있는 코스 구경하고 저장해요
+              </span>
+            </div>
+            <div className="flex flex-col justify-center">
+              <Link className='w-[100px] h-[32px] px-[10px] py-[6px] bg-gray-100 rounded-[10px] flex items-center justify-center gap-[4px]'
+                    href={user && !isError ? `/users/${user.user_id}/wishlist` : "/login"}
+              >
+                <span className='text-middle01'>찜 목록</span>
+                <Image
+                  src={Heart as string}
+                  alt='heart'
+                  height={20}
+                  width={21}
+                />
+              </Link>
+            </div>
           </div>
           <Spacer height={17} />
           <div className='flex flex-col items-center px-[22px] gap-[15px]'>
@@ -89,11 +109,29 @@ export default function MainCourse() {
       <Spacer className='bg-bright-gray' height={8} />
       <div className='flex flex-col w-full mb-[3px]'>
         <Spacer height={15} />
-        <div className='flex flex-col justify-start gap-[3px] px-[20px]'>
-          <span className='text-headline font-bold text-brand'>New</span>
-          <span className='text-description text-sub'>
-            최근 유저들이 작성한 코스 구경하고 저장해요
-          </span>
+        <div className='flex flex-row px-[20px]'>
+          <div className='flex flex-col w-[228px] justify-start gap-[3px]'>
+              <span className='text-headline02 font-bold text-brand'>
+                Weekly Best
+              </span>
+            <span className='text-description text-sub02 font-sub02'>
+                이번 주 가장 인기 있는 코스 구경하고 저장해요
+              </span>
+          </div>
+          <div className="flex flex-col justify-center">
+            <Link
+              className='w-[100px] h-[32px] px-[10px] py-[6px] bg-gray-100 rounded-[10px] flex items-center justify-center gap-[4px]'
+              href={user && !isError ? `/users/${user.user_id}/wishlist` : "/login"}
+            >
+              <span className='text-middle01'>찜 목록</span>
+              <Image
+                src={Heart as string}
+                alt='heart'
+                height={20}
+                width={21}
+              />
+            </Link>
+          </div>
         </div>
         <Spacer height={17} />
         <div className='flex flex-col items-center px-[22px] gap-[15px]'>
