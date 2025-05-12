@@ -1,2 +1,2 @@
-export * from './options'
+export * from './option'
 export * from './select-sort'
