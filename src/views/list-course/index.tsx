@@ -5,10 +5,11 @@ import { ActionHeader } from '@/src/widgets'
 import { useGetCourses } from '@/src/entities/course'
 import useRegionStore, { LikeRegion } from '@/src/shared/store/regionStore'
 import CourseListLayout from '@/src/widgets/course-list-layout'
-import { Spacer, SelectCategories } from '@/src/shared/ui'
+import { Spacer, SelectCategories, useToast } from '@/src/shared/ui'
 import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import { useDeleteMyLikeRegion, usePostMyLikeRegion } from '@/src/entities/user'
 import { SelectSort } from '@/src/features'
+import { useAuth } from '@/src/shared/provider'
 
 export default function ListCourse() {
   const [isListView, setIsListView] = useState(true)
@@ -17,6 +18,8 @@ export default function ListCourse() {
     useRegionStore()
   const [isLiked, setIsLiked] = useState(false)
   const [category, setCategory] = useState<string[]>(['ALL'])
+  const { show } = useToast()
+  const { token } = useAuth()
 
   const regionId = useMemo(() => {
     return findLikedRegionId(likedRegions, currentRegion)
@@ -43,6 +46,11 @@ export default function ListCourse() {
   })
 
   const handleClickLike = () => {
+    if (!token) {
+      show('로그인 후 이용해주세요')
+      return
+    }
+
     if (isLiked) {
       setIsLiked(false)
 

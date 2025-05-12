@@ -4,6 +4,7 @@ import { USER_QUERY_KEY } from './queryKey'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { USER_API } from './endpoint'
 import useUserStore from '@/src/shared/store/userStore'
+import { useAuth } from '@/src/shared/provider'
 
 export const patchUser = async (data: UpdateUserType) => {
   try {
@@ -18,7 +19,7 @@ export const patchUser = async (data: UpdateUserType) => {
 export const useUpdateUser = () => {
   const queryClient = useQueryClient()
   const updateStateUser = useUserStore((state) => state.updateStateUser)
-
+  const {token} = useAuth()
   return useMutation({
     mutationFn: (data: UpdateUserType) => patchUser(data),
     onSuccess: (_, data) => {
@@ -27,7 +28,9 @@ export const useUpdateUser = () => {
         profile_url: '',
         description: '',
       })
-      queryClient.invalidateQueries({ queryKey: USER_QUERY_KEY.myProfile })
+      if (token){
+        queryClient.invalidateQueries({ queryKey: USER_QUERY_KEY.myProfile(token) })
+      }
     },
   })
 }

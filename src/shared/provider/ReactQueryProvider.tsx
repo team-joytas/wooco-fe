@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 const QUERY_STALE_TIME = 1000 * 60 * 30
 
-export default function ReactQueryProvider({
+export function ReactQueryProvider({
   children,
 }: {
   children: React.ReactNode

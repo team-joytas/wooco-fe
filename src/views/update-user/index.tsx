@@ -8,12 +8,14 @@ import { ActionHeader } from '@/src/widgets'
 import { UploadProfileImage } from '@/src/features'
 import useUserStore from '@/src/shared/store/userStore'
 import { useGetMyProfile, useUpdateUser } from '@/src/entities/user'
+import { useAuth } from '@/src/shared/provider'
 
 export default function UpdateUser() {
   const router = useRouter()
   const [imageUrl, setImageUrl] = useState('')
   const [isOnBoarding, setIsOnBoarding] = useState(false)
   const updateStateUser = useUserStore((state) => state.updateStateUser)
+  const { setToken } = useAuth()
 
   const { data: profile, isLoading } = useGetMyProfile()
   const { mutate: updateUser } = useUpdateUser()
@@ -89,7 +91,7 @@ export default function UpdateUser() {
   }
 
   const handleLogout = async () => {
-    localStorage.removeItem('accessToken')
+    setToken(null)
     useUserStore.getState().clearUser()
     router.push('/login')
   }

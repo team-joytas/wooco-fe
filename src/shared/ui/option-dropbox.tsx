@@ -52,7 +52,7 @@ export const OptionDropbox = React.forwardRef<
           strokeWidth={1.5}
         />
         {isMine && isOpen && (
-          <div className='absolute flex flex-col z-[100] top-[30px] right-[10px] w-[93px] shadow-floating-button h-fit bg-light-gray rounded-[10px]'>
+          <div className='absolute flex flex-col z-[100] top-[30px] right-[10px] w-[93px] shadow-grid h-fit bg-light-gray rounded-[10px]'>
             {isComment && setIsEditingComment ? (
               <div
                 className='h-[25px] text-sub flex items-center justify-center cursor-pointer hover:text-brand transition-all duration-200'

@@ -3,6 +3,7 @@ import { UserProfileType } from '../model'
 import { USER_QUERY_KEY } from './queryKey'
 import { useQuery } from '@tanstack/react-query'
 import { USER_API } from './endpoint'
+import { useAuth } from '@/src/shared/provider'
 
 export const getMyProfile = async (): Promise<UserProfileType> => {
   try {
@@ -15,8 +16,11 @@ export const getMyProfile = async (): Promise<UserProfileType> => {
 }
 
 export const useGetMyProfile = () => {
+  const { token } = useAuth()
+
   return useQuery({
-    queryKey: USER_QUERY_KEY.myProfile,
+    queryKey: USER_QUERY_KEY.myProfile(token || ''),
     queryFn: () => getMyProfile(),
+    enabled: !!token,
   })
 }

@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { useDeleteCourseLike, usePostCourseLike } from '@/src/entities/course'
+import { useToast } from '@/src/shared/ui'
+import { useAuth } from '@/src/shared/provider'
 
 export function useCourseLike(
   courseId: string,
@@ -10,11 +12,18 @@ export function useCourseLike(
 ) {
   const [isLiked, setIsLiked] = useState(initialLiked)
   const [likeCount, setLikeCount] = useState(initialCount)
+  const { show } = useToast()
+  const { token } = useAuth()
 
   const { mutate: deleteCourseLike } = useDeleteCourseLike(courseId)
   const { mutate: postCourseLike } = usePostCourseLike(courseId)
 
   const toggleLike = () => {
+    if (!token) {
+      show('로그인 후 이용해주세요')
+      return
+    }
+
     if (isLiked) {
       deleteCourseLike(courseId, {
         onSuccess: () => setLikeCount((prev) => prev - 1),

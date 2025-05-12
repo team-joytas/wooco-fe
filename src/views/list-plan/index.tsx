@@ -15,7 +15,7 @@ export default function ListPlan() {
   const router = useRouter()
 
   const { data: plans, isLoading: isPlanLoading } = useGetPlans()
-  const { data: user, isLoading: isUserLoading } = useGetMyProfile()
+  const { data: user, isLoading: isUserLoading, isError } = useGetMyProfile()
 
   const handleLogin = async () => {
     const loginUrl = await getLoginUrl()
@@ -62,9 +62,9 @@ export default function ListPlan() {
     )
   }
 
-  if (!user)
+  if (!user || isError) {
     return (
-      <div className='flex flex-col items-center justify-center absolute top-[45%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-[10px] text-center p-[40px] shadow-floating-button bg-white'>
+      <div className='flex flex-col items-center justify-center absolute top-[45%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-[10px] text-center p-[40px] shadow-grid bg-white'>
         <p className='text-middle text-description'>잠깐! 플랜을 쓰려면</p>
         <p className='text-headline text-brand'>로그인이 필요해요</p>
         <Spacer height={30} />
@@ -81,6 +81,7 @@ export default function ListPlan() {
         </div>
       </div>
     )
+  }
 
   return (
     <div className='w-full flex flex-col'>

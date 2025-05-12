@@ -10,9 +10,9 @@ import { useRouter } from 'next/navigation'
 import { ChevronRight } from 'lucide-react'
 
 export function SectionLikeCourse() {
-  const { data: user } = useGetMyProfile()
+  const { data: user, isError } = useGetMyProfile()
 
-  if (!user) return <LoginLikeCourse />
+  if (!user || isError) return <LoginLikeCourse />
 
   return (
     <section className='w-full h-fit py-[22px] border-b-[1px] border-container-blue'>

@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Spacer, ProfileImage } from '@/src/shared/ui'
+import { Spacer, ProfileImage, useToast } from '@/src/shared/ui'
 import {
   CoursePlanDetailLayout,
   SkeletonCoursePlanDetailLayout,
@@ -12,6 +12,7 @@ import { formatDateToYYYYMMDD, passFromCreate } from '@/src/shared/utils/date'
 import { useGetCourse } from '@/src/entities/course'
 import { useGetComments } from '@/src/entities/comment'
 import { CommentCard } from '@/src/features'
+import { useAuth } from '@/src/shared/provider'
 
 interface DetailCourseProps {
   courseId: string
@@ -30,6 +31,16 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
   } = useGetComments(courseId)
 
   const router = useRouter()
+  const { show } = useToast()
+  const { token } = useAuth()
+
+  const onClick = () => {
+    if (!token) {
+      show('로그인 후 이용해주세요')
+      return
+    }
+    router.push(`/courses/${courseId}/comments`)
+  }
 
   useEffect(() => {
     // 로딩 중일때 스크롤 금지
@@ -106,12 +117,12 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
               <p className='text-sub text-container-blue font-semibold'>
                 댓글이 없어요 댓글을 작성해보세요!
               </p>
-              <Link
+              <button
                 className='text-sub text-white  h-[30px] rounded-full bg-container-blue flex items-center justify-center w-full'
-                href={`/courses/${courseId}/comments`}
+                onClick={onClick}
               >
                 댓글 작성하러 가기
-              </Link>
+              </button>
             </div>
           )}
         </div>

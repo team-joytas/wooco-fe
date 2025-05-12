@@ -1,12 +1,16 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { Spacer } from '@/src/shared/ui'
+import { ToastProvider, Spacer } from '@/src/shared/ui'
 import { MainHeader } from '@/src/widgets'
 import DefaultFooter from '@/src/widgets/default-footer'
 import localFont from 'next/font/local'
 import { AnimatePresence } from 'framer-motion'
 import { ConfigProvider } from 'antd'
-import ReactQueryProvider from '@/src/shared/provider/ReactQueryProvider'
+import {
+  AppProviders,
+  AuthProvider,
+  ReactQueryProvider,
+} from '@/src/shared/provider'
 import { MessageProvider } from '@/src/shared/lib'
 
 export const metadata: Metadata = {
@@ -45,20 +49,14 @@ export default function RootLayout({
       <body
         className={`${pretendard.className} h-full flex items-center flex-col overflow-y-scroll`}
       >
-        <ReactQueryProvider>
+        <AppProviders>
           <MainHeader />
-          <ConfigProvider theme={theme}>
-            <AnimatePresence>
-              <MessageProvider>
-                <div className='mx-auto flex-1 text-black h-full w-full max-w-[375px]'>
-                  {children}
-                  <Spacer height={60} notShowURLs={['/login']} />
-                </div>
-              </MessageProvider>
-            </AnimatePresence>
-          </ConfigProvider>
+          <div className='mx-auto flex-1 text-black h-full w-full max-w-[375px]'>
+            {children}
+            <Spacer height={60} notShowURLs={['/login']} />
+          </div>
           <DefaultFooter />
-        </ReactQueryProvider>
+        </AppProviders>
       </body>
     </html>
   )
