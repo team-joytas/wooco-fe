@@ -40,6 +40,9 @@ export default function FloatingWriteButton({
 
   return (
     <div className='flex items-center justify-end cursor-pointer z-[50]'>
+      {isClick && (
+        <div className='fixed w-full max-w-[390px] left-1/2 -translate-x-1/2 h-full top-0 left-0 bg-black opacity-30 z-[1000]' />
+      )}
       <div className='fixed flex flex-col gap-[20px] items-end bottom-[80px] z-[1001] pr-[20px]'>
         {isClick && (
           <div className='flex flex-col gap-[10px]'>
