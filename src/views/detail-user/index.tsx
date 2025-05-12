@@ -16,7 +16,6 @@ import useUserStore from '@/src/shared/store/userStore'
 import {
   NavigationTabs,
   NavigationTabType,
-  SelectSort,
   UserProfileSection,
   SkeletonUserProfileSection,
   SkeletonTab,
@@ -28,7 +27,6 @@ export default function DetailUser({ id }: { id: string }) {
   const myId = useUserStore((state) => state.user?.user_id)
   const isMe = myId !== undefined && myId === id
   const [activeTab, setActiveTab] = useState<NavigationTabType>('course')
-  const [order, setOrder] = useState<'RECENT' | 'POPULAR'>('RECENT')
 
   const { data: userSummary, error } = useGetUserSummary(id)
   const { data: courses } = useGetUserCourses(id)
@@ -85,12 +83,6 @@ export default function DetailUser({ id }: { id: string }) {
       <NavigationTabs tabs={tabs} />
 
       <Spacer height={10} />
-
-      <div className='w-full flex flex-col px-[22px] justify-center items-end'>
-        {activeTab === 'course' && (
-          <SelectSort order={order} setOrder={setOrder} />
-        )}
-      </div>
       {activeTab === 'place' ? (
         <ListUserPlace reviews={placeReviews} />
       ) : (
