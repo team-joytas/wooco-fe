@@ -1,7 +1,11 @@
 'use client'
 
-import { Heart, MessageCircle, Share2 } from 'lucide-react'
+import { MessageCircle, Share2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
+import heart_fill from '@/src/assets/icon/heart_fullfill_20.svg'
+import heart_empty from '@/src/assets/icon/heart_empty_20.svg'
+import React from 'react'
 
 type Props = {
   courseId: string
@@ -40,12 +44,14 @@ export function CourseActionBar({
           className='flex items-center gap-[4px] cursor-pointer'
           onClick={onToggleLike}
         >
-          <Heart
-            size={iconSize}
-            className='text-brand'
-            fill={isLiked ? '#5A59F2' : 'none'}
-            strokeWidth={1.5}
+          <Image
+            src={isLiked ? (heart_fill as string) : (heart_empty as string)}
+            alt='heart'
+            className='cursor-pointer'
+            width={iconSize}
+            height={iconSize}
           />
+          {/*TODO likeCount is inline, flex padding will be changed with likeCount changing */}
           <span>{likeCount}</span>
         </div>
         <div
