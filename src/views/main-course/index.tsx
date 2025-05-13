@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { CourseType, useGetCourses } from '@/src/entities/course'
 import { useGetMyLikeRegions } from '@/src/entities/user'
 import { Spacer, RegionCascaderWithLikes, useToast } from '@/src/shared/ui'
@@ -39,7 +39,7 @@ export default function MainCourse() {
     if (!currentRegion) setCurrentRegion([])
   }, [])
 
-  const handleWishlistClick = (e) => {
+  const handleWishlistClick = (e:React.MouseEvent) => {
     if (!user) {
       e.preventDefault()
       show('로그인이 필요합니다.')
