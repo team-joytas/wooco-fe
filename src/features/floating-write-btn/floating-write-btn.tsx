@@ -1,27 +1,21 @@
 'use client'
 
-import { useAuth } from '@/src/shared/provider'
 import { Pencil, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-
-interface FloatingButtonProps {
-  onClick: () => void
-  text: string
-}
+import { FloatingMenuButton } from '@/src/features'
 
 interface FloatingWriteButtonProps {
   isClick?: boolean
   setIsClick?: (value: boolean) => void
 }
 
-export default function FloatingWriteButton({
+export function FloatingWriteButton({
   isClick: isClickProp,
   setIsClick: setIsClickProp,
 }: FloatingWriteButtonProps) {
   const router = useRouter()
   const [internalIsClick, setInternalIsClick] = useState(false)
-  const { token } = useAuth()
 
   const isClick = isClickProp ?? internalIsClick
   const setIsClick = setIsClickProp ?? setInternalIsClick
@@ -34,12 +28,11 @@ export default function FloatingWriteButton({
     router.push(path)
   }
 
-  if (!token) {
-    return null
-  }
-
   return (
     <div className='flex items-center justify-end cursor-pointer z-[50]'>
+      {isClick && (
+        <div className='fixed w-full max-w-[390px] left-1/2 -translate-x-1/2 h-full top-0 left-0 bg-black opacity-30 z-[1000]' />
+      )}
       <div className='fixed flex flex-col gap-[20px] items-end bottom-[80px] z-[1001] pr-[20px]'>
         {isClick && (
           <div className='flex flex-col gap-[10px]'>
@@ -65,16 +58,5 @@ export default function FloatingWriteButton({
         </button>
       </div>
     </div>
-  )
-}
-
-export function FloatingMenuButton({ onClick, text }: FloatingButtonProps) {
-  return (
-    <button
-      className='w-[80px] h-[30px] bg-white shadow-grid text-[14px] rounded-full flex items-center justify-center hover:bg-brand hover:text-white transition-all duration-200'
-      onClick={onClick}
-    >
-      {text}
-    </button>
   )
 }

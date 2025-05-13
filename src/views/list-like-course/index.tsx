@@ -54,7 +54,7 @@ export default function ListLikeCourse({ id }: ListLikeCourseProps) {
         }}
       />
       <Spacer height={10} />
-      <div className='w-full flex flex-col px-[22px] gap-[10px] justify-center items-end'>
+      <div className='w-full flex flex-col px-[22px] gap-[10px] justify-center items-start'>
         <SelectSort order={order} setOrder={setOrder} />
         {likeCourses?.length === 0 ? (
           <NoLikedCourse />

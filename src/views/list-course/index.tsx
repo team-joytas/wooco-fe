@@ -6,9 +6,8 @@ import { useGetCourses } from '@/src/entities/course'
 import useRegionStore, { LikeRegion } from '@/src/shared/store/regionStore'
 import CourseListLayout from '@/src/widgets/course-list-layout'
 import { Spacer, SelectCategories, useToast } from '@/src/shared/ui'
-import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import { useDeleteMyLikeRegion, usePostMyLikeRegion } from '@/src/entities/user'
-import { SelectSort } from '@/src/features'
+import { SelectSort, FloatingWriteButton } from '@/src/features'
 import { useAuth } from '@/src/shared/provider'
 
 export default function ListCourse() {
@@ -114,7 +113,7 @@ export default function ListCourse() {
         }}
       />
       <Spacer height={10} />
-      <div className='w-full flex flex-col px-[22px] gap-[10px] justify-center items-end'>
+      <div className='w-full flex flex-col px-[22px] gap-[10px] justify-center items-start'>
         <SelectSort order={order} setOrder={setOrder} />
         <CourseListLayout
           isListView={isListView}
