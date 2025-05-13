@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { UserCourseList } from '@/src/widgets'
 import { Spacer } from '@/src/shared/ui'
-import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import ListUserPlace from '@/src/features/plan/list-user-place'
 import { ActionHeader } from '@/src/widgets'
 import {
@@ -20,6 +19,7 @@ import {
   SkeletonUserProfileSection,
   SkeletonTab,
   SkeletonCoursePlanCard,
+  FloatingWriteButton,
 } from '@/src/features'
 
 export default function DetailUser({ id }: { id: string }) {

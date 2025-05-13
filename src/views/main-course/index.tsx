@@ -5,9 +5,12 @@ import { useEffect } from 'react'
 import { CourseType, useGetCourses } from '@/src/entities/course'
 import { useGetMyLikeRegions } from '@/src/entities/user'
 import { Spacer, RegionCascaderWithLikes } from '@/src/shared/ui'
-import FloatingWriteButton from '@/src/widgets/floating-write-btn'
 import useRegionStore from '@/src/shared/store/regionStore'
-import { CourseListCard, SkeletonCourseListCard } from '@/src/features'
+import {
+  CourseListCard,
+  SkeletonCourseListCard,
+  FloatingWriteButton,
+} from '@/src/features'
 
 export default function MainCourse() {
   const router = useRouter()
