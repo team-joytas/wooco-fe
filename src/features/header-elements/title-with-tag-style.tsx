@@ -15,7 +15,7 @@ export function TitleWithTagStyle({
     />
   ) : (
     <div
-      className={`px-[20px] py-[8px] text-main01 text-white bg-container-blue  max-w-[60%]  truncate rounded-[2025px]  ${
+      className={`px-[20px] py-[8px] text-main01 text-white bg-container-blue max-w-[90%] truncate rounded-[2025px] ${
         isTitleCenter && 'absolute left-1/2 transform -translate-x-1/2'
       }`}
       title={title}
