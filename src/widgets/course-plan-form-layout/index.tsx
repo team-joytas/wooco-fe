@@ -96,8 +96,8 @@ export default function CoursePlanFormLayout({
     return type === LAYOUT_TYPE.course
       ? courseData
       : type === LAYOUT_TYPE.plan
-      ? planData
-      : null
+        ? planData
+        : null
   }, [type, courseData, planData])
 
   useEffect(() => {
@@ -189,8 +189,8 @@ export default function CoursePlanFormLayout({
 
   const pageType = type === LAYOUT_TYPE.course ? '코스' : '플랜'
   const headerTitle =
-    type === LAYOUT_TYPE.course
-      ? '나만의 코스 작성하기'
+    pageType === '코스'
+      ? `나만의 코스 ${level === 'add' ? '작성' : '수정'}하기`
       : '좋아하는 장소로 채우는 나의 플랜'
 
   const toast = (type: 'success' | 'error', content: string) => {
