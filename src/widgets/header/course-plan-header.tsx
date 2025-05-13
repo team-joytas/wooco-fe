@@ -1,6 +1,5 @@
 'use client'
 
-import { Heart } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState, useRef } from 'react'
 import React from 'react'
@@ -16,6 +15,9 @@ import {
 import { USER_QUERY_KEY } from '@/src/entities/user/api'
 import { HeaderBase, TitleWithTagStyle } from '@/src/features'
 import { useAuth } from '@/src/shared/provider'
+import heart_fill from '@/src/assets/icon/heart_fullfill_20.svg'
+import heart_empty from '@/src/assets/icon/heart_empty_20.svg'
+import Image from 'next/image'
 
 interface CoursePlanHeaderProps {
   title: string
@@ -112,13 +114,13 @@ export function CoursePlanHeader({
 
       <div className='flex items-center gap-[10px]'>
         {showLike && !isMine && (
-          <Heart
-            onClick={handleClickLike}
+          <Image
+            src={clickedLike ? (heart_fill as string) : (heart_empty as string)}
+            alt='heart'
             className='cursor-pointer'
-            size={20}
-            strokeWidth={1.5}
-            fill={clickedLike ? '#5A59F2' : 'none'}
-            stroke='#5A59F2'
+            onClick={handleClickLike}
+            width={20}
+            height={20}
           />
         )}
         {isMine && (

@@ -1,12 +1,13 @@
 'use client'
 
-import { Heart } from 'lucide-react'
+import heart_fill from '@/src/assets/icon/heart_fullfill_20.svg'
+import heart_empty from '@/src/assets/icon/heart_empty_20.svg'
+import setting from '@/src/assets/icon/medium/setting.svg'
 import { useRouter, usePathname } from 'next/navigation'
 import { useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import React from 'react'
-import setting from '@/src/assets/images/setting.png'
 import useUserStore from '@/src/shared/store/userStore'
 import {
   HeaderBase,
@@ -65,14 +66,14 @@ export function ActionHeader({
     if (isUpdateUser && isMine) {
       return (
         <Link href={`/users/setting`}>
-          <Image width={24} height={24} alt='setting' src={setting} />
+          <Image width={24} height={24} alt='setting' src={setting as string} />
         </Link>
       )
     } else if (isListView !== undefined && setIsListView) {
       return (
         <ViewTypeToggleButton
           isListView={isListView}
-          onClick={() => setIsListView(!isListView)}
+          onClick={() => setIsListView && setIsListView(!isListView)}
         />
       )
     } else {
@@ -91,26 +92,51 @@ export function ActionHeader({
   }
 
   return (
-    <HeaderBase className='px-[10px] border-b-[1px] border-container-blue'>
+    <HeaderBase className='px-[10px] border-b-[1px] border-container-blue z-[30] sticky top-0 flex justify-between items-center w-full max-w-[375px]'>
       {isTitleTag ? (
-        <div
-          className={`flex items-center ${
-            isTitleCenter ? 'w-full relative' : 'gap-[10px]'
-          }`}
-        >
-          <BackButton onClick={handleClickBack} />
-          <TitleWithTagStyle title={title} isTitleCenter={!!isTitleCenter} />
-          {showLike && (
-            <Heart
-              onClick={() => setIsLiked && setIsLiked(!isLiked)}
-              className='cursor-pointer'
-              size={20}
-              strokeWidth={1.5}
-              fill={isLiked ? '#5A59F2' : 'none'}
-              stroke='#5A59F2'
-            />
+        <>
+          {isTitleCenter ? (
+            <div className='relative flex items-center justify-between w-full'>
+              <BackButton onClick={handleClickBack} />
+              <TitleWithTagStyle title={title} isTitleCenter />
+              <div className='flex items-center'>
+                {showLike && (
+                  <Image
+                    src={
+                      isLiked ? (heart_fill as string) : (heart_empty as string)
+                    }
+                    alt='heart'
+                    className='cursor-pointer'
+                    onClick={() => setIsLiked && setIsLiked(!isLiked)}
+                    width={20}
+                    height={20}
+                  />
+                )}
+                {rightSection()}
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className='flex items-center gap-[10px]'>
+                <BackButton onClick={handleClickBack} />
+                <TitleWithTagStyle title={title} isTitleCenter={false} />
+                {showLike && (
+                  <Image
+                    src={
+                      isLiked ? (heart_fill as string) : (heart_empty as string)
+                    }
+                    alt='heart'
+                    className='cursor-pointer'
+                    onClick={() => setIsLiked && setIsLiked(!isLiked)}
+                    width={20}
+                    height={20}
+                  />
+                )}
+              </div>
+              {rightSection()}
+            </>
           )}
-        </div>
+        </>
       ) : (
         <>
           {isBack || close ? (
@@ -127,9 +153,9 @@ export function ActionHeader({
           >
             {title}
           </p>
+          {rightSection()}
         </>
       )}
-      {rightSection()}
     </HeaderBase>
   )
 }

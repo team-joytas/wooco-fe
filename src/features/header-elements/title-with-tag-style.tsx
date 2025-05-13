@@ -9,15 +9,16 @@ export function TitleWithTagStyle({
 
   return title.length === 0 ? (
     <div
-      className={`font-semibold w-[100px] h-[35.5px] rounded-[20px] bg-container-blue leading-normal ${
+      className={` text-main01 font-semibold w-[100px] h-[35.5px] rounded-[20px] bg-container-blue leading-normal ${
         isTitleCenter && 'absolute left-1/2 transform -translate-x-1/2'
       }`}
     />
   ) : (
     <div
-      className={`px-[20px] py-[8px] text-[13px] font-bold text-white bg-container-blue rounded-[20px] font-semibold leading-normal ${
+      className={`px-[20px] py-[8px] text-main01 text-white bg-container-blue max-w-[90%] truncate rounded-[2025px] ${
         isTitleCenter && 'absolute left-1/2 transform -translate-x-1/2'
       }`}
+      title={title}
     >
       {title}
     </div>
