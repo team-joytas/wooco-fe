@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ProfileImage } from '@/src/shared/ui'
 import { CourseType } from '@/src/entities/course'
-import logo from '@/src/assets/images/(logo)/logo.png'
+import logo from '@/src/assets/icon/small(20)/logo.svg'
 import { CourseActionBar, useCourseLike } from '@/src/features'
 import { useEffect, useState } from 'react'
 import { ShareModal } from '@/src/features'
@@ -29,6 +29,7 @@ export function CourseGridCard({ course }: { course: CourseType }) {
   )
 
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [imgError, setImgError] = useState(false)
 
   useEffect(() => {
     // 모달 열릴 때 body 스크롤 방지
@@ -43,11 +44,13 @@ export function CourseGridCard({ course }: { course: CourseType }) {
     <div className='w-[164px] h-[217px] flex flex-col justify-between pb-[8px] rounded-[10px] bg-white drop-shadow-[0_0_4px_rgba(0,0,0,0.15)]'>
       <Link href={`/courses/${id}`} className='w-full flex flex-col gap-[10px]'>
         <Image
-          src={places[0].thumbnail_url || logo}
+          src={imgError ? logo : (places[0].thumbnail_url)}
           width={207}
           height={100}
           className='h-[100px] bg-light-gray rounded-tr-[10px] rounded-tl-[10px] object-cover'
           alt='course-image'
+          placeholder="empty"
+          onError={() => setImgError(true)}
         />
 
         <section className='absolute top-[82px] left-[10px] w-[27px] h-[27px] bg-gradient-to-r from-[#9997F2] to-[#4341EA] p-[1px] rounded-[50%]'>
