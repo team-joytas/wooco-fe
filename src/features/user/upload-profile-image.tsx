@@ -1,6 +1,6 @@
-import { Camera } from 'lucide-react'
 import { postImage } from '@/src/shared/api'
 import Image from 'next/image'
+import camera from '@/src/assets/icon/medium/camera.svg'
 
 interface UploadProfileImageProps {
   imageUrl: string
@@ -20,8 +20,8 @@ export function UploadProfileImage({
   }
 
   return (
-    <label className='w-[100px] h-[100px] border-[1px] border-brand rounded-full flex items-center justify-center cursor-pointer'>
-      <div className='w-full h-full bg-gray-300 relative rounded-full flex items-center justify-center'>
+    <label className='w-[60px] h-[60px] bg-wooco-gra-light bg-no-repeat relative rounded-full flex items-center justify-center cursor-pointer'>
+      <div className='w-[56px] h-[56px] bg-white border-2 border-transparent rounded-full flex items-center justify-center'>
         {imageUrl && (
           <div className='relative'>
             <Image
@@ -33,8 +33,10 @@ export function UploadProfileImage({
             />
           </div>
         )}
-        <div className='absolute bottom-[5px] w-[23px] h-[23px] right-[5px] rounded-full bg-brand flex items-center justify-center'>
-          <Camera size={15} strokeWidth={1.5} stroke='#ffffff' />
+      </div>
+      <div className='absolute bottom-[0px] w-[23px] h-[23px] right-[0px] rounded-full bg-wooco_blue-primary flex items-center justify-center'>
+        <div className='w-[21px] h-[21px] rounded-full bg-white flex items-center justify-center'>
+          <Image src={camera} alt='camera' width={15} height={15}/>
         </div>
       </div>
       <input
