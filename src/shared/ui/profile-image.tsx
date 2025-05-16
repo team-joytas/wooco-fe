@@ -20,7 +20,7 @@ export function ProfileImage({
       <div className={`w-[${size}px] h-[${size}px] bg-wooco_blue-secondary bg-no-repeat rounded-full flex items-center justify-center`}>
         <Image
           loader={customLoader}
-          className={`rounded-full bg-white object-cover aspect-square`}
+          className={`rounded-full bg-white object-cover aspect-square overflow-hidden`}
           alt='프로필이미지'
           src={src || person}
           width={size - 2}
