@@ -145,7 +145,7 @@ export default function UpdateUser() {
               )}
             </div>
           </div>
-          <Divider margin={15} />
+          <Spacer height={15} />
           <div className='px-[20px] flex flex-col gap-[15px] items-start w-full'>
             <p className='text-main w-[80px] font-bold'>소개</p>
             <div className='flex px-[20px] flex-col w-full'>
@@ -162,8 +162,6 @@ export default function UpdateUser() {
               )}
             </div>
           </div>
-          <Spacer height={15} />
-          <Spacer height={8} className='bg-bright-gray' />
           {!isOnBoarding && (
             <div className='fixed bottom-[70px] flex items-center mt-[20px] text-[10px] text-gray-500 underline gap-[10px]'>
               <button onClick={handleLogout}>로그아웃</button>|
