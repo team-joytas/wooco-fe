@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Divider, Spacer } from '@/src/shared/ui'
+import { Spacer } from '@/src/shared/ui'
 import { ActionHeader } from '@/src/widgets'
 import { UploadProfileImage } from '@/src/features'
 import useUserStore from '@/src/shared/store/userStore'
@@ -130,12 +130,12 @@ export default function UpdateUser() {
           />
           <Spacer height={22} />
           <div className='px-[20px] flex flex-col gap-[15px] items-start w-full'>
-            <p className='text-main w-[80px] font-bold'>닉네임</p>
+            <p className='text-main01 font-main01 w-[80px]'>닉네임</p>
             <div className='flex px-[20px] flex-col w-full'>
               <input
                 type='text'
                 {...register('nickname', { validate: validateNickname })}
-                className='w-full inline-block text-[13px] focus:outline-none bg-bright-gray px-[15px] py-[10px] rounded-full'
+                className='w-full inline-block text-middle01 focus:outline-none bg-bright-gray px-[15px] py-[10px] rounded-full'
                 placeholder='닉네임을 입력해주세요.'
               />
               {errors.nickname && (
@@ -163,9 +163,9 @@ export default function UpdateUser() {
             </div>
           </div>
           {!isOnBoarding && (
-            <div className='fixed bottom-[70px] flex items-center mt-[20px] text-[10px] text-gray-500 underline gap-[10px]'>
-              <button onClick={handleLogout}>로그아웃</button>|
-              <button>회원탈퇴</button>
+            <div className='fixed bottom-[70px] flex items-center mt-[20px] text-middle01 text-gray-600 gap-[10px]'>
+              <button onClick={handleLogout} className='hover:underline'>로그아웃</button>|
+              <button className='hover:underline'>회원탈퇴</button>
             </div>
           )}
           <button
