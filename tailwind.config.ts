@@ -88,6 +88,9 @@ const config: Config = {
         custom: '0 -2px 4px rgba(0, 0, 0, 0.05)',
         grid: '0 0 5px rgba(0, 0, 0, 0.4)',
       },
+      backgroundImage: {
+        'wooco-gra-light': 'linear-gradient(144deg, #9997F2 10%, #4341EA 100%)',
+      },
     },
   },
   plugins: [],
