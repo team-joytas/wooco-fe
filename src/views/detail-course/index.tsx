@@ -102,6 +102,7 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
                     id={comment.id}
                     content={comment}
                     refetch={refetch}
+                    showKebab={false}
                   />
                 )
               })}
