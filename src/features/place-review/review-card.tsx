@@ -4,33 +4,32 @@ import Link from 'next/link'
 import { formatDateToYYYYMMDD, passFromCreate } from '@/src/shared/utils/date'
 import useUserStore from '@/src/shared/store/userStore'
 import { PlaceReviewDetailType } from '@/src/entities/place'
-import { ProfileImage, OptionDropbox } from '@/src/shared/ui'
-import { ReviewTag, StarRateView } from '@/src/features'
-import { useEffect, useRef, useState } from 'react'
+import { ProfileImage } from '@/src/shared/ui'
+import { ReviewTag, StarRateView, ActionDropdown } from '@/src/features'
+import { useState } from 'react'
 import { useDeletePlaceReview } from '@/src/entities/place'
 import Image from 'next/image'
 import { ImageView } from './image-view'
 
 type PlaceReviewCardProps = {
-  id: string
+  placeId: string
   content: PlaceReviewDetailType
   refetch?: () => void
 }
 
 export function PlaceReviewCard({
-  id,
+  placeId,
   content,
   refetch,
 }: PlaceReviewCardProps) {
-  const { writer, rating, one_line_reviews, image_urls, created_at } = content
+  const { id, writer, rating, one_line_reviews, image_urls, created_at } =
+    content
   const { user } = useUserStore()
   const isMine = writer.id === user?.user_id
-  const menuRef = useRef<HTMLDivElement>(null)
-  const [isOpen, setIsOpen] = useState(false)
   const [isImageViewOpened, setIsImageViewOpened] = useState(false)
   const [imageIndex, setImageIndex] = useState<number>(0)
 
-  const { mutate: deletePlaceReview } = useDeletePlaceReview(id)
+  const { mutate: deletePlaceReview } = useDeletePlaceReview(id.toString())
   const handleDelete = () => {
     try {
       deletePlaceReview(id.toString(), {
@@ -44,26 +43,12 @@ export function PlaceReviewCard({
     } catch (error) {
       console.error(error)
     }
-    setIsOpen(false)
   }
 
   const handleClickImage = (index: number) => {
     setImageIndex(index)
     setIsImageViewOpened(true)
   }
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsOpen(false)
-      }
-    }
-
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-      return () => document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [isOpen])
 
   return (
     <div className='w-full flex items-end flex-col gap-[10px] py-[5px]'>
@@ -89,16 +74,11 @@ export function PlaceReviewCard({
         </Link>
 
         {isMine && (
-          <OptionDropbox
-            isMine={isMine}
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            onToggle={() => setIsOpen(!isOpen)}
-            ref={menuRef}
-            type={'review'}
+          <ActionDropdown
+            type='review'
             id={id.toString()}
             handleDelete={handleDelete}
-            placeId={id && id.toString()}
+            placeId={placeId}
           />
         )}
       </div>

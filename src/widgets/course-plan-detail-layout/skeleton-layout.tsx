@@ -27,7 +27,6 @@ export function SkeletonCoursePlanDetailLayout({
         title={''}
         type={type}
         id={''}
-        showLike={false}
         isLiked={false}
         isMine={false}
       />
