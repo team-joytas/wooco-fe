@@ -11,7 +11,7 @@ import {
   useDeleteComment,
 } from '@/src/entities/comment'
 import { useForm } from 'react-hook-form'
-import { ActionDropdown } from '@/src/features'
+import { ActionDropdown, CancelModal } from '@/src/features'
 
 type CommentCardProps = {
   id: string
@@ -25,6 +25,7 @@ export function CommentCard({ id, content, refetch }: CommentCardProps) {
 
   const isMine = writer.id === user?.user_id
   const inputRef = useRef<HTMLInputElement | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [isEditingComment, setIsEditingComment] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
   const {
@@ -80,6 +81,16 @@ export function CommentCard({ id, content, refetch }: CommentCardProps) {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  const handleClickCancel = (e?: React.MouseEvent<HTMLButtonElement>) => {
+    if (e) e.preventDefault()
+
+    if (!isDirty) {
+      setIsEditingComment(false)
+      return
+    }
+    setIsModalOpen(true)
   }
 
   useEffect(() => {
@@ -143,7 +154,7 @@ export function CommentCard({ id, content, refetch }: CommentCardProps) {
               <div className='w-full h-full flex flex-row'>
                 <button
                   className='w-[187px] h-full bg-light-gray border border-r-white hover:bg-brand hover:text-white transition-all duration-200'
-                  onClick={() => setIsEditingComment(false)}
+                  onClick={handleClickCancel}
                 >
                   취소
                 </button>
@@ -163,6 +174,12 @@ export function CommentCard({ id, content, refetch }: CommentCardProps) {
           {getValues('contents')}
         </span>
       )}
+
+      <CancelModal
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        setIsEditing={setIsEditingComment}
+      />
     </div>
   )
 }
