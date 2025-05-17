@@ -2,8 +2,9 @@ import { customAxios } from '@/src/shared/api'
 import { useQuery } from '@tanstack/react-query'
 import { PLACE_URL } from './endpoint'
 import { PLACE_QUERY_KEY } from './queryKey'
+import { PlaceType } from '../model'
 
-export const getPlace = async (id: string) => {
+export const getPlace = async (id: string): Promise<PlaceType> => {
   try {
     const response = await customAxios.get(PLACE_URL.detail(id))
     return response.data.results

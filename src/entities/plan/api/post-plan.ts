@@ -20,7 +20,7 @@ export const usePostPlan = () => {
   return useMutation({
     mutationFn: (data: PlanPayloadType) => postPlan(data),
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: PLAN_QUERY_KEY.all })
+      queryClient.invalidateQueries({ queryKey: PLAN_QUERY_KEY.all })
     },
   })
 }

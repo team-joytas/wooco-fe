@@ -20,6 +20,7 @@ export const getUserCourses = async (
     throw error
   }
 }
+
 export const useGetUserCourses = (id: string, order?: 'RECENT' | 'POPULAR') => {
   return useQuery({
     queryKey: USER_QUERY_KEY.courses(id, order),

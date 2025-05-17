@@ -20,7 +20,11 @@ export const usePostCourse = () => {
   return useMutation({
     mutationFn: (data: CoursePayloadType) => postCourse(data),
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: COURSE_QUERY_KEY.post })
+      queryClient.invalidateQueries({
+        predicate: (query) =>
+          query.queryKey[0] === 'courses' ||
+          query.queryKey[0] === 'userCourses',
+      })
     },
   })
 }

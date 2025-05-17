@@ -46,7 +46,7 @@ export function CoursePlanHeader({
 
   const { mutate: deleteCourseLike } = useDeleteCourseLike(id)
   const { mutate: postCourseLike } = usePostCourseLike(id)
-  const { mutate: deleteCourse } = useDeleteCourse(id)
+  const { mutate: deleteCourse } = useDeleteCourse()
   const { mutate: deletePlan } = useDeletePlan()
 
   const deleteCourseOrPlan = type === 'course' ? deleteCourse : deletePlan
