@@ -1,7 +1,7 @@
 import { WriterType } from '@/src/entities/user/model'
 
 export type PlaceType = {
-  id: number
+  id: string
   name: string
   latitude: number
   longitude: number
@@ -20,7 +20,7 @@ export type PlaceReviewStatsType = {
 }
 
 export interface PlaceReviewType {
-  id: number
+  id: string
   rating: number
   contents: string
   created_at: string
@@ -29,7 +29,7 @@ export interface PlaceReviewType {
 }
 
 export interface UserPlaceReviewType extends PlaceReviewType {
-  place_id: number
+  place_id: string
   place_name: string
 }
 

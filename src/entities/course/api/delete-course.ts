@@ -1,5 +1,4 @@
 import { customAxios } from '@/src/shared/api'
-import { COURSE_QUERY_KEY } from './queryKey'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { COURSE_URL } from './endpoint'
 
@@ -13,13 +12,17 @@ export const deleteCourse = async (id: string) => {
   }
 }
 
-export const useDeleteCourse = (id: string) => {
+export const useDeleteCourse = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: (id: string) => deleteCourse(id),
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: COURSE_QUERY_KEY.detail(id) })
+      queryClient.refetchQueries({
+        predicate: (query) =>
+          query.queryKey[0] === 'courses' ||
+          query.queryKey[0] === 'userCourses',
+      })
     },
   })
 }
