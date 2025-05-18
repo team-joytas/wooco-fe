@@ -17,9 +17,15 @@ type CommentCardProps = {
   id: string
   content: CommentType
   refetch?: () => void
+  showKebab: boolean
 }
 
-export function CommentCard({ id, content, refetch }: CommentCardProps) {
+export function CommentCard({
+  id,
+  content,
+  refetch,
+  showKebab,
+}: CommentCardProps) {
   const { writer, contents, created_at } = content
   const { user } = useUserStore()
 
@@ -123,7 +129,7 @@ export function CommentCard({ id, content, refetch }: CommentCardProps) {
           </div>
         </Link>
 
-        {isMine && !isEditingComment && (
+        {isMine && !isEditingComment && showKebab && (
           <ActionDropdown
             type='comment'
             id={id}

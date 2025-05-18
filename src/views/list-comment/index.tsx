@@ -72,6 +72,7 @@ export default function DetailComment({ courseId }: { courseId: string }) {
               id={comment.id}
               content={comment}
               refetch={refetch}
+              showKebab={true}
             />
           )
         })}
