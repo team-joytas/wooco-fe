@@ -44,7 +44,9 @@ export default function ReviewFormLayout({
   const { data: placeData } = useGetPlace(placeId)
   const { data: reviewData } = useGetPlaceReview(reviewId)
   const { mutateAsync: createPlaceMutate } = usePostPlaceReview(placeId)
-  const { mutateAsync: updatePlaceMutate } = useUpdatePlaceReview(placeId)
+  const { mutateAsync: updatePlaceMutate } = useUpdatePlaceReview(
+    reviewId ?? ''
+  )
   const router = useRouter()
 
   useEffect(() => {
