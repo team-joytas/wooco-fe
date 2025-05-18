@@ -1,11 +1,7 @@
 import { UserPlaceReviewType, PlaceCard } from '@/src/entities/place'
 import { Spacer } from '@/src/shared/ui'
 
-export default function ListUserPlace({
-  reviews,
-}: {
-  reviews: UserPlaceReviewType[]
-}) {
+export function ListUserPlace({ reviews }: { reviews: UserPlaceReviewType[] }) {
   return (
     <div className='flex flex-col h-full justify-between'>
       {reviews.length === 0 ? (

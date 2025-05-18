@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { UserCourseList } from '@/src/widgets'
 import { Spacer } from '@/src/shared/ui'
-import ListUserPlace from '@/src/features/plan/list-user-place'
 import { ActionHeader } from '@/src/widgets'
 import {
   useGetMyPlaceReviews,
@@ -18,6 +17,7 @@ import {
   UserProfileSection,
   SkeletonUserProfileSection,
   SkeletonTab,
+  ListUserPlace,
   SkeletonCoursePlanCard,
   FloatingWriteButton,
 } from '@/src/features'
