@@ -102,7 +102,7 @@ export default function DetailPlace({ id }: { id: string }) {
         <ScrollTabs
           isScrollingRef={isScrollingRef}
           setActiveTab={setActiveTab}
-          tabs={tabs}
+          tabs={tabs ?? []}
           refs={{ info: infoRef, review: reviewRef }}
         />
         <Spacer height={26} />
@@ -193,7 +193,7 @@ export default function DetailPlace({ id }: { id: string }) {
                 {reviewData.map((review) => (
                   <PlaceReviewCard
                     key={review.id}
-                    id={placeData.id.toString()}
+                    placeId={placeData.id.toString()}
                     content={review}
                     refetch={refetch}
                   />

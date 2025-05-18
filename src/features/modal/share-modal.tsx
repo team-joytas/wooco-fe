@@ -1,6 +1,5 @@
 'use client'
 
-import { Link, Share2, X } from 'lucide-react'
 import { CourseType } from '@/src/entities/course'
 import { Modal, useToast } from '@/src/shared/ui'
 import { useRouter } from 'next/navigation'
@@ -8,6 +7,10 @@ import { useState } from 'react'
 import { PlanType } from '@/src/entities/plan'
 import { useMessageApi } from '@/src/shared/lib'
 import { useAuth } from '@/src/shared/provider'
+import close from '@/src/assets/icon/medium/cross.svg'
+import link from '@/src/assets/icon/medium/link.svg'
+import share_white from '@/src/assets/icon/medium/share_white.svg'
+import Image from 'next/image'
 
 interface ShareModalProps {
   type: 'course' | 'plan'
@@ -23,13 +26,16 @@ export function ShareModal({ type, isOpen, setIsOpen, data }: ShareModalProps) {
   const messageApi = useMessageApi()
   const { show } = useToast()
   const { token } = useAuth()
-  const title = type === 'course' ? '플랜으로' : '코스로'
+  const title =
+    type === 'course' ? '플랜으로 추가할까요?' : '코스로 공유할까요?'
   const button = type === 'course' ? '추가하기' : '공유하기'
   const shareType = type === 'course' ? 'plan' : 'course'
+  const shareTypeName = type === 'course' ? '플랜' : '코스'
 
   const handleClick = (path: string) => {
     setIsClicked(!isClicked)
     document.scrollingElement?.scrollTo({ top: 0, behavior: 'smooth' })
+    show(`${shareTypeName} 작성 페이지로 이동합니다.`)
     router.push(path)
   }
 
@@ -68,32 +74,36 @@ export function ShareModal({ type, isOpen, setIsOpen, data }: ShareModalProps) {
   }
 
   return (
-    <Modal isOpen={isOpen}>
+    <Modal type='share' isOpen={isOpen}>
       <div className='w-full flex items-center justify-end pr-[8px] pt-[8px]'>
-        <X
-          size={15}
-          className='cursor-pointer text-gray-500'
+        <Image
+          width={25}
+          height={25}
+          src={close}
+          alt='close'
+          className='cursor-pointer'
           onClick={() => setIsOpen(false)}
         />
       </div>
 
       <span className='text-main text-gray-700 font-bold flex items-center justify-center'>
-        {title} 공유할까요?
+        {title}
       </span>
 
-      <div className='flex flex-row h-[50px] w-full bg-gray-300 text-gray-500 text-main font-bold'>
+      <div className='flex flex-row h-[50px] w-full bg-gray-100 text-gray-700 text-main'>
         <button
           className='flex-1 items-center justify-center flex gap-[10px] rounded-bl-[10px] '
           onClick={copyToClipboard}
         >
-          <Link size={16} />
+          <Image src={link} alt='link' />
           링크 복사
         </button>
         <button
           onClick={handleShare}
           className='flex-1 items-center justify-center flex gap-[10px] bg-brand  text-white rounded-br-[10px]'
+          disabled={isClicked}
         >
-          <Share2 size={16} fill='#fff' />
+          <Image src={share_white} alt='share' />
           {button}
         </button>
       </div>

@@ -53,7 +53,6 @@ export function CoursePlanDetailLayout({
         title={data?.title || ''}
         type={type}
         id={id}
-        showLike={!isMine}
         isLiked={isCourseType(data) ? data.is_liked : false}
         isMine={isMine}
       />

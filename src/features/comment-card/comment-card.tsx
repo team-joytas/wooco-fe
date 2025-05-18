@@ -3,12 +3,7 @@
 import Link from 'next/link'
 import { formatDateToYYYYMMDD, passFromCreate } from '@/src/shared/utils/date'
 import useUserStore from '@/src/shared/store/userStore'
-import {
-  ProfileImage,
-  OptionDropbox,
-  Spacer,
-  HelperText,
-} from '@/src/shared/ui'
+import { ProfileImage, Spacer, HelperText } from '@/src/shared/ui'
 import { useEffect, useRef, useState } from 'react'
 import {
   CommentType,
@@ -16,6 +11,7 @@ import {
   useDeleteComment,
 } from '@/src/entities/comment'
 import { useForm } from 'react-hook-form'
+import { ActionDropdown, CancelModal } from '@/src/features'
 
 type CommentCardProps = {
   id: string
@@ -28,9 +24,8 @@ export function CommentCard({ id, content, refetch }: CommentCardProps) {
   const { user } = useUserStore()
 
   const isMine = writer.id === user?.user_id
-  const menuRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement | null>(null)
-  const [isOpen, setIsOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [isEditingComment, setIsEditingComment] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
   const {
@@ -86,21 +81,17 @@ export function CommentCard({ id, content, refetch }: CommentCardProps) {
     } catch (error) {
       console.error(error)
     }
-    setIsOpen(false)
   }
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsOpen(false)
-      }
-    }
+  const handleClickCancel = (e?: React.MouseEvent<HTMLButtonElement>) => {
+    if (e) e.preventDefault()
 
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-      return () => document.removeEventListener('mousedown', handleClickOutside)
+    if (!isDirty) {
+      setIsEditingComment(false)
+      return
     }
-  }, [isOpen])
+    setIsModalOpen(true)
+  }
 
   useEffect(() => {
     if (isEditingComment) {
@@ -133,16 +124,10 @@ export function CommentCard({ id, content, refetch }: CommentCardProps) {
         </Link>
 
         {isMine && !isEditingComment && (
-          <OptionDropbox
-            isMine={isMine}
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            onToggle={() => setIsOpen(!isOpen)}
-            ref={menuRef}
-            type={'comment'}
-            id={id.toString()}
+          <ActionDropdown
+            type='comment'
+            id={id}
             handleDelete={handleDelete}
-            isComment={true}
             setIsEditingComment={setIsEditingComment}
           />
         )}
@@ -169,7 +154,7 @@ export function CommentCard({ id, content, refetch }: CommentCardProps) {
               <div className='w-full h-full flex flex-row'>
                 <button
                   className='w-[187px] h-full bg-light-gray border border-r-white hover:bg-brand hover:text-white transition-all duration-200'
-                  onClick={() => setIsEditingComment(false)}
+                  onClick={handleClickCancel}
                 >
                   취소
                 </button>
@@ -189,6 +174,12 @@ export function CommentCard({ id, content, refetch }: CommentCardProps) {
           {getValues('contents')}
         </span>
       )}
+
+      <CancelModal
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        setIsEditing={setIsEditingComment}
+      />
     </div>
   )
 }

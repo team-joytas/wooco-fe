@@ -30,7 +30,7 @@ export default function ListPlaceReview({ placeId }: { placeId: string }) {
         <Spacer height={20} />
         {reviewData.map((review) => (
           <div key={review.id}>
-            <PlaceReviewCard id={placeId} content={review} />
+            <PlaceReviewCard placeId={placeId} content={review} />
           </div>
         ))}
         <Spacer height={20} />
