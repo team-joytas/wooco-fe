@@ -5,7 +5,7 @@ import { ReviewPayloadType } from '@/src/entities/place'
 import { postImage } from '@/src/shared/api'
 import { Spacer } from '@/src/shared/ui'
 import { StarRateForm } from '@/src/features'
-import { useMessageApi } from '@/src/shared/lib'
+import { useToast } from '@/src/shared/ui'
 
 // 리뷰
 interface ReviewTextareaProps {
@@ -119,7 +119,6 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
 }) => {
   const fileInput = useRef<HTMLInputElement | null>(null)
   const scrollRef = useRef<HTMLDivElement | null>(null)
-  const messageApi = useMessageApi()
 
   // Drag and Touch Scrolling
   let isDragging = false
@@ -162,7 +161,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   const handleTouchEnd = () => {
     isDragging = false
   }
-
+  const { show } = useToast()
   const handleImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -177,7 +176,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
       }
     } catch (error) {
       console.error(error)
-      messageApi.error('이미지 업로드에 실패했습니다.')
+      show('이미지 업로드에 실패했습니다.')
     }
   }
 
@@ -273,30 +272,22 @@ const FormReview: React.FC<FormReviewProps> = ({
   formValues,
 }) => {
   // toast
-  const messageApi = useMessageApi()
-  const toast = (type: 'success' | 'error', content: string) => {
-    messageApi.open({
-      type,
-      content,
-      duration: 1.5,
-      className: 'text-main',
-    })
-  }
+  const { show } = useToast()
 
   useEffect(() => {
     if (isSubmitting) {
       return
     }
     if (errors.rating?.message) {
-      toast('error', errors.rating.message)
+      show(errors.rating.message)
       return
     }
     if (errors.contents?.message) {
-      toast('error', errors.contents.message)
+      show(errors.contents.message)
       return
     }
     if (errors.one_line_reviews?.message) {
-      toast('error', errors.one_line_reviews.message)
+      show(errors.one_line_reviews.message)
       return
     }
   }, [isSubmitting])

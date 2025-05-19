@@ -80,7 +80,7 @@ export default function ReviewFormLayout({
   return (
     <div className='relative flex flex-col h-[calc(100vh-60px)]'>
       <ActionHeader title={headerTitle} isBack />
-      <div className='place_describe bg-brand text-white pl-[19px] pt-[18px] pb-[14px]  '>
+      <div className='place_describe bg-wooco_blue-secondary text-white pl-[19px] pt-[18px] pb-[14px]  '>
         <b className='text-main place_name'>
           {placeInfo.name || '장소 이름 없음'}
         </b>
