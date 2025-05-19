@@ -56,9 +56,10 @@ const ReviewTextarea: React.FC<ReviewTextareaProps> = ({
 interface KeywordInputProps {
   keywords: string[]
   setValue: UseFormSetValue<ReviewPayloadType>
+  register: UseFormRegister<ReviewPayloadType>
 }
 
-const KeywordInput: React.FC<KeywordInputProps> = ({ keywords, setValue }) => {
+const KeywordInput: React.FC<KeywordInputProps> = ({ keywords, setValue, register }) => {
   const [newKeyword, setNewKeyword] = useState('')
 
   const handleAddKeyword = () => {
@@ -76,6 +77,15 @@ const KeywordInput: React.FC<KeywordInputProps> = ({ keywords, setValue }) => {
 
   return (
     <div className='w-full flex flex-col gap-[8px] justify-center items-center'>
+      <input
+        hidden={true}
+        {...register('one_line_reviews', {
+          validate: (reviews) => {
+            if (reviews.length == 0) return '태그 미완료'
+            return true
+          }
+        })}
+      />
       <input
         type='text'
         value={newKeyword}
@@ -318,6 +328,7 @@ const FormReview: React.FC<FormReviewProps> = ({
         <KeywordInput
           keywords={formValues.one_line_reviews}
           setValue={setValue}
+          register={register}
         />
         <Spacer height={8} />
       </div>

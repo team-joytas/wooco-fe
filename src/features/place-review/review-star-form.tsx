@@ -3,22 +3,39 @@
 import { ReviewPayloadType } from '@/src/entities/place'
 import Image from 'next/image'
 import { useState } from 'react'
-import { UseFormSetValue } from 'react-hook-form'
+import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
 
 interface StarRateFormProps {
   rate: number
   setValue: UseFormSetValue<ReviewPayloadType>
+  register: UseFormRegister<ReviewPayloadType>
 }
 
-export const StarRateForm = ({ rate, setValue }: StarRateFormProps) => {
+export const StarRateForm = ({
+  rate,
+  setValue,
+  register,
+}: StarRateFormProps) => {
   const [hover, setHover] = useState(0)
+  const [rateValue, setRateValue] = useState(rate)
 
   const handleStarClick = (ratingValue: number) => {
+    setRateValue(ratingValue)
     setValue('rating', ratingValue)
   }
 
   return (
     <div className='flex w-full gap-[2px] items-center justify-center'>
+      <input
+        hidden={true}
+        value={rateValue}
+        {...register('rating', {
+          min: {
+            value: 1,
+            message: '별점은 필수 입력 항목입니다.',
+          },
+        })}
+      />
       {[...Array(5)].map((_, index) => {
         const ratingValue = index + 1
         const isActive = ratingValue <= (hover || rate)
