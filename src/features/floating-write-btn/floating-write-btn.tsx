@@ -29,7 +29,7 @@ export function FloatingWriteButton({
   }
 
   return (
-    <div className='flex items-center justify-end cursor-pointer z-[50]'>
+    <div className='flex items-center justify-end cursor-pointer'>
       {isClick && (
         <div className='fixed w-full max-w-[390px] left-1/2 -translate-x-1/2 h-full top-0 left-0 bg-black opacity-30 z-[1000]' />
       )}
