@@ -24,7 +24,7 @@ export interface PlaceReviewType {
   rating: number
   contents: string
   created_at: string
-  one_line_reviews: PlaceReviewKeywordType[]
+  one_line_reviews: string[]
   image_urls: string[]
 }
 
