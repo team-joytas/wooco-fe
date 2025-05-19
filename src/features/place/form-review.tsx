@@ -6,6 +6,7 @@ import { postImage } from '@/src/shared/api'
 import { Spacer } from '@/src/shared/ui'
 import { StarRateForm } from '@/src/features'
 import { useToast } from '@/src/shared/ui'
+import error from '@/src/assets/icons/error_color.svg'
 
 // 리뷰
 interface ReviewTextareaProps {
@@ -59,7 +60,11 @@ interface KeywordInputProps {
   register: UseFormRegister<ReviewPayloadType>
 }
 
-const KeywordInput: React.FC<KeywordInputProps> = ({ keywords, setValue, register }) => {
+const KeywordInput: React.FC<KeywordInputProps> = ({
+  keywords,
+  setValue,
+  register,
+}) => {
   const [newKeyword, setNewKeyword] = useState('')
 
   const handleAddKeyword = () => {
@@ -81,9 +86,9 @@ const KeywordInput: React.FC<KeywordInputProps> = ({ keywords, setValue, registe
         hidden={true}
         {...register('one_line_reviews', {
           validate: (reviews) => {
-            if (reviews.length == 0) return '태그 미완료'
+            if (reviews.length == 0) return '키워드 미완료'
             return true
-          }
+          },
         })}
       />
       <input
@@ -113,6 +118,17 @@ const KeywordInput: React.FC<KeywordInputProps> = ({ keywords, setValue, registe
           </div>
         ))}
       </div>
+      {newKeyword && (
+        <div className='w-[305px] flex gap-[8px] flex-row items-center'>
+          <Image src={error} alt='error_info_icon' width={16} height={16} />
+          <span className='text-red-500 text-sub01 font-semibold'>
+            키워드 미완료
+          </span>
+          <span className='text-sub02 text-gray-700 font-light '>
+            엔터를 눌러 작성을 완료해 주세요.
+          </span>
+        </div>
+      )}
     </div>
   )
 }
@@ -303,39 +319,48 @@ const FormReview: React.FC<FormReviewProps> = ({
   }, [isSubmitting])
 
   return (
-    <div className='w-full bg-white flex flex-col gap-[10px]'>
+    <div className='w-full bg-white flex flex-col gap-[30px]'>
       {/* Star Rating Section */}
       <div className='flex flex-col items-start justify-start gap-[15px] relative'>
-        <b className='text-main01 text-gray-900 pl-[20px]'>별점을 남겨볼까요?</b>
-        <StarRateForm rate={formValues.rating} setValue={setValue} register={register} />
-        <Spacer height={8} />
+        <b className='text-main01 text-gray-900 pl-[20px]'>
+          별점을 남겨볼까요?
+        </b>
+        <StarRateForm
+          rate={formValues.rating}
+          setValue={setValue}
+          register={register}
+        />
       </div>
 
       {/* Detailed Review Section */}
       <div className='w-full flex flex-col items-start justify-start gap-[15px] relative'>
-        <b className='text-main01 text-gray-900 pl-[20px]'>장소 리뷰를 적어주세요.</b>
+        <b className='text-main01 text-gray-900 pl-[20px]'>
+          장소 리뷰를 적어주세요.
+        </b>
         <ReviewTextarea
           contents={formValues.contents}
           setValue={setValue}
           register={register}
         />
-        <Spacer height={8} />
       </div>
 
       {/* Keywords Section */}
       <div className='w-full flex flex-col items-start justify-start gap-[15px]'>
-        <b className='text-main01 text-gray-900 pl-[20px]'>어떤 점이 좋았나요?</b>
+        <b className='text-main01 text-gray-900 pl-[20px]'>
+          어떤 점이 좋았나요?
+        </b>
         <KeywordInput
           keywords={formValues.one_line_reviews}
           setValue={setValue}
           register={register}
         />
-        <Spacer height={8} />
       </div>
 
       {/* Image Upload Section */}
       <div className='w-full flex flex-col items-start justify-start gap-[15px]'>
-        <b className='text-main01 text-gray-900 pl-[20px]'>사진을 추가해보세요.</b>
+        <b className='text-main01 text-gray-900 pl-[20px]'>
+          사진을 추가해보세요.
+        </b>
         <ImageUploader
           uploadedImages={formValues.image_urls}
           setValue={setValue}
