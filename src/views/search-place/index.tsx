@@ -94,27 +94,25 @@ export default function SearchPlace({
           <Spacer height={8} className='bg-bright-gray opacity-50' />
         </div>
         <div className=' overflow-y-auto h-[calc(100vh-200px)]'>
-          <div className='h-fit w-full flex flex-col gap-[9px] pt-1 justify-center items-center'>
+          <div className='h-fit w-full flex flex-col gap-[13px] p-10 justify-center items-center'>
             {results.length > 0 ? (
               results.map((result) => {
                 return (
                   <div
                     key={result.id}
-                    className='shadow-[0px_0px_4px_rgba(0,_0,_0,_0.25)] rounded-[10px] bg-white flex flex-col w-[320px] gap-[6px] px-[13px] py-[10px] cursor-pointer outline-none hover:outline-[#4341EA] hover:outline-solid hover:shadow-none'
+                    className='shadow-[0px_0px_4px_rgba(0,_0,_0,_0.25)] rounded-[10px] bg-white flex flex-col justify-center items-start w-[320px] min-h-[97px] gap-[11px] px-[13px] py-[10px] cursor-pointer hover:outline-wooco_blue-primary hover:outline hover:outline-[2px]'
                     onClick={() => selectPlace(result)}
                   >
-                    <span className='text-[15px] font-medium flex gap-[10px] items-center'>
+                    <span className='text-main01 text-gray-900 font-bold flex gap-[9px] items-center'>
                       {result.place_name}
-                      <span className='text-[9px] font-light'>
+                      <span className='text-sub01 font-semibold'>
                         {result.category_group_name}
                       </span>
                     </span>
-                    <span className='text-sub text-black opacity-80'>
-                      {result.address_name}
-                    </span>
-                    <span className='text-sub text-black opacity-80'>
-                      {result.road_address_name}
-                    </span>
+                    <div className='flex flex-col gap-[6px] text-gray-800 text-sub01 font-semibold'>
+                      <span>{result.address_name}</span>
+                      <span>{result.road_address_name}</span>
+                    </div>
                   </div>
                 )
               })
