@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { FieldErrors, useForm, UseFormRegister } from 'react-hook-form'
 import { useGetMyProfile, useUpdateUser } from '@/src/entities/user'
 import { useRouter } from 'next/navigation'
-import { Spacer } from '@/src/shared/ui'
+import { HelperText, Spacer } from '@/src/shared/ui'
 
 export default function OnBoardView() {
   const router = useRouter()
@@ -70,6 +70,12 @@ export default function OnBoardView() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <NicknameInput register={register} errors={errors} />
+        <button
+          type='submit'
+          className='text-white text-[15px] w-fit font-extrabold bottom-[144px] items-center justify-center absolute left-1/2 transform -translate-x-1/2'
+        >
+          시작하기
+        </button>
       </form>
     </div>
   )
@@ -92,27 +98,23 @@ function NicknameInput({ register, errors }: NicknameInputProps) {
   }
 
   return (
-    <div className='px-[20px] flex flex-col gap-[15px] items-start w-full'>
-      <div className='relative flex px-[20px] flex-col  w-full'>
-        <div className='text-white w-fit flex flex-col gap-[8px]'>
-          <p className='text-[20px] font-bold'>닉네임</p>
-          <p className='text-[13px]'>사용하실 닉네임을 작성해주세요.</p>
-        </div>
-        <Spacer height={15} />
-        <input
-          type='text'
-          {...register('nickname', { validate: validateNickname })}
-          className='w-full inline-block text-[13px] focus:outline-none bg-bright-gray px-[15px] py-[10px] rounded-full'
-          placeholder='한글, 영어, 숫자만 사용 가능'
-          autoFocus
-        />
-        <div className='h-[16px] mt-[5px]'>
-          {errors.nickname && (
-            <span className='text-[12px] text-red-500 font-bold'>
-              {errors.nickname.message}
-            </span>
-          )}
-        </div>
+    <div className='px-[40px] flex flex-col items-start w-full'>
+      <div className='text-white w-fit flex flex-col'>
+        <p className='text-headline01 font-bold'>닉네임</p>
+        <p className='text-middle'>사용하실 닉네임을 작성해주세요.</p>
+      </div>
+      <Spacer height={23} />
+      <input
+        type='text'
+        {...register('nickname', { validate: validateNickname })}
+        className='w-full h-[40px] inline-block text-main text-gray-600 font-bold placeholder:font-normal focus:outline-none bg-gray-100 px-[15px] py-[10px] rounded-full'
+        placeholder='한글, 영어, 숫자만 사용 가능'
+        autoFocus
+      />
+      <div className='h-[16px] mt-[5px]'>
+        {errors.nickname && (
+          <HelperText message={errors.nickname.message || ''} />
+        )}
       </div>
     </div>
   )
