@@ -24,7 +24,7 @@ const ReviewTextarea: React.FC<ReviewTextareaProps> = ({
   const handleResize = () => {
     const textarea = textareaRef.current
     if (textarea) {
-      textarea.style.height = 'auto' // Reset height to shrink if needed
+      textarea.style.height = '80px' // Reset height to shrink if needed
       textarea.style.height = `${textarea.scrollHeight}px` // Set height to scrollHeight
     }
   }
@@ -35,20 +35,17 @@ const ReviewTextarea: React.FC<ReviewTextareaProps> = ({
   }
 
   return (
-    <div className='flex w-full justify-center items-center'>
-      <textarea
-        {...register('contents', {
-          required: '리뷰 내용은 필수 입력 항목입니다.',
-        })}
-        ref={textareaRef}
-        value={contents}
-        onChange={handleChange}
-        onInput={handleResize}
-        placeholder={`작성 tip:\n방문 후기나 가기 전 꿀팁 등 다양한 정보가 있을수록 좋아요!`}
-        className='w-[305px] h-[48px] px-[14px] py-[10px] rounded-[10px] bg-[#F7F7F7] text-main
-      placeholder:text-sub placeholder:font-light resize-none overflow-hidden'
-      />
-    </div>
+    <textarea
+      {...register('contents', {
+        required: '리뷰 내용은 필수 입력 항목입니다.',
+      })}
+      ref={textareaRef}
+      value={contents}
+      onChange={handleChange}
+      onInput={handleResize}
+      placeholder={`작성 tip:\n방문 후기나 가기 전 꿀팁 등 다양한 정보가 있을수록 좋아요!`}
+      className='w-[114.29%] h-[80px] px-[14px] py-[10px] rounded-[10px] bg-gray-100 border-0 text-main01 text-gray-800 resize-none focus:outline-container-light-blue focus:outline-[0.5px] scale-[0.875] origin-top'
+    />
   )
 }
 
@@ -88,7 +85,7 @@ const KeywordInput: React.FC<KeywordInputProps> = ({ keywords, setValue }) => {
           }
         }}
         placeholder='하나의 키워드로 설명해주세요! ex. 맛/가성비/역세권'
-        className='w-[305px] h-[36px] px-[14px] py-[10px] box-border rounded-[2025px] bg-[#F7F7F7] text-main placeholder:text-sub'
+        className='w-[114.29%] h-[40px] px-[14px] py-[10px] box-border rounded-full bg-[#F7F7F7] text-main01 focus:outline-wooco_blue-primary-light focus:outline-[0.5px] scale-[0.875] origin-top'
       />
       <div className='flex w-[305px] flex-wrap gap-[8px]'>
         {keywords.map((keyword, index) => (
@@ -189,7 +186,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   return (
     <div className='w-full flex flex-col gap-2'>
       <div
-        className='w-[375px] overflow-x-scroll scroll-smooth cursor-grab'
+        className='w-full overflow-x-scroll scroll-smooth cursor-grab'
         ref={scrollRef}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
@@ -199,7 +196,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        <div className='flex flex-row gap-[13px] px-[35px] mx-[-5px] min-w-fit'>
+        <div className='flex flex-row gap-[13px] mx-[-5px] min-w-fit'>
           <div className='relative w-[84px] h-[84px] flex justify-center items-center'>
             <button
               type='button'
@@ -302,28 +299,27 @@ const FormReview: React.FC<FormReviewProps> = ({
   }, [isSubmitting])
 
   return (
-    <div className='w-full bg-white flex flex-col gap-[10px]'>
+    <div className='w-full bg-white flex flex-col gap-[10px] px-[20px]'>
       {/* Star Rating Section */}
-      <div className='flex flex-col items-start justify-start gap-[15px] relative'>
-        <b className='text-main pl-[20px]'>별점을 남겨볼까요?</b>
+      <div className='flex flex-col items-center justify-center gap-[15px]'>
+        <b className='text-main w-full'>별점을 남겨볼까요?</b>
         <StarRateForm rate={formValues.rating} setValue={setValue} />
         <Spacer height={8} />
       </div>
 
       {/* Detailed Review Section */}
-      <div className='w-full flex flex-col items-start justify-start gap-[15px] relative'>
-        <b className='text-main pl-[20px]'>장소 리뷰를 적어주세요.</b>
+      <div className='w-full flex flex-col items-center justify-center gap-[15px]'>
+        <b className='text-main w-full'>장소 리뷰를 적어주세요.</b>
         <ReviewTextarea
           contents={formValues.contents}
           setValue={setValue}
           register={register}
         />
-        <Spacer height={8} />
       </div>
 
       {/* Keywords Section */}
-      <div className='w-full flex flex-col items-start justify-start gap-[15px]'>
-        <b className='text-main pl-[20px]'>어떤 점이 좋았나요?</b>
+      <div className='w-full flex flex-col items-center justify-center gap-[15px]'>
+        <b className='text-main w-full'>어떤 점이 좋았나요?</b>
         <KeywordInput
           keywords={formValues.one_line_reviews}
           setValue={setValue}
@@ -332,8 +328,8 @@ const FormReview: React.FC<FormReviewProps> = ({
       </div>
 
       {/* Image Upload Section */}
-      <div className='w-full flex flex-col items-start justify-start gap-[15px]'>
-        <b className='text-main pl-[20px]'>사진을 추가해보세요.</b>
+      <div className='w-full flex flex-col items-center justify-center gap-[15px]'>
+        <b className='text-main w-full'>사진을 추가해보세요.</b>
         <ImageUploader
           uploadedImages={formValues.image_urls}
           setValue={setValue}

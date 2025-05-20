@@ -72,24 +72,23 @@ export default function SearchPlace({
       />
       <Spacer height={18} />
       <div className='px-[20px] w-full flex flex-col gap-[15px]'>
-        <div className='flex flex-col gap-[15px]'>
-          <span className='text-main font-semibold'>장소명</span>
-          <div className='flex items-center justify-center '>
-            <div className='w-[304px] h-[36px] px-[14px] py-[10px] relative rounded-[2025px] bg-bright-gray flex flex-row items-center justify-start box-border gap-[10px]'>
-              <Search width={14} size={14} />
-              <input
-                className='relative font-medium text-middle text-black bg-transparent outline-0'
-                placeholder='장소 이름을 입력해주세요.'
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.nativeEvent.isComposing) return
-                  if (e.key === 'Enter') {
-                    getResult(inputValue)
-                  }
-                }}
-              />
-            </div>
+        <div className='flex flex-col gap-[15px] items-center justify-center'>
+          <span className='text-main font-semibold w-full'>장소명</span>
+          <div className='w-[304px] h-[36px] px-[14px] py-[10px] rounded-full bg-gray-100 flex flex-row items-center justify-start box-border gap-[10px] focus:outline-container-light-blue focus:outline-[0.5px]'>
+            <Search width={14} size={14} />
+            <input
+              className='w-[114.29%] flex-1 text-main01 text-gray-800 bg-transparent outline-0 scale-[0.875] origin-left outline-none'
+              placeholder='장소 이름을 입력해주세요.'
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.nativeEvent.isComposing) return
+                if (e.key === 'Enter') {
+                  getResult(inputValue)
+                }
+              }}
+              autoFocus
+            />
           </div>
           <Spacer height={8} className='bg-bright-gray opacity-50' />
         </div>

@@ -135,7 +135,7 @@ export default function UpdateUser() {
               <input
                 type='text'
                 {...register('nickname', { validate: validateNickname })}
-                className='w-full inline-block text-middle01 focus:outline-none bg-bright-gray px-[15px] py-[10px] rounded-full'
+                className='w-[114.29%] h-[114.29%] inline-block text-main01 focus:outline-none bg-bright-gray px-[15px] py-[10px] rounded-full scale-[0.875] origin-top-left'
                 placeholder='닉네임을 입력해주세요.'
               />
               {errors.nickname && (
@@ -152,7 +152,7 @@ export default function UpdateUser() {
               <input
                 type='text'
                 {...register('description', { validate: validateDescription })}
-                className='w-full inline-block text-[13px] focus:outline-none bg-bright-gray px-[15px] py-[10px] rounded-full'
+                className='w-[114.29%] h-[114.29%] inline-block text-main01 focus:outline-none bg-bright-gray px-[15px] py-[10px] rounded-full scale-[0.875] origin-top-left'
                 placeholder='소개를 입력해주세요.'
               />
               {errors.description && (
@@ -164,8 +164,10 @@ export default function UpdateUser() {
           </div>
           {!isOnBoarding && (
             <div className='fixed bottom-[70px] flex items-center mt-[20px] text-middle01 text-gray-600 gap-[10px]'>
-              <button onClick={handleLogout} className='hover:underline'>로그아웃</button>|
-              <button className='hover:underline'>회원탈퇴</button>
+              <button onClick={handleLogout} className='hover:underline'>
+                로그아웃
+              </button>
+              |<button className='hover:underline'>회원탈퇴</button>
             </div>
           )}
           <button
