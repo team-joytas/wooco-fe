@@ -37,10 +37,6 @@ export interface PlaceReviewDetailType extends PlaceReviewType {
   writer: WriterType
 }
 
-export type PlaceReviewKeywordType = {
-  contents: string
-}
-
 export type PlaceSearchType = {
   id: string
   address_name: string
