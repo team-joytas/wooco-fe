@@ -85,7 +85,7 @@ export function ActionHeader({
     return (
       <HeaderBase className='px-[20px] border-b-[1px] border-container-blue'>
         <div className='w-[24px] h-[24px]' />
-        <p className='font-semibold text-[17px]'>{title}</p>
+        <p className='font-bold text-[17px]'>{title}</p>
         <div className='w-[24px] h-[24px]' />
       </HeaderBase>
     )
@@ -145,7 +145,7 @@ export function ActionHeader({
             <div className='w-[24px] h-[24px]' />
           )}
           <p
-            className={`font-semibold ${
+            className={`font-bold ${
               isBlue
                 ? 'text-white px-[20px] text-[13px] py-[8px] rounded-[20px] bg-container-blue'
                 : 'text-black text-[17px]'

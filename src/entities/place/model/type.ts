@@ -24,7 +24,7 @@ export interface PlaceReviewType {
   rating: number
   contents: string
   created_at: string
-  one_line_reviews: PlaceReviewKeywordType[]
+  one_line_reviews: string[]
   image_urls: string[]
 }
 
@@ -35,10 +35,6 @@ export interface UserPlaceReviewType extends PlaceReviewType {
 
 export interface PlaceReviewDetailType extends PlaceReviewType {
   writer: WriterType
-}
-
-export type PlaceReviewKeywordType = {
-  contents: string
 }
 
 export type PlaceSearchType = {
