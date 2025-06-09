@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from 'react'
 import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { ReviewPayloadType } from '@/src/entities/place'
 import { postImage } from '@/src/shared/api'
-import { Spacer } from '@/src/shared/ui'
 import { StarRateForm } from '@/src/features'
 import { useToast } from '@/src/shared/ui'
 import error from '@/src/assets/icons/error_color.svg'
@@ -46,8 +45,9 @@ const ReviewTextarea: React.FC<ReviewTextareaProps> = ({
         onChange={handleChange}
         onInput={handleResize}
         placeholder={`작성 tip:\n방문 후기나 가기 전 꿀팁 등 다양한 정보가 있을수록 좋아요!`}
-        className='w-[305px] h-[48px] px-[14px] py-[10px] rounded-[10px] bg-[#F7F7F7] text-main
-      placeholder:text-sub02 placeholder:font-light resize-none overflow-hidden'
+        className='w-[114.29%] min-h-[48px] px-[14px] py-[10px] rounded-[10px] scale-[0.875] bg-gray-100 border-0 resize-none overflow-hidden
+        text-main01 text-gray-800 placeholder:text-middle01 placeholder:font-light origin-top
+        focus:outline-container-light-blue focus:outline-[0.5px]'
       />
     </div>
   )
@@ -103,7 +103,7 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
           }
         }}
         placeholder='하나의 키워드로 설명해주세요! ex. 맛/가성비/역세권'
-        className='w-[305px] h-[36px] px-[14px] py-[10px] box-border rounded-[2025px] bg-[#F7F7F7] text-main placeholder:text-sub02'
+        className='w-[100%] h-[40px] px-[14px] py-[10px] box-border rounded-[2025px] bg-gray-100 text-main01 placeholder:text-middle01 focus:outline-wooco_blue-primary-light focus:outline-[0.5px] scale-[0.875] origin-top'
       />
       <div className='flex w-[305px] flex-wrap gap-[8px]'>
         {keywords.map((keyword, index) => (
@@ -228,7 +228,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
           <div className='relative w-[84px] h-[84px] flex justify-center items-center'>
             <button
               type='button'
-              className='w-[74px] h-[74px] bg-[#F2F2F2] flex items-center justify-center rounded-[10px]'
+              className='w-[74px] h-[74px] bg-gray-100 flex items-center justify-center rounded-[10px]'
               onClick={() => {
                 const fileRef = fileInput.current
                 if (fileRef) {

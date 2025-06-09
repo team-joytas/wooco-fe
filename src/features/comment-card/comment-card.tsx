@@ -142,7 +142,7 @@ export function CommentCard({
       {isEditingComment ? (
         <section className='w-full flex flex-col gap-[10px]'>
           <form
-            className='w-full px-[10px] gap-[10px] py-[10px] bg-bright-gray rounded-[10px] flex items-center justify-between'
+            className='px-[10px] gap-[10px] py-[10px] bg-bright-gray rounded-[10px] flex items-center justify-between overflow-hidden group  focus-within:outline focus-within:outline-[2px] focus-within:outline-wooco_blue-primary-light'
             onSubmit={handleSubmit(onSubmit)}
           >
             <input
@@ -153,7 +153,7 @@ export function CommentCard({
               }}
               type='text'
               placeholder='댓글을 작성해주세요.'
-              className='w-full text-middle text-gray-800 bg-transparent focus:outline-none placeholder:text-sub placeholder:opacity-50'
+              className='text-main01 text-gray-800 bg-transparent focus:outline-none box-border scale-[0.875] origin-left w-[114.29%]'
             />
             <div className='z-[10001] fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[375px] h-[80px] flex flex-col items-center justify-center gap-[1px] bg-white text-gray-600 font-bold text-main'>
               <Spacer height={20} />

@@ -80,16 +80,19 @@ export default function DetailComment({ courseId }: { courseId: string }) {
       </div>
       <div className='shadow-custom bg-white max-w-[375px] fixed bottom-0 w-full h-[70px] px-[20px] flex items-center'>
         <form
-          className='w-full px-[15px] gap-[10px] h-[40px] border-[1px] border-brand bg-bright-gray rounded-full flex items-center justify-between'
+          className='w-full px-[15px] gap-[10px] h-[40px] border-[1px] border-brand bg-bright-gray rounded-full flex items-center justify-between relative'
           onSubmit={handleSubmit(onSubmit)}
         >
           <input
             {...register('contents')}
             type='text'
             placeholder='댓글을 작성해주세요.'
-            className='w-full h-full text-middle bg-transparent focus:outline-none placeholder:text-sub placeholder:opacity-50'
+            className='bg-transparent focus:outline-none text-main01 placeholder:opacity-50 box-border scale-[0.875] origin-left w-[114.29%] h-[45.71px]'
           />
-          <button type='submit'>
+          <button
+            type='submit'
+            className='absolute right-[15px] top-[50%] transform -translate-y-1/2'
+          >
             <Send
               size={20}
               className={isDirty ? 'text-brand' : 'text-dark-gray'}
