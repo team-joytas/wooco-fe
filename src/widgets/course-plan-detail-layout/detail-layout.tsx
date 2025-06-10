@@ -110,7 +110,7 @@ export function CoursePlanDetailLayout({
             </span>
             &nbsp;님의 {typeName} 설명이에요.
           </p>
-          <span className='text-middle mx-[30px] px-[14px] py-[10px] bg-bright-gray rounded-[10px]'>
+          <span className='text-middle mx-[30px] px-[14px] py-[10px] bg-bright-gray rounded-[10px] whitespace-pre-line'>
             {data?.contents || ''}
           </span>
         </section>
