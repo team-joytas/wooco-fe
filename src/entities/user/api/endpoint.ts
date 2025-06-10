@@ -8,7 +8,7 @@ export const USER_API = {
 
   likeRegions: () => '/regions/preferences',
   deleteLikeRegions: (id: string) =>
-    `${USER_API.likeRegions}/preferences/${id}`,
+    `${USER_API.likeRegions()}/${id}`,
 
   courses: (id: string) => `${USER_API.baseCourse}/${id}`,
   likeCourses: (id: string) => `${USER_API.baseCourse}/${id}/like`,
