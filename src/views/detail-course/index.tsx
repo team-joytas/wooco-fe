@@ -63,7 +63,7 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
       <section className='w-full px-[20px] py-[10px] text-white bg-brand'>
         <div className='w-full flex gap-[10px] max-w-[375px] cursor-pointer'>
           <ProfileImage
-            src={course.writer.profile_url || './profile.png'}
+            src={course.writer.profile_url || '/profile.png'}
             size={40}
             userId={course.writer.id}
           />

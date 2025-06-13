@@ -74,7 +74,7 @@ export function ImageView({
         <div className='w-full h-[60px] px-[20px] py-[10px] text-white bg-brand'>
           <div className='w-full flex gap-[10px] max-w-[375px] cursor-pointer'>
             <ProfileImage
-              src={writer.profile_url || './profile.png'}
+              src={writer.profile_url || '/profile.png'}
               size={40}
               userId={writer.id}
             />
