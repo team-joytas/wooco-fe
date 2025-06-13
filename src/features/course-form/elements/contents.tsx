@@ -3,15 +3,13 @@
 import { CoursePayloadType } from '@/src/entities/course'
 import { HelperText } from '@/src/shared/ui'
 import { useRef } from 'react'
-import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 
-export function FormContents({
-  register,
-  errors,
-}: {
-  register: UseFormRegister<CoursePayloadType>
-  errors: FieldErrors<CoursePayloadType>
-}) {
+export function FormContents() {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<CoursePayloadType>()
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
 
   const handleResize = () => {

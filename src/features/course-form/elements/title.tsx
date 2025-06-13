@@ -1,14 +1,13 @@
 import { CoursePayloadType } from '@/src/entities/course'
 import { HelperText } from '@/src/shared/ui'
-import { FieldErrors, UseFormRegister } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 
-export function FormTitle({
-  register,
-  errors,
-}: {
-  register: UseFormRegister<CoursePayloadType>
-  errors: FieldErrors<CoursePayloadType>
-}) {
+export function FormTitle() {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<CoursePayloadType>()
+
   const validateTitle = (value: string) => {
     if (!value) return '제목을 입력해주세요.'
     if (value.length < 2 || value.length > 20) {
@@ -16,6 +15,7 @@ export function FormTitle({
     }
     return true
   }
+
   return (
     <>
       <input
