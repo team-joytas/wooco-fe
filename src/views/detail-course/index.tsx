@@ -1,40 +1,82 @@
 'use client'
 
 import Link from 'next/link'
-import ProfileImage from '@/src/shared/ui/ProfileImage'
-import Spacer from '@/src/shared/ui/Spacer'
-import CardComment from '@/src/features/comment/card-comment'
-import CoursePlanDetailLayout from '@/src/widgets/course-plan-detail-layout'
-import { passFromCreate } from '@/src/shared/utils/date'
-import { useGetCourse } from '@/src/entities/course/query'
-import { useGetComments } from '@/src/entities/comment/query'
+import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { Spacer, ProfileImage, useToast } from '@/src/shared/ui'
+import {
+  CoursePlanDetailLayout,
+  SkeletonCoursePlanDetailLayout,
+} from '@/src/widgets'
+import { formatDateToYYYYMMDD, passFromCreate } from '@/src/shared/utils/date'
+import { useGetCourse } from '@/src/entities/course'
+import { useGetComments } from '@/src/entities/comment'
+import { CommentCard } from '@/src/features'
+import { useAuth } from '@/src/shared/provider'
 
 interface DetailCourseProps {
   courseId: string
 }
 
 export default function DetailCourse({ courseId }: DetailCourseProps) {
-  const { data: course } = useGetCourse(courseId)
-  const { data: comments } = useGetComments(courseId)
+  const {
+    data: course,
+    isLoading: isCourseLoading,
+    isError,
+  } = useGetCourse(courseId)
+  const {
+    data: comments,
+    isLoading: isCommentLoading,
+    refetch,
+  } = useGetComments(courseId)
+
   const router = useRouter()
-  if (!course) return <div>Loading...</div>
+  const { show } = useToast()
+  const { token } = useAuth()
+
+  const onClick = () => {
+    if (!token) {
+      show('로그인 후 이용해주세요')
+      return
+    }
+    router.push(`/courses/${courseId}/comments`)
+  }
+
+  useEffect(() => {
+    // 로딩 중일때 스크롤 금지
+    if (isCourseLoading || isCommentLoading) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isCourseLoading, isCommentLoading])
+
+  if (isError) {
+    router.push('/not-found')
+  }
+
+  if (isCourseLoading || isCommentLoading || !course || !comments)
+    return <SkeletonCoursePlanDetailLayout type='course' />
 
   return (
     <CoursePlanDetailLayout type='course' id={courseId} data={course}>
       <section className='w-full px-[20px] py-[10px] text-white bg-brand'>
-        <div className='w-full flex gap-[10px] max-w-[375px]'>
-          <ProfileImage src={course?.writer.profile_url || ''} size={40} />
+        <div className='w-full flex gap-[10px] max-w-[375px] cursor-pointer'>
+          <ProfileImage
+            src={course.writer.profile_url || '/profile.png'}
+            size={40}
+            userId={course.writer.id}
+          />
           <div className='flex flex-col gap-[2px]'>
-            <span className='font-semibold text-[14px]'>
-              {course?.writer.name}
+            <span className='font-semibold text-middle'>
+              {course.writer.name}
             </span>
-            <div className='text-[13px] flex gap-[5px]'>
-              <span className='text-sub font-semibold'>
+            <div className='text-sub flex gap-[5px]'>
+              <span className='text-sub'>
                 {passFromCreate(course?.created_at || '')}
               </span>
               <span className='text-sub opacity-50'>
-                {course?.visit_date || ''}
+                {formatDateToYYYYMMDD(course.created_at, 'slash')}
               </span>
             </div>
           </div>
@@ -43,39 +85,45 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
       <Spacer height={10} className='bg-container-light-blue' />
       <Spacer height={20} />
       <div className='flex flex-col text-[15px]'>
-        <div className='flex justify-between items-center'>
-          <p className='px-[20px] gap-[10px] flex items-center'>
-            <span className='text-main font-bold'>댓글</span>
-            <span className='text-sub opacity-40'>
-              코스에 대한 댓글을 남겨보세요!
-            </span>
-          </p>
-          {comments && comments.length > 0 && (
-            <button
-              className='cursor-pointer pr-[20px] text-sub opacity-50'
-              onClick={() => router.replace(`/courses/${courseId}/comments`)}
-            >
-              더보기
-            </button>
-          )}
+        <div className='flex px-[20px] justify-start gap-[10px] items-center'>
+          <span className='text-main font-bold'>댓글</span>
+          <span className='text-sub opacity-40'>
+            코스에 대한 댓글을 남겨보세요!
+          </span>
         </div>
         <Spacer height={20} />
-        <div className='px-[30px] flex flex-col gap-[30px] min-h-[50px]'>
-          {comments && comments.length > 0 ? (
-            comments?.map((comment) => {
-              return <CardComment key={comment.id} comment={comment} />
-            })
+        <div className='px-[20px] flex flex-col gap-[20px] min-h-[50px]'>
+          {comments.length > 0 ? (
+            <>
+              {comments.map((comment) => {
+                return (
+                  <CommentCard
+                    key={comment.id}
+                    id={comment.id}
+                    content={comment}
+                    refetch={refetch}
+                    showKebab={false}
+                  />
+                )
+              })}
+              <Link
+                href={`/courses/${courseId}/comments`}
+                className='text-sub text-[#CCCCCC] self-end'
+              >
+                더보기
+              </Link>
+            </>
           ) : (
             <div className='flex flex-col gap-[10px] items-center justify-center w-full'>
               <p className='text-sub text-container-blue font-semibold'>
                 댓글이 없어요 댓글을 작성해보세요!
               </p>
-              <Link
+              <button
                 className='text-sub text-white  h-[30px] rounded-full bg-container-blue flex items-center justify-center w-full'
-                href={`/courses/${courseId}/comments`}
+                onClick={onClick}
               >
                 댓글 작성하러 가기
-              </Link>
+              </button>
             </div>
           )}
         </div>

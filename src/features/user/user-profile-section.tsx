@@ -1,33 +1,38 @@
-import type { UserProfileType } from '@/src/entities/user/type'
-import ProfileImage from '@/src/shared/ui/ProfileImage'
-import UserTag from '@/src/features/user/user-tag'
-import { useRouter } from 'next/navigation'
+import type { UserSummaryType } from '@/src/entities/user'
+import { ProfileImage } from '@/src/shared/ui'
+import logo from '@/src/assets/images/(logo)/logo.png'
+import { ChevronRight } from 'lucide-react'
+import Link from 'next/link'
+import Image from 'next/image'
+import heart_fill from '@/src/assets/icon/heart_fullfill_20.svg'
 
-export default function UserProfileSection({
-  user,
-}: {
-  user: UserProfileType | undefined
-}) {
-  const router = useRouter()
+export function UserProfileSection({ user }: { user: UserSummaryType }) {
+  const { user_id, profile_url, name, description, like_course_count } = user
 
   return (
-    <section className='px-[20px] py-[10px] gap-[5px] w-full flex flex-col justify-between'>
-      <div className='flex items-center justify-between'>
-        <div className='flex flex-col justify-center items-start gap-[10px]'>
-          <ProfileImage size={60} src={user?.profile_url || ''} />
-          <p className='font-bold text-brand text-headline'>{user?.name}</p>
+    <section className='h-[127px] p-[10px] gap-[10px] w-full flex flex-col'>
+      <div className='flex flex-row items-center justify-start gap-[16px]'>
+        <div className='flex justify-center items-start gap-[10px]'>
+          <ProfileImage size={60} src={profile_url || logo} userId={user_id} />
         </div>
-        <div className='flex gap-[30px] items-end'>
-          <UserTag
-            type='heart'
-            content={'?'}
-            onClick={() => router.push(`/users/${user?.user_id}/wishlist`)}
-          />
-          <UserTag type='comment' content={'?'} />
-          <UserTag type='rate' content={'?'} />
+        <div className='flex flex-col items-start justify-center'>
+          <p className='font-bold text-brand text-headline'>{name}</p>
+          <p className='text-middle font-medium'>{description}</p>
         </div>
       </div>
-      <span className='text-sub font-light'>{user?.description}</span>
+      <Link
+        href={`${user_id}/wishlist`}
+        className='flex flex-row px-[10px] py-[13px] items-center justify-between w-[346px] h-[50px] rounded-[10px] bg-light-gray'
+      >
+        <p className='text-middle font-medium'>관심 코스 목록</p>
+        <div className='flex flex-row justify-center items-center gap-[6px]'>
+          <div className='flex flex-row gap-[4px]'>
+            <Image src={heart_fill as string} alt='heart' width={20} height={20} />
+            {like_course_count}
+          </div>
+          <ChevronRight className='text-description' size={24} />
+        </div>
+      </Link>
     </section>
   )
 }

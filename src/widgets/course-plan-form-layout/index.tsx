@@ -1,29 +1,30 @@
 'use client'
 
+import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, useMemo } from 'react'
-import { message } from 'antd'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer } from '@/src/shared/ui'
 import SearchPlace from '@/src/views/search-place'
-import Header from '@/src/widgets/header'
-import type { CoursePlanPlaceType } from '@/src/entities/place/type'
-import type { CoursePayloadType } from '@/src/entities/course/type'
-import { COURSE_QUERY_KEY } from '@/src/entities/course/query'
-import { PLAN_QUERY_KEY } from '@/src/entities/plan/query'
-import FormSections from '@/src/features/course/form-course'
-import { useForm } from 'react-hook-form'
+import { ActionHeader } from '@/src/widgets'
+import type { CoursePlanPlaceType } from '@/src/entities/place'
+import type { CoursePayloadType } from '@/src/entities/course'
 import {
-  useCreateCourse,
-  useGetCourse,
-  useUpdateCourse,
-} from '@/src/entities/course/query'
-import {
-  useCreatePlan,
+  PLAN_QUERY_KEY,
+  usePostPlan,
   useGetPlan,
   useUpdatePlan,
-} from '@/src/entities/plan/query'
-import { PlanPayloadType } from '@/src/entities/plan/type'
+  PlanPayloadType,
+} from '@/src/entities/plan'
+import { CourseForm } from '@/src/features'
+import {
+  COURSE_QUERY_KEY,
+  useGetCourse,
+  usePostCourse,
+  useUpdateCourse,
+} from '@/src/entities/course'
 import { useQueryClient } from '@tanstack/react-query'
+import useRegionStore from '@/src/shared/store/regionStore'
+import { useMessageApi } from '@/src/shared/lib'
 
 const LAYOUT_TYPE = {
   course: 'course' as const,
@@ -61,9 +62,10 @@ export default function CoursePlanFormLayout({
 }: CoursePlanFormLayoutProps) {
   const router = useRouter()
   const queryClient = useQueryClient()
+  const messageApi = useMessageApi()
+
   const [places, setPlaces] = useState<CoursePlanPlaceType[]>([])
   const [openSearchPlace, setOpenSearchPlace] = useState<boolean>(false)
-  const [messageApi, contextHolder] = message.useMessage()
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
   const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false)
 
@@ -88,15 +90,14 @@ export default function CoursePlanFormLayout({
       visit_date: '',
     },
   })
-
-  const { data: courseData } = useGetCourse(id || '')
-  const { data: planData } = useGetPlan(id || '')
+  const { data: courseData } = useGetCourse(id || '', type == 'course' && !!id)
+  const { data: planData } = useGetPlan(id || '', type == 'plan' && !!id)
   const fetchData = useMemo(() => {
     return type === LAYOUT_TYPE.course
       ? courseData
       : type === LAYOUT_TYPE.plan
-      ? planData
-      : null
+        ? planData
+        : null
   }, [type, courseData, planData])
 
   useEffect(() => {
@@ -128,34 +129,51 @@ export default function CoursePlanFormLayout({
     typeof window !== 'undefined' ? !!sessionStorage.getItem('course') : false
 
   useEffect(() => {
+    let storedData: string | null = null
+
     if (
       level === LEVEL_TYPE.add &&
       type === LAYOUT_TYPE.course &&
       typeof window !== 'undefined' &&
       !isDataLoaded
     ) {
-      const storedData = sessionStorage.getItem('course')
-      if (storedData) {
-        const course = JSON.parse(storedData)
-        setValue('title', course.title)
-        setValue('primary_region', course.primary_region)
-        setValue('secondary_region', course.secondary_region)
-        setValue('categories', course.categories)
-        setValue('contents', course.contents)
-        setValue('visit_date', course.visit_date)
-        setPlaces(course.places || [])
-        setIsDataLoaded(true)
-      }
+      storedData = sessionStorage.getItem('course')
+    } else if (
+      level === LEVEL_TYPE.add &&
+      type === LAYOUT_TYPE.plan &&
+      typeof window !== 'undefined' &&
+      !isDataLoaded
+    ) {
+      storedData = sessionStorage.getItem('plan')
     }
+
+    if (storedData) {
+      const sharedData = JSON.parse(storedData)
+      setValue('title', sharedData.title)
+      setValue('contents', sharedData.contents)
+      setValue('primary_region', sharedData.primary_region)
+      setValue('secondary_region', sharedData.secondary_region)
+      setValue(
+        'visit_date',
+        sharedData?.visit_date ? sharedData.visit_date : ''
+      )
+      setPlaces(sharedData.places || [])
+      useRegionStore.setState({
+        currentRegion: [sharedData.primary_region, sharedData.secondary_region],
+      })
+      setIsDataLoaded(true)
+    }
+
     return () => {
       if (typeof window !== 'undefined') {
         sessionStorage.removeItem('course')
+        sessionStorage.removeItem('plan')
       }
     }
   }, [level, type, isDataLoaded])
 
-  const { mutate: courseMutate } = useCreateCourse()
-  const { mutate: planMutate } = useCreatePlan()
+  const { mutate: courseMutate } = usePostCourse()
+  const { mutate: planMutate } = usePostPlan()
   const { mutate: courseUpdateMutate } = useUpdateCourse(id || '')
   const { mutate: planUpdateMutate } = useUpdatePlan(id || '')
   const mutateMap = {
@@ -171,8 +189,8 @@ export default function CoursePlanFormLayout({
 
   const pageType = type === LAYOUT_TYPE.course ? '코스' : '플랜'
   const headerTitle =
-    type === LAYOUT_TYPE.course
-      ? '나만의 코스 작성하기'
+    pageType === '코스'
+      ? `나만의 코스 ${level === 'add' ? '작성' : '수정'}하기`
       : '좋아하는 장소로 채우는 나의 플랜'
 
   const toast = (type: 'success' | 'error', content: string) => {
@@ -213,7 +231,7 @@ export default function CoursePlanFormLayout({
           router.push(redirectPath)
           queryClient.refetchQueries({
             queryKey: LAYOUT_TYPE.course
-              ? COURSE_QUERY_KEY.all
+              ? COURSE_QUERY_KEY.post
               : PLAN_QUERY_KEY.all,
           })
         },
@@ -256,11 +274,11 @@ export default function CoursePlanFormLayout({
 
   return (
     <div className='relative h-100% flex flex-col'>
-      <Header title={headerTitle} isBack />
+      <ActionHeader title={headerTitle} isBack />
       <Spacer height={25} />
       <form onSubmit={handleSubmit(onSubmit)}>
         {shouldRenderForm && (
-          <FormSections
+          <CourseForm
             pageType={pageType}
             register={register}
             places={places}
@@ -290,7 +308,6 @@ export default function CoursePlanFormLayout({
           setPlaces={setPlaces}
         />
       )}
-      {contextHolder}
     </div>
   )
 }

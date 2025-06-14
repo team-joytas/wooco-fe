@@ -2,25 +2,23 @@
 
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import Spacer from '@/src/shared/ui/Spacer'
-import Header from '@/src/widgets/header'
-import UploadProfileImage from '@/src/features/user/upload-profile-image'
 import { useForm } from 'react-hook-form'
+import { Spacer } from '@/src/shared/ui'
+import { ActionHeader } from '@/src/widgets'
+import { UploadProfileImage } from '@/src/features'
 import useUserStore from '@/src/shared/store/userStore'
-import { useGetMyProfile, useUpdateUser } from '@/src/entities/user/query'
-import { useQueryClient } from '@tanstack/react-query'
-import { USER_QUERY_KEY } from '@/src/entities/user/query'
+import { useGetMyProfile, useUpdateUser } from '@/src/entities/user'
+import { useAuth } from '@/src/shared/provider'
 
 export default function UpdateUser() {
   const router = useRouter()
   const [imageUrl, setImageUrl] = useState('')
   const [isOnBoarding, setIsOnBoarding] = useState(false)
-
   const updateStateUser = useUserStore((state) => state.updateStateUser)
-  const { mutate: updateUser } = useUpdateUser()
+  const { setToken } = useAuth()
 
-  const { data: profile } = useGetMyProfile()
-  const queryClient = useQueryClient()
+  const { data: profile, isLoading } = useGetMyProfile()
+  const { mutate: updateUser } = useUpdateUser()
 
   const {
     register,
@@ -29,21 +27,11 @@ export default function UpdateUser() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      nickname: profile?.name || '',
-      description: profile?.description || '',
-      profile_url: profile?.profile_url || '',
+      nickname: '',
+      description: '',
+      profile_url: '',
     },
   })
-
-  useEffect(() => {
-    if (profile) {
-      setImageUrl(profile.profile_url)
-      setIsOnBoarding(profile.on_boarding)
-      setValue('nickname', profile.name)
-      setValue('description', profile.description || '')
-      setValue('profile_url', profile.profile_url)
-    }
-  }, [setValue])
 
   const validateNickname = (value: string) => {
     if (!value) {
@@ -96,7 +84,6 @@ export default function UpdateUser() {
             description: data.description,
             profile_url: data.profile_url,
           })
-          queryClient.refetchQueries({ queryKey: USER_QUERY_KEY.all })
           router.push(`/users/${profile?.user_id}`)
         },
       }
@@ -104,15 +91,26 @@ export default function UpdateUser() {
   }
 
   const handleLogout = async () => {
-    localStorage.removeItem('accessToken')
+    setToken(null)
     useUserStore.getState().clearUser()
-    queryClient.clear()
     router.push('/login')
   }
 
+  useEffect(() => {
+    if (isLoading) return
+
+    if (profile) {
+      setImageUrl(profile.profile_url)
+      setIsOnBoarding(profile.on_boarding)
+      setValue('nickname', profile.name)
+      setValue('description', profile.description || '')
+      setValue('profile_url', profile.profile_url)
+    }
+  }, [setValue, profile])
+
   return (
     <>
-      <Header
+      <ActionHeader
         title={isOnBoarding ? '프로필 설정' : '프로필 수정'}
         isBack={!isOnBoarding}
       />
@@ -132,12 +130,12 @@ export default function UpdateUser() {
           />
           <Spacer height={22} />
           <div className='px-[20px] flex flex-col gap-[15px] items-start w-full'>
-            <p className='text-main w-[80px] font-bold'>닉네임</p>
+            <p className='text-main01 font-main01 w-[80px]'>닉네임</p>
             <div className='flex px-[20px] flex-col w-full'>
               <input
                 type='text'
                 {...register('nickname', { validate: validateNickname })}
-                className='w-full inline-block text-[13px] focus:outline-none bg-bright-gray px-[15px] py-[10px] rounded-full'
+                className='w-[114.29%] h-[114.29%] inline-block text-main01 focus:outline-none bg-bright-gray px-[15px] py-[10px] rounded-full scale-[0.875] origin-top-left'
                 placeholder='닉네임을 입력해주세요.'
               />
               {errors.nickname && (
@@ -148,15 +146,13 @@ export default function UpdateUser() {
             </div>
           </div>
           <Spacer height={15} />
-          <Spacer height={8} className='bg-bright-gray' />
-          <Spacer height={15} />
           <div className='px-[20px] flex flex-col gap-[15px] items-start w-full'>
             <p className='text-main w-[80px] font-bold'>소개</p>
             <div className='flex px-[20px] flex-col w-full'>
               <input
                 type='text'
                 {...register('description', { validate: validateDescription })}
-                className='w-full inline-block text-[13px] focus:outline-none bg-bright-gray px-[15px] py-[10px] rounded-full'
+                className='w-[114.29%] h-[114.29%] inline-block text-main01 focus:outline-none bg-bright-gray px-[15px] py-[10px] rounded-full scale-[0.875] origin-top-left'
                 placeholder='소개를 입력해주세요.'
               />
               {errors.description && (
@@ -166,19 +162,17 @@ export default function UpdateUser() {
               )}
             </div>
           </div>
-          <Spacer height={15} />
-          <Spacer height={8} className='bg-bright-gray' />
           {!isOnBoarding && (
-            <div className='fixed bottom-[70px] flex items-center mt-[20px] text-[10px] text-gray-500 underline gap-[10px]'>
-              <button className='cursor-pointer' onClick={handleLogout}>
+            <div className='fixed bottom-[70px] flex items-center mt-[20px] text-middle01 text-gray-600 gap-[10px]'>
+              <button onClick={handleLogout} className='hover:underline'>
                 로그아웃
               </button>
-              |<button className='cursor-pointer'>회원탈퇴</button>
+              |<button className='hover:underline'>회원탈퇴</button>
             </div>
           )}
           <button
             type='submit'
-            className={`fixed bottom-[0px] text-[16px] font-bold flex items-center cursor-pointer justify-center w-full max-w-[375px] h-[50px] bg-light-gray text-brand  ${
+            className={`fixed bottom-[0px] text-[16px] font-bold flex items-center justify-center w-full max-w-[375px] h-[50px] bg-light-gray text-brand  ${
               !errors.nickname &&
               !errors.description &&
               !errors.profile_url &&

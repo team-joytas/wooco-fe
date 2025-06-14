@@ -1,50 +1,11 @@
 import Image from 'next/image'
 import React, { useState, useRef, useEffect } from 'react'
 import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
-import { ReviewPayloadType } from '@/src/entities/place/type'
-import { postImage } from '@/src/shared/entities/api'
-import { message } from 'antd'
-import Spacer from '@/src/shared/ui/Spacer'
-
-// 별점
-interface StarRatingProps {
-  rating: number
-  setValue: UseFormSetValue<ReviewPayloadType>
-}
-
-const StarRating = ({ rating, setValue } : StarRatingProps) => {
-  const [hover, setHover] = useState(0)
-
-  const handleStarClick = (ratingValue: number) => {
-    setValue('rating', ratingValue)
-  }
-
-  return (
-    <div className='flex w-full gap-[7px] items-center justify-center'>
-      {[...Array(5)].map((_, index) => {
-        const ratingValue = index + 1
-        const isActive = ratingValue <= (hover || rating)
-
-        return (
-          <div
-            key={index}
-            className='relative  w-[30px] h-[30px] pointer-events-none'
-          >
-            <Image
-              src={isActive ? '/star_colored.svg' : '/star.svg'}
-              alt={`Star ${ratingValue}`}
-              fill
-              className='cursor-pointer pointer-events-auto transition-transform'
-              onClick={() => handleStarClick(ratingValue)}
-              onMouseEnter={() => setHover(ratingValue)}
-              onMouseLeave={() => setHover(0)}
-            />
-          </div>
-        )
-      })}
-    </div>
-  )
-}
+import { ReviewPayloadType } from '@/src/entities/place'
+import { postImage } from '@/src/shared/api'
+import { StarRateForm } from '@/src/features'
+import { useToast } from '@/src/shared/ui'
+import error from '@/src/assets/icons/error_color.svg'
 
 // 리뷰
 interface ReviewTextareaProps {
@@ -84,8 +45,9 @@ const ReviewTextarea: React.FC<ReviewTextareaProps> = ({
         onChange={handleChange}
         onInput={handleResize}
         placeholder={`작성 tip:\n방문 후기나 가기 전 꿀팁 등 다양한 정보가 있을수록 좋아요!`}
-        className='w-[305px] h-[48px] px-[14px] py-[10px] rounded-[10px] bg-[#F7F7F7] text-main
-      placeholder:text-sub placeholder:font-light resize-none overflow-hidden'
+        className='w-[114.29%] min-h-[48px] px-[14px] py-[10px] rounded-[10px] scale-[0.875] bg-gray-100 border-0 resize-none overflow-hidden
+        text-main01 text-gray-800 placeholder:text-middle01 placeholder:font-light origin-top
+        focus:outline-container-light-blue focus:outline-[0.5px]'
       />
     </div>
   )
@@ -95,9 +57,14 @@ const ReviewTextarea: React.FC<ReviewTextareaProps> = ({
 interface KeywordInputProps {
   keywords: string[]
   setValue: UseFormSetValue<ReviewPayloadType>
+  register: UseFormRegister<ReviewPayloadType>
 }
 
-const KeywordInput: React.FC<KeywordInputProps> = ({ keywords, setValue }) => {
+const KeywordInput: React.FC<KeywordInputProps> = ({
+  keywords,
+  setValue,
+  register,
+}) => {
   const [newKeyword, setNewKeyword] = useState('')
 
   const handleAddKeyword = () => {
@@ -116,18 +83,27 @@ const KeywordInput: React.FC<KeywordInputProps> = ({ keywords, setValue }) => {
   return (
     <div className='w-full flex flex-col gap-[8px] justify-center items-center'>
       <input
+        hidden={true}
+        {...register('one_line_reviews', {
+          validate: (reviews) => {
+            if (reviews.length == 0) return '키워드 미완료'
+            return true
+          },
+        })}
+      />
+      <input
         type='text'
         value={newKeyword}
         onChange={(e) => setNewKeyword(e.target.value)}
         onKeyDown={(e) => {
-          //스페이스바는 구버전에서 Spacebar, 모던 브라우저에서 " "입니다!
+          if (e.nativeEvent.isComposing) return
           if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
             e.preventDefault()
             handleAddKeyword()
           }
         }}
         placeholder='하나의 키워드로 설명해주세요! ex. 맛/가성비/역세권'
-        className='w-[305px] h-[36px] px-[14px] py-[10px] box-border rounded-[2025px] bg-[#F7F7F7] text-main placeholder:text-sub'
+        className='w-[100%] h-[40px] px-[14px] py-[10px] box-border rounded-[2025px] bg-gray-100 text-main01 placeholder:text-middle01 focus:outline-wooco_blue-primary-light focus:outline-[0.5px] scale-[0.875] origin-top'
       />
       <div className='flex w-[305px] flex-wrap gap-[8px]'>
         {keywords.map((keyword, index) => (
@@ -142,6 +118,17 @@ const KeywordInput: React.FC<KeywordInputProps> = ({ keywords, setValue }) => {
           </div>
         ))}
       </div>
+      {newKeyword && (
+        <div className='w-[305px] flex gap-[8px] flex-row items-center'>
+          <Image src={error} alt='error_info_icon' width={16} height={16} />
+          <span className='text-red-500 text-sub01 font-semibold'>
+            키워드 미완료
+          </span>
+          <span className='text-sub02 text-gray-700 font-light '>
+            엔터를 눌러 작성을 완료해 주세요.
+          </span>
+        </div>
+      )}
     </div>
   )
 }
@@ -158,7 +145,6 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
 }) => {
   const fileInput = useRef<HTMLInputElement | null>(null)
   const scrollRef = useRef<HTMLDivElement | null>(null)
-  const [messageApi, contextHolder] = message.useMessage()
 
   // Drag and Touch Scrolling
   let isDragging = false
@@ -201,7 +187,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   const handleTouchEnd = () => {
     isDragging = false
   }
-
+  const { show } = useToast()
   const handleImageUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -216,7 +202,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
       }
     } catch (error) {
       console.error(error)
-      messageApi.error('이미지 업로드에 실패했습니다.')
+      show('이미지 업로드에 실패했습니다.')
     }
   }
 
@@ -241,7 +227,8 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         <div className='flex flex-row gap-[13px] px-[35px] mx-[-5px] min-w-fit'>
           <div className='relative w-[84px] h-[84px] flex justify-center items-center'>
             <button
-              className='w-[74px] h-[74px] bg-[#F2F2F2] flex items-center justify-center rounded-[10px]'
+              type='button'
+              className='w-[74px] h-[74px] bg-gray-100 flex items-center justify-center rounded-[10px]'
               onClick={() => {
                 const fileRef = fileInput.current
                 if (fileRef) {
@@ -285,7 +272,6 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
           ))}
         </div>
       </div>
-      {contextHolder}
     </div>
   )
 }
@@ -312,72 +298,74 @@ const FormReview: React.FC<FormReviewProps> = ({
   formValues,
 }) => {
   // toast
-  const [messageApi, contextHolder] = message.useMessage()
-  const toast = (type: 'success' | 'error', content: string) => {
-    messageApi.open({
-      type,
-      content,
-      duration: 1.5,
-      className: 'text-main',
-    })
-  }
+  const { show } = useToast()
 
   useEffect(() => {
     if (isSubmitting) {
       return
     }
     if (errors.rating?.message) {
-      toast('error', errors.rating.message)
+      show(errors.rating.message)
       return
     }
     if (errors.contents?.message) {
-      toast('error', errors.contents.message)
+      show(errors.contents.message)
       return
     }
     if (errors.one_line_reviews?.message) {
-      toast('error', errors.one_line_reviews.message)
+      show(errors.one_line_reviews.message)
       return
     }
   }, [isSubmitting])
+
   return (
-    <div className='w-full bg-white flex flex-col gap-[10px]'>
+    <div className='w-full bg-white flex flex-col gap-[30px]'>
       {/* Star Rating Section */}
       <div className='flex flex-col items-start justify-start gap-[15px] relative'>
-        <b className='text-main pl-[20px]'>별점을 남겨볼까요?</b>
-        <StarRating rating={formValues.rating} setValue={setValue} />
-        <Spacer height={8} />
+        <b className='text-main01 text-gray-900 pl-[20px]'>
+          별점을 남겨볼까요?
+        </b>
+        <StarRateForm
+          rate={formValues.rating}
+          setValue={setValue}
+          register={register}
+        />
       </div>
 
       {/* Detailed Review Section */}
       <div className='w-full flex flex-col items-start justify-start gap-[15px] relative'>
-        <b className='text-main pl-[20px]'>장소 리뷰를 적어주세요.</b>
+        <b className='text-main01 text-gray-900 pl-[20px]'>
+          장소 리뷰를 적어주세요.
+        </b>
         <ReviewTextarea
           contents={formValues.contents}
           setValue={setValue}
           register={register}
         />
-        <Spacer height={8} />
       </div>
 
       {/* Keywords Section */}
       <div className='w-full flex flex-col items-start justify-start gap-[15px]'>
-        <b className='text-main pl-[20px]'>어떤 점이 좋았나요?</b>
+        <b className='text-main01 text-gray-900 pl-[20px]'>
+          어떤 점이 좋았나요?
+        </b>
         <KeywordInput
           keywords={formValues.one_line_reviews}
           setValue={setValue}
+          register={register}
         />
-        <Spacer height={8} />
       </div>
 
       {/* Image Upload Section */}
       <div className='w-full flex flex-col items-start justify-start gap-[15px]'>
-        <b className='text-main pl-[20px]'>사진을 추가해보세요.</b>
+        <b className='text-main01 text-gray-900 pl-[20px]'>
+          사진을 추가해보세요.
+        </b>
         <ImageUploader
           uploadedImages={formValues.image_urls}
           setValue={setValue}
         />
       </div>
-      {contextHolder}
     </div>
   )
 }

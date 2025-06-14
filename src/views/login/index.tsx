@@ -2,8 +2,8 @@
 
 import Image from 'next/image'
 import splashLogo from '@/src/assets/images/(logo)/splash_logo.svg'
-import Spacer from '@/src/shared/ui/Spacer'
-import { getLoginUrl } from '@/src/entities/login/api'
+import { Spacer } from '@/src/shared/ui'
+import { getLoginUrl } from '@/src/entities/auth'
 import Link from 'next/link'
 import logo_long from '@/src/assets/images/(logo)/logo_long.png'
 import { useRouter } from 'next/navigation'
@@ -32,7 +32,7 @@ export default function LoginView() {
         <Spacer height={54} />
         <div className='flex flex-col items-center justify-center  gap-[10px]'>
           <button
-            className='h-[32px] w-[238px] rounded-full  text-white font-extrabold cursor-pointer bg-kakao text-[15px]'
+            className='h-[32px] w-[238px] rounded-full  text-white font-extrabold bg-kakao text-[15px]'
             onClick={handleLogin}
           >
             카카오로 시작하기
@@ -47,7 +47,7 @@ export default function LoginView() {
           className='text-brand text-[15px] w-fit font-extrabold px-[15px] py-[5px] rounded-full bg-white'
           href='/'
         >
-          둘러볼게요
+          둘러볼게요.
         </Link>
         <Image src={logo_long} alt='logo_long' width={192} height={45} />
       </div>

@@ -1,9 +1,11 @@
-import SectionBanner from '@/src/features/main/section-banner'
-import SectionNewCourse from '@/src/features/main/section-new-course'
-import SectionLikeCourse from '@/src/features/main/section-like-course'
-import Spacer from '@/src/shared/ui/Spacer'
-import SectionBottom from '@/src/features/main/section-bottom'
-import SectionAnnouncement from '@/src/features/main/section-announcement'
+import { Spacer } from '@/src/shared/ui'
+import {
+  SectionAnnouncement,
+  SectionBanner,
+  SectionNewCourse,
+  SectionLikeCourse,
+  SectionBottom,
+} from '@/src/features'
 
 export default function Main() {
   return (

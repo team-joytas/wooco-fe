@@ -1,15 +1,18 @@
-import Header from '@/src/widgets/header'
+'use client'
+
+import { ActionHeader } from '@/src/widgets'
 import { useForm } from 'react-hook-form'
-import Spacer from '@/src/shared/ui/Spacer'
+import { Spacer } from '@/src/shared/ui'
 import { useEffect, useState } from 'react'
 import {
   useGetPlace,
-  useCreatePlaceReview,
+  usePostPlaceReview,
   useGetPlaceReview,
   useUpdatePlaceReview,
-} from '@/src/entities/place/query'
+} from '@/src/entities/place'
 import FormReview from '@/src/features/place/form-review'
-import { ReviewPayloadType } from '@/src/entities/place/type'
+import { ReviewPayloadType } from '@/src/entities/place'
+import { useRouter } from 'next/navigation'
 
 interface ReviewFormLayoutProps {
   placeId: string
@@ -40,8 +43,11 @@ export default function ReviewFormLayout({
   const [placeInfo, setPlaceInfo] = useState({ name: '', address: '' })
   const { data: placeData } = useGetPlace(placeId)
   const { data: reviewData } = useGetPlaceReview(reviewId)
-  const createPlaceReviewMutation = useCreatePlaceReview(placeId)
-  const updatePlaceReviewMutation = useUpdatePlaceReview(placeId)
+  const { mutateAsync: createPlaceMutate } = usePostPlaceReview(placeId)
+  const { mutateAsync: updatePlaceMutate } = useUpdatePlaceReview(
+    reviewId ?? ''
+  )
+  const router = useRouter()
 
   useEffect(() => {
     if (placeData) {
@@ -53,22 +59,28 @@ export default function ReviewFormLayout({
     if (reviewData) {
       setValue('contents', reviewData.contents)
       setValue('rating', reviewData.rating)
-      setValue('one_line_reviews', reviewData.one_line_reviews.map(item=>item.contents))
+      setValue('one_line_reviews', reviewData.one_line_reviews)
       setValue('image_urls', reviewData.image_urls)
     }
   }, [reviewData])
 
   const onSubmit = async (data: ReviewPayloadType) => {
-    if (formType === '작성') {
-      await createPlaceReviewMutation.mutateAsync(data)
-    } else if (formType === '수정') {
-      await updatePlaceReviewMutation.mutateAsync(data)
+    const mutate = reviewId ? updatePlaceMutate : createPlaceMutate
+    try {
+      mutate(data, {
+        onSuccess: () => {
+          router.push(`/places/${placeId}`)
+        },
+      })
+    } catch (error) {
+      console.error(error)
     }
   }
+
   return (
-    <div className='relative flex flex-col min-h-screen'>
-      <Header title={headerTitle} isBack />
-      <div className='place_describe bg-brand text-white pl-[19px] pt-[18px] pb-[14px]  '>
+    <div className='relative flex flex-col h-[calc(100vh-60px)]'>
+      <ActionHeader title={headerTitle} isBack />
+      <div className='place_describe bg-wooco_blue-secondary text-white pl-[19px] pt-[18px] pb-[14px]  '>
         <b className='text-main place_name'>
           {placeInfo.name || '장소 이름 없음'}
         </b>
@@ -77,10 +89,7 @@ export default function ReviewFormLayout({
         </p>
       </div>
       <Spacer height={20} />
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className='flex flex-col flex-grow pb-[120px]'
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col h-full'>
         <FormReview
           register={register}
           setValue={setValue}
@@ -88,16 +97,15 @@ export default function ReviewFormLayout({
           isSubmitting={isSubmitting}
           formValues={watch()}
         />
-        <div className='fixed bottom-[60px] w-full'>
-          <button
-            type='submit'
-            disabled={isSubmitting}
-            className={`p-[10px] h-[54px] w-[375px] text-main font-extrabold 
-            ${isSubmitting ? 'bg-light-gray text-brand cursor-default' : 'bg-brand text-white'}`}
-          >
-            완료
-          </button>
-        </div>
+        <button
+          type='submit'
+          disabled={isSubmitting}
+          className={`w-full h-[54px] mt-auto flex items-center justify-center bg-light-gray text-brand text-main font-bold hover:bg-brand hover:text-white transition-all duration-300 ${
+            isSubmitting ? 'cursor-default' : 'bg-blue-800'
+          }`}
+        >
+          완료
+        </button>
       </form>
     </div>
   )

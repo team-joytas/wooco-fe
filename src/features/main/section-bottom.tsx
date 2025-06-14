@@ -2,7 +2,7 @@ import Image from 'next/image'
 import logo_long from '@/src/assets/images/(logo)/logo_long_color.png'
 import Link from 'next/link'
 
-export default function SectionBottom() {
+export function SectionBottom() {
   return (
     <section className='w-full h-fit py-[18px] px-[20px]'>
       <Image width={100} height={22} alt='logo' src={logo_long} />

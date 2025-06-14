@@ -1,0 +1,50 @@
+<svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" style="background:black">
+    <defs>
+        <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#FF91ED" />
+            <stop offset="100%" stop-color="#A436FF" />
+        </linearGradient>
+    </defs>
+
+    <style>
+        .text { font-family: sans-serif; font-weight: bold;}
+        .purple { background: -webkit-linear-gradient(90deg,rgba(255, 145, 237, 1) 0%, rgba(164, 54, 255, 1) 100%);  -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;  }
+        .slide-down {
+        animation: slideDown 5s ease-out forwards;
+        animation-duration: 5s;
+        animation-iteration-count: infinite;
+        }
+        .slide-up {
+        animation: slideUp 5s ease-out forwards;
+        animation-duration: 5s;
+        animation-iteration-count: infinite;
+        }
+        @keyframes slideDown {
+        0% { transform: translateX(-40px); opacity: 0; }
+        10% { transform: translateX(0); opacity: 1; }
+        100% { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideUp {
+        0% { transform: translateX(40px); opacity: 0; }
+        10% { transform: translateX(0); opacity: 1; }
+        100% { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+
+    <!-- ENJOY -->
+    <text x="120" y="70" text-anchor="middle" font-size="18" class="text purple slide-up" fill="url(#purpleGradient)">ENJOY</text>
+
+    <!-- JOYTAS -->
+    <g font-size="48" text-anchor="middle" class="text" transform="translate(200, 110)" fill="white">
+        <text x="-100">J</text>
+        <text x="-60">O</text>
+        <text x="-20">Y</text>
+        <text x="20">T</text>
+        <text x="60">A</text>
+        <text x="100">S</text>
+    </g>
+
+    <!-- METAS -->
+    <text x="285" y="130" text-anchor="middle" font-size="18" class="text purple slide-down" fill="url(#purpleGradient)">METAS</text>
+</svg>

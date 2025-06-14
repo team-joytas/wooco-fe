@@ -34,6 +34,4 @@ function News() {
   )
 }
 
-const SectionBanner = { Course, News }
-
-export default SectionBanner
+export const SectionBanner = { Course, News }

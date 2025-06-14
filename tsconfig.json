@@ -13,15 +13,25 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+
     "plugins": [
       {
         "name": "next"
       }
     ],
+
     "paths": {
       "@/*": ["./*"]
     },
-    "types": ["kakao.maps.d.ts"]
+
+    "types": ["kakao.maps.d.ts"],
+    "sourceMap": true,
+    "inlineSources": true,
+
+    // Set `sourceRoot` to  "/" to strip the build path prefix
+    // from generated source code references.
+    // This improves issue grouping in Sentry.
+    "sourceRoot": "/"
   },
   "include": [
     "next-env.d.ts",
@@ -31,11 +41,7 @@
     "*.ts",
     ".next/types/**/*.ts",
     "tsconfig.d.ts",
-    "next.config.js",
-    "src/views/detail-comment",
-    "src/shared/ui/ProfileImage",
-    "src/widgets/course-plan-detail-layout",
-    "src/widgets/floating-write-btn"
+    "next.config.js"
   ],
   "exclude": ["node_modules"]
 }

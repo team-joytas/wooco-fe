@@ -1,26 +1,24 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import Header from '@/src/widgets/header'
-import { useGetCourses } from '@/src/entities/course/query'
-import {
-  useDeleteMyLikeRegion,
-  usePostMyLikeRegion,
-} from '@/src/entities/user/query'
+import { ActionHeader } from '@/src/widgets'
+import { useGetCourses } from '@/src/entities/course'
 import useRegionStore, { LikeRegion } from '@/src/shared/store/regionStore'
 import CourseListLayout from '@/src/widgets/course-list-layout'
-import SelectCategories from '@/src/shared/ui/SelectCategories'
-import Spacer from '@/src/shared/ui/Spacer'
-import { Select } from 'antd'
-import FloatingWriteButton from '@/src/widgets/floating-write-btn'
+import { Spacer, SelectCategories, useToast } from '@/src/shared/ui'
+import { useDeleteMyLikeRegion, usePostMyLikeRegion } from '@/src/entities/user'
+import { SelectSort, FloatingWriteButton } from '@/src/features'
+import { useAuth } from '@/src/shared/provider'
 
 export default function ListCourse() {
   const [isListView, setIsListView] = useState(true)
-  const [order, setOrder] = useState('recent')
+  const [order, setOrder] = useState<'RECENT' | 'POPULAR'>('RECENT')
   const { currentRegion, likedRegions, addLikedRegion, removeLikedRegion } =
     useRegionStore()
   const [isLiked, setIsLiked] = useState(false)
   const [category, setCategory] = useState<string[]>(['ALL'])
+  const { show } = useToast()
+  const { token } = useAuth()
 
   const regionId = useMemo(() => {
     return findLikedRegionId(likedRegions, currentRegion)
@@ -39,15 +37,19 @@ export default function ListCourse() {
 
   const { mutate: postLikeMutate } = usePostMyLikeRegion()
   const { mutate: deleteLikeMutate } = useDeleteMyLikeRegion()
-
   const { data: courses, isLoading } = useGetCourses({
-    sort: order as 'recent' | 'popular',
+    sort: order as 'RECENT' | 'POPULAR',
     primary_region: currentRegion[0],
     secondary_region: currentRegion[1],
     category: category.includes('ALL') ? undefined : category[0],
   })
 
   const handleClickLike = () => {
+    if (!token) {
+      show('로그인 후 이용해주세요')
+      return
+    }
+
     if (isLiked) {
       setIsLiked(false)
 
@@ -58,6 +60,7 @@ export default function ListCourse() {
       })
     } else {
       setIsLiked(true)
+
       postLikeMutate(
         {
           primary_region: currentRegion[0],
@@ -81,17 +84,24 @@ export default function ListCourse() {
     sessionStorage.setItem('is-list', String(isListView))
   }
 
-  if (isLoading) return <div>Loading...</div>
+  useEffect(() => {
+    // 로딩 중일때 스크롤 금지
+    if (isLoading) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isLoading])
 
   return (
-    <div>
-      <Header
+    <>
+      <ActionHeader
         title={currentRegion[1]}
         isTitleTag={true}
         isBack
         isListView={isListView}
         setIsListView={handleSetIsListView}
-        isHeart={true}
+        showLike={true}
         isLiked={isLiked}
         setIsLiked={handleClickLike}
       />
@@ -103,21 +113,15 @@ export default function ListCourse() {
         }}
       />
       <Spacer height={10} />
-      <div className='w-full flex px-[10px] justify-end items-center'>
-        <Select
-          defaultValue='recent'
-          style={{ width: 80 }}
-          onChange={(value) => setOrder(value)}
-          size={'small'}
-          options={[
-            { value: 'recent', label: '최신순' },
-            { value: 'popular', label: '인기순' },
-          ]}
+      <div className='w-full flex flex-col px-[22px] gap-[10px] justify-center items-start'>
+        <SelectSort order={order} setOrder={setOrder} />
+        <CourseListLayout
+          isListView={isListView}
+          courses={isLoading ? undefined : courses}
         />
       </div>
-      <CourseListLayout isListView={isListView} courses={courses} />
       <FloatingWriteButton />
-    </div>
+    </>
   )
 }
 

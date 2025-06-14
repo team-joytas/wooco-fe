@@ -1,13 +1,13 @@
-import { Camera } from 'lucide-react'
-import { postImage } from '@/src/shared/entities/api'
+import { postImage } from '@/src/shared/api'
 import Image from 'next/image'
+import camera from '@/src/assets/icon/medium/camera.svg'
 
 interface UploadProfileImageProps {
   imageUrl: string
   setImageUrl: (imageUrl: string) => void
 }
 
-export default function UploadProfileImage({
+export function UploadProfileImage({
   imageUrl,
   setImageUrl,
 }: UploadProfileImageProps) {
@@ -20,21 +20,23 @@ export default function UploadProfileImage({
   }
 
   return (
-    <label className='w-[100px] h-[100px] border-[1px] border-brand rounded-full flex items-center justify-center cursor-pointer'>
-      <div className='w-full h-full bg-gray-300 relative rounded-full flex items-center justify-center'>
+    <label className='w-[60px] h-[60px] bg-wooco-gra-light bg-no-repeat relative rounded-full flex items-center justify-center cursor-pointer '>
+      <div className='w-[56px] h-[56px] bg-white rounded-full flex items-center justify-center overflow-hidden'>
         {imageUrl && (
-          <div className='relative'>
+          <div className='relative flex items-center justify-center '>
             <Image
               src={imageUrl}
               alt='Preview'
-              className='rounded-full bg-white w-[98px] h-[98px] object-cover'
-              width={98}
-              height={98}
+              className='rounded-full bg-white w-[56px] h-[56px] object-cover'
+              width={56}
+              height={56}
             />
           </div>
         )}
-        <div className='absolute bottom-[5px] w-[23px] h-[23px] right-[5px] rounded-full bg-brand flex items-center justify-center'>
-          <Camera size={15} strokeWidth={1.5} stroke='#ffffff' />
+      </div>
+      <div className='absolute bottom-[0px] w-[23px] h-[23px] right-[0px] rounded-full bg-wooco_blue-primary flex items-center justify-center'>
+        <div className='w-[21px] h-[21px] rounded-full bg-white flex items-center justify-center'>
+          <Image src={camera} alt='camera' width={15} height={15} />
         </div>
       </div>
       <input
