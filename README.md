@@ -1,16 +1,17 @@
 # WOOCO - 우리들의 코스
 <a herf="https://wooco.kr"><img src="./docs/assets/cover.png"/></a>
-<div style="text-align: center;">
 
-  ![GitHub top language](https://img.shields.io/github/languages/top/team-joytas/wooco-fe)
-  ![GitHub last commit](https://img.shields.io/github/last-commit/team-joytas/wooco-fe)
-  ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/team-joytas/wooco-fe?color=green)
-  ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues-pr-closed/team-joytas/wooco-fe)
+<div align="center">
+
+  <img src="https://img.shields.io/github/languages/top/team-joytas/wooco-fe" alt="GitHub top language" />
+  <img src="https://img.shields.io/github/last-commit/team-joytas/wooco-fe" alt="GitHub last commit" />
+  <img src="https://img.shields.io/github/issues/team-joytas/wooco-fe?color=green" alt="GitHub Issues" />
+  <img src="https://img.shields.io/github/issues-pr-closed/team-joytas/wooco-fe" alt="GitHub Closed PRs" />
 
 </div>
 
 ## 🔍 프로젝트 소개
-> "우리들의 코스" **WOOCO**는, 지역 기반의 장소 리스트를 아카이빙하고 공유하는 커뮤니티 플랫폼입니다.
+> **WOOCO**는, 지역 기반의 장소 리스트를 아카이빙하고 공유하는 커뮤니티 플랫폼입니다.
 - 지역 필터와 관심사 기반의 **맞춤형 코스** 탐색
 - 활동 후기, 코스 리뷰, 키워드 통계 등 **사회적 신뢰 기반의 콘텐츠** 제공
 - 실시간 푸시 알림과 스켈레톤 UI 등 **모던 UX 기능 강화**
@@ -21,6 +22,7 @@
 
 ### 프론트엔드
 
+<p>
   <img src="https://img.shields.io/badge/Next.js 14.2.28-black?style=for-the-badge&logo=next.js&logoColor=white"/>
   <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"/>
   <img src="https://img.shields.io/badge/TailwindCSS  3.4.1-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"/>  
@@ -28,6 +30,7 @@
   <img src="https://img.shields.io/badge/Zustand 5.0.3-443e38?style=for-the-badge&logo=Zaim&logoColor=white"/>
   <img src="https://img.shields.io/badge/ReactQuery 5.63.0-FF4154?style=for-the-badge&logo=reactquery&logoColor=white"/>
   <img src="https://img.shields.io/badge/reacthookform 7.54.2-EC5990?style=for-the-badge&logo=googleforms"/>
+</p>
 
 ### 인증 및 지도 데이터
   <img src="https://img.shields.io/badge/KAKAO DEVELOPERS API-121834?style=for-the-badge&logo=kakaotalk"/>
@@ -170,7 +173,8 @@ SENTRY_AUTH_TOKEN=
 ## 📅 우리의 발자취 (Project History)
 | 날짜           | 릴리즈 버젼 | 상세 내용           |
 |--------------|--------|-----------------|
-| `2025.06.13` | 1.1    | README.md 초안 작성 |
+| `2025.06.14` | 1.0.0    | 1.0.0 릴리즈 |
+| `2025.06.13` | 1.0.0    | README.md 초안 작성 |
 
 
 ---
