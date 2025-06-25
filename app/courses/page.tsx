@@ -1,7 +1,13 @@
 'use client'
 
-import MainCourse from '@/src/views/main-course'
+import ListCourse from '@/src/views/list-course'
+import { Suspense } from 'react'
+import Error from '@/app/error'
 
 export default function Page() {
-  return <MainCourse />
+  return (
+    <Suspense fallback={<Error />}>
+      <ListCourse />
+    </Suspense>
+  )
 }

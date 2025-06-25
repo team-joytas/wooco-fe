@@ -1,139 +1,15 @@
-'use client'
-
-import { useEffect, useMemo, useState } from 'react'
-import { ActionHeader } from '@/src/widgets'
-import { useGetCourses } from '@/src/entities/course'
-import useRegionStore, { LikeRegion } from '@/src/shared/store/regionStore'
-import CourseListLayout from '@/src/widgets/course-list-layout'
-import { Spacer, SelectCategories, useToast } from '@/src/shared/ui'
-import { useDeleteMyLikeRegion, usePostMyLikeRegion } from '@/src/entities/user'
-import { SelectSort, FloatingWriteButton } from '@/src/features'
-import { useAuth } from '@/src/shared/provider'
+import { useSearchParams } from 'next/navigation'
+import MainCourse from './main-course'
+import RegionCourse from './region-course'
 
 export default function ListCourse() {
-  const [isListView, setIsListView] = useState(true)
-  const [order, setOrder] = useState<'RECENT' | 'POPULAR'>('RECENT')
-  const { selectedRegion, likedRegions, addLikedRegion, removeLikedRegion } =
-    useRegionStore()
-  const [isLiked, setIsLiked] = useState(false)
-  const [category, setCategory] = useState<string[]>(['ALL'])
-  const { show } = useToast()
-  const { token } = useAuth()
+  const path = useSearchParams()
+  const primary = path.get('primary')
+  const secondary = path.get('secondary')
 
-  const regionId = useMemo(() => {
-    return findLikedRegionId(likedRegions, selectedRegion)
-  }, [likedRegions, selectedRegion])
-
-  useEffect(() => {
-    setIsLiked(!!regionId)
-  }, [likedRegions, regionId])
-
-  useEffect(() => {
-    const isListView = sessionStorage.getItem('is-list')
-    if (isListView) {
-      setIsListView(isListView === 'true')
-    }
-  }, [])
-
-  const { mutate: postLikeMutate } = usePostMyLikeRegion()
-  const { mutate: deleteLikeMutate } = useDeleteMyLikeRegion()
-  const { data: courses, isLoading } = useGetCourses({
-    sort: order as 'RECENT' | 'POPULAR',
-    primary_region: selectedRegion[0],
-    secondary_region: selectedRegion[1],
-    category: category.includes('ALL') ? undefined : category[0],
-  })
-
-  const handleClickLike = () => {
-    if (!token) {
-      show('로그인 후 이용해주세요')
-      return
-    }
-
-    if (isLiked) {
-      setIsLiked(false)
-
-      deleteLikeMutate(regionId, {
-        onSuccess: () => {
-          removeLikedRegion(regionId)
-        },
-      })
-    } else {
-      setIsLiked(true)
-
-      postLikeMutate(
-        {
-          primary_region: selectedRegion[0],
-          secondary_region: selectedRegion[1],
-        },
-        {
-          onSuccess: (data) => {
-            addLikedRegion({
-              id: data.id,
-              primary_region: selectedRegion[0],
-              secondary_region: selectedRegion[1],
-            })
-          },
-        }
-      )
-    }
+  if (!primary || !secondary) {
+    return <MainCourse />
+  } else {
+    return <RegionCourse primary={primary} secondary={secondary} />
   }
-
-  const handleSetIsListView = (isListView: boolean) => {
-    setIsListView(isListView)
-    sessionStorage.setItem('is-list', String(isListView))
-  }
-
-  useEffect(() => {
-    // 로딩 중일때 스크롤 금지
-    if (isLoading) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-  }, [isLoading])
-
-  return (
-    <>
-      <ActionHeader
-        title={selectedRegion[1] as string}
-        isTitleTag={true}
-        isBack
-        isListView={isListView}
-        setIsListView={handleSetIsListView}
-        showLike={true}
-        isLiked={isLiked}
-        setIsLiked={handleClickLike}
-      />
-      <SelectCategories
-        isInCourseList={true}
-        prevCategories={category}
-        setCategories={(category: string[]) => {
-          setCategory(category)
-        }}
-      />
-      <Spacer height={10} />
-      <div className='w-full flex flex-col px-[22px] gap-[10px] justify-center items-start'>
-        <SelectSort order={order} setOrder={setOrder} />
-        <CourseListLayout
-          isListView={isListView}
-          courses={isLoading ? undefined : courses}
-        />
-      </div>
-      <FloatingWriteButton />
-    </>
-  )
-}
-
-const findLikedRegionId = (
-  likedRegions: LikeRegion[],
-  currentRegion: string[]
-): string => {
-  const matchedRegion = likedRegions.find(
-    (region) =>
-      region.primary_region === currentRegion[0] &&
-      region.secondary_region === currentRegion[1]
-  )
-
-  return matchedRegion ? matchedRegion.id : ''
 }
