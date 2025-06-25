@@ -23,14 +23,10 @@ export function FormRegion({
 
   useEffect(() => {
     if (selectedRegion?.length) {
-      setValue<'primary_region'>('primary_region', selectedRegion[0])
-      setValue<'secondary_region'>('secondary_region', selectedRegion[1])
+      setValue('primary_region', selectedRegion[0])
+      setValue('secondary_region', selectedRegion[1])
     }
   }, [selectedRegion, setValue])
-  useEffect(() => {
-    console.log('primary_region', primary)
-    console.log('secondary_region', secondary)
-  }, [primary, secondary])
 
   const onChangeRegion = (value: string[]) => {
     setSelectedRegion(value)
@@ -39,15 +35,22 @@ export function FormRegion({
     setPlaces([])
   }
 
+  const showRegionCascader =
+    selectedRegion.length == 0 || (selectedRegion && primary)
+
   return (
-    <>
-      <RegionCascader
-        firstRegion={primary}
-        secondRegion={secondary}
-        setRegion={onChangeRegion}
-        placeholder='지역을 선택해주세요.'
-      />
-      {isSubmitted && !primary && <HelperText message='지역을 선택해주세요.' />}
-    </>
+    showRegionCascader && (
+      <>
+        <RegionCascader
+          firstRegion={primary}
+          secondRegion={secondary}
+          setRegion={onChangeRegion}
+          placeholder='지역을 선택해주세요.'
+        />
+        {isSubmitted && !primary && (
+          <HelperText message='지역을 선택해주세요.' />
+        )}
+      </>
+    )
   )
 }
