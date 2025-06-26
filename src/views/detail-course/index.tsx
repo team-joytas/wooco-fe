@@ -23,7 +23,7 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
     data: course,
     isLoading: isCourseLoading,
     isError,
-  } = useGetCourse(courseId)
+  } = useGetCourse(courseId, true)
   const {
     data: comments,
     isLoading: isCommentLoading,
