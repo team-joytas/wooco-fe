@@ -27,7 +27,7 @@ export default function MainCourse() {
 
   const onChangeRegion = (value: string[]) => {
     setSelectedRegion(value)
-    router.push(`/courses/by-region`)
+    router.push(`/courses?primary=${value[0]}&secondary=${value[1]}`)
   }
 
   useEffect(() => {

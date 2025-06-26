@@ -5,6 +5,7 @@ import { MainHeader } from '@/src/widgets'
 import DefaultFooter from '@/src/widgets/default-footer'
 import localFont from 'next/font/local'
 import { AppProviders } from '@/src/shared/provider'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = {
   title: 'WOOCO - 우코',
@@ -32,7 +33,9 @@ export default function RootLayout({
         className={`${pretendard.className} h-full flex items-center flex-col overflow-y-scroll`}
       >
         <AppProviders>
-          <MainHeader />
+          <Suspense fallback={null}>
+            <MainHeader />
+          </Suspense>
           <div className='mx-auto flex-1 text-black h-full w-full max-w-[375px]'>
             {children}
             <Spacer height={60} notShowURLs={['/login']} />

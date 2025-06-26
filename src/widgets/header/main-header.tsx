@@ -3,19 +3,20 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import logo from '@/src/assets/icon/small(20)/logo.svg'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import bell from '@/public/bell.svg'
 import { Spacer, useToast } from '@/src/shared/ui'
 import { useAuth } from '@/src/shared/provider'
 
 export function MainHeader() {
   const path = usePathname()
+  const params = useSearchParams()
   const router = useRouter()
   const { show } = useToast()
   const { token } = useAuth()
 
-  const isCourse = path.endsWith('/courses')
-  const isPlan =path.endsWith('/plans')
+  const isCourse = path.endsWith('/courses') && !params.get('primary')
+  const isPlan = path.endsWith('/plans')
 
   const isShowHeader =
     path === '/' || path === '/not-found' || isCourse || isPlan
