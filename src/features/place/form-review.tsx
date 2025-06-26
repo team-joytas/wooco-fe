@@ -4,8 +4,8 @@ import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { ReviewPayloadType } from '@/src/entities/place'
 import { postImage } from '@/src/shared/api'
 import { StarRateForm } from '@/src/features'
-import { useToast } from '@/src/shared/ui'
-import error from '@/src/assets/icons/error_color.svg'
+import error from '@/src/assets/icon/medium/error.svg'
+import { useToast } from '@/src/shared/provider'
 
 // 리뷰
 interface ReviewTextareaProps {
@@ -202,7 +202,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
       }
     } catch (error) {
       console.error(error)
-      show('이미지 업로드에 실패했습니다.')
+      show('notice', '이미지 업로드에 실패했습니다.')
     }
   }
 
@@ -305,15 +305,15 @@ const FormReview: React.FC<FormReviewProps> = ({
       return
     }
     if (errors.rating?.message) {
-      show(errors.rating.message)
+      show('notice', errors.rating.message)
       return
     }
     if (errors.contents?.message) {
-      show(errors.contents.message)
+      show('notice', errors.contents.message)
       return
     }
     if (errors.one_line_reviews?.message) {
-      show(errors.one_line_reviews.message)
+      show('notice', errors.one_line_reviews.message)
       return
     }
   }, [isSubmitting])

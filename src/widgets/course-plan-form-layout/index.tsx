@@ -24,7 +24,7 @@ import {
 } from '@/src/entities/course'
 import { useQueryClient } from '@tanstack/react-query'
 import useRegionStore from '@/src/shared/store/regionStore'
-import { useMessageApi } from '@/src/shared/lib'
+import { useToast } from '@/src/shared/provider'
 
 const LAYOUT_TYPE = {
   course: 'course' as const,
@@ -62,7 +62,7 @@ export default function CoursePlanFormLayout({
 }: CoursePlanFormLayoutProps) {
   const router = useRouter()
   const queryClient = useQueryClient()
-  const messageApi = useMessageApi()
+  const { show } = useToast()
 
   const [places, setPlaces] = useState<CoursePlanPlaceType[]>([])
   const [openSearchPlace, setOpenSearchPlace] = useState<boolean>(false)
@@ -191,14 +191,6 @@ export default function CoursePlanFormLayout({
       ? `나만의 코스 ${level === 'add' ? '작성' : '수정'}하기`
       : '좋아하는 장소로 채우는 나의 플랜'
 
-  const toast = (type: 'success' | 'error', content: string) => {
-    messageApi.open({
-      type,
-      content,
-      duration: 1,
-    })
-  }
-
   useEffect(() => {
     setValue(
       'place_ids',
@@ -244,7 +236,7 @@ export default function CoursePlanFormLayout({
     if (selectRegion) {
       setOpenSearchPlace(true)
     } else {
-      toast('error', '지역을 선택해주세요.')
+      show('notice', '지역을 선택해주세요.')
     }
   }
 

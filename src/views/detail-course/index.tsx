@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Spacer, ProfileImage, useToast } from '@/src/shared/ui'
+import { Spacer, ProfileImage } from '@/src/shared/ui'
 import {
   CoursePlanDetailLayout,
   SkeletonCoursePlanDetailLayout,
@@ -12,7 +12,7 @@ import { formatDateToYYYYMMDD, passFromCreate } from '@/src/shared/utils/date'
 import { useGetCourse } from '@/src/entities/course'
 import { useGetComments } from '@/src/entities/comment'
 import { CommentCard } from '@/src/features'
-import { useAuth } from '@/src/shared/provider'
+import { useAuth, useToast } from '@/src/shared/provider'
 
 interface DetailCourseProps {
   courseId: string
@@ -36,7 +36,7 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
 
   const onClick = () => {
     if (!token) {
-      show('로그인 후 이용해주세요')
+      show('warning', '로그인 후 이용해주세요')
       return
     }
     router.push(`/courses/${courseId}/comments`)

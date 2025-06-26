@@ -2,8 +2,7 @@
 
 import { useState } from 'react'
 import { useDeleteCourseLike, usePostCourseLike } from '@/src/entities/course'
-import { useToast } from '@/src/shared/ui'
-import { useAuth } from '@/src/shared/provider'
+import { useAuth, useToast } from '@/src/shared/provider'
 
 export function useCourseLike(
   courseId: string,
@@ -20,7 +19,7 @@ export function useCourseLike(
 
   const toggleLike = () => {
     if (!token) {
-      show('로그인 후 이용해주세요')
+      show('warning', '로그인 후 이용해주세요')
       return
     }
 

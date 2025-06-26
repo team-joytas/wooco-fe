@@ -5,8 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { postLogin } from '@/src/entities/auth'
 import { useRouter } from 'next/navigation'
 import Error from '@/app/error'
-import { useAuth } from '@/src/shared/provider'
-import { useToast } from '@/src/shared/ui'
+import { useAuth, useToast } from '@/src/shared/provider'
 
 function LoginHandler({ provider }: { provider: string }) {
   const router = useRouter()
@@ -24,7 +23,7 @@ function LoginHandler({ provider }: { provider: string }) {
           setToken(localStorage.getItem('accessToken'))
           router.replace(isLogin.onBoarding ? '/onboard' : '/')
         } else {
-          show('로그인에 실패했습니다. 다시 시도해주세요.')
+          show('notice', '로그인에 실패했습니다. 다시 시도해주세요.')
           router.replace('/login')
         }
       }

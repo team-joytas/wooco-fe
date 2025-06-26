@@ -1,12 +1,11 @@
 'use client'
 
 import { CourseType } from '@/src/entities/course'
-import { Modal, useToast } from '@/src/shared/ui'
+import { Modal } from '@/src/shared/ui'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { PlanType } from '@/src/entities/plan'
-import { useMessageApi } from '@/src/shared/lib'
-import { useAuth } from '@/src/shared/provider'
+import { useAuth, useToast } from '@/src/shared/provider'
 import close from '@/src/assets/icon/medium/cross.svg'
 import link from '@/src/assets/icon/medium/link.svg'
 import share_white from '@/src/assets/icon/medium/share_white.svg'
@@ -23,7 +22,6 @@ export function ShareModal({ type, isOpen, setIsOpen, data }: ShareModalProps) {
   const [isClicked, setIsClicked] = useState(false)
 
   const router = useRouter()
-  const messageApi = useMessageApi()
   const { show } = useToast()
   const { token } = useAuth()
   const title =
@@ -35,7 +33,7 @@ export function ShareModal({ type, isOpen, setIsOpen, data }: ShareModalProps) {
   const handleClick = (path: string) => {
     setIsClicked(!isClicked)
     document.scrollingElement?.scrollTo({ top: 0, behavior: 'smooth' })
-    show(`${shareTypeName} 작성 페이지로 이동합니다.`)
+    show('notice', `${shareTypeName} 작성 페이지로 이동합니다.`)
     router.push(path)
   }
 
@@ -45,10 +43,7 @@ export function ShareModal({ type, isOpen, setIsOpen, data }: ShareModalProps) {
     const to = url.includes(postId) ? url : url + `/${postId}`
 
     navigator.clipboard.writeText(to).then(() => {
-      messageApi.success({
-        content: '링크가 클립보드에 복사되었습니다.',
-        duration: 1,
-      })
+      show('notice', '링크가 클립보드에 복사되었습니다.')
     })
     setIsClicked(!isClicked)
     setIsOpen(false)
@@ -56,7 +51,7 @@ export function ShareModal({ type, isOpen, setIsOpen, data }: ShareModalProps) {
 
   const handleShare = () => {
     if (!token) {
-      show('로그인 후 이용해주세요')
+      show('warning', '로그인 후 이용해주세요')
       setIsOpen(false)
       return
     }

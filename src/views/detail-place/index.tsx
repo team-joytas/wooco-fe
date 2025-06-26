@@ -18,15 +18,15 @@ import { Section } from './section'
 import logo from '@/src/assets/images/(logo)/logo.png'
 import allReview from '@/src/assets/images/all_review_icon.svg'
 import kakaoReview from '@/src/assets/images/kakao_review_icon.svg'
-import { useMessageApi } from '@/src/shared/lib'
 import { SkeletonDetailPlaceLayout } from './skeleton-layout'
+import { useToast } from '@/src/shared/provider'
 
 export default function DetailPlace({ id }: { id: string }) {
   const { data: placeData } = useGetPlace(id)
   const { data: reviewData, refetch } = useGetPlaceReviews(id)
 
   const router = useRouter()
-  const messageApi = useMessageApi()
+  const { show } = useToast()
 
   const [activeTab, setActiveTab] = useState<ScrollTabType>('info')
   const infoRef = useRef<HTMLDivElement>(null)
@@ -35,10 +35,7 @@ export default function DetailPlace({ id }: { id: string }) {
 
   const toast = (address: string) => {
     navigator.clipboard.writeText(address).then(() => {
-      messageApi.success({
-        content: '주소가 클립보드에 복사되었습니다.',
-        duration: 1,
-      })
+      show('notice', '주소가 클립보드에 복사되었습니다.')
     })
   }
 

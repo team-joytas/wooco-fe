@@ -1,20 +1,22 @@
 'use client'
 
 import { createContext, useContext, useState } from 'react'
-import { Toast } from './Toast'
+import { Toast } from '../ui'
 
 type ToastContextType = {
-  show: (message: string) => void
+  show: (type: 'warning' | 'notice', message: string) => void
 }
 
 const ToastContext = createContext<ToastContextType | null>(null)
 
 export function ToastProvider({ children }: { children: React.ReactNode }) {
   const [message, setMessage] = useState('')
+  const [type, setType] = useState<'warning' | 'notice'>('notice')
   const [visible, setVisible] = useState(false)
 
-  const show = (message: string) => {
+  const show = (type: 'warning' | 'notice', message: string) => {
     setMessage(message)
+    setType(type)
     setVisible(true)
     setTimeout(() => {
       setVisible(false)
@@ -23,7 +25,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <ToastContext.Provider value={{ show }}>
-      {visible && <Toast message={message} />}
+      {visible && <Toast type={type} message={message} />}
       {children}
     </ToastContext.Provider>
   )

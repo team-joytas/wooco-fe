@@ -4,8 +4,7 @@ import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 import { CourseType, useGetCourses } from '@/src/entities/course'
 import { useGetMyLikeRegions } from '@/src/entities/user'
-
-import { Spacer, RegionCascaderWithLikes, useToast } from '@/src/shared/ui'
+import { Spacer, RegionCascaderWithLikes } from '@/src/shared/ui'
 import useRegionStore from '@/src/shared/store/regionStore'
 import heart_fill from '@/src/assets/icon/heart_fullfill_20.svg'
 import Image from 'next/image'
@@ -16,6 +15,7 @@ import {
   SkeletonCourseListCard,
   FloatingWriteButton,
 } from '@/src/features'
+import { useToast } from '@/src/shared/provider'
 
 export default function MainCourse() {
   const router = useRouter()
@@ -42,7 +42,7 @@ export default function MainCourse() {
   const handleWishlistClick = (e: React.MouseEvent) => {
     if (!user) {
       e.preventDefault()
-      show('로그인이 필요합니다.')
+      show('warning', '로그인이 필요합니다.')
       router.push('/login')
     }
   }
