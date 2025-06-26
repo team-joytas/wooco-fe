@@ -2,8 +2,8 @@ import { ProfileImage } from '@/src/shared/ui'
 import { formatDateToYYYYMMDD, passFromCreate } from '@/src/shared/utils/date'
 import { X } from 'lucide-react'
 import Image from 'next/image'
-import left from '@/src/assets/icons/left.svg'
-import right from '@/src/assets/icons/right.svg'
+import left from '@/src/assets/icon/medium/left_bg_white.svg'
+import right from '@/src/assets/icon/medium/right_bg_white.svg'
 
 interface ImageViewProps {
   writer: {
