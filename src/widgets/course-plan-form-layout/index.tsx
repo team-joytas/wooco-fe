@@ -1,6 +1,6 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, useMemo } from 'react'
 import { Spacer } from '@/src/shared/ui'
@@ -73,13 +73,7 @@ export default function CoursePlanFormLayout({
     ? PlanPayloadType
     : CoursePayloadType
 
-  const {
-    getValues,
-    register,
-    handleSubmit,
-    setValue,
-    formState: { isSubmitting, errors },
-  } = useForm<InputFormData>({
+  const methods = useForm<InputFormData>({
     defaultValues: {
       title: '',
       primary_region: '',
@@ -90,14 +84,21 @@ export default function CoursePlanFormLayout({
       visit_date: '',
     },
   })
+  const {
+    getValues,
+    handleSubmit,
+    setValue,
+    formState: { isSubmitting },
+  } = methods
+
   const { data: courseData } = useGetCourse(id || '', type == 'course' && !!id)
   const { data: planData } = useGetPlan(id || '', type == 'plan' && !!id)
   const fetchData = useMemo(() => {
     return type === LAYOUT_TYPE.course
       ? courseData
       : type === LAYOUT_TYPE.plan
-        ? planData
-        : null
+      ? planData
+      : null
   }, [type, courseData, planData])
 
   useEffect(() => {
@@ -158,9 +159,6 @@ export default function CoursePlanFormLayout({
         sharedData?.visit_date ? sharedData.visit_date : ''
       )
       setPlaces(sharedData.places || [])
-      useRegionStore.setState({
-        currentRegion: [sharedData.primary_region, sharedData.secondary_region],
-      })
       setIsDataLoaded(true)
     }
 
@@ -276,31 +274,29 @@ export default function CoursePlanFormLayout({
     <div className='relative h-100% flex flex-col'>
       <ActionHeader title={headerTitle} isBack />
       <Spacer height={25} />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {shouldRenderForm && (
-          <CourseForm
-            pageType={pageType}
-            register={register}
-            places={places}
-            setPlaces={setPlaces}
-            getValues={getValues}
-            handleClickSearchPlace={handleClickSearchPlace}
-            setValue={setValue}
-            errors={errors}
-            isSubmitted={isSubmitted}
-          />
-        )}
-        <button
-          type='submit'
-          onClick={() => setIsSubmitted(true)}
-          className={`w-full h-[54px] flex items-center justify-center bg-light-gray text-brand text-main font-bold hover:bg-brand hover:text-white transition-all duration-300 ${
-            isSubmitting ? 'cursor-default' : 'bg-blue-800 bg-opacity-50'
-          }`}
-          disabled={isSubmitting}
-        >
-          완료
-        </button>
-      </form>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {shouldRenderForm && (
+            <CourseForm
+              pageType={pageType}
+              places={places}
+              setPlaces={setPlaces}
+              handleClickSearchPlace={handleClickSearchPlace}
+              isSubmitted={isSubmitted}
+            />
+          )}
+          <button
+            type='submit'
+            onClick={() => setIsSubmitted(true)}
+            className={`w-full h-[54px] flex items-center justify-center bg-gray-100 text-gray-700 text-main font-bold hover:bg-brand hover:text-white transition-all duration-300 ${
+              isSubmitting ? 'cursor-default' : 'bg-blue-800 bg-opacity-50'
+            }`}
+            disabled={isSubmitting}
+          >
+            완료
+          </button>
+        </form>
+      </FormProvider>
       {openSearchPlace && (
         <SearchPlace
           region={region}

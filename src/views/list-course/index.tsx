@@ -13,7 +13,7 @@ import { useAuth } from '@/src/shared/provider'
 export default function ListCourse() {
   const [isListView, setIsListView] = useState(true)
   const [order, setOrder] = useState<'RECENT' | 'POPULAR'>('RECENT')
-  const { currentRegion, likedRegions, addLikedRegion, removeLikedRegion } =
+  const { selectedRegion, likedRegions, addLikedRegion, removeLikedRegion } =
     useRegionStore()
   const [isLiked, setIsLiked] = useState(false)
   const [category, setCategory] = useState<string[]>(['ALL'])
@@ -21,12 +21,12 @@ export default function ListCourse() {
   const { token } = useAuth()
 
   const regionId = useMemo(() => {
-    return findLikedRegionId(likedRegions, currentRegion)
-  }, [likedRegions, currentRegion])
+    return findLikedRegionId(likedRegions, selectedRegion)
+  }, [likedRegions, selectedRegion])
 
   useEffect(() => {
     setIsLiked(!!regionId)
-  }, [likedRegions, currentRegion])
+  }, [likedRegions, regionId])
 
   useEffect(() => {
     const isListView = sessionStorage.getItem('is-list')
@@ -39,8 +39,8 @@ export default function ListCourse() {
   const { mutate: deleteLikeMutate } = useDeleteMyLikeRegion()
   const { data: courses, isLoading } = useGetCourses({
     sort: order as 'RECENT' | 'POPULAR',
-    primary_region: currentRegion[0],
-    secondary_region: currentRegion[1],
+    primary_region: selectedRegion[0],
+    secondary_region: selectedRegion[1],
     category: category.includes('ALL') ? undefined : category[0],
   })
 
@@ -63,15 +63,15 @@ export default function ListCourse() {
 
       postLikeMutate(
         {
-          primary_region: currentRegion[0],
-          secondary_region: currentRegion[1],
+          primary_region: selectedRegion[0],
+          secondary_region: selectedRegion[1],
         },
         {
           onSuccess: (data) => {
             addLikedRegion({
               id: data.id,
-              primary_region: currentRegion[0],
-              secondary_region: currentRegion[1],
+              primary_region: selectedRegion[0],
+              secondary_region: selectedRegion[1],
             })
           },
         }
@@ -96,7 +96,7 @@ export default function ListCourse() {
   return (
     <>
       <ActionHeader
-        title={currentRegion[1]}
+        title={selectedRegion[1] as string}
         isTitleTag={true}
         isBack
         isListView={isListView}

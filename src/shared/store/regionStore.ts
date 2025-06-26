@@ -8,8 +8,8 @@ export interface LikeRegion {
 }
 
 interface RegionStore {
-  currentRegion: string[]
-  setCurrentRegion: (region: string[]) => void
+  selectedRegion: string[]
+  setSelectedRegion: (region: string[]) => void
   likedRegions: LikeRegion[]
   setLikedRegions: (regions: LikeRegion[]) => void
   addLikedRegion: (region: LikeRegion) => void
@@ -19,8 +19,8 @@ interface RegionStore {
 const useRegionStore = create<RegionStore>()(
   persist(
     (set) => ({
-      currentRegion: [],
-      setCurrentRegion: (region) => set({ currentRegion: region }),
+      selectedRegion: [],
+      setSelectedRegion: (region) => set({ selectedRegion: region }),
       likedRegions: [],
       setLikedRegions: (regions) => set({ likedRegions: regions }),
       addLikedRegion: ({ id, primary_region, secondary_region }) =>

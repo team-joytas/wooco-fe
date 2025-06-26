@@ -1,10 +1,6 @@
 'use client'
 
-import {
-  UseFormRegister,
-  UseFormSetValue,
-  UseFormGetValues,
-} from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import type { CoursePayloadType } from '@/src/entities/course'
 import { DatePicker, type DatePickerProps } from 'antd'
 import { HelperText } from '@/src/shared/ui'
@@ -13,18 +9,13 @@ import dayjs from 'dayjs'
 import { Calendar } from 'lucide-react'
 
 export function FormDate({
-  register,
-  setValue,
-  getValues,
   isSubmitted,
   pageType,
 }: {
-  register: UseFormRegister<CoursePayloadType>
-  setValue: UseFormSetValue<CoursePayloadType>
-  getValues: UseFormGetValues<CoursePayloadType>
   isSubmitted: boolean
   pageType: string
 }) {
+  const { register, setValue, getValues } = useFormContext<CoursePayloadType>()
   const [date, setDate] = useState<string | null>(
     getValues('visit_date') || null
   )

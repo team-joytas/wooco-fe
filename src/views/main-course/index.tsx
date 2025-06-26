@@ -17,34 +17,29 @@ import {
   FloatingWriteButton,
 } from '@/src/features'
 
-
 export default function MainCourse() {
   const router = useRouter()
-  const { setLikedRegions, likedRegions, setCurrentRegion, currentRegion } =
-    useRegionStore()
+  const { setSelectedRegion, setLikedRegions, likedRegions } = useRegionStore()
   const { data: courses, isLoading } = useGetCourses({ sort: 'POPULAR' })
   const { data: likeRegions } = useGetMyLikeRegions(likedRegions)
   const { user } = useUserStore()
   const { show } = useToast()
 
   const onChangeRegion = (value: string[]) => {
-    useRegionStore.setState({ currentRegion: value })
+    setSelectedRegion(value)
     router.push(`/courses/by-region`)
   }
 
   useEffect(() => {
     document.body.style.overflow = isLoading ? 'hidden' : 'unset'
+    setSelectedRegion([])
   }, [isLoading])
 
   useEffect(() => {
     if (likeRegions) setLikedRegions(likeRegions)
   }, [likeRegions])
 
-  useEffect(() => {
-    if (!currentRegion) setCurrentRegion([])
-  }, [])
-
-  const handleWishlistClick = (e:React.MouseEvent) => {
+  const handleWishlistClick = (e: React.MouseEvent) => {
     if (!user) {
       e.preventDefault()
       show('로그인이 필요합니다.')
