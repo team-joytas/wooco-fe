@@ -4,6 +4,7 @@ import { Pencil, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { FloatingMenuButton } from '@/src/features'
+import { useIsIOS } from '@/src/shared/utils/detectMobileOS'
 
 interface FloatingWriteButtonProps {
   isClick?: boolean
@@ -15,6 +16,7 @@ export function FloatingWriteButton({
   setIsClick: setIsClickProp,
 }: FloatingWriteButtonProps) {
   const router = useRouter()
+  const isIOS = useIsIOS()
   const [internalIsClick, setInternalIsClick] = useState(false)
 
   const isClick = isClickProp ?? internalIsClick
@@ -33,7 +35,9 @@ export function FloatingWriteButton({
       {isClick && (
         <div className='fixed w-full max-w-[390px] left-1/2 -translate-x-1/2 h-full top-0 left-0 bg-black opacity-30 z-[1000]' />
       )}
-      <div className='fixed flex flex-col gap-[20px] items-end bottom-[80px] z-[1001] pr-[20px]'>
+      <div
+        className={`fixed flex flex-col gap-[20px] items-end z-[1001] pr-[20px] ${isIOS ? 'bottom-[100px]' : 'bottom-[80px]'}`}
+      >
         {isClick && (
           <div className='flex flex-col gap-[10px]'>
             <FloatingMenuButton

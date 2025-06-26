@@ -9,10 +9,13 @@ import { Home, SquareChartGantt, UserRound } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { customAxios } from '@/src/shared/api'
 import useUserStore from '@/src/shared/store/userStore'
+import { useIsIOS } from '@/src/shared/utils/detectMobileOS'
 
 export default function DefaultFooter() {
   const path = usePathname()
   const router = useRouter()
+  const isIOS = useIsIOS()
+
   const isHome = path === '/'
   const isCourse = path?.includes('/courses')
   const isPlan = path?.includes('/plans')
@@ -51,7 +54,9 @@ export default function DefaultFooter() {
     return null
 
   return (
-    <footer className='fixed bottom-0 z-1000 shadow-custom max-w-[375px] text-black text-base bg-white flex w-full h-[60px] justify-around items-center'>
+    <footer
+      className={`fixed bottom-0 z-1000 shadow-custom max-w-[375px] text-black text-base bg-white flex w-full justify-around ${isIOS ? 'h-[78px] items-start pt-[10px]' : 'h-[60px] items-center'}`}
+    >
       <Link href='/' className='flex flex-col items-center'>
         <Home
           size={25}
