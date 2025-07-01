@@ -1,12 +1,12 @@
 'use client'
 
 import { Send } from 'lucide-react'
-import { Spacer, useToast } from '@/src/shared/ui'
+import { Spacer } from '@/src/shared/ui'
 import { useForm } from 'react-hook-form'
 import { usePostComment, useGetComments } from '@/src/entities/comment'
 import { ActionHeader } from '@/src/widgets'
 import { CommentCard, SkeletonCommentCard } from '@/src/features'
-import { useAuth } from '@/src/shared/provider'
+import { useAuth, useToast } from '@/src/shared/provider'
 
 export default function DetailComment({ courseId }: { courseId: string }) {
   const { show } = useToast()
@@ -27,7 +27,7 @@ export default function DetailComment({ courseId }: { courseId: string }) {
 
   const onSubmit = async (data: { contents: string }) => {
     if (!token) {
-      show('로그인 후 이용해주세요')
+      show('warning', '로그인 후 이용해주세요')
       return
     }
 

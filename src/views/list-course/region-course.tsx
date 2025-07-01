@@ -5,10 +5,10 @@ import { ActionHeader } from '@/src/widgets'
 import { useGetCourses } from '@/src/entities/course'
 import useRegionStore, { LikeRegion } from '@/src/shared/store/regionStore'
 import CourseListLayout from '@/src/widgets/course-list-layout'
-import { Spacer, SelectCategories, useToast } from '@/src/shared/ui'
+import { Spacer, SelectCategories } from '@/src/shared/ui'
 import { useDeleteMyLikeRegion, usePostMyLikeRegion } from '@/src/entities/user'
 import { SelectSort, FloatingWriteButton } from '@/src/features'
-import { useAuth } from '@/src/shared/provider'
+import { useAuth, useToast } from '@/src/shared/provider'
 
 interface RegionCourseProps {
   primary: string
@@ -56,7 +56,7 @@ export default function RegionCourse({
 
   const handleClickLike = () => {
     if (!token) {
-      show('로그인 후 이용해주세요')
+      show('warning', '로그인 후 이용해주세요')
       return
     }
 

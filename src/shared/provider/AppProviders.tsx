@@ -1,11 +1,13 @@
 'use client'
 
 import { ReactNode } from 'react'
-import { AuthProvider, ReactQueryProvider } from '@/src/shared/provider'
-import { ToastProvider } from '@/src/shared/ui'
+import {
+  AuthProvider,
+  ReactQueryProvider,
+  ToastProvider,
+} from '@/src/shared/provider'
 import { ConfigProvider } from 'antd'
 import { AnimatePresence } from 'framer-motion'
-import { MessageProvider } from '@/src/shared/lib'
 
 const theme = {
   token: {
@@ -24,9 +26,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
       <ReactQueryProvider>
         <ToastProvider>
           <ConfigProvider theme={theme}>
-            <AnimatePresence>
-              <MessageProvider>{children}</MessageProvider>
-            </AnimatePresence>
+            <AnimatePresence>{children}</AnimatePresence>
           </ConfigProvider>
         </ToastProvider>
       </ReactQueryProvider>

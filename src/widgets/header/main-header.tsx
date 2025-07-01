@@ -5,8 +5,8 @@ import Link from 'next/link'
 import logo from '@/src/assets/icon/small(20)/logo.svg'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import bell from '@/public/bell.svg'
-import { Spacer, useToast } from '@/src/shared/ui'
-import { useAuth } from '@/src/shared/provider'
+import { Spacer } from '@/src/shared/ui'
+import { useAuth, useToast } from '@/src/shared/provider'
 
 export function MainHeader() {
   const path = usePathname()
@@ -23,7 +23,7 @@ export function MainHeader() {
 
   const onClickBell = () => {
     if (!token) {
-      show('아직 알림을 받을 수 없어요!')
+      show('notice', '아직 알림을 받을 수 없어요!')
       return
     }
     router.push('/notifications')

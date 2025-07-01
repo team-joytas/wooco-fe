@@ -6,7 +6,7 @@ import React from 'react'
 import useUserStore from '@/src/shared/store/userStore'
 import { useQueryClient } from '@tanstack/react-query'
 import { useDeletePlan } from '@/src/entities/plan'
-import { BackButton, useToast } from '@/src/shared/ui'
+import { BackButton } from '@/src/shared/ui'
 import {
   useDeleteCourse,
   useDeleteCourseLike,
@@ -14,7 +14,7 @@ import {
 } from '@/src/entities/course'
 import { USER_QUERY_KEY } from '@/src/entities/user/api'
 import { HeaderBase, TitleWithTagStyle, ActionDropdown } from '@/src/features'
-import { useAuth } from '@/src/shared/provider'
+import { useAuth, useToast } from '@/src/shared/provider'
 import heart_fill from '@/src/assets/icon/heart_fullfill_20.svg'
 import heart_empty from '@/src/assets/icon/heart_empty_20.svg'
 import Image from 'next/image'
@@ -53,7 +53,7 @@ export function CoursePlanHeader({
 
   const handleClickLike = async () => {
     if (!token) {
-      show('로그인 후 이용해주세요')
+      show('warning', '로그인 후 이용해주세요')
       return
     }
 

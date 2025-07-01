@@ -7,7 +7,7 @@ import allReview from '@/src/assets/images/all_review_icon.svg'
 import type { CoursePlanPlaceType } from '@/src/entities/place'
 import { Spacer } from '@/src/shared/ui'
 import { StarRateView } from '@/src/features'
-import { useMessageApi } from '@/src/shared/lib'
+import { useToast } from '@/src/shared/provider'
 
 export function PlaceCollapse({
   places,
@@ -18,13 +18,10 @@ export function PlaceCollapse({
   activeIndex: number | null
   setActiveIndex: (key: (prevKey: number | null) => null | number) => void
 }) {
-  const messageApi = useMessageApi()
+  const { show } = useToast()
   const toast = (address: string) => {
     navigator.clipboard.writeText(address).then(() => {
-      messageApi.success({
-        content: '주소가 클립보드에 복사되었습니다.',
-        duration: 1,
-      })
+      show('notice', '주소가 클립보드에 복사되었습니다.')
     })
   }
 
