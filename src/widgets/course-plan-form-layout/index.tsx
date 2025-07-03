@@ -241,6 +241,12 @@ export default function CoursePlanFormLayout({
 
   const handleClickSearchPlace = () => {
     const selectRegion = getValues('secondary_region')
+    const placesLength = places.length
+    if (placesLength >= 5) {
+      show('notice', '장소는 최대 5개까지 선택할 수 있습니다.')
+      return
+    }
+
     if (selectRegion) {
       setOpenSearchPlace(true)
     } else {
