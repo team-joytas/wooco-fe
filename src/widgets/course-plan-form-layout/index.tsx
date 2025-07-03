@@ -23,8 +23,8 @@ import {
   useUpdateCourse,
 } from '@/src/entities/course'
 import { useQueryClient } from '@tanstack/react-query'
-import useRegionStore from '@/src/shared/store/regionStore'
 import { useToast } from '@/src/shared/provider'
+import useUserStore from '@/src/shared/store/userStore'
 
 const LAYOUT_TYPE = {
   course: 'course' as const,
@@ -97,8 +97,8 @@ export default function CoursePlanFormLayout({
     return type === LAYOUT_TYPE.course
       ? courseData
       : type === LAYOUT_TYPE.plan
-      ? planData
-      : null
+        ? planData
+        : null
   }, [type, courseData, planData])
 
   useEffect(() => {
@@ -111,7 +111,15 @@ export default function CoursePlanFormLayout({
       contents,
       visit_date,
       places,
+      writer,
     } = fetchData
+
+    const { user } = useUserStore.getState()
+    if (!user || writer.id !== user?.user_id) {
+      router.push(`/${type}s/${id}`)
+      show('warning', '수정 권한이 없습니다.')
+      return
+    }
 
     setValue('title', title)
     setValue('primary_region', primary_region)
