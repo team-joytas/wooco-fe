@@ -20,7 +20,6 @@ export const postLogin = async (
 
       useUserStore.getState().setUser(me.data.results)
 
-      initFCM()
 
       return { success: true, onBoarding, userId: me.data.results.user_id }
     } else return { success: false }

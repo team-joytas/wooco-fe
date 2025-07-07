@@ -5,6 +5,7 @@ import {
   AuthProvider,
   ReactQueryProvider,
   ToastProvider,
+  FcmProvider,
 } from '@/src/shared/provider'
 import { ConfigProvider } from 'antd'
 import { AnimatePresence } from 'framer-motion'
@@ -24,6 +25,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
   return (
     <AuthProvider>
       <ReactQueryProvider>
+        <FcmProvider />
         <ToastProvider>
           <ConfigProvider theme={theme} key='theme'>
             <AnimatePresence>
