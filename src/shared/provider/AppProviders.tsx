@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode } from 'react'
+import { cloneElement, ReactNode } from 'react'
 import {
   AuthProvider,
   ReactQueryProvider,
@@ -25,8 +25,14 @@ export function AppProviders({ children }: { children: ReactNode }) {
     <AuthProvider>
       <ReactQueryProvider>
         <ToastProvider>
-          <ConfigProvider theme={theme}>
-            <AnimatePresence>{children}</AnimatePresence>
+          <ConfigProvider theme={theme} key='theme'>
+            <AnimatePresence>
+              {Array.isArray(children)
+                ? children.map((child, index) =>
+                    cloneElement(child, { key: child.key ?? index })
+                  )
+                : children}
+            </AnimatePresence>
           </ConfigProvider>
         </ToastProvider>
       </ReactQueryProvider>
