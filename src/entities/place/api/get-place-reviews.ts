@@ -16,10 +16,9 @@ export const getPlaceReviews = async (
   }
 }
 
-export const useGetPlaceReviews = (id: string) => {
+export const useGetPlaceReviews = (place_id: string) => {
   return useQuery({
-    queryKey: PLACE_QUERY_KEY.reviews(id),
-    queryFn: () => getPlaceReviews(id),
-    gcTime: 0,
+    queryKey: PLACE_QUERY_KEY.reviews(place_id),
+    queryFn: () => getPlaceReviews(place_id),
   })
 }

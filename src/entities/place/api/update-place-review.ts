@@ -20,12 +20,14 @@ export const updatePlaceReview = async (
   }
 }
 
-export const useUpdatePlaceReview = (id: string) => {
+export const useUpdatePlaceReview = (place_id: string, review_id: string) => {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (data: ReviewPayloadType) => updatePlaceReview(id, data),
+    mutationFn: (data: ReviewPayloadType) => updatePlaceReview(review_id, data),
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: PLACE_QUERY_KEY.reviews(id) })
+      queryClient.refetchQueries({
+        queryKey: PLACE_QUERY_KEY.review(place_id, review_id),
+      })
     },
   })
 }

@@ -13,9 +13,9 @@ export const getPlace = async (id: string): Promise<PlaceType> => {
     throw error
   }
 }
-export const useGetPlace = (id: string) => {
+export const useGetPlace = (place_id: string) => {
   return useQuery({
-    queryKey: PLACE_QUERY_KEY.detail(id),
-    queryFn: () => getPlace(id),
+    queryKey: PLACE_QUERY_KEY.detail(place_id),
+    queryFn: () => getPlace(place_id),
   })
 }

@@ -45,7 +45,8 @@ export default function ReviewFormLayout({
   const { data: reviewData } = useGetPlaceReview(reviewId)
   const { mutateAsync: createPlaceMutate } = usePostPlaceReview(placeId)
   const { mutateAsync: updatePlaceMutate } = useUpdatePlaceReview(
-    reviewId ?? ''
+    placeId,
+    reviewId ? reviewId : ''
   )
   const router = useRouter()
 
