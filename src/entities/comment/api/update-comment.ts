@@ -19,14 +19,21 @@ export const patchComment = async (
   }
 }
 
-export const useUpdateComment = (id: string) => {
+export const useUpdateComment = (course_id: string) => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, contents }: { id: string; contents: string }) =>
-      patchComment(id, contents),
+    mutationFn: ({
+      comment_id,
+      contents,
+    }: {
+      comment_id: string
+      contents: string
+    }) => patchComment(comment_id, contents),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: COMMENT_QUERY_KEY.detail(id) })
+      queryClient.refetchQueries({
+        queryKey: COMMENT_QUERY_KEY.all(course_id),
+      })
     },
   })
 }
