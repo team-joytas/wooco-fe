@@ -5,6 +5,9 @@ import { ReviewPayloadType } from '@/src/entities/place'
 import { postImage } from '@/src/shared/api'
 import { StarRateForm } from '@/src/features'
 import error from '@/src/assets/icon/medium/error.svg'
+import cross from '@/src/assets/icon/medium/cross.svg'
+import crossLight from '@/src/assets/icon/medium/cross_lightgray.svg'
+import plus from '@/src/assets/icon/medium/plus_gray.svg'
 import { useToast } from '@/src/shared/provider'
 
 // 리뷰
@@ -113,7 +116,7 @@ const KeywordInput: React.FC<KeywordInputProps> = ({
           >
             <span>{keyword}</span>
             <button onClick={() => handleDeleteKeyword(index)}>
-              <Image src='/cross.svg' alt='delete' width={18} height={18} />
+              <Image src={cross} alt='delete' width={18} height={18} />
             </button>
           </div>
         ))}
@@ -236,7 +239,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                 }
               }}
             >
-              <Image src='/plus.svg' alt='add' width={24} height={24} />
+              <Image src={plus} alt='add' width={24} height={24} />
             </button>
             <input
               type='file'
@@ -260,12 +263,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                   onClick={() => handleDeleteImage(index)}
                   className='relative bg-white w-[20px] h-[20px] rounded-[99px] flex items-center justify-center shadow-[3px_-3px_5px_-5px_rgba(0,_0,_0,_0.8)]'
                 >
-                  <Image
-                    fill
-                    sizes='cover'
-                    alt='delete'
-                    src='/cross_lightgray.svg'
-                  />
+                  <Image fill sizes='cover' alt='delete' src={crossLight} />
                 </button>
               </div>
             </div>

@@ -4,6 +4,8 @@ import { ReviewPayloadType } from '@/src/entities/place'
 import Image from 'next/image'
 import { useState } from 'react'
 import { UseFormRegister, UseFormSetValue } from 'react-hook-form'
+import star from '@/src/assets/icon/star_empty_20.svg'
+import starColored from '@/src/assets/icon/star_fullfill_20.svg'
 
 interface StarRateFormProps {
   rate: number
@@ -46,7 +48,7 @@ export const StarRateForm = ({
             className='relative w-[30px] h-[30px] pointer-events-none'
           >
             <Image
-              src={isActive ? '/star_colored.svg' : '/star.svg'}
+              src={isActive ? starColored : star}
               alt={`Star ${ratingValue}`}
               fill
               className='cursor-pointer pointer-events-auto transition-transform'

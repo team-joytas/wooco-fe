@@ -57,11 +57,7 @@ export function PlaceReviewCard({
           href={`/users/${writer.id}`}
           className='flex w-fit gap-[10px] items-center'
         >
-          <ProfileImage
-            userId={writer.id}
-            size={40}
-            src={writer.profile_url || '/profile.png'}
-          />
+          <ProfileImage userId={writer.id} size={40} src={writer.profile_url} />
           <div className='flex flex-col'>
             <p className='text-middle font-medium'>{writer.name}</p>
             <div className='flex flex-row items-center gap-[5px] text-sub'>
@@ -94,7 +90,9 @@ export function PlaceReviewCard({
         )}
       </section>
 
-      <span className='w-full text-sub whitespace-pre-line'>{content.contents}</span>
+      <span className='w-full text-sub whitespace-pre-line'>
+        {content.contents}
+      </span>
 
       <div className='h-full w-full overflow-x-auto flex flex-1 items-center justify-start gap-[5px] scrollbar-hide pr-[10px]'>
         {image_urls.map((image, index) => (

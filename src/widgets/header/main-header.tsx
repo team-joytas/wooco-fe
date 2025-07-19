@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import logo from '@/src/assets/icon/small(20)/logo.svg'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import bell from '@/public/bell.svg'
+import bell from '@/src/assets/icon/medium/bell.svg'
 import { Spacer } from '@/src/shared/ui'
 import { useAuth, useToast } from '@/src/shared/provider'
 
