@@ -13,13 +13,15 @@ export const postCourseLike = async (id: string) => {
   }
 }
 
-export const usePostCourseLike = (id: string) => {
+export const usePostCourseLike = (course_id: string) => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (id: string) => postCourseLike(id),
+    mutationFn: (course_id: string) => postCourseLike(course_id),
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: COURSE_QUERY_KEY.detail(id) })
+      queryClient.refetchQueries({
+        queryKey: COURSE_QUERY_KEY.detail(course_id),
+      })
     },
   })
 }

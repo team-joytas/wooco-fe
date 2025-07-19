@@ -12,13 +12,15 @@ export const deleteCourseLike = async (id: string) => {
     throw error
   }
 }
-export const useDeleteCourseLike = (id: string) => {
+export const useDeleteCourseLike = (course_id: string) => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (id: string) => deleteCourseLike(id),
+    mutationFn: (course_id: string) => deleteCourseLike(course_id),
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: COURSE_QUERY_KEY.detail(id) })
+      queryClient.refetchQueries({
+        queryKey: COURSE_QUERY_KEY.detail(course_id),
+      })
     },
   })
 }

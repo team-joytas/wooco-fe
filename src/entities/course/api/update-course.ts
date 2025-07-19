@@ -20,13 +20,15 @@ export const patchCourse = async (
   }
 }
 
-export const useUpdateCourse = (id: string) => {
+export const useUpdateCourse = (course_id: string) => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (data: CoursePayloadType) => patchCourse(id, data),
+    mutationFn: (data: CoursePayloadType) => patchCourse(course_id, data),
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: COURSE_QUERY_KEY.detail(id) })
+      queryClient.refetchQueries({
+        queryKey: COURSE_QUERY_KEY.detail(course_id),
+      })
     },
   })
 }

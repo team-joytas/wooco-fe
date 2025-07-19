@@ -1,5 +1,4 @@
 import { customAxios } from '@/src/shared/api'
-import { COURSE_QUERY_KEY } from './queryKey'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { CoursePayloadType } from '../model'
 import { COURSE_URL } from './endpoint'
@@ -22,7 +21,7 @@ export const usePostCourse = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         predicate: (query) =>
-          query.queryKey[0] === 'courses' ||
+          (query.queryKey[0] === 'courses' && query.queryKey[1] === 'RECENT') ||
           query.queryKey[0] === 'userCourses',
       })
     },

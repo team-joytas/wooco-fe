@@ -14,6 +14,6 @@ export const COURSE_QUERY_KEY = {
       params.primary_region,
       params.secondary_region,
     ] as const,
-  detail: (id: string) => ['course', id] as const,
+  detail: (course_id: string) => ['course', course_id] as const,
   post: ['course', 'post'] as const,
 }
