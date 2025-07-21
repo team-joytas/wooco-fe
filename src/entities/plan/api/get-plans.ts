@@ -16,5 +16,6 @@ export const useGetPlans = () => {
   return useQuery({
     queryKey: PLAN_QUERY_KEY.all,
     queryFn: () => getPlans(),
+    refetchOnMount: true,
   })
 }

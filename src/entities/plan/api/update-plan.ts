@@ -14,13 +14,14 @@ export const updatePlan = async (id: string, payload: PlanPayloadType) => {
   }
 }
 
-export const useUpdatePlan = (id: string) => {
+export const useUpdatePlan = (plan_id: string) => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (data: PlanPayloadType) => updatePlan(id, data),
+    mutationFn: (data: PlanPayloadType) => updatePlan(plan_id, data),
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: PLAN_QUERY_KEY.detail(id) })
+      queryClient.refetchQueries({ queryKey: PLAN_QUERY_KEY.detail(plan_id) })
+      queryClient.invalidateQueries({ queryKey: PLAN_QUERY_KEY.all })
     },
   })
 }
