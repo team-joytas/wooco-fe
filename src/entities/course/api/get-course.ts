@@ -14,13 +14,10 @@ export const getCourse = async (id: string): Promise<CourseType> => {
   }
 }
 
-export const useGetCourse = (
-  id: string,
-  enabled: boolean = true
-) => {
+export const useGetCourse = (course_id: string, enabled: boolean = true) => {
   return useQuery({
-    queryKey: COURSE_QUERY_KEY.detail(id),
-    queryFn: () => getCourse(id),
-    enabled
+    queryKey: COURSE_QUERY_KEY.detail(course_id),
+    queryFn: () => getCourse(course_id),
+    enabled,
   })
 }

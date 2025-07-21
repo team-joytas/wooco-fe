@@ -19,14 +19,19 @@ export const postComment = async (
   }
 }
 
-export const usePostComment = () => {
+export const usePostComment = (course_id: string) => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, contents }: { id: string; contents: string }) =>
-      postComment(id, contents),
+    mutationFn: ({
+      course_id,
+      contents,
+    }: {
+      course_id: string
+      contents: string
+    }) => postComment(course_id, contents),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: COMMENT_QUERY_KEY.all })
+      queryClient.refetchQueries({ queryKey: COMMENT_QUERY_KEY.all(course_id) })
     },
   })
 }

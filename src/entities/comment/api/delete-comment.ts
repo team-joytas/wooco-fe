@@ -13,13 +13,15 @@ export const deleteComment = async (id: string): Promise<number> => {
   }
 }
 
-export const useDeleteComment = (id: string) => {
+export const useDeleteComment = (course_id: string) => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (id: string) => deleteComment(id),
+    mutationFn: (comment_id: string) => deleteComment(comment_id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: COMMENT_QUERY_KEY.detail(id) })
+      queryClient.refetchQueries({
+        queryKey: COMMENT_QUERY_KEY.all(course_id),
+      })
     },
   })
 }

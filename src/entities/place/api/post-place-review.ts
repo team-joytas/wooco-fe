@@ -20,13 +20,18 @@ export const postPlaceReview = async (
   }
 }
 
-export const usePostPlaceReview = (id: string) => {
+export const usePostPlaceReview = (place_id: string) => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (data: ReviewPayloadType) => postPlaceReview(id, data),
+    mutationFn: (data: ReviewPayloadType) => postPlaceReview(place_id, data),
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: PLACE_QUERY_KEY.reviews(id) })
+      queryClient.refetchQueries({
+        queryKey: PLACE_QUERY_KEY.reviews(place_id),
+      })
+      queryClient.refetchQueries({
+        queryKey: PLACE_QUERY_KEY.detail(place_id),
+      })
     },
   })
 }

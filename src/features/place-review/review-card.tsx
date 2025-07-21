@@ -29,7 +29,7 @@ export function PlaceReviewCard({
   const [isImageViewOpened, setIsImageViewOpened] = useState(false)
   const [imageIndex, setImageIndex] = useState<number>(0)
 
-  const { mutate: deletePlaceReview } = useDeletePlaceReview(id.toString())
+  const { mutate: deletePlaceReview } = useDeletePlaceReview(placeId)
   const handleDelete = () => {
     try {
       deletePlaceReview(id.toString(), {

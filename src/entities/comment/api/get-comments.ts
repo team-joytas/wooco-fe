@@ -14,9 +14,9 @@ export const getComments = async (courseId: string): Promise<CommentType[]> => {
   }
 }
 
-export const useGetComments = (id: string) => {
+export const useGetComments = (course_id: string) => {
   return useQuery({
-    queryKey: COMMENT_QUERY_KEY.detail(id),
-    queryFn: () => getComments(id),
+    queryKey: COMMENT_QUERY_KEY.all(course_id),
+    queryFn: () => getComments(course_id),
   })
 }

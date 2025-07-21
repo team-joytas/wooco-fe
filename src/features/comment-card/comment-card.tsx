@@ -18,6 +18,7 @@ type CommentCardProps = {
   content: CommentType
   refetch?: () => void
   showKebab: boolean
+  courseId: string
 }
 
 export function CommentCard({
@@ -25,6 +26,7 @@ export function CommentCard({
   content,
   refetch,
   showKebab,
+  courseId,
 }: CommentCardProps) {
   const { writer, contents, created_at } = content
   const { user } = useUserStore()
@@ -46,8 +48,8 @@ export function CommentCard({
     },
   })
 
-  const { mutate: updateComment } = useUpdateComment(id)
-  const { mutate: deleteComment } = useDeleteComment(id)
+  const { mutate: updateComment } = useUpdateComment(courseId)
+  const { mutate: deleteComment } = useDeleteComment(courseId)
 
   const onSubmit = async (data: { contents: string }) => {
     if (!isDirty) {
@@ -57,7 +59,7 @@ export function CommentCard({
 
     try {
       updateComment(
-        { id: id.toString(), contents: data.contents },
+        { comment_id: id.toString(), contents: data.contents },
         {
           onSuccess: () => {
             setErrorMessage('')

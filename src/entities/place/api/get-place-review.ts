@@ -12,10 +12,10 @@ export const getPlaceReview = async (id: string): Promise<PlaceReviewType> => {
     throw error
   }
 }
-export const useGetPlaceReview = (id?: string) => {
+export const useGetPlaceReview = (review_id?: string) => {
   return useQuery({
-    enabled: Boolean(id),
-    queryKey: ['placeReview', id],
-    queryFn: () => getPlaceReview(id!),
+    enabled: Boolean(review_id),
+    queryKey: ['placeReview', review_id],
+    queryFn: () => getPlaceReview(review_id!),
   })
 }

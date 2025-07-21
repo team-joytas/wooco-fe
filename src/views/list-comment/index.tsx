@@ -13,7 +13,7 @@ export default function DetailComment({ courseId }: { courseId: string }) {
   const { token } = useAuth()
 
   const { data: comments, isLoading, refetch } = useGetComments(courseId)
-  const { mutate: createComment } = usePostComment()
+  const { mutate: createComment } = usePostComment(courseId)
   const {
     register,
     handleSubmit,
@@ -33,7 +33,7 @@ export default function DetailComment({ courseId }: { courseId: string }) {
 
     try {
       createComment(
-        { id: courseId, contents: data.contents },
+        { course_id: courseId, contents: data.contents },
         {
           onSuccess: () => {
             reset()
@@ -73,6 +73,7 @@ export default function DetailComment({ courseId }: { courseId: string }) {
               content={comment}
               refetch={refetch}
               showKebab={true}
+              courseId={courseId}
             />
           )
         })}

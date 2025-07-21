@@ -13,13 +13,10 @@ export const getPlan = async (id: string) => {
   }
 }
 
-export const useGetPlan = (
-  id: string,
-  enabled: boolean = true
-) => {
+export const useGetPlan = (plan_id: string, enabled: boolean = true) => {
   return useQuery({
-    queryKey: PLAN_QUERY_KEY.detail(id),
-    queryFn: () => getPlan(id),
-    enabled
+    queryKey: PLAN_QUERY_KEY.detail(plan_id),
+    queryFn: () => getPlan(plan_id),
+    enabled,
   })
 }

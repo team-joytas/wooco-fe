@@ -17,7 +17,7 @@ export const useDeletePlan = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (id: string) => deletePlan(id),
+    mutationFn: (plan_id: string) => deletePlan(plan_id),
     onSuccess: () => {
       queryClient.refetchQueries({ queryKey: PLAN_QUERY_KEY.all })
     },

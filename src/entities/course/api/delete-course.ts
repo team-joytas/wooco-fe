@@ -16,11 +16,11 @@ export const useDeleteCourse = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (id: string) => deleteCourse(id),
+    mutationFn: (course_id: string) => deleteCourse(course_id),
     onSuccess: () => {
       queryClient.refetchQueries({
         predicate: (query) =>
-          query.queryKey[0] === 'courses' ||
+          (query.queryKey[0] === 'courses' && query.queryKey[1] === 'RECENT') ||
           query.queryKey[0] === 'userCourses',
       })
     },
