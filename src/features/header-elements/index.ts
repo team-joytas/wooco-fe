@@ -1,3 +1,3 @@
-export * from './header-base'
-export * from './title-with-tag-style'
-export * from './view-type-toggle-button'
+export * from './HeaderBase'
+export * from './TitleWithTagStyle'
+export * from './ViewTypeToggleButton'

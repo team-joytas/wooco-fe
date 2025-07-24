@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import down from '@/src/assets/icon/medium/down.svg'
 import { useState } from 'react'
-import { Option } from './option'
+import { Option } from './Option'
 
 interface SelectSortProps {
   order: 'RECENT' | 'POPULAR'
@@ -40,7 +40,6 @@ export function SelectSort({ order, setOrder }: SelectSortProps) {
           {selectOptions.map((option) => (
             <Option
               key={option.value}
-              value={option.value}
               label={option.label}
               onClick={() => onChange(option.value)}
             />

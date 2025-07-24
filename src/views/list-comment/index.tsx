@@ -5,7 +5,7 @@ import { Spacer } from '@/src/shared/ui'
 import { useForm } from 'react-hook-form'
 import { usePostComment, useGetComments } from '@/src/entities/comment'
 import { ActionHeader } from '@/src/widgets'
-import { CommentCard, SkeletonCommentCard } from '@/src/features'
+import { CommentCard, CommentCardSkeleton } from '@/src/features'
 import { useAuth, useToast } from '@/src/shared/provider'
 
 export default function DetailComment({ courseId }: { courseId: string }) {
@@ -52,7 +52,7 @@ export default function DetailComment({ courseId }: { courseId: string }) {
         <Spacer height={20} />
         <div className='px-[20px] flex flex-col gap-[25px]'>
           {Array.from({ length: 5 }).map((_, index) => (
-            <SkeletonCommentCard key={index} />
+            <CommentCardSkeleton key={index} />
           ))}
           <Spacer height={20} />
         </div>

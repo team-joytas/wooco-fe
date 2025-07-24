@@ -1,38 +1,38 @@
 import { ActionHeader } from '@/src/widgets'
-import { Spacer, SkeletonDiv } from '@/src/shared/ui'
+import { Spacer, DivSkeleton } from '@/src/shared/ui'
 import {
-  SkeletonTab,
-  SkeletonReviewStats,
-  SkeletonPlaceReviewCard,
+  TabSkeleton,
+  ReviewStatsSkeleton,
+  PlaceReviewCardSkeleton,
 } from '@/src/features'
-import { SkeletonSection } from './skeleton-section'
+import { SectionSkeleton } from './SectionSkeleton'
 
-export function SkeletonDetailPlaceLayout() {
+export function DetailPlaceLayoutSkeleton() {
   return (
     <>
       <ActionHeader title={''} isTitleTag isTitleCenter isBack />
       <div className='w-full flex flex-col items-center min-h-[100vh] bg-white'>
-        <SkeletonDiv width={375} height={210} />
-        <SkeletonTab />
+        <DivSkeleton width={375} height={210} />
+        <TabSkeleton />
         <Spacer height={26} />
 
         <div className='w-full flex flex-col items-center gap-[20px]'>
-          <SkeletonSection hasChildren />
-          <SkeletonSection hasChildren />
-          <SkeletonDiv height={180} width={315} className='rounded-[10px]' />
+          <SectionSkeleton hasChildren />
+          <SectionSkeleton hasChildren />
+          <DivSkeleton height={180} width={315} className='rounded-[10px]' />
           <Spacer height={4} className='bg-light-gray' />
         </div>
 
         <Spacer height={20} />
 
         <div className='w-full flex flex-col items-center gap-[15px]'>
-          <SkeletonSection />
-          <SkeletonReviewStats />
+          <SectionSkeleton />
+          <ReviewStatsSkeleton />
           <Spacer height={4} className='bg-light-gray' />
 
           <div className='flex flex-col w-full px-[20px]'>
             {Array.from({ length: 2 }, (_, index) => (
-              <SkeletonPlaceReviewCard key={index} />
+              <PlaceReviewCardSkeleton key={index} />
             ))}
           </div>
           <div className='flex flex-col justify-center items-center gap-[18px]'>

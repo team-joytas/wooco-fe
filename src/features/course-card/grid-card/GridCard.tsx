@@ -9,7 +9,7 @@ import { CourseActionBar, useCourseLike } from '@/src/features'
 import { useEffect, useState } from 'react'
 import { ShareModal } from '@/src/features'
 
-export function CourseGridCard({ course }: { course: CourseType }) {
+export function GridCard({ course }: { course: CourseType }) {
   const {
     id,
     primary_region,
@@ -44,12 +44,12 @@ export function CourseGridCard({ course }: { course: CourseType }) {
     <div className='w-[164px] h-[217px] flex flex-col justify-between pb-[8px] rounded-[10px] bg-white drop-shadow-[0_0_4px_rgba(0,0,0,0.15)]'>
       <Link href={`/courses/${id}`} className='w-full flex flex-col gap-[10px]'>
         <Image
-          src={imgError ? logo : (places[0].thumbnail_url)}
+          src={imgError ? logo : places[0].thumbnail_url}
           width={207}
           height={100}
           className='h-[100px] bg-light-gray rounded-tr-[10px] rounded-tl-[10px] object-cover'
           alt='course-image'
-          placeholder="empty"
+          placeholder='empty'
           onError={() => setImgError(true)}
         />
 

@@ -1,1 +1,1 @@
-export * from './skeleton-user-profile-section'
+export * from './UserProfileSectionSkeleton'

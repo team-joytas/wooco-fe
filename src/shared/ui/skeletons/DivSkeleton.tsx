@@ -1,4 +1,4 @@
-export function SkeletonDiv({
+export function DivSkeleton({
   width,
   height,
   className,

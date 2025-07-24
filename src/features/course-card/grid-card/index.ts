@@ -1,2 +1,2 @@
-export * from './grid-card'
-export * from './skeleton-grid-card'
+export * from './GridCard'
+export * from './GridCardSkeleton'

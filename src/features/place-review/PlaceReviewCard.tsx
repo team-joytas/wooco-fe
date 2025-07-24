@@ -9,7 +9,7 @@ import { ReviewTag, StarRateView, ActionDropdown } from '@/src/features'
 import { useState } from 'react'
 import { useDeletePlaceReview } from '@/src/entities/place'
 import Image from 'next/image'
-import { ImageView } from './image-view'
+import { ImageView } from './ImageView'
 
 type PlaceReviewCardProps = {
   placeId: string

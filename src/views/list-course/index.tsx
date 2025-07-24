@@ -1,6 +1,6 @@
 import { useSearchParams } from 'next/navigation'
-import MainCourse from './main-course'
-import RegionCourse from './region-course'
+import MainCourse from './MainCourse'
+import RegionCourse from './RegionCourse'
 
 export default function ListCourse() {
   const path = useSearchParams()

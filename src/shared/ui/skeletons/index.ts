@@ -1,2 +1,2 @@
-export * from './skeleton-div'
-export * from './skeleton-tab-button'
+export * from './DivSkeleton'
+export * from './TabButtonSkeleton'

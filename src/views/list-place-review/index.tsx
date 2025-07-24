@@ -1,7 +1,7 @@
 'use client'
 
 import { useGetPlaceReviews } from '@/src/entities/place'
-import { PlaceReviewCard, SkeletonPlaceReviewCard } from '@/src/features'
+import { PlaceReviewCard, PlaceReviewCardSkeleton } from '@/src/features'
 import { Spacer } from '@/src/shared/ui'
 import { ActionHeader } from '@/src/widgets'
 
@@ -15,7 +15,7 @@ export default function ListPlaceReview({ placeId }: { placeId: string }) {
         <div className='flex flex-col px-[20px]'>
           <Spacer height={20} />
           {Array.from({ length: 10 }, (_, index) => (
-            <SkeletonPlaceReviewCard key={index} />
+            <PlaceReviewCardSkeleton key={index} />
           ))}
           <Spacer height={20} />
         </div>

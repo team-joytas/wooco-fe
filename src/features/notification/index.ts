@@ -1,1 +1,1 @@
-export * from './card-notification'
+export * from './CardNotification'

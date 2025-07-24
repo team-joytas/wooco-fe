@@ -1,1 +1,1 @@
-export * from './place-card'
+export * from './PlaceCard'

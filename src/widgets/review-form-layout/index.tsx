@@ -10,7 +10,7 @@ import {
   useGetPlaceReview,
   useUpdatePlaceReview,
 } from '@/src/entities/place'
-import FormReview from '@/src/features/place/form-review'
+import FormReview from '@/src/features/place/FormReview'
 import { ReviewPayloadType } from '@/src/entities/place'
 import { useRouter } from 'next/navigation'
 

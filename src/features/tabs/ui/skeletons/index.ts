@@ -1,1 +1,1 @@
-export * from './skeleton-tab'
+export * from './TabSkeleton'

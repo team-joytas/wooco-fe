@@ -1,2 +1,2 @@
-export * from './comment-card'
-export * from './skeleton-comment-card'
+export * from './CommentCard'
+export * from './CommentCardSkeleton'

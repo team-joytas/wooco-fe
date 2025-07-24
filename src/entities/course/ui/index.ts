@@ -1,1 +1,1 @@
-export * from './no-liked-course'
+export * from './NoLikedCourse'

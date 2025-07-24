@@ -1,7 +1,7 @@
 'use client'
 
 import { ActionHeader } from '@/src/widgets'
-import CardNotification from '@/src/features/notification/card-notification'
+import CardNotification from '@/src/features/notification/CardNotification'
 import { Spacer } from '@/src/shared/ui'
 import { useGetNotifications } from '@/src/entities/notification'
 import { useEffect } from 'react'

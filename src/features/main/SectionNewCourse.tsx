@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { CoursePlanCard, SkeletonCoursePlanCard } from '@/src/features'
+import { CoursePlanCard, CoursePlanCardSkeleton } from '@/src/features'
 import { Spacer } from '@/src/shared/ui'
 import type { CourseType } from '@/src/entities/course'
 import { useGetCourses } from '@/src/entities/course'
@@ -39,7 +39,7 @@ export function SectionNewCourse() {
       <div className='flex flex-col gap-[15px]'>
         {isLoading
           ? Array.from({ length: 4 }).map((_, index) => (
-              <SkeletonCoursePlanCard key={index} />
+              <CoursePlanCardSkeleton key={index} />
             ))
           : courses.map((course: CourseType) => (
               <CoursePlanCard key={course.id} data={course} />

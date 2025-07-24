@@ -1,3 +1,3 @@
-export * from './skeleton-review-card'
-export * from './skeleton-review-stats'
-export * from './skeleton-start-view'
+export * from './PlaceReviewCardSkeleton'
+export * from './ReviewStatsSkeleton'
+export * from './StarRateViewSkeleton'

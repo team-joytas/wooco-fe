@@ -14,11 +14,11 @@ import {
   ScrollTabs,
   ScrollTabType,
 } from '@/src/features'
-import { Section } from './section'
+import { Section } from './Section'
 import logo from '@/src/assets/images/(logo)/logo.png'
 import allReview from '@/src/assets/images/all_review_icon.svg'
 import kakaoReview from '@/src/assets/images/kakao_review_icon.svg'
-import { SkeletonDetailPlaceLayout } from './skeleton-layout'
+import { DetailPlaceLayoutSkeleton } from './LayoutSkeleton'
 import { useToast } from '@/src/shared/provider'
 
 export default function DetailPlace({ id }: { id: string }) {
@@ -74,7 +74,7 @@ export default function DetailPlace({ id }: { id: string }) {
   )
 
   if (!placeData || !reviewData) {
-    return <SkeletonDetailPlaceLayout />
+    return <DetailPlaceLayoutSkeleton />
   }
 
   return (

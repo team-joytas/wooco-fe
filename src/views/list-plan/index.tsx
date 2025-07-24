@@ -8,10 +8,10 @@ import { useRouter } from 'next/navigation'
 import { useGetMyProfile } from '@/src/entities/user'
 import {
   CoursePlanCard,
-  SkeletonCoursePlanCard,
+  CoursePlanCardSkeleton,
   FloatingWriteButton,
 } from '@/src/features'
-import { SkeletonDiv } from '@/src/shared/ui'
+import { DivSkeleton } from '@/src/shared/ui'
 
 export default function ListPlan() {
   const [isClick, setIsClick] = useState(false)
@@ -44,21 +44,21 @@ export default function ListPlan() {
           </span>
           <div className='flex justify-between items-center my-[5px]'>
             <span className='inline-flex items-center'>
-              <SkeletonDiv height={20} width={100} />
+              <DivSkeleton height={20} width={100} />
               <p className='text-[16px]'>&nbsp; 님의 코스 플랜</p>
             </span>
-            <SkeletonDiv height={40} width={40} className='rounded-full' />
+            <DivSkeleton height={40} width={40} className='rounded-full' />
           </div>
 
           <Spacer height={8} className='bg-bright-gray' />
           <div className='flex justify-between items-center my-[5px]'>
-            <SkeletonCoursePlanCard />
+            <CoursePlanCardSkeleton />
           </div>
         </div>
         <Spacer height={8} className='bg-bright-gray' />
         <div className='flex flex-col gap-[15px] py-[20px] w-full px-[16px]'>
           {Array.from({ length: 10 }, (_, index) => (
-            <SkeletonCoursePlanCard key={index} />
+            <CoursePlanCardSkeleton key={index} />
           ))}
         </div>
       </div>

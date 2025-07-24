@@ -1,1 +1,1 @@
-export * from './no-plan-tooltip'
+export * from './NoPlanToolTip'

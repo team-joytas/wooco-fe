@@ -2,7 +2,7 @@
 
 import {
   CoursePlanDetailLayout,
-  SkeletonCoursePlanDetailLayout,
+  CoursePlanDetailLayoutSkeleton,
 } from '@/src/widgets'
 import { useGetPlan } from '@/src/entities/plan'
 import { useRouter } from 'next/navigation'
@@ -26,7 +26,7 @@ export default function DetailPlan({ planId }: DetailPlanProps) {
     }
   }, [isLoading])
 
-  if (isLoading) return <SkeletonCoursePlanDetailLayout type='course' />
+  if (isLoading) return <CoursePlanDetailLayoutSkeleton type='course' />
 
   if (isError || !plan) {
     router.push('/not-found')

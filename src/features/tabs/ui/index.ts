@@ -1,3 +1,3 @@
-export * from './scroll-tab'
-export * from './navigation-tab'
+export * from './ScrollTabs'
+export * from './NavigationTabs'
 export * from './skeletons'

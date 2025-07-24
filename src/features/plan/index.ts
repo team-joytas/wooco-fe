@@ -1,1 +1,1 @@
-export * from './list-user-place'
+export * from './ListUserPlace'

@@ -1,1 +1,1 @@
-export * from './place-collapse'
+export * from './PlaceCollapse'

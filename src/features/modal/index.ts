@@ -1,3 +1,3 @@
-export * from './share-modal'
-export * from './delete-modal'
-export * from './cancel-modal'
+export * from './ShareModal'
+export * from './DeleteModal'
+export * from './CancelModal'

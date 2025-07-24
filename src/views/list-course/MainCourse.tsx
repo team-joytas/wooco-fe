@@ -10,11 +10,7 @@ import heart_fill from '@/src/assets/icon/heart_fullfill_20.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 import useUserStore from '@/src/shared/store/userStore'
-import {
-  CourseListCard,
-  SkeletonCourseListCard,
-  FloatingWriteButton,
-} from '@/src/features'
+import { ListCard, ListCardSkeleton, FloatingWriteButton } from '@/src/features'
 import { useToast } from '@/src/shared/provider'
 
 export default function MainCourse() {
@@ -96,10 +92,10 @@ export default function MainCourse() {
         <div className='flex flex-col items-center px-[22px] gap-[15px]'>
           {isLoading || !courses
             ? Array.from({ length: 4 }).map((_, i) => (
-                <SkeletonCourseListCard key={i} />
+                <ListCardSkeleton key={i} />
               ))
             : courses.map((course: CourseType) => (
-                <CourseListCard course={course} key={course.id} />
+                <ListCard course={course} key={course.id} />
               ))}
         </div>
       </div>

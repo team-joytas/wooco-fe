@@ -15,10 +15,10 @@ import {
   NavigationTabs,
   NavigationTabType,
   UserProfileSection,
-  SkeletonUserProfileSection,
-  SkeletonTab,
+  UserProfileSectionSkeleton,
+  TabSkeleton,
   ListUserPlace,
-  SkeletonCoursePlanCard,
+  CoursePlanCardSkeleton,
   FloatingWriteButton,
 } from '@/src/features'
 
@@ -60,12 +60,12 @@ export default function DetailUser({ id }: { id: string }) {
       <>
         <ActionHeader title={isMe ? '마이 페이지' : ''} isBack />
         <Spacer height={8} />
-        <SkeletonUserProfileSection />
-        <SkeletonTab />
+        <UserProfileSectionSkeleton />
+        <TabSkeleton />
         <Spacer height={10} />
         <div className='flex flex-col gap-[20px] px-[20px] mt-[20px]'>
           {Array.from({ length: 5 }).map((_, index) => (
-            <SkeletonCoursePlanCard key={index} />
+            <CoursePlanCardSkeleton key={index} />
           ))}
         </div>
         <Spacer height={20} />

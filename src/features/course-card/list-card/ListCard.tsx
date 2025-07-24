@@ -4,10 +4,10 @@ import { ImageWithIndex, ProfileImage } from '@/src/shared/ui'
 import { type CourseType } from '@/src/entities/course'
 import Link from 'next/link'
 import { CourseActionBar, useCourseLike } from '@/src/features'
-import { ShareModal } from '../../modal/share-modal'
+import { ShareModal } from '@/src/features'
 import { useEffect, useState } from 'react'
 
-export function CourseListCard({ course }: { course: CourseType }) {
+export function ListCard({ course }: { course: CourseType }) {
   const {
     id,
     primary_region,

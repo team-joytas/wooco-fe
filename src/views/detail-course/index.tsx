@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { Spacer, ProfileImage } from '@/src/shared/ui'
 import {
   CoursePlanDetailLayout,
-  SkeletonCoursePlanDetailLayout,
+  CoursePlanDetailLayoutSkeleton,
 } from '@/src/widgets'
 import { formatDateToYYYYMMDD, passFromCreate } from '@/src/shared/utils/date'
 import { useGetCourse } from '@/src/entities/course'
@@ -56,7 +56,7 @@ export default function DetailCourse({ courseId }: DetailCourseProps) {
   }
 
   if (isCourseLoading || isCommentLoading || !course || !comments)
-    return <SkeletonCoursePlanDetailLayout type='course' />
+    return <CoursePlanDetailLayoutSkeleton type='course' />
 
   return (
     <CoursePlanDetailLayout type='course' id={courseId} data={course}>

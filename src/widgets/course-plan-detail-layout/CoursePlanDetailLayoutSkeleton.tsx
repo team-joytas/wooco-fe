@@ -1,6 +1,6 @@
 'use client'
 
-import { Spacer, Divider, SkeletonDiv } from '@/src/shared/ui'
+import { Spacer, Divider, DivSkeleton } from '@/src/shared/ui'
 import { CoursePlanHeader } from '@/src/widgets'
 
 const COURSE_PLAN = {
@@ -14,7 +14,7 @@ interface CoursePlanDetailLayoutProps {
   type: CoursePlanType
 }
 
-export function SkeletonCoursePlanDetailLayout({
+export function CoursePlanDetailLayoutSkeleton({
   type,
 }: CoursePlanDetailLayoutProps) {
   const typeName = type === COURSE_PLAN.course ? '코스' : '플랜'
@@ -37,7 +37,7 @@ export function SkeletonCoursePlanDetailLayout({
       >
         <div className='w-full items-center justify-center inline-flex gap-[5px] py-[8px]'>
           {Array.from({ length: 3 }, (_, index) => (
-            <SkeletonDiv
+            <DivSkeleton
               key={index}
               height={30}
               width={50}
@@ -46,18 +46,18 @@ export function SkeletonCoursePlanDetailLayout({
           ))}
         </div>
 
-        <SkeletonDiv height={180} width={315} className='rounded-[10px]' />
+        <DivSkeleton height={180} width={315} className='rounded-[10px]' />
         <Spacer height={16} />
 
         <div className='flex flex-row text-sub text-[rgba(0,0,0,0.8)]'>
-          <SkeletonDiv height={20} width={30} />
+          <DivSkeleton height={20} width={30} />
           &nbsp;
           {isCourse ? '님의 코스 제안이에요.' : '님이 선택한 장소들이에요.'}
         </div>
 
         <Spacer height={10} />
         {Array.from({ length: 3 }, (_, index) => (
-          <SkeletonDiv
+          <DivSkeleton
             key={index}
             height={30}
             width={315}
@@ -69,20 +69,20 @@ export function SkeletonCoursePlanDetailLayout({
 
         <section className='w-full flex flex-col gap-[10px] text-[rgba(0,0,0,0.8)]'>
           <div className='flex flex-row text-sub'>
-            <SkeletonDiv height={20} width={30} />
+            <DivSkeleton height={20} width={30} />
             &nbsp;님의 {typeName} 설명이에요.
           </div>
-          <SkeletonDiv height={100} width={315} className='rounded-[10px]' />
+          <DivSkeleton height={100} width={315} className='rounded-[10px]' />
         </section>
 
         <Divider margin={16} />
 
         <section className='w-full flex flex-col gap-[10px] text-[rgba(0,0,0,0.8)]'>
           <div className='flex flex-row text-sub'>
-            <SkeletonDiv height={20} width={30} />
+            <DivSkeleton height={20} width={30} />
             &nbsp;님이 {visit} 날짜에요.
           </div>
-          <SkeletonDiv height={40} width={315} className='rounded-full' />
+          <DivSkeleton height={40} width={315} className='rounded-full' />
         </section>
         <Spacer height={16} />
       </div>

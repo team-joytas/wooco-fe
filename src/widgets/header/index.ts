@@ -1,3 +1,3 @@
-export * from './course-plan-header'
-export * from './main-header'
-export * from './action-header'
+export * from './CoursePlanHeader'
+export * from './MainHeader'
+export * from './ActionHeader'

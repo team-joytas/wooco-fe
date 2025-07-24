@@ -1,1 +1,1 @@
-export * from './course-action-bar'
+export * from './CourseActionBar'

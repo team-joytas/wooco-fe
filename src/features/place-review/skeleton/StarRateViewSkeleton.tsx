@@ -1,6 +1,6 @@
 import { Star } from 'lucide-react'
 
-export function SkeletonStarRateView({ size }: { size: number }) {
+export function StarRateViewSkeleton({ size }: { size: number }) {
   return (
     <div className='relative'>
       <div className='flex gap-[2px]'>

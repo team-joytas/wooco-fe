@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { Spacer } from '@/src/shared/ui'
-import { CourseGridCard } from '@/src/features'
+import { GridCard } from '@/src/features'
 import { CourseType, mockCourse, NoLikedCourse } from '@/src/entities/course'
 import { useGetMyProfile, useGetLikeCourses } from '@/src/entities/user'
 import { getLoginUrl } from '@/src/entities/auth'
@@ -50,7 +50,7 @@ function UserLikeCourse({ id }: { id: string }) {
     <div className='w-full h-fit overflow-x-auto scrollbar-hide py-[10px] px-[20px]'>
       <div className='w-fit flex gap-[22px]'>
         {likeCourse?.map((course: CourseType) => (
-          <CourseGridCard key={course.id} course={course} />
+          <GridCard key={course.id} course={course} />
         ))}
       </div>
     </div>
@@ -81,7 +81,7 @@ function LoginLikeCourse() {
       <div className='w-full h-fit overflow-hidden py-[10px] px-[20px]'>
         <div className='w-fit flex gap-[22px]'>
           {Array.from({ length: 2 }).map((_, index) => (
-            <CourseGridCard key={index} course={mockCourse as CourseType} />
+            <GridCard key={index} course={mockCourse as CourseType} />
           ))}
         </div>
       </div>
