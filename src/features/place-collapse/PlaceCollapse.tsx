@@ -4,9 +4,8 @@ import { ChevronDown, ChevronUp, Copy } from 'lucide-react'
 import logoDefaultCopy from '@/src/assets/images/(logo)/temp_empty.png'
 import kakaoReview from '@/src/assets/images/kakao_review_icon.svg'
 import allReview from '@/src/assets/images/all_review_icon.svg'
-import type { CoursePlanPlaceType } from '@/src/entities/place'
+import { type CoursePlanPlaceType, StarRateView } from '@/src/entities/place'
 import { Spacer } from '@/src/shared/ui'
-import { StarRateView } from '@/src/features'
 import { useToast } from '@/src/shared/provider'
 
 export function PlaceCollapse({

@@ -1,5 +1,3 @@
-import { WriterType } from '@/src/entities/user/model'
-
 export type PlaceType = {
   id: string
   name: string
@@ -17,24 +15,6 @@ export type PlaceType = {
 export type PlaceReviewStatsType = {
   contents: string
   count: number
-}
-
-export interface PlaceReviewType {
-  id: string
-  rating: number
-  contents: string
-  created_at: string
-  one_line_reviews: string[]
-  image_urls: string[]
-}
-
-export interface UserPlaceReviewType extends PlaceReviewType {
-  place_id: string
-  place_name: string
-}
-
-export interface PlaceReviewDetailType extends PlaceReviewType {
-  writer: WriterType
 }
 
 export type PlaceSearchType = {
@@ -84,11 +64,4 @@ export type KakaoPlaceType = {
   name: string
   latitude: number
   longitude: number
-}
-
-export interface ReviewPayloadType {
-  rating: number
-  contents: string
-  one_line_reviews: string[]
-  image_urls: string[]
 }

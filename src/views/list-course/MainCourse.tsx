@@ -2,7 +2,12 @@
 
 import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
-import { CourseType, useGetCourses } from '@/src/entities/course'
+import {
+  CourseType,
+  useGetCourses,
+  ListCard,
+  ListCardSkeleton,
+} from '@/src/entities/course'
 import { useGetMyLikeRegions } from '@/src/entities/user'
 import { Spacer, RegionCascaderWithLikes } from '@/src/shared/ui'
 import useRegionStore from '@/src/shared/store/regionStore'
@@ -10,7 +15,7 @@ import heart_fill from '@/src/assets/icon/heart_fullfill_20.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 import useUserStore from '@/src/shared/store/userStore'
-import { ListCard, ListCardSkeleton, FloatingWriteButton } from '@/src/features'
+import { FloatingWriteButton } from '@/src/features'
 import { useToast } from '@/src/shared/provider'
 
 export default function MainCourse() {

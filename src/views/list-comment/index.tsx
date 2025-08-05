@@ -3,9 +3,13 @@
 import { Send } from 'lucide-react'
 import { Spacer } from '@/src/shared/ui'
 import { useForm } from 'react-hook-form'
-import { usePostComment, useGetComments } from '@/src/entities/comment'
+import {
+  usePostComment,
+  useGetComments,
+  CommentCard,
+  CommentCardSkeleton,
+} from '@/src/entities/comment'
 import { ActionHeader } from '@/src/widgets'
-import { CommentCard, CommentCardSkeleton } from '@/src/features'
 import { useAuth, useToast } from '@/src/shared/provider'
 
 export default function DetailComment({ courseId }: { courseId: string }) {

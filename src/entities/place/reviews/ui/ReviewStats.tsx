@@ -1,6 +1,5 @@
-import { PlaceReviewStatsType } from '@/src/entities/place'
+import { PlaceReviewStatsType, StarRateView } from '@/src/entities/place'
 import { Spacer } from '@/src/shared/ui'
-import { StarRateView } from '@/src/features'
 
 interface StatsReviewProps {
   placeOnLineReviewStats: PlaceReviewStatsType[]

@@ -1,11 +1,11 @@
 import { customAxios } from '@/src/shared/api'
-import { PLACE_URL } from './endpoint'
+import { PLACE_REVIEW_URL } from './endpoint'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { PLACE_QUERY_KEY } from './queryKey'
+import { PLACE_REVIEW_QUERY_KEY } from './queryKey'
 
 export const deletePlaceReview = async (id: string) => {
   try {
-    const response = await customAxios.delete(PLACE_URL.reviewDetail(id))
+    const response = await customAxios.delete(PLACE_REVIEW_URL.reviewDetail(id))
     return response.data
   } catch (error) {
     console.error(error)
@@ -19,10 +19,10 @@ export const useDeletePlaceReview = (place_id: string) => {
     mutationFn: (review_id: string) => deletePlaceReview(review_id),
     onSuccess: () => {
       queryClient.refetchQueries({
-        queryKey: PLACE_QUERY_KEY.reviews(place_id),
+        queryKey: PLACE_REVIEW_QUERY_KEY.reviews(place_id),
       })
       queryClient.refetchQueries({
-        queryKey: PLACE_QUERY_KEY.detail(place_id),
+        queryKey: PLACE_REVIEW_QUERY_KEY.detail(place_id),
       })
     },
   })

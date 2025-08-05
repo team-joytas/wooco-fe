@@ -1,9 +1,10 @@
+'use client'
+
 import Image from 'next/image'
 import React, { useState, useRef, useEffect } from 'react'
 import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
-import { ReviewPayloadType } from '@/src/entities/place'
+import { ReviewPayloadType, StarRateForm } from '@/src/entities/place'
 import { postImage } from '@/src/shared/api'
-import { StarRateForm } from '@/src/features'
 import error from '@/src/assets/icon/medium/error.svg'
 import cross from '@/src/assets/icon/medium/cross.svg'
 import crossLight from '@/src/assets/icon/medium/cross_lightgray.svg'

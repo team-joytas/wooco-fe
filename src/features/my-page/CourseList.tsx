@@ -2,7 +2,7 @@ import { Spacer } from '@/src/shared/ui'
 import type { CourseType } from '@/src/entities/course'
 import { CoursePlanCard } from '@/src/features'
 
-export function UserCourseList({ courses }: { courses: CourseType[] }) {
+export function CourseList({ courses }: { courses: CourseType[] }) {
   if (courses?.length === 0) {
     return (
       <section className='relative w-full h-full flex flex-col items-center text-main font-semibold'>

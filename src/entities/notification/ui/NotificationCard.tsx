@@ -7,12 +7,13 @@ import { formatDateToYYYYMMDD, passFromCreate } from '@/src/shared/utils/date'
 import { useReadNotification } from '@/src/entities/notification'
 import Link from 'next/link'
 
-export default function CardNotification({
+export function NotificationCard({
   notification,
 }: {
-  notification: NotificationType,
+  notification: NotificationType
 }) {
-  const { id, type, target_id, target_name, read_status, created_at } = notification
+  const { id, type, target_id, target_name, read_status, created_at } =
+    notification
   const TYPE_MAP: { [key: string]: string } = {
     COURSE_COMMENT_CREATED: 'course',
     PLAN_SHARE_REQUEST: 'plan',
@@ -57,7 +58,7 @@ export default function CardNotification({
     <Link
       href={`${TYPE_MAP[type]}s/${target_id}`}
       className={`w-full flex flex-col gap-[5px] ${
-        read_status =='READ' ? 'opacity-50' : ''
+        read_status == 'READ' ? 'opacity-50' : ''
       }`}
       onClick={() => {
         if (read_status == 'UNREAD') {

@@ -2,22 +2,22 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { UserCourseList } from '@/src/widgets'
 import { Spacer } from '@/src/shared/ui'
 import { ActionHeader } from '@/src/widgets'
 import {
   useGetMyPlaceReviews,
   useGetUserSummary,
   useGetUserCourses,
+  UserProfileSection,
+  UserProfileSectionSkeleton,
 } from '@/src/entities/user'
 import useUserStore from '@/src/shared/store/userStore'
 import {
   NavigationTabs,
   NavigationTabType,
-  UserProfileSection,
-  UserProfileSectionSkeleton,
   TabSkeleton,
-  ListUserPlace,
+  PlaceReviewList,
+  CourseList,
   CoursePlanCardSkeleton,
   FloatingWriteButton,
 } from '@/src/features'
@@ -84,9 +84,9 @@ export default function DetailUser({ id }: { id: string }) {
 
       <Spacer height={10} />
       {activeTab === 'place' ? (
-        <ListUserPlace reviews={placeReviews} />
+        <PlaceReviewList reviews={placeReviews} />
       ) : (
-        <UserCourseList courses={courses} />
+        <CourseList courses={courses} />
       )}
       <Spacer height={20} />
       <FloatingWriteButton />

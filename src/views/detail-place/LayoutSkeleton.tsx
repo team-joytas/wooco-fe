@@ -1,10 +1,10 @@
 import { ActionHeader } from '@/src/widgets'
 import { Spacer, DivSkeleton } from '@/src/shared/ui'
+import { TabSkeleton } from '@/src/features'
 import {
-  TabSkeleton,
   ReviewStatsSkeleton,
   PlaceReviewCardSkeleton,
-} from '@/src/features'
+} from '@/src/entities/place'
 import { SectionSkeleton } from './SectionSkeleton'
 
 export function DetailPlaceLayoutSkeleton() {

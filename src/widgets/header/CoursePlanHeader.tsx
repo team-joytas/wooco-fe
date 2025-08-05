@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import React from 'react'
 import useUserStore from '@/src/shared/store/userStore'
 import { useQueryClient } from '@tanstack/react-query'

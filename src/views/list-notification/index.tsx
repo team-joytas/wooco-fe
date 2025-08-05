@@ -1,9 +1,11 @@
 'use client'
 
 import { ActionHeader } from '@/src/widgets'
-import CardNotification from '@/src/features/notification/CardNotification'
 import { Spacer } from '@/src/shared/ui'
-import { useGetNotifications } from '@/src/entities/notification'
+import {
+  useGetNotifications,
+  NotificationCard,
+} from '@/src/entities/notification'
 import { useEffect } from 'react'
 
 export default function ListNotification() {
@@ -21,7 +23,7 @@ export default function ListNotification() {
           [...notificationData]
             .reverse()
             .map((notification) => (
-              <CardNotification
+              <NotificationCard
                 key={notification.id}
                 notification={notification}
               />

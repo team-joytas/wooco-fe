@@ -1,7 +1,10 @@
 'use client'
 
-import { useGetPlaceReviews } from '@/src/entities/place'
-import { PlaceReviewCard, PlaceReviewCardSkeleton } from '@/src/features'
+import {
+  useGetPlaceReviews,
+  PlaceReviewCard,
+  PlaceReviewCardSkeleton,
+} from '@/src/entities/place'
 import { Spacer } from '@/src/shared/ui'
 import { ActionHeader } from '@/src/widgets'
 

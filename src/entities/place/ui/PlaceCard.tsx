@@ -1,9 +1,12 @@
 import Image from 'next/image'
 import { Spacer } from '@/src/shared/ui'
 import Link from 'next/link'
-import type { UserPlaceReviewType } from '@/src/entities/place'
+import {
+  type UserPlaceReviewType,
+  ReviewTag,
+  StarRateView,
+} from '@/src/entities/place'
 import { formatDateToYYYYMMDD } from '@/src/shared/utils/date'
-import { ReviewTag, StarRateView } from '@/src/features'
 
 export function PlaceCard({ data }: { data: UserPlaceReviewType }) {
   return (

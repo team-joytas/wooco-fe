@@ -4,16 +4,16 @@ import React, { useCallback, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useGetPlace, useGetPlaceReviews } from '@/src/entities/place'
+import {
+  useGetPlace,
+  useGetPlaceReviews,
+  ReviewStats,
+  PlaceReviewCard,
+} from '@/src/entities/place'
 import { ActionHeader } from '@/src/widgets'
 import { Spacer, KakaoMap } from '@/src/shared/ui'
 import { Copy, Phone } from 'lucide-react'
-import {
-  ReviewStats,
-  PlaceReviewCard,
-  ScrollTabs,
-  ScrollTabType,
-} from '@/src/features'
+import { ScrollTabs, ScrollTabType } from '@/src/features'
 import { Section } from './Section'
 import logo from '@/src/assets/images/(logo)/logo.png'
 import allReview from '@/src/assets/images/all_review_icon.svg'

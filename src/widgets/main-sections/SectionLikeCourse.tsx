@@ -2,8 +2,12 @@
 
 import Link from 'next/link'
 import { Spacer } from '@/src/shared/ui'
-import { GridCard } from '@/src/features'
-import { CourseType, mockCourse, NoLikedCourse } from '@/src/entities/course'
+import {
+  CourseType,
+  mockCourse,
+  NoLikedCourse,
+  GridCard,
+} from '@/src/entities/course'
 import { useGetMyProfile, useGetLikeCourses } from '@/src/entities/user'
 import { getLoginUrl } from '@/src/entities/auth'
 import { useRouter } from 'next/navigation'

@@ -1,10 +1,10 @@
-import { CourseType } from '@/src/entities/course'
 import {
+  CourseType,
   ListCard,
   GridCard,
   ListCardSkeleton,
   GridCardSkeleton,
-} from '@/src/features'
+} from '@/src/entities/course'
 
 interface CourseListLayoutProps {
   isListView: boolean

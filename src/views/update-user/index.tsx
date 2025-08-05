@@ -5,9 +5,12 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Spacer } from '@/src/shared/ui'
 import { ActionHeader } from '@/src/widgets'
-import { UploadProfileImage } from '@/src/features'
 import useUserStore from '@/src/shared/store/userStore'
-import { useGetMyProfile, useUpdateUser } from '@/src/entities/user'
+import {
+  useGetMyProfile,
+  useUpdateUser,
+  UploadProfileImage,
+} from '@/src/entities/user'
 import { useAuth } from '@/src/shared/provider'
 
 export default function UpdateUser() {

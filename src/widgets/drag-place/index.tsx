@@ -2,7 +2,7 @@
 
 import { CoursePlanPlaceType } from '@/src/entities/place'
 import { closestCenter, DndContext, DragEndEvent } from '@dnd-kit/core'
-import DragPlaceItem from '@/src/features/place/DragPlaceItem'
+import DragPlaceItem from '@/src/entities/place/ui/DragPlaceItem'
 import {
   arrayMove,
   SortableContext,

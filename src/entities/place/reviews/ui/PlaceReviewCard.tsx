@@ -3,11 +3,15 @@
 import Link from 'next/link'
 import { formatDateToYYYYMMDD, passFromCreate } from '@/src/shared/utils/date'
 import useUserStore from '@/src/shared/store/userStore'
-import { PlaceReviewDetailType } from '@/src/entities/place'
+import {
+  PlaceReviewDetailType,
+  ReviewTag,
+  StarRateView,
+  useDeletePlaceReview,
+} from '@/src/entities/place'
 import { ProfileImage } from '@/src/shared/ui'
-import { ReviewTag, StarRateView, ActionDropdown } from '@/src/features'
+import { ActionDropdown } from '@/src/features'
 import { useState } from 'react'
-import { useDeletePlaceReview } from '@/src/entities/place'
 import Image from 'next/image'
 import { ImageView } from './ImageView'
 

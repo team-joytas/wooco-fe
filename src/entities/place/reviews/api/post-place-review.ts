@@ -1,8 +1,8 @@
 import { customAxios } from '@/src/shared/api'
 import { ReviewPayloadType } from '../model'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { PLACE_URL } from './endpoint'
-import { PLACE_QUERY_KEY } from './queryKey'
+import { PLACE_REVIEW_URL } from './endpoint'
+import { PLACE_REVIEW_QUERY_KEY } from './queryKey'
 
 export const postPlaceReview = async (
   placeId: string,
@@ -10,7 +10,7 @@ export const postPlaceReview = async (
 ) => {
   try {
     const response = await customAxios.post(
-      PLACE_URL.reviewsByPlace(placeId),
+      PLACE_REVIEW_URL.reviewsByPlace(placeId),
       reviewPayload
     )
     return response.data
@@ -27,10 +27,10 @@ export const usePostPlaceReview = (place_id: string) => {
     mutationFn: (data: ReviewPayloadType) => postPlaceReview(place_id, data),
     onSuccess: () => {
       queryClient.refetchQueries({
-        queryKey: PLACE_QUERY_KEY.reviews(place_id),
+        queryKey: PLACE_REVIEW_QUERY_KEY.reviews(place_id),
       })
       queryClient.refetchQueries({
-        queryKey: PLACE_QUERY_KEY.detail(place_id),
+        queryKey: PLACE_REVIEW_QUERY_KEY.detail(place_id),
       })
     },
   })

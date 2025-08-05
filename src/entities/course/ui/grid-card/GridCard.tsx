@@ -3,9 +3,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { ProfileImage } from '@/src/shared/ui'
-import { CourseType } from '@/src/entities/course'
+import {
+  CourseType,
+  CourseActionBar,
+  useCourseLike,
+} from '@/src/entities/course'
 import logo from '@/src/assets/icon/small(20)/logo.svg'
-import { CourseActionBar, useCourseLike } from '@/src/features'
 import { useEffect, useState } from 'react'
 import { ShareModal } from '@/src/features'
 

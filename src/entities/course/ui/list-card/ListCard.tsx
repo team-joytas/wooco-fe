@@ -1,9 +1,12 @@
 'use client'
 
 import { ImageWithIndex, ProfileImage } from '@/src/shared/ui'
-import { type CourseType } from '@/src/entities/course'
+import {
+  type CourseType,
+  CourseActionBar,
+  useCourseLike,
+} from '@/src/entities/course'
 import Link from 'next/link'
-import { CourseActionBar, useCourseLike } from '@/src/features'
 import { ShareModal } from '@/src/features'
 import { useEffect, useState } from 'react'
 

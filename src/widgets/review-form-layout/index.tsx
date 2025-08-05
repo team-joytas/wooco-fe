@@ -10,7 +10,7 @@ import {
   useGetPlaceReview,
   useUpdatePlaceReview,
 } from '@/src/entities/place'
-import FormReview from '@/src/features/place/FormReview'
+import FormReview from '@/src/entities/place/ui/FormReview'
 import { ReviewPayloadType } from '@/src/entities/place'
 import { useRouter } from 'next/navigation'
 
@@ -42,7 +42,7 @@ export default function ReviewFormLayout({
   })
   const [placeInfo, setPlaceInfo] = useState({ name: '', address: '' })
   const { data: placeData } = useGetPlace(placeId)
-  const { data: reviewData } = useGetPlaceReview(reviewId)
+  const { data: reviewData } = useGetPlaceReview(placeId, reviewId)
   const { mutateAsync: createPlaceMutate } = usePostPlaceReview(placeId)
   const { mutateAsync: updatePlaceMutate } = useUpdatePlaceReview(
     placeId,
