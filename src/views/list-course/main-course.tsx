@@ -32,7 +32,6 @@ export default function MainCourse() {
 
   useEffect(() => {
     document.body.style.overflow = isLoading ? 'hidden' : 'unset'
-    setSelectedRegion([])
   }, [isLoading])
 
   useEffect(() => {

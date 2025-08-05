@@ -25,6 +25,7 @@ import {
 import { useQueryClient } from '@tanstack/react-query'
 import { useToast } from '@/src/shared/provider'
 import useUserStore from '@/src/shared/store/userStore'
+import useRegionStore from '@/src/shared/store/regionStore'
 
 const LAYOUT_TYPE = {
   course: 'course' as const,
@@ -63,6 +64,7 @@ export default function CoursePlanFormLayout({
   const router = useRouter()
   const queryClient = useQueryClient()
   const { show } = useToast()
+  const { setSelectedRegion } = useRegionStore()
 
   const [places, setPlaces] = useState<CoursePlanPlaceType[]>([])
   const [openSearchPlace, setOpenSearchPlace] = useState<boolean>(false)
@@ -111,11 +113,11 @@ export default function CoursePlanFormLayout({
       contents,
       visit_date,
       places,
-      writer,
     } = fetchData
+    const writer = 'writer' in fetchData && fetchData.writer
 
     const { user } = useUserStore.getState()
-    if (!user || writer.id !== user?.user_id) {
+    if (writer && (!user || writer.id !== user?.user_id)) {
       router.push(`/${type}s/${id}`)
       show('warning', '수정 권한이 없습니다.')
       return
@@ -205,6 +207,12 @@ export default function CoursePlanFormLayout({
       places.map((place) => place.id.toString())
     )
   }, [places])
+
+  useEffect(() => {
+    return () => {
+      setSelectedRegion([])
+    }
+  }, [])
 
   const onSubmit = async (data: PayloadType) => {
     try {
