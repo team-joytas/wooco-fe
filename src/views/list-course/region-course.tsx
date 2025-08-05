@@ -21,7 +21,8 @@ export default function RegionCourse({
 }: RegionCourseProps) {
   const [isListView, setIsListView] = useState(true)
   const [order, setOrder] = useState<'RECENT' | 'POPULAR'>('RECENT')
-  const { likedRegions, addLikedRegion, removeLikedRegion } = useRegionStore()
+  const { likedRegions, addLikedRegion, removeLikedRegion, setSelectedRegion } =
+    useRegionStore()
   const [isLiked, setIsLiked] = useState(false)
   const [category, setCategory] = useState<string[]>(['ALL'])
   const { show } = useToast()
@@ -42,6 +43,12 @@ export default function RegionCourse({
     const isListView = sessionStorage.getItem('is-list')
     if (isListView) {
       setIsListView(isListView === 'true')
+    }
+
+    setSelectedRegion([primary, secondary])
+
+    return () => {
+      setSelectedRegion([])
     }
   }, [])
 
@@ -137,12 +144,12 @@ export default function RegionCourse({
 
 const findLikedRegionId = (
   likedRegions: LikeRegion[],
-  currentRegion: string[]
+  selectedRegion: string[]
 ): string => {
   const matchedRegion = likedRegions.find(
     (region) =>
-      region.primary_region === currentRegion[0] &&
-      region.secondary_region === currentRegion[1]
+      region.primary_region === selectedRegion[0] &&
+      region.secondary_region === selectedRegion[1]
   )
 
   return matchedRegion ? matchedRegion.id : ''
