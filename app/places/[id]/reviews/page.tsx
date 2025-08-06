@@ -1,5 +1,44 @@
-import ListPlaceReview from '@/src/views/list-place-review'
+'use client'
+
+import {
+  useGetPlaceReviews,
+  PlaceReviewCard,
+  PlaceReviewCardSkeleton,
+} from '@/src/entities/place'
+import { Spacer } from '@/src/shared/ui'
+import { ActionHeader } from '@/src/widgets'
 
 export default function Page({ params }: { params: { id: string } }) {
-  return <ListPlaceReview placeId={params.id} />
+  const { id: placeId } = params
+  const { data: reviewData } = useGetPlaceReviews(placeId)
+
+  if (!reviewData) {
+    return (
+      <>
+        <ActionHeader title='전체 리뷰' isBack />
+        <div className='flex flex-col px-[20px]'>
+          <Spacer height={20} />
+          {Array.from({ length: 10 }, (_, index) => (
+            <PlaceReviewCardSkeleton key={index} />
+          ))}
+          <Spacer height={20} />
+        </div>
+      </>
+    )
+  }
+
+  return (
+    <>
+      <ActionHeader title='전체 리뷰' isBack />
+      <div className='flex flex-col px-[20px]'>
+        <Spacer height={20} />
+        {reviewData.map((review) => (
+          <div key={review.id}>
+            <PlaceReviewCard placeId={placeId} content={review} />
+          </div>
+        ))}
+        <Spacer height={20} />
+      </div>
+    </>
+  )
 }

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { Spacer } from '@/src/shared/ui'
-import { CardEvent } from '@/src/features'
+import { CardEvent } from '@/src/widgets'
 
 export function SectionEvent() {
   return (

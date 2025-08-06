@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { Spacer } from '@/src/shared/ui'
-import { MainHeader } from '@/src/widgets'
-import DefaultFooter from '@/src/widgets/default-footer'
+import { MainHeader, NavigationBar } from '@/src/widgets'
 import localFont from 'next/font/local'
 import { AppProviders } from '@/src/shared/provider'
 import { Suspense } from 'react'
@@ -40,7 +39,7 @@ export default function RootLayout({
             {children}
             <Spacer height={60} notShowURLs={['/login']} />
           </div>
-          <DefaultFooter />
+          <NavigationBar />
         </AppProviders>
       </body>
     </html>

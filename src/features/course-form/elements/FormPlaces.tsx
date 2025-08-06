@@ -1,7 +1,7 @@
 import { CoursePayloadType } from '@/src/entities/course'
 import { CoursePlanPlaceType } from '@/src/entities/place'
 import { ActiveKakaoMap, HelperText } from '@/src/shared/ui'
-import DragPlace from '@/src/widgets/drag-place'
+import { DragPlace } from '@/src/widgets'
 import { Dispatch, SetStateAction } from 'react'
 import { useFormContext } from 'react-hook-form'
 import plus from '@/src/assets/icon/medium/plus_white.svg'
