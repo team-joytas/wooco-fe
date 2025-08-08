@@ -1,3 +1,5 @@
+import { PlaceReviewDetailType } from '../reviews'
+
 export type PlaceType = {
   id: string
   name: string
@@ -10,6 +12,11 @@ export type PlaceType = {
   phone_number: string
   thumbnail_url: string
   place_one_line_review_stats: PlaceReviewStatsType[]
+}
+
+export type PlaceAggregationType = {
+  place: PlaceType
+  place_reviews: PlaceReviewDetailType[]
 }
 
 export type PlaceReviewStatsType = {

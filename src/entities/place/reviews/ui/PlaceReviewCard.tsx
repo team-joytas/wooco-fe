@@ -18,14 +18,9 @@ import { ImageView } from './ImageView'
 type PlaceReviewCardProps = {
   placeId: string
   content: PlaceReviewDetailType
-  refetch?: () => void
 }
 
-export function PlaceReviewCard({
-  placeId,
-  content,
-  refetch,
-}: PlaceReviewCardProps) {
+export function PlaceReviewCard({ placeId, content }: PlaceReviewCardProps) {
   const { id, writer, rating, one_line_reviews, image_urls, created_at } =
     content
   const { user } = useUserStore()
@@ -36,14 +31,7 @@ export function PlaceReviewCard({
   const { mutate: deletePlaceReview } = useDeletePlaceReview(placeId)
   const handleDelete = () => {
     try {
-      deletePlaceReview(id.toString(), {
-        onSuccess: () => {
-          if (refetch) {
-            refetch()
-          }
-        },
-        onError: (error) => console.error(error),
-      })
+      deletePlaceReview(id.toString())
     } catch (error) {
       console.error(error)
     }
