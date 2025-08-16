@@ -14,15 +14,13 @@ import {
   DetailPlaceLayoutSkeleton,
   PlaceFooter,
   Section,
+  PlaceReviewLinks,
 } from '@/src/widgets'
 import { Spacer, KakaoMap } from '@/src/shared/ui'
 import { Copy, Phone } from 'lucide-react'
 import { ScrollTabs, ScrollTabType } from '@/src/features'
 import logo from '@/src/assets/images/(logo)/logo.png'
-import allReview from '@/src/assets/images/all_review_icon.svg'
-import kakaoReview from '@/src/assets/images/kakao_review_icon.svg'
 import { useToast } from '@/src/shared/provider'
-import Link from 'next/link'
 
 export default function Page({ params }: { params: { id: string } }) {
   const { id } = params
@@ -209,31 +207,11 @@ export default function Page({ params }: { params: { id: string } }) {
             </div>
           )}
 
-          <div className='flex flex-col justify-center items-center gap-[18px]'>
-            <Link href={`/places/${id}/reviews`}>
-              <div className='w-[315px] relative h-[45px] flex flex-row items-center justify-start py-0 pl-[64px] gap-[14.73px] shadow-[0px_0px_5.1px_rgba(0,_0,_0,_0.4)] rounded-[99px] overflow-hidden'>
-                <div className='font-bold w-[120px] text-main flex items-center'>
-                  전체 리뷰 바로보기
-                </div>
-                <div className='w-[75px] h-[75px] relative flex justify-center items-center'>
-                  <Image className='relative' fill alt='' src={allReview} />
-                </div>
-              </div>
-            </Link>
-
-            <Link
-              href={`https://place.map.kakao.com/m/${placeData.kakao_place_id}`}
-            >
-              <div className='w-[315px] relative h-[45px] flex flex-row items-center justify-start py-0 pl-[64px] gap-[14.73px] shadow-[0px_0px_5.1px_rgba(0,_0,_0,_0.4)] rounded-[99px] overflow-hidden'>
-                <div className='font-bold w-[132px] text-main flex items-center'>
-                  카카오 리뷰 바로가기
-                </div>
-                <div className='w-[73px] h-[68px] relative flex justify-center items-center'>
-                  <Image className='relative' fill alt='' src={kakaoReview} />
-                </div>
-              </div>
-            </Link>
-          </div>
+          <PlaceReviewLinks
+            placeId={id}
+            kakaoPlaceId={placeData.kakao_place_id}
+            size='large'
+          />
         </div>
       </div>
 
