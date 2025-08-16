@@ -4,10 +4,9 @@ import React, { useCallback, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import {
-  useGetPlace,
-  useGetPlaceReviews,
   ReviewStats,
   PlaceReviewCard,
+  useGetPlaceAggregation,
 } from '@/src/entities/place'
 import {
   ActionHeader,
@@ -24,8 +23,7 @@ import { useToast } from '@/src/shared/provider'
 
 export default function Page({ params }: { params: { id: string } }) {
   const { id } = params
-  const { data: placeData } = useGetPlace(id)
-  const { data: reviewData, refetch } = useGetPlaceReviews(id)
+  const { data: placeData } = useGetPlaceAggregation(id)
 
   const router = useRouter()
   const { show } = useToast()
@@ -34,25 +32,6 @@ export default function Page({ params }: { params: { id: string } }) {
   const infoRef = useRef<HTMLDivElement>(null)
   const reviewRef = useRef<HTMLDivElement>(null)
   const isScrollingRef = useRef<boolean>(false)
-
-  const toast = (address: string) => {
-    navigator.clipboard.writeText(address).then(() => {
-      show('notice', '주소가 클립보드에 복사되었습니다.')
-    })
-  }
-
-  const tabs = placeData && [
-    {
-      label: '장소 정보',
-      onClick: () => handleTabClick('info', infoRef),
-      isActive: activeTab === 'info',
-    },
-    {
-      label: `리뷰 (${placeData.review_count})`,
-      onClick: () => handleTabClick('review', reviewRef),
-      isActive: activeTab === 'review',
-    },
-  ]
 
   const handleTabClick = useCallback(
     (tab: ScrollTabType, ref: React.RefObject<HTMLDivElement | null>) => {
@@ -75,26 +54,42 @@ export default function Page({ params }: { params: { id: string } }) {
     []
   )
 
-  if (!placeData || !reviewData) {
+  if (!placeData) {
     return <DetailPlaceLayoutSkeleton />
   }
 
+  const { place, place_reviews: placeReviews } = placeData
+
+  const toast = (address: string) => {
+    navigator.clipboard.writeText(address).then(() => {
+      show('notice', '주소가 클립보드에 복사되었습니다.')
+    })
+  }
+
+  const tabs = [
+    {
+      label: '장소 정보',
+      onClick: () => handleTabClick('info', infoRef),
+      isActive: activeTab === 'info',
+    },
+    {
+      label: `리뷰 (${place.review_count})`,
+      onClick: () => handleTabClick('review', reviewRef),
+      isActive: activeTab === 'review',
+    },
+  ]
+
   return (
     <>
-      <ActionHeader
-        title={placeData.name || ''}
-        isTitleTag
-        isTitleCenter
-        isBack
-      />
+      <ActionHeader title={place.name || ''} isTitleTag isTitleCenter isBack />
       <div
         className={'w-full flex flex-col items-center min-h-[100vh] bg-white'}
       >
         <Image
           width={375}
           height={210}
-          src={placeData.thumbnail_url || logo}
-          alt={placeData.name || ''}
+          src={place.thumbnail_url || logo}
+          alt={place.name || ''}
           className='w-[375px] h-[210px] object-cover'
         />
 
@@ -107,14 +102,14 @@ export default function Page({ params }: { params: { id: string } }) {
         <Spacer height={26} />
 
         <div ref={infoRef} className='w-full flex flex-col items-center'>
-          {placeData.phone_number && (
+          {place.phone_number && (
             <>
               <Section title='매장 번호'>
                 <div className='flex flex-row h-[44px] px-[25px] py-[10px] items-center justify-between rounded-full border-0 bg-bright-gray'>
                   <span className='block text-middle text-black max-w-[200px]'>
-                    {placeData.phone_number}
+                    {place.phone_number}
                   </span>
-                  <a href={`tel:${placeData.phone_number}`}>
+                  <a href={`tel:${place.phone_number}`}>
                     <Phone
                       className='cursor-pointer text-brand'
                       size={16}
@@ -129,11 +124,11 @@ export default function Page({ params }: { params: { id: string } }) {
           <Section title='위치 정보'>
             <div className='flex flex-row h-[44px] px-[25px] py-[10px] items-center justify-between rounded-full border-0 bg-bright-gray'>
               <span className='block text-middle text-black max-w-[200px]'>
-                {placeData.address}
+                {place.address}
               </span>
               <Copy
                 className='cursor-pointer text-brand'
-                onClick={() => toast(placeData.address)}
+                onClick={() => toast(place.address)}
                 size={16}
                 strokeWidth={1.5}
               />
@@ -142,9 +137,9 @@ export default function Page({ params }: { params: { id: string } }) {
           <Spacer height={20} />
           <KakaoMap
             place={{
-              name: placeData.name,
-              latitude: placeData.latitude,
-              longitude: placeData.longitude,
+              name: place.name,
+              latitude: place.latitude,
+              longitude: place.longitude,
             }}
           />
 
@@ -157,7 +152,7 @@ export default function Page({ params }: { params: { id: string } }) {
           <Section
             title='리뷰'
             subtitle={
-              placeData.place_one_line_review_stats.length > 0
+              place.place_one_line_review_stats.length > 0
                 ? '가장 언급 많은 키워드 랭킹이에요!'
                 : ''
             }
@@ -170,15 +165,13 @@ export default function Page({ params }: { params: { id: string } }) {
               </button>
             }
           >
-            {placeData.review_count !== 0 &&
-              placeData.place_one_line_review_stats.length > 0 && (
+            {place.review_count !== 0 &&
+              place.place_one_line_review_stats.length > 0 && (
                 <>
                   <Spacer height={15} />
                   <ReviewStats
-                    placeOnLineReviewStats={
-                      placeData.place_one_line_review_stats
-                    }
-                    AverageRating={placeData.average_rating}
+                    placeOnLineReviewStats={place.place_one_line_review_stats}
+                    AverageRating={place.average_rating}
                   />
                   <Spacer height={15} />
                   <Spacer height={4} className='bg-light-gray' />
@@ -186,15 +179,14 @@ export default function Page({ params }: { params: { id: string } }) {
               )}
           </Section>
 
-          {placeData.review_count !== 0 ? (
+          {place.review_count !== 0 ? (
             <>
               <div className='flex flex-col w-full px-[20px] py-[20px]'>
-                {reviewData.map((review) => (
+                {placeReviews.map((review) => (
                   <PlaceReviewCard
                     key={review.id}
-                    placeId={placeData.id.toString()}
+                    placeId={place.id.toString()}
                     content={review}
-                    refetch={refetch}
                   />
                 ))}
               </div>
@@ -209,7 +201,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
           <PlaceReviewLinks
             placeId={id}
-            kakaoPlaceId={placeData.kakao_place_id}
+            kakaoPlaceId={place.kakao_place_id}
             size='large'
           />
         </div>
