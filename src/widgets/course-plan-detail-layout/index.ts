@@ -1,2 +1,2 @@
-export * from './skeleton-layout'
-export * from './detail-layout'
+export * from './CoursePlanDetailLayoutSkeleton'
+export * from './CoursePlanDetailLayout'

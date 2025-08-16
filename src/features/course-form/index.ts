@@ -1,2 +1,2 @@
-export * from './course-form'
+export * from './CourseForm'
 export * from './elements'

@@ -1,5 +1,33 @@
-import DetailPlan from '@/src/views/detail-plan'
+'use client'
+
+import {
+  CoursePlanDetailLayout,
+  CoursePlanDetailLayoutSkeleton,
+} from '@/src/widgets'
+import { useGetPlan } from '@/src/entities/plan'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 export default function Page({ params }: { params: { id: string } }) {
-  return <DetailPlan planId={params.id} />
+  const planId = params.id
+  const { data: plan, isLoading, isError } = useGetPlan(planId)
+
+  const router = useRouter()
+
+  useEffect(() => {
+    // 로딩 중일때 스크롤 금지
+    if (isLoading) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isLoading])
+
+  if (isLoading) return <CoursePlanDetailLayoutSkeleton type='course' />
+
+  if (isError || !plan) {
+    router.push('/not-found')
+  }
+
+  return <CoursePlanDetailLayout type='plan' id={planId} data={plan} />
 }

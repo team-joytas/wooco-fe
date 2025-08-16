@@ -1,1 +1,1 @@
-export * from './action-dropdown'
+export * from './ActionDropdown'
