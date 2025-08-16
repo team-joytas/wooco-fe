@@ -90,7 +90,7 @@ function NicknameInput({ register, errors }: NicknameInputProps) {
   const validateNickname = (value: string) => {
     if (!value) return '닉네임을 입력해주세요.'
     if (value.includes(' ')) return '공백은 입력할 수 없습니다.'
-    if (/[`~!@#$%^&*|\\'"/?]/gi.test(value))
+    if (/[^a-zA-Z0-9가-힣]/.test(value))
       return '특수 문자는 입력할 수 없습니다.'
     if (value.length < 2 || value.length > 10)
       return '2자 이상 10자 이하로 입력해주세요.'
