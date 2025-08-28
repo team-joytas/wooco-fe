@@ -3,34 +3,31 @@
 import { useMemo, useState } from 'react'
 import leftIcon from '@/src/assets/icon/medium/left.svg'
 import rightIcon from '@/src/assets/icon/medium/right.svg'
+import rightBlueArrowIcon from '@/src/assets/icon/medium/right-blue-arrow.svg'
 import Image from 'next/image'
+import MonthYearPicker from '@/src/widgets/date-pikcker/MonthYearPicker'
 
 const weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
-/** A simple schedule shape: map of 'YYYY-MM-DD' -> number of reservations */
-export type ReservationsByDate = Record<string, number>
+/** A simple schedule shape: map of 'YYYY-MM-DD' -> number of plans */
+export type PlansByDate = Record<string, number>
 
 export interface DatePickerProps {
-  schedules?: ReservationsByDate
+  schedules?: PlansByDate
   /** Optional: limit how many dots to render (extra will collapse into +N) */
   maxDotsPerDay?: number
   /** Optional: when a user clicks a date */
   onDateSelect?: (date: Date) => void
-  /** Optional: controlled initial year/month (1-based month) */
-  initialYear?: number
-  initialMonth?: number
 }
 
 export default function DatePicker({
                                      schedules = {},
                                      maxDotsPerDay = 3,
                                      onDateSelect,
-                                     initialYear,
-                                     initialMonth,
                                    }: DatePickerProps) {
   const today = new Date()
-  const [year, setYear] = useState(initialYear ?? today.getFullYear())
-  const [month, setMonth] = useState(initialMonth ?? today.getMonth() + 1) // 1-based month
+  const [year, setYear] = useState(today.getFullYear())
+  const [month, setMonth] = useState(today.getMonth() + 1) // 1-based month
 
   const days = useMemo(() => getDatesOfMonth(year, month), [year, month])
   const firstDay = useMemo(() => new Date(year, month - 1, 1).getDay(), [year, month])
@@ -59,25 +56,38 @@ export default function DatePicker({
   const leadingPads = firstDay
   const trailingPads = Math.max(0, totalCells - leadingPads - days.length)
 
+  const [isModalOpen, setIsModalOpen] = useState(false)
   return (
     <div className='max-w-sm mx-auto p-5 border rounded-xl min-h-[300px]'>
+
+      {/* Modal */}
+      <MonthYearPicker isOpen={isModalOpen} initialYear={year} initialMonth={month} minYear={1980} maxYear={2099} onClose={()=>{setIsModalOpen(false)}} onConfirm={(year, month)=>{setYear(year); setMonth(month);}}/>
+
       {/* Header */}
       <div className='flex items-center justify-between mb-4'>
         <button
           type='button'
-          onClick={() => {
-            setYear(today.getFullYear())
-            setMonth(today.getMonth() + 1)
-          }}
+          onClick={() => {setIsModalOpen(true)}}
           aria-label='Go to current month'
         >
-          <h1 className='pl-1 text-center text-headline01 text-wooco_blue-primary font-headline01 flex items-center gap-1'>
-            {month}월 {year}
-            <Image src={rightIcon} alt='arrow' width={20} />
-          </h1>
+          <div className='pl-1 text-center  text-headline01 text-wooco_blue-primary font-headline01 flex items-center justify-center gap-1'>
+            <h1>
+              {month}월 {year}
+            </h1>
+            <Image
+              src={rightBlueArrowIcon}
+              alt='arrow'
+              width={6.69}
+              height={11.4}
+            />
+          </div>
         </button>
         <div className='flex justify-around gap-5'>
-          <button type='button' onClick={goToPrevMonth} aria-label='Previous month'>
+          <button
+            type='button'
+            onClick={goToPrevMonth}
+            aria-label='Previous month'
+          >
             <Image alt='arrow left' src={leftIcon} width={28} />
           </button>
           <button type='button' onClick={goToNextMonth} aria-label='Next month'>
@@ -119,8 +129,8 @@ export default function DatePicker({
             >
               <div className='h-[28px] leading-[20px]'>{date.getDate()}</div>
 
-              {/* small circle each reservation in a day */}
-              <div className='flex items-center justify-center gap-[4px] h-3'>
+              {/* small circle each plan in a day */}
+              <div className='flex items-center justify-center gap-[3px] h-3'>
                 {Array.from({ length: visibleDots }).map((_, idx) => (
                   <span
                     key={`${key}-dot-${idx}`}
@@ -129,7 +139,9 @@ export default function DatePicker({
                   />
                 ))}
                 {extra > 0 && (
-                  <span className='text-[10px] leading-[10px] text-gray-200'>+{extra}</span>
+                  <span className='text-[10px] leading-[10px] text-gray-200'>
+                    +{extra}
+                  </span>
                 )}
               </div>
             </button>
