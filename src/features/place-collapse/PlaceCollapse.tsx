@@ -93,8 +93,12 @@ export function PlaceCollapse({
       {items.map((item, index) => {
         const isOpen = activeIndex === index
         return (
-          <div key={item.key} className='flex flex-col gap-[15px]'>
+          <div
+            key={item.key}
+            className={`flex flex-col ${items.length > 1 && 'gap-[15px]'}`}
+          >
             <button
+              type='button'
               onClick={() => toggleItem(index)}
               className={`w-full flex justify-between items-center px-[16px] py-[10px] text-left text-middle font-[500] h-[40px]
                 bg-bright-gray rounded-full shadow-sm transition-[border] duration-300 ease-in-out ${

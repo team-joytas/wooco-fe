@@ -93,7 +93,7 @@ export function CoursePlanHeader({
         <BackButton onClick={handleClickBack} />
       </div>
 
-      <TitleWithTagStyle title={title} isTitleCenter />
+      <TitleWithTagStyle title={title} />
 
       <div className='flex items-center gap-[10px]'>
         {isMine ? (

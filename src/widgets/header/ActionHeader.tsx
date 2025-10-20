@@ -98,7 +98,7 @@ export function ActionHeader({
           {isTitleCenter ? (
             <div className='relative flex items-center justify-between w-full'>
               <BackButton onClick={handleClickBack} />
-              <TitleWithTagStyle title={title} isTitleCenter />
+              <TitleWithTagStyle title={title} />
               <div className='flex items-center'>
                 {showLike && (
                   <Image
@@ -119,7 +119,7 @@ export function ActionHeader({
             <>
               <div className='flex items-center gap-[10px]'>
                 <BackButton onClick={handleClickBack} />
-                <TitleWithTagStyle title={title} isTitleCenter={false} />
+                <TitleWithTagStyle title={title} />
                 {showLike && (
                   <Image
                     src={

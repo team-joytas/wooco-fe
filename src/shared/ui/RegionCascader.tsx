@@ -4,7 +4,7 @@ import { getSeoulData } from '@/src/entities/place'
 import React, { useMemo, useState } from 'react'
 import { UserLikeRegionType } from '@/src/entities/user'
 import right from '@/src/assets/icon/medium/right.svg'
-import search from '@/src/assets/icon/medium/search.svg'
+import down from '@/src/assets/icon/medium/down.svg'
 import Image from 'next/image'
 
 interface CascaderProps {
@@ -51,6 +51,7 @@ export function RegionCascader({
       }
       setRegion={setRegion}
       clickable={clickable}
+      hasBorder={false}
     />
   )
 }
@@ -99,6 +100,7 @@ interface RegionCascaderBaseProps {
   setRegion: (value: string[]) => void
   options: RegionCascaderProps[]
   clickable: boolean
+  hasBorder?: boolean
 }
 
 export function RegionCascaderBase({
@@ -106,6 +108,7 @@ export function RegionCascaderBase({
   setRegion,
   options,
   clickable = true,
+  hasBorder = true,
 }: RegionCascaderBaseProps) {
   const [showCascader, setShowCascader] = useState(false)
   const [focusedOptionIndex, setFocusedOptionIndex] = useState(-1)
@@ -132,7 +135,7 @@ export function RegionCascaderBase({
   return (
     <div className='w-full px-[10px] flex flex-col items-center relative'>
       <button
-        className='w-[339px] h-[40px] rounded-[99px] px-[15px] relative flex justify-start items-center border-wooco_blue-primary border-[1.5px]'
+        className={`w-[339px] h-[37px] rounded-[99px] px-[20px] relative flex justify-start items-center ${hasBorder ? 'border-wooco_blue-primary border-[1.5px]' : 'bg-gray-100'}`}
         onClick={() => {
           if (!clickable) return
           setShowCascader(!showCascader)
@@ -142,11 +145,11 @@ export function RegionCascaderBase({
           {selectedRegion}
         </span>
         <Image
-          src={search}
-          alt='search'
+          src={down}
+          alt='down'
           width={16}
           height={16}
-          className='absolute right-[10px]'
+          className='absolute right-[20px]'
         />
       </button>
 

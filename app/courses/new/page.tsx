@@ -1,5 +1,5 @@
-import { CoursePlanFormLayout } from '@/src/widgets'
+import { CourseFormLayout } from '@/src/widgets/course-plan-form-layout'
 
 export default function Page() {
-  return <CoursePlanFormLayout type='course' level='add' />
+  return <CourseFormLayout level='add' />
 }

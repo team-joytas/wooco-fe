@@ -1,3 +1,5 @@
+'use client'
+
 import { CourseInputType } from '@/src/entities/course'
 import { HelperText } from '@/src/shared/ui'
 import { useFormContext } from 'react-hook-form'
