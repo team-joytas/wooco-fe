@@ -1,6 +1,5 @@
 import type { WriterType } from '@/src/entities/user/model/type'
 import type { CoursePlanPlaceType } from '@/src/entities/place'
-import type { CategoryType } from '@/src/entities/course/model'
 
 export type FavoriteRegionType = {
   id: number
@@ -12,7 +11,7 @@ export type CourseType = {
   title: string
   primary_region: string
   secondary_region: string
-  categories: CategoryType[]
+  categories: string[]
   contents: string
   views: number
   comments: number
@@ -31,5 +30,15 @@ export type CoursePayloadType = {
   title: string
   contents: string
   place_ids: string[]
+  visit_date: string
+}
+
+export type CourseInputType = {
+  title: string
+  primary_region: string
+  secondary_region: string
+  categories: string[]
+  contents: string
+  places: CoursePlanPlaceType[]
   visit_date: string
 }
