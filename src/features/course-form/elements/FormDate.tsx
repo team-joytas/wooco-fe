@@ -1,21 +1,15 @@
 'use client'
 
 import { useFormContext } from 'react-hook-form'
-import type { CoursePayloadType } from '@/src/entities/course'
 import { DatePicker, type DatePickerProps } from 'antd'
 import { HelperText } from '@/src/shared/ui'
 import { useState } from 'react'
 import dayjs from 'dayjs'
 import { Calendar } from 'lucide-react'
+import { CourseInputType } from '@/src/entities/course'
 
-export function FormDate({
-  isSubmitted,
-  pageType,
-}: {
-  isSubmitted: boolean
-  pageType: string
-}) {
-  const { register, setValue, getValues } = useFormContext<CoursePayloadType>()
+export function FormDate({ showValidation }: { showValidation: boolean }) {
+  const { register, setValue, getValues } = useFormContext<CourseInputType>()
   const [date, setDate] = useState<string | null>(
     getValues('visit_date') || null
   )
@@ -25,8 +19,8 @@ export function FormDate({
     setDate(dateString as string)
   }
 
-  const minDate = pageType === '플랜' ? dayjs() : undefined
-  const maxDate = pageType === '코스' ? dayjs() : undefined
+  const minDate = undefined
+  const maxDate = dayjs()
 
   return (
     <>
@@ -38,12 +32,27 @@ export function FormDate({
         defaultValue={date ? dayjs(date) : undefined}
         {...(minDate ? { minDate } : {})}
         {...(maxDate ? { maxDate } : {})}
-        suffixIcon={
-          <Calendar size={16} strokeWidth={1.5} className='text-brand' />
+        prefix={
+          <Calendar
+            size={16}
+            strokeWidth={1.5}
+            className='text-brand mr-[10px]'
+          />
         }
-        style={{ height: '36px', borderRadius: '100px' }}
+        suffixIcon={null}
+        style={{
+          height: '37px',
+          borderRadius: '100px',
+          backgroundColor: '#F5F5F5',
+          padding: '0 20px',
+        }}
       />
-      {!date && isSubmitted && <HelperText message='날짜를 선택해주세요.' />}
+      {!date && showValidation && (
+        <HelperText
+          message='날짜를 선택해주세요.'
+          margin='mt-[-10px] mb-[-20px]'
+        />
+      )}
     </>
   )
 }

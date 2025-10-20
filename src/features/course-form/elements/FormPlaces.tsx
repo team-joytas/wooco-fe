@@ -1,4 +1,4 @@
-import { CoursePayloadType } from '@/src/entities/course'
+import { CourseInputType } from '@/src/entities/course'
 import { CoursePlanPlaceType } from '@/src/entities/place'
 import { ActiveKakaoMap, HelperText } from '@/src/shared/ui'
 import { DragPlace } from '@/src/widgets'
@@ -11,19 +11,19 @@ export function FormPlaces({
   places,
   setPlaces,
   handleClickSearchPlace,
-  isSubmitted,
+  showValidation,
 }: {
   places: CoursePlanPlaceType[]
   setPlaces: Dispatch<SetStateAction<CoursePlanPlaceType[]>>
   handleClickSearchPlace: () => void
-  isSubmitted: boolean
+  showValidation: boolean
 }) {
-  const { register } = useFormContext<CoursePayloadType>()
+  const { register } = useFormContext<CourseInputType>()
 
   return (
     <div
       className='px-[20px] w-full flex flex-col gap-[15px] padding'
-      {...register('place_ids', {
+      {...register('places', {
         validate: (value) => value.length > 0 || '장소를 선택해주세요.',
       })}
     >
@@ -36,8 +36,11 @@ export function FormPlaces({
       >
         <Image src={plus} alt='plus' className='' />
       </button>
-      {isSubmitted && places.length === 0 && (
-        <HelperText message='장소를 선택해주세요.' />
+      {showValidation && places.length === 0 && (
+        <HelperText
+          message='장소를 선택해주세요.'
+          margin='mt-[-10px] mb-[-20px]'
+        />
       )}
     </div>
   )

@@ -2,7 +2,7 @@
 
 import { Dispatch, SetStateAction } from 'react'
 import { useFormContext } from 'react-hook-form'
-import type { CoursePayloadType } from '@/src/entities/course'
+import type { CourseInputType } from '@/src/entities/course'
 import { HelperText, RegionCascader } from '@/src/shared/ui'
 import { useEffect } from 'react'
 import type { CoursePlanPlaceType } from '@/src/entities/place'
@@ -10,12 +10,12 @@ import useRegionStore from '@/src/shared/store/regionStore'
 
 export function FormRegion({
   setPlaces,
-  isSubmitted,
+  showValidation,
 }: {
   setPlaces: Dispatch<SetStateAction<CoursePlanPlaceType[]>>
-  isSubmitted: boolean
+  showValidation: boolean
 }) {
-  const { setValue, watch } = useFormContext<CoursePayloadType>()
+  const { setValue, watch } = useFormContext<CourseInputType>()
   const primary = watch('primary_region')
   const secondary = watch('secondary_region')
 
@@ -45,10 +45,13 @@ export function FormRegion({
           firstRegion={primary}
           secondRegion={secondary}
           setRegion={onChangeRegion}
-          placeholder='지역을 선택해주세요.'
+          placeholder='지역구를 선택하세요.'
         />
-        {isSubmitted && !primary && (
-          <HelperText message='지역을 선택해주세요.' />
+        {showValidation && !primary && (
+          <HelperText
+            message='지역구를 선택해주세요.'
+            margin='mt-[-10px] mb-[-20px]'
+          />
         )}
       </>
     )
