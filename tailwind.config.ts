@@ -32,6 +32,7 @@ const config: Config = {
         'wooco_blue-darker': '#1f1f55',
 
         'gray-100': '#F5F5F5',
+        'gray-150': '#E6E6E6',
         'gray-200': '#D9D9D9',
         'gray-300': '#CCCCCC',
         'gray-400': '#B3B3B3',
