@@ -6,13 +6,14 @@ import rightIcon from '@/src/assets/icon/medium/right.svg'
 import rightBlueArrowIcon from '@/src/assets/icon/medium/right-blue-arrow.svg'
 import Image from 'next/image'
 import MonthYearPicker from '@/src/widgets/date-pikcker/MonthYearPicker'
-
+import { CalendarPlanType } from '@/src/entities/calendar/model'
 const weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
 /** A simple schedule shape: map of 'YYYY-MM-DD' -> number of plans */
-export type PlansByDate = Record<string, number>
+export type PlansByDate = Record<string, CalendarPlanType[]>
 
 export interface DatePickerProps {
+  today?: Date
   schedules?: PlansByDate
   /** Optional: limit how many dots to render (extra will collapse into +N) */
   maxDotsPerDay?: number
@@ -20,12 +21,11 @@ export interface DatePickerProps {
   onDateSelect?: (date: Date) => void
 }
 
-export default function DatePicker({
+export default function DatePicker({ today = new Date(),
                                      schedules = {},
                                      maxDotsPerDay = 3,
                                      onDateSelect,
                                    }: DatePickerProps) {
-  const today = new Date()
   const [year, setYear] = useState(today.getFullYear())
   const [month, setMonth] = useState(today.getMonth() + 1) // 1-based month
 
@@ -58,7 +58,7 @@ export default function DatePicker({
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   return (
-    <div className='max-w-sm mx-auto p-5 border rounded-xl min-h-[300px]'>
+    <div className='max-w-sm mx-auto p-5 border rounded-xl min-h-[300px] shadow-[0_0_4px_rgba(0,0,0,0.15)] bg-white'>
 
       {/* Modal */}
       <MonthYearPicker isOpen={isModalOpen} initialYear={year} initialMonth={month} minYear={1980} maxYear={2099} onClose={()=>{setIsModalOpen(false)}} onConfirm={(year, month)=>{setYear(year); setMonth(month);}}/>
@@ -115,29 +115,41 @@ export default function DatePicker({
         {/* Actual days */}
         {days.map((date) => {
           const key = dateKey(date)
-          const count = schedules[key] ?? 0
+          const count = schedules[key]?.length ?? 0
           const visibleDots = Math.min(count, maxDotsPerDay)
           const extra = Math.max(0, count - visibleDots)
-
+          const isSelected = dateKey(today) === key
           return (
             <button
               type='button'
               key={key}
               onClick={() => onDateSelect?.(date)}
-              className='focus:bg-wooco_blue-primary focus:text-white rounded cursor-pointer flex items-center justify-between flex-col p-1  hover:outline-none hover:ring-2 hover:ring-wooco_blue-primary'
+              className={`rounded cursor-pointer flex flex-col items-center justify-between p-1 transition-all
+                ${ isSelected
+                ? 'bg-wooco_blue-primary text-white'
+                : 'hover:ring-2 hover:ring-wooco_blue-primary'}
+              `}
               aria-label={`${date.getMonth() + 1}/${date.getDate()} - ${count} reservations`}
             >
               <div className='h-[28px] leading-[20px]'>{date.getDate()}</div>
 
               {/* small circle each plan in a day */}
               <div className='flex items-center justify-center gap-[3px] h-3'>
-                {Array.from({ length: visibleDots }).map((_, idx) => (
-                  <span
+                {Array.from({ length: visibleDots }).map((_, idx) => {
+                  const plan = schedules[key]?.[idx]
+                  return (
+                    <span
                     key={`${key}-dot-${idx}`}
-                    className='inline-block w-[6px] h-[6px] rounded-full bg-gray-200'
+                    className='inline-block w-[6px] h-[6px] rounded-full'
+                    style={{
+                      backgroundColor: isSelected
+                        ? `#${plan?.groupColor ?? 'D9D9D9'}`
+                        : '#D9D9D9',
+                    }}
                     aria-hidden='true'
-                  />
-                ))}
+                    />
+                  )
+                })}
                 {extra > 0 && (
                   <span className='text-[10px] leading-[10px] text-gray-200'>
                     +{extra}
@@ -167,7 +179,7 @@ function getDatesOfMonth(year: number, month: number): Date[] {
   return dates
 }
 
-function dateKey(d: Date) {
+export function dateKey(d: Date) {
   const y = d.getFullYear()
   const m = `${d.getMonth() + 1}`.padStart(2, '0')
   const day = `${d.getDate()}`.padStart(2, '0')
