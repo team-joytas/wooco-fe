@@ -56,7 +56,7 @@ export default function Page() {
         className={`w-[450px] h-auto m-[-200px] fixed bottom-0 transition-all duration-[2000ms] ease-in-out ${
           imageLoaded
             ? 'scale-[150%] -translate-y-[50vh] opacity-10'
-            : 'scale-[100%]  opacity-100'
+            : 'scale-[100%] opacity-100'
         }  `}
         src={splashLogo}
         alt='splash'

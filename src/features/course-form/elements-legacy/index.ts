@@ -1,4 +1,4 @@
-export * from './FormTags'
+export * from './FormCategories'
 export * from './FormContents'
 export * from './FormDate'
 export * from './FormPlaces'

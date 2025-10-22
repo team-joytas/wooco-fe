@@ -1,3 +1,4 @@
+// FIXME: DELETE ME
 export const CATEGORY = {
   HOT_PLACE: '핫플',
   FAMOUS_RESTAURANT: '맛집',

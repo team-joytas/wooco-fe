@@ -1,3 +1,7 @@
+/////////////////////////////
+//      LEGACY LAYOUT      //
+/////////////////////////////
+
 'use client'
 
 import { FormProvider, useForm } from 'react-hook-form'
@@ -14,7 +18,7 @@ import {
   useUpdatePlan,
   PlanPayloadType,
 } from '@/src/entities/plan'
-import { CourseForm } from '@/src/features'
+import { CourseFormLegacy } from '@/src/features'
 import {
   COURSE_QUERY_KEY,
   useGetCourse,
@@ -290,7 +294,7 @@ export function CoursePlanFormLayout({
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           {shouldRenderForm && (
-            <CourseForm
+            <CourseFormLegacy
               pageType={pageType}
               places={places}
               setPlaces={setPlaces}

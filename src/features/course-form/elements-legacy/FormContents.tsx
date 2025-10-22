@@ -1,15 +1,15 @@
 'use client'
 
-import { CourseInputType } from '@/src/entities/course'
+import { CoursePayloadType } from '@/src/entities/course'
 import { HelperText } from '@/src/shared/ui'
 import { useRef } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-export function FormContents({ showValidation }: { showValidation: boolean }) {
+export function FormContents() {
   const {
     register,
     formState: { errors },
-  } = useFormContext<CourseInputType>()
+  } = useFormContext<CoursePayloadType>()
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
 
   const handleResize = () => {
@@ -27,7 +27,6 @@ export function FormContents({ showValidation }: { showValidation: boolean }) {
     }
     return true
   }
-
   return (
     <>
       <textarea
@@ -36,16 +35,13 @@ export function FormContents({ showValidation }: { showValidation: boolean }) {
           register('contents').ref(e)
           textareaRef.current = e
         }}
-        className='rounded-[10px] resize-none focus:outline-container-light-blue focus:outline-[0.5px] border-0 bg-gray-100 p-[15px] text-main01 text-gray-800 scale-[0.6875] h-[148.57px] w-[145.45%] origin-top-left'
-        placeholder='장소 간의 거리, 분위기, 꿀팁 등'
+        className='rounded-[10px] resize-none focus:outline-container-light-blue focus:outline-[0.5px] border-0 bg-gray-100 p-[15px] text-main01 text-gray-800 scale-[0.875] h-[148.57px] w-[114.29%] origin-top-left'
+        placeholder='방문 후기나 가기 전 꿀팁 등 다양한 정보가 있을수록 좋아요!'
         maxLength={200}
         onInput={handleResize}
       />
-      {showValidation && errors.contents && (
-        <HelperText
-          message={errors.contents.message || ''}
-          margin='mt-[-50px] mb-[20px]'
-        />
+      {errors.contents && (
+        <HelperText message={errors.contents.message || ''} />
       )}
     </>
   )
