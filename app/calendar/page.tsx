@@ -1,12 +1,13 @@
 'use client'
 
 import CalendarPlanList from '@/src/widgets/calendar-plan-list/CalendarPlanList'
-import DatePicker, { PlansByDate, dateKey } from '@/src/widgets/date-pikcker/DatePicker'
+import DatePicker, { PlansByDate, dateKey } from '@/src/widgets/date-picker/DatePicker'
 import crossIcon from '@/src/assets/icon/cross_white_24.svg'
 import Image from 'next/image'
 import { useMemo, useState } from 'react'
 import { CalendarPlanType } from '@/src/entities/calendar/model'
 import { useGetCalendarPlans } from '@/src/entities/calendar/api/useGetCalendarPlans'
+import CalendarGroupList from '@/src/widgets/calendar-group-list/CalendarGroupList'
 
 export default function Page() {
   const [nowDate, setNowDate] = useState(new Date())
@@ -14,6 +15,8 @@ export default function Page() {
 
   const { data, isLoading } = useGetCalendarPlans(nowDate.toString())
   const hashMap: PlansByDate = useMemo(() => calendarPlanToHashMap(data), [data])
+
+  const [groupListOpen, setGroupListOpen] = useState(false)
 
   return (
     <div>
@@ -54,13 +57,20 @@ export default function Page() {
             <div className='slider absolute bottom-0 h-[2px] w-[49px] bg-wooco_blue-primary transition-transform duration-200' />
           </div>
         </div>
-        <button className=' text-middle01 font-middle01 text-gray-700 bg-gray-200 py-2.5 px-6 rounded-full shadow-[0_0_4px_rgba(0,0,0,0.15)] '>
+        <button
+          className=' text-middle01 font-middle01 text-gray-700 bg-gray-200 py-2.5 px-6 rounded-full shadow-[0_0_4px_rgba(0,0,0,0.15)]'
+          onClick={() => setGroupListOpen(true)}
+        >
           그룹 목록
         </button>
       </div>
       <div>
         {/*Calendar*/}
-        <DatePicker onDateSelect={(date) => setNowDate(date)} today={nowDate} schedules={hashMap}/>
+        <DatePicker
+          onDateSelect={(date) => setNowDate(date)}
+          today={nowDate}
+          schedules={hashMap}
+        />
 
         {/*Current Day*/}
         <div className='p-2.5 h-[111px] flex flex-col items-center gap-[6px] mb-[24px]'>
@@ -75,6 +85,17 @@ export default function Page() {
 
       {/*Plan List*/}
       <CalendarPlanList data={hashMap[dateKey(nowDate)]} />
+
+      {/* Group List */}
+      <div className={`${groupListOpen? "fixed top-0 left-0 right-0 bottom-0 z-40 bg-black/30 backdrop-blur-sm" : "hidden" } transition-all duration-300 ease-in-out`} onClick={() => setGroupListOpen(false)} />
+      <div
+        className={`fixed left-0 right-0 bottom-0 z-50
+        transition-transform duration-300 ease-out
+        ${groupListOpen ? 'translate-y-0' : 'translate-y-full'}
+      `}
+      >
+        <CalendarGroupList onClose={() => setGroupListOpen(false)} />
+      </div>
     </div>
   )
 }
