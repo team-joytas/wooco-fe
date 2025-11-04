@@ -5,7 +5,7 @@ import leftIcon from '@/src/assets/icon/medium/left.svg'
 import rightIcon from '@/src/assets/icon/medium/right.svg'
 import rightBlueArrowIcon from '@/src/assets/icon/medium/right-blue-arrow.svg'
 import Image from 'next/image'
-import MonthYearPicker from '@/src/widgets/date-pikcker/MonthYearPicker'
+import MonthYearPicker from '@/src/widgets/date-picker/MonthYearPicker'
 import { CalendarPlanType } from '@/src/entities/calendar/model'
 const weekdays = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
