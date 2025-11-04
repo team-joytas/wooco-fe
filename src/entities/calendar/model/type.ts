@@ -11,3 +11,11 @@ export interface CalendarPlanType {
   /** Date */
   date: string,
 }
+
+export type CalendarGroupData = {
+  id: string
+  title: string
+  groupName: string
+  groupSize: number
+  groupColor: string
+}
