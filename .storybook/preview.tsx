@@ -2,6 +2,7 @@ import type { Preview } from '@storybook/nextjs'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import '../app/globals.css'
 
+
 const client = new QueryClient({
   defaultOptions: { queries: { retry: 0 } },
 })
@@ -12,6 +13,12 @@ const preview: Preview = {
       matchers: {
        color: /(background|color)$/i,
        date: /Date$/i,
+      },
+    },
+    nextjs: {
+      appDirectory: true,
+      router: {
+        basePath: '/',
       },
     },
   },
