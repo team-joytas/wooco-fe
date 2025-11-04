@@ -113,7 +113,7 @@ export default function MonthYearPicker({
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50"
       onClick={onClose}
     >
       <div className="bg-white p-5 rounded-xl shadow-lg w-[300px]"
