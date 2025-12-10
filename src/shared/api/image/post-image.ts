@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { convertImageToWebP } from '../../utils/imageUtil'
 import { getImageUploadUrl } from './get-image-upload-url'
 
@@ -8,13 +7,15 @@ export const postImage = async (image: File): Promise<string> => {
   const { upload_url: uploadUrl, image_url: imageUrl } =
     await getImageUploadUrl()
 
-  const response = await axios.put(uploadUrl, webpImage, {
+  const response = await fetch(uploadUrl, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'image/webp',
     },
+    body: webpImage,
   })
 
-  if (response.status !== 200) {
+  if (!response.ok) {
     throw new Error('Image upload failed')
   }
 

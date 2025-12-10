@@ -5,9 +5,9 @@ import { useForm } from 'react-hook-form'
 import { Spacer } from '@/src/shared/ui'
 import { useEffect, useState } from 'react'
 import {
-  useGetPlace,
-  usePostPlaceReview,
-  useGetPlaceReview,
+  usePlace,
+  useCreatePlaceReview,
+  usePlaceReview,
   useUpdatePlaceReview,
 } from '@/src/entities/place'
 import FormReview from '@/src/entities/place/ui/FormReview'
@@ -38,9 +38,9 @@ export function ReviewFormLayout({ placeId, reviewId }: ReviewFormLayoutProps) {
     },
   })
   const [placeInfo, setPlaceInfo] = useState({ name: '', address: '' })
-  const { data: placeData } = useGetPlace(placeId)
-  const { data: reviewData } = useGetPlaceReview(placeId, reviewId)
-  const { mutateAsync: createPlaceMutate } = usePostPlaceReview(placeId)
+  const { data: placeData } = usePlace(placeId)
+  const { data: reviewData } = usePlaceReview(placeId, reviewId)
+  const { mutateAsync: createPlaceMutate } = useCreatePlaceReview(placeId)
   const { mutateAsync: updatePlaceMutate } = useUpdatePlaceReview(
     placeId,
     reviewId ? reviewId : ''

@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react'
 import { Spacer, ProfileImage } from '@/src/shared/ui'
-import { PlanType, useGetPlans, NoPlanToolTip } from '@/src/entities/plan'
+import { PlanType, usePlans, NoPlanToolTip } from '@/src/entities/plan'
 import { getLoginUrl } from '@/src/entities/auth'
 import { useRouter } from 'next/navigation'
-import { useGetMyProfile } from '@/src/entities/user'
+import { useMyProfile } from '@/src/entities/user'
 import {
   CoursePlanCard,
   CoursePlanCardSkeleton,
@@ -17,8 +17,8 @@ export default function Page() {
   const [isClick, setIsClick] = useState(false)
   const router = useRouter()
 
-  const { data: plans, isLoading: isPlanLoading } = useGetPlans()
-  const { data: user, isLoading: isUserLoading, isError } = useGetMyProfile()
+  const { data: plans, isLoading: isPlanLoading } = usePlans()
+  const { data: user, isLoading: isUserLoading, isError } = useMyProfile()
 
   const handleLogin = async () => {
     const loginUrl = await getLoginUrl()

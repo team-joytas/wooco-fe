@@ -10,8 +10,8 @@ import type { CourseInputType, CoursePayloadType } from '@/src/entities/course'
 import { CourseFormByStep } from '@/src/features'
 import {
   COURSE_QUERY_KEY,
-  useGetCourse,
-  usePostCourse,
+  useCourse,
+  useCreateCourse,
   useUpdateCourse,
 } from '@/src/entities/course'
 import { useQueryClient } from '@tanstack/react-query'
@@ -74,7 +74,7 @@ export function CourseFormLayout({ level, id }: CourseFormLayoutProps) {
   })
   const { getValues, handleSubmit, setValue } = methods
 
-  const { data: courseData } = useGetCourse(id || '', !!id)
+  const { data: courseData } = useCourse(id || '', !!id)
 
   useEffect(() => {
     if (level !== LEVEL_TYPE.update || isDataLoaded || !courseData) return
@@ -144,7 +144,7 @@ export function CourseFormLayout({ level, id }: CourseFormLayoutProps) {
     }
   }, [level, isDataLoaded])
 
-  const { mutate: courseMutate } = usePostCourse()
+  const { mutate: courseMutate } = useCreateCourse()
   const { mutate: courseUpdateMutate } = useUpdateCourse(id || '')
   const mutateMap = {
     [LEVEL_TYPE.add]: courseMutate,

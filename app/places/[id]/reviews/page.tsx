@@ -1,7 +1,7 @@
 'use client'
 
 import {
-  useGetPlaceReviews,
+  usePlaceReviews,
   PlaceReviewCard,
   PlaceReviewCardSkeleton,
 } from '@/src/entities/place'
@@ -10,7 +10,7 @@ import { ActionHeader } from '@/src/widgets'
 
 export default function Page({ params }: { params: { id: string } }) {
   const { id: placeId } = params
-  const { data: reviewData } = useGetPlaceReviews(placeId)
+  const { data: reviewData } = usePlaceReviews(placeId)
 
   if (!reviewData) {
     return (

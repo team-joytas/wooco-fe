@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { useParams, usePathname } from 'next/navigation'
 import { Home, SquareChartGantt, UserRound } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { customAxios } from '@/src/shared/api'
+import { authFetch } from '@/src/shared/api'
 import useUserStore from '@/src/shared/store/userStore'
 import { useIsIOS } from '@/src/shared/utils/detectMobileOS'
 
@@ -31,9 +31,9 @@ export function NavigationBar() {
   const isOnBoard = path?.includes('onboard')
   const handleClickMyPage = async () => {
     try {
-      const { data } = await customAxios.get(`/users/me`)
-      if (data.results) {
-        router.push(`/users/${data.results.user_id}`)
+      const data = await authFetch.get<{ user_id: string }>('/users/me')
+      if (data) {
+        router.push(`/users/${data.user_id}`)
       } else {
         router.push('/login')
       }

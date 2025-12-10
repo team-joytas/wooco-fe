@@ -4,11 +4,11 @@ import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 import {
   CourseType,
-  useGetCourses,
+  useCourses,
   ListCard,
   ListCardSkeleton,
 } from '@/src/entities/course'
-import { useGetMyLikeRegions } from '@/src/entities/user'
+import { useMyLikeRegions } from '@/src/entities/user'
 import { Spacer, RegionCascaderWithLikes } from '@/src/shared/ui'
 import useRegionStore from '@/src/shared/store/regionStore'
 import heart_fill from '@/src/assets/icon/heart_fullfill_20.svg'
@@ -21,8 +21,8 @@ import { useToast } from '@/src/shared/providers'
 export function MainCourse() {
   const router = useRouter()
   const { setSelectedRegion, setLikedRegions, likedRegions } = useRegionStore()
-  const { data: courses, isLoading } = useGetCourses({ sort: 'POPULAR' })
-  const { data: likeRegions } = useGetMyLikeRegions(likedRegions)
+  const { data: courses, isLoading } = useCourses({ sort: 'POPULAR' })
+  const { data: likeRegions } = useMyLikeRegions(likedRegions)
   const { user } = useUserStore()
   const { show } = useToast()
 

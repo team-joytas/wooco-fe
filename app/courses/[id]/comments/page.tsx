@@ -4,8 +4,8 @@ import { Send } from 'lucide-react'
 import { Spacer } from '@/src/shared/ui'
 import { useForm } from 'react-hook-form'
 import {
-  usePostComment,
-  useGetComments,
+  useCreateComment,
+  useComments,
   CommentCard,
   CommentCardSkeleton,
 } from '@/src/entities/comment'
@@ -17,8 +17,8 @@ export default function Page({ params }: { params: { id: string } }) {
   const { show } = useToast()
   const { token } = useAuth()
 
-  const { data: comments, isLoading, refetch } = useGetComments(courseId)
-  const { mutate: createComment } = usePostComment(courseId)
+  const { data: comments, isLoading, refetch } = useComments(courseId)
+  const { mutate: createComment } = useCreateComment(courseId)
   const {
     register,
     handleSubmit,
@@ -37,14 +37,11 @@ export default function Page({ params }: { params: { id: string } }) {
     }
 
     try {
-      createComment(
-        { course_id: courseId, contents: data.contents },
-        {
-          onSuccess: () => {
-            reset()
-          },
-        }
-      )
+      createComment(data.contents, {
+        onSuccess: () => {
+          reset()
+        },
+      })
     } catch (error) {
       console.error(error)
     }

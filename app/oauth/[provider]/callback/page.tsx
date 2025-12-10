@@ -2,7 +2,7 @@
 
 import { useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { postLogin } from '@/src/entities/auth'
+import { login } from '@/src/entities/auth'
 import { useRouter } from 'next/navigation'
 import Error from '@/app/error'
 import { useAuth, useToast } from '@/src/shared/providers'
@@ -18,7 +18,7 @@ function LoginHandler({ provider }: { provider: string }) {
   useEffect(() => {
     const handleLogin = async () => {
       if (code && state) {
-        const isLogin = await postLogin(code, state, provider)
+        const isLogin = await login(code, state, provider)
         if (isLogin.success) {
           setToken(localStorage.getItem('accessToken'))
           router.replace(isLogin.onBoarding ? '/onboard' : '/')

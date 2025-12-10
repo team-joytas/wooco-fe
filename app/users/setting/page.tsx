@@ -7,8 +7,8 @@ import { Spacer } from '@/src/shared/ui'
 import { ActionHeader } from '@/src/widgets'
 import useUserStore from '@/src/shared/store/userStore'
 import {
-  useGetMyProfile,
-  useUpdateUser,
+  useMyProfile,
+  useUpdateProfile,
   UploadProfileImage,
 } from '@/src/entities/user'
 import { useAuth } from '@/src/shared/providers'
@@ -20,8 +20,8 @@ export default function Page() {
   const updateStateUser = useUserStore((state) => state.updateStateUser)
   const { setToken } = useAuth()
 
-  const { data: profile, isLoading } = useGetMyProfile()
-  const { mutate: updateUser } = useUpdateUser()
+  const { data: profile, isLoading } = useMyProfile()
+  const { mutate: updateUser } = useUpdateProfile()
 
   const {
     register,

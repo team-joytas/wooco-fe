@@ -6,7 +6,7 @@ import Image from 'next/image'
 import {
   ReviewStats,
   PlaceReviewCard,
-  useGetPlaceAggregation,
+  usePlaceAggregation,
 } from '@/src/entities/place'
 import {
   ActionHeader,
@@ -23,7 +23,7 @@ import { useToast } from '@/src/shared/providers'
 
 export default function Page({ params }: { params: { id: string } }) {
   const { id } = params
-  const { data: placeData } = useGetPlaceAggregation(id)
+  const { data: placeData } = usePlaceAggregation(id)
 
   const router = useRouter()
   const { show } = useToast()

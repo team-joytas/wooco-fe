@@ -1,4 +1,4 @@
-import { postDeviceToken } from '@/src/entities/notification'
+import { registerDeviceToken } from '@/src/entities/notification'
 import { app } from '@/firbase'
 import { getMessaging, getToken, onMessage } from 'firebase/messaging'
 
@@ -13,7 +13,7 @@ export const initFCM = () => {
           vapidKey: process.env.NEXT_FIREBASE_VAPID_KEY,
         })
         if (fcmToken && loginToken) {
-          await postDeviceToken({ token: fcmToken })
+          await registerDeviceToken({ token: fcmToken })
         } else {
           //TODO: FCM token 획득 실패, 예외 처리 필요
         }

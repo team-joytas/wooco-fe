@@ -4,7 +4,7 @@ import Image from 'next/image'
 import splashLogo from '@/src/assets/images/(logo)/splash_logo.svg'
 import { useEffect, useState } from 'react'
 import { FieldErrors, useForm, UseFormRegister } from 'react-hook-form'
-import { useGetMyProfile, useUpdateUser } from '@/src/entities/user'
+import { useMyProfile, useUpdateProfile } from '@/src/entities/user'
 import { useRouter } from 'next/navigation'
 import { HelperText, Spacer } from '@/src/shared/ui'
 
@@ -12,8 +12,8 @@ export default function Page() {
   const router = useRouter()
   const [imageLoaded, setImageLoaded] = useState(false)
 
-  const { mutate: updateUser } = useUpdateUser()
-  const { data: profile } = useGetMyProfile()
+  const { mutate: updateUser } = useUpdateProfile()
+  const { data: profile } = useMyProfile()
 
   const {
     register,

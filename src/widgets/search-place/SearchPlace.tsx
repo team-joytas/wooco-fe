@@ -11,11 +11,12 @@ import {
 } from '@/src/entities/place'
 import { Search } from 'lucide-react'
 
-type MetaType = {
-  total_count: number
-  pageable_count: number
-  is_end: boolean
-}
+// MetaType unused - for future pagination
+// type MetaType = {
+//   total_count: number
+//   pageable_count: number
+//   is_end: boolean
+// }
 
 interface SearchPlaceProps {
   region: string
