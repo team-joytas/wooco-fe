@@ -3,7 +3,7 @@ import { UserProfileType } from '../model'
 import { USER_QUERY_KEY } from './queryKey'
 import { useQuery } from '@tanstack/react-query'
 import { USER_API } from './endpoint'
-import { useAuth } from '@/src/shared/provider'
+import { useAuth } from '@/src/shared/providers'
 
 export const getMyProfile = async (): Promise<UserProfileType> => {
   try {

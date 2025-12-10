@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useDeleteCourseLike, usePostCourseLike } from '@/src/entities/course'
-import { useAuth, useToast } from '@/src/shared/provider'
+import { useAuth, useToast } from '@/src/shared/providers'
 
 export function useCourseLike(
   courseId: string,

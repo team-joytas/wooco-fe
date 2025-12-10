@@ -19,7 +19,7 @@ import { Spacer, KakaoMap } from '@/src/shared/ui'
 import { Copy, Phone } from 'lucide-react'
 import { ScrollTabs, ScrollTabType } from '@/src/features'
 import logo from '@/src/assets/images/(logo)/logo.png'
-import { useToast } from '@/src/shared/provider'
+import { useToast } from '@/src/shared/providers'
 
 export default function Page({ params }: { params: { id: string } }) {
   const { id } = params

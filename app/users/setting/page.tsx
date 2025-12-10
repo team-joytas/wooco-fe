@@ -11,7 +11,7 @@ import {
   useUpdateUser,
   UploadProfileImage,
 } from '@/src/entities/user'
-import { useAuth } from '@/src/shared/provider'
+import { useAuth } from '@/src/shared/providers'
 
 export default function Page() {
   const router = useRouter()

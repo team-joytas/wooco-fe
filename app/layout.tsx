@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import localFont from 'next/font/local'
+import { Suspense } from 'react'
 import { Spacer } from '@/src/shared/ui'
 import { MainHeader, NavigationBar } from '@/src/widgets'
-import localFont from 'next/font/local'
-import { AppProviders } from '@/src/shared/provider'
-import { Suspense } from 'react'
+import { AppProviders } from '@/app/providers'
 
 export const metadata: Metadata = {
   title: 'WOOCO - 우코',

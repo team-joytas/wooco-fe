@@ -10,7 +10,7 @@ import {
   CommentCardSkeleton,
 } from '@/src/entities/comment'
 import { ActionHeader } from '@/src/widgets'
-import { useAuth, useToast } from '@/src/shared/provider'
+import { useAuth, useToast } from '@/src/shared/providers'
 
 export default function Page({ params }: { params: { id: string } }) {
   const courseId = params.id

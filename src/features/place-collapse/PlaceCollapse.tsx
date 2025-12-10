@@ -3,7 +3,7 @@ import { ChevronDown, ChevronUp, Copy } from 'lucide-react'
 import logoDefaultCopy from '@/src/assets/images/(logo)/temp_empty.png'
 import { type CoursePlaceType, StarRateView } from '@/src/entities/place'
 import { Spacer } from '@/src/shared/ui'
-import { useToast } from '@/src/shared/provider'
+import { useToast } from '@/src/shared/providers'
 import { PlaceReviewLinks } from '@/src/widgets'
 
 export function PlaceCollapse({

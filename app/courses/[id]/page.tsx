@@ -8,7 +8,7 @@ import { CourseDetailLayout, CourseDetailLayoutSkeleton } from '@/src/widgets'
 import { formatDateToYYYYMMDD, passFromCreate } from '@/src/shared/utils/date'
 import { useGetCourse } from '@/src/entities/course'
 import { useGetComments, CommentCard } from '@/src/entities/comment'
-import { useAuth, useToast } from '@/src/shared/provider'
+import { useAuth, useToast } from '@/src/shared/providers'
 
 export default function Page({ params }: { params: { id: string } }) {
   const courseId = params.id

@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { postLogin } from '@/src/entities/auth'
 import { useRouter } from 'next/navigation'
 import Error from '@/app/error'
-import { useAuth, useToast } from '@/src/shared/provider'
+import { useAuth, useToast } from '@/src/shared/providers'
 
 function LoginHandler({ provider }: { provider: string }) {
   const router = useRouter()

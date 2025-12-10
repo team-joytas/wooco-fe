@@ -15,7 +15,7 @@ import {
   useUpdateCourse,
 } from '@/src/entities/course'
 import { useQueryClient } from '@tanstack/react-query'
-import { useToast } from '@/src/shared/provider'
+import { useToast } from '@/src/shared/providers'
 import useUserStore from '@/src/shared/store/userStore'
 import useRegionStore from '@/src/shared/store/regionStore'
 import { ProgressBar } from '@/src/features/course-form/ProgressBar'

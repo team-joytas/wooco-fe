@@ -7,7 +7,7 @@ import useRegionStore, { LikeRegion } from '@/src/shared/store/regionStore'
 import { Spacer, SelectCategories } from '@/src/shared/ui'
 import { useDeleteMyLikeRegion, usePostMyLikeRegion } from '@/src/entities/user'
 import { SelectSort, FloatingWriteButton } from '@/src/features'
-import { useAuth, useToast } from '@/src/shared/provider'
+import { useAuth, useToast } from '@/src/shared/providers'
 
 interface RegionCourseProps {
   primary: string

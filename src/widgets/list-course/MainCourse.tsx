@@ -16,7 +16,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import useUserStore from '@/src/shared/store/userStore'
 import { FloatingWriteButton } from '@/src/features'
-import { useToast } from '@/src/shared/provider'
+import { useToast } from '@/src/shared/providers'
 
 export function MainCourse() {
   const router = useRouter()

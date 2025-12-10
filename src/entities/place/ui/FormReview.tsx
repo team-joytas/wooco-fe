@@ -9,7 +9,7 @@ import error from '@/src/assets/icon/medium/error.svg'
 import cross from '@/src/assets/icon/medium/cross.svg'
 import crossLight from '@/src/assets/icon/medium/cross_lightgray.svg'
 import plus from '@/src/assets/icon/medium/plus_gray.svg'
-import { useToast } from '@/src/shared/provider'
+import { useToast } from '@/src/shared/providers'
 
 // 리뷰
 interface ReviewTextareaProps {
