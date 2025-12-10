@@ -1,2 +1,1 @@
-export * from './get-login-url'
-export * from './post-login'
+export * from './use-auth'
