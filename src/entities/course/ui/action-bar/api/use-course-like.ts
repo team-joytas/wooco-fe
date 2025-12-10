@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useDeleteCourseLike, usePostCourseLike } from '@/src/entities/course'
+import { useUnlikeCourse, useLikeCourse } from '@/src/entities/course'
 import { useAuth, useToast } from '@/src/shared/providers'
 
 export function useCourseLike(
@@ -14,8 +14,8 @@ export function useCourseLike(
   const { show } = useToast()
   const { token } = useAuth()
 
-  const { mutate: deleteCourseLike } = useDeleteCourseLike(courseId)
-  const { mutate: postCourseLike } = usePostCourseLike(courseId)
+  const { mutate: unlikeCourse } = useUnlikeCourse(courseId)
+  const { mutate: likeCourse } = useLikeCourse(courseId)
 
   const toggleLike = () => {
     if (!token) {
@@ -24,12 +24,12 @@ export function useCourseLike(
     }
 
     if (isLiked) {
-      deleteCourseLike(courseId, {
+      unlikeCourse(undefined, {
         onSuccess: () => setLikeCount((prev) => prev - 1),
       })
       setIsLiked(false)
     } else {
-      postCourseLike(courseId, {
+      likeCourse(undefined, {
         onSuccess: () => setLikeCount((prev) => prev + 1),
       })
       setIsLiked(true)
