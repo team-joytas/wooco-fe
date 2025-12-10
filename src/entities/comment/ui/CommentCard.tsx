@@ -59,7 +59,7 @@ export function CommentCard({
 
     try {
       updateComment(
-        { comment_id: id.toString(), contents: data.contents },
+        { commentId: id.toString(), contents: data.contents },
         {
           onSuccess: () => {
             setErrorMessage('')
