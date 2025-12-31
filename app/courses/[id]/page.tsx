@@ -4,10 +4,7 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Spacer, ProfileImage } from '@/src/shared/ui'
-import {
-  CoursePlanDetailLayout,
-  CoursePlanDetailLayoutSkeleton,
-} from '@/src/widgets'
+import { CourseDetailLayout, CourseDetailLayoutSkeleton } from '@/src/widgets'
 import { formatDateToYYYYMMDD, passFromCreate } from '@/src/shared/utils/date'
 import { useGetCourse } from '@/src/entities/course'
 import { useGetComments, CommentCard } from '@/src/entities/comment'
@@ -52,10 +49,10 @@ export default function Page({ params }: { params: { id: string } }) {
   }
 
   if (isCourseLoading || isCommentLoading || !course || !comments)
-    return <CoursePlanDetailLayoutSkeleton type='course' />
+    return <CourseDetailLayoutSkeleton />
 
   return (
-    <CoursePlanDetailLayout type='course' id={courseId} data={course}>
+    <CourseDetailLayout id={courseId} data={course}>
       <section className='w-full px-[20px] py-[10px] text-white bg-brand'>
         <div className='w-full flex gap-[10px] max-w-[375px] cursor-pointer'>
           <ProfileImage
@@ -125,6 +122,6 @@ export default function Page({ params }: { params: { id: string } }) {
           )}
         </div>
       </div>
-    </CoursePlanDetailLayout>
+    </CourseDetailLayout>
   )
 }
