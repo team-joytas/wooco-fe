@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation'
 import { useState, useEffect, useMemo } from 'react'
 import { Spacer } from '@/src/shared/ui'
 import { ActionHeader, SearchPlace } from '@/src/widgets'
-import type { CoursePlanPlaceType } from '@/src/entities/place'
+import type { CoursePlaceType } from '@/src/entities/place'
 import type { CoursePayloadType } from '@/src/entities/course'
 import {
   PLAN_QUERY_KEY,
@@ -69,7 +69,7 @@ export function CoursePlanFormLayout({
   const { show } = useToast()
   const { setSelectedRegion } = useRegionStore()
 
-  const [places, setPlaces] = useState<CoursePlanPlaceType[]>([])
+  const [places, setPlaces] = useState<CoursePlaceType[]>([])
   const [openSearchPlace, setOpenSearchPlace] = useState<boolean>(false)
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false)
   const [isDataLoaded, setIsDataLoaded] = useState<boolean>(false)

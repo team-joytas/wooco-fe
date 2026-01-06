@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { Spacer } from '@/src/shared/ui'
 import { ActionHeader, SearchPlace } from '@/src/widgets'
-import type { CoursePlanPlaceType } from '@/src/entities/place'
+import type { CoursePlaceType } from '@/src/entities/place'
 import type { CourseInputType, CoursePayloadType } from '@/src/entities/course'
 import { CourseFormByStep } from '@/src/features'
 import {
@@ -46,7 +46,7 @@ export function CourseFormLayout({ level, id }: CourseFormLayoutProps) {
   const { show } = useToast()
   const { setSelectedRegion } = useRegionStore()
 
-  const [places, setPlaces] = useState<CoursePlanPlaceType[]>([])
+  const [places, setPlaces] = useState<CoursePlaceType[]>([])
   const [openSearchPlace, setOpenSearchPlace] = useState<boolean>(false)
   const [showValidationByStep, setShowValidationByStep] = useState<{
     first: boolean

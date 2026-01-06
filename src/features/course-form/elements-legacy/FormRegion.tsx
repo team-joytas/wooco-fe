@@ -5,14 +5,14 @@ import { useFormContext } from 'react-hook-form'
 import type { CoursePayloadType } from '@/src/entities/course'
 import { HelperText, RegionCascader } from '@/src/shared/ui'
 import { useEffect } from 'react'
-import type { CoursePlanPlaceType } from '@/src/entities/place'
+import type { CoursePlaceType } from '@/src/entities/place'
 import useRegionStore from '@/src/shared/store/regionStore'
 
 export function FormRegion({
   setPlaces,
   isSubmitted,
 }: {
-  setPlaces: Dispatch<SetStateAction<CoursePlanPlaceType[]>>
+  setPlaces: Dispatch<SetStateAction<CoursePlaceType[]>>
   isSubmitted: boolean
 }) {
   const { setValue, watch } = useFormContext<CoursePayloadType>()

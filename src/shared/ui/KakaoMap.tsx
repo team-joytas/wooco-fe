@@ -1,10 +1,10 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import type { CoursePlanPlaceType, KakaoPlaceType } from '@/src/entities/place'
+import type { CoursePlaceType, KakaoPlaceType } from '@/src/entities/place'
 
 interface ActiveKakaoMapProps {
-  places: CoursePlanPlaceType[]
+  places: CoursePlaceType[]
   center?: number[]
   activeIndex?: number | null
 }
@@ -82,7 +82,7 @@ export function ActiveKakaoMap({
     updateMarkers(places)
   }, [places, activeIndex])
 
-  const updateMarkers = (places: CoursePlanPlaceType[]) => {
+  const updateMarkers = (places: CoursePlaceType[]) => {
     const map = mapRef.current
     if (!map) return
 

@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
 import { Spacer, Divider } from '@/src/shared/ui'
-import type { CoursePlanPlaceType } from '@/src/entities/place'
+import type { CoursePlaceType } from '@/src/entities/place'
 import {
   Section,
   FormTitle,
@@ -19,8 +19,8 @@ export function CourseFormLegacy({
   isSubmitted,
 }: {
   pageType: string
-  places: CoursePlanPlaceType[]
-  setPlaces: Dispatch<SetStateAction<CoursePlanPlaceType[]>>
+  places: CoursePlaceType[]
+  setPlaces: Dispatch<SetStateAction<CoursePlaceType[]>>
   handleClickSearchPlace: () => void
   isSubmitted: boolean
 }) {
