@@ -1,7 +1,7 @@
 'use client'
 
 import { Dispatch, SetStateAction } from 'react'
-import type { CoursePlanPlaceType } from '@/src/entities/place'
+import type { CoursePlaceType } from '@/src/entities/place'
 import {
   Section,
   FormTitle,
@@ -26,8 +26,8 @@ function CourseFormStepOne({
   handleClickSearchPlace,
   showValidation,
 }: {
-  places: CoursePlanPlaceType[]
-  setPlaces: Dispatch<SetStateAction<CoursePlanPlaceType[]>>
+  places: CoursePlaceType[]
+  setPlaces: Dispatch<SetStateAction<CoursePlaceType[]>>
   handleClickSearchPlace: () => void
   showValidation: boolean
 }) {
@@ -92,8 +92,8 @@ function CourseFormStepThree() {
 
 interface CourseFormProps {
   step: 'first' | 'second' | 'preview'
-  places: CoursePlanPlaceType[]
-  setPlaces: Dispatch<SetStateAction<CoursePlanPlaceType[]>>
+  places: CoursePlaceType[]
+  setPlaces: Dispatch<SetStateAction<CoursePlaceType[]>>
   handleClickSearchPlace: () => void
   showValidationByStep: {
     first: boolean

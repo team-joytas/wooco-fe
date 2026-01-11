@@ -2,13 +2,13 @@
 
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { CoursePlanPlaceType } from '@/src/entities/place'
+import { CoursePlaceType } from '@/src/entities/place'
 import { AlignJustify, X } from 'lucide-react'
 
 interface DragPlaceItemProps {
-  id: number
-  place: CoursePlanPlaceType
-  onDelete: (id: number) => void
+  id: string
+  place: CoursePlaceType
+  onDelete: (id: string) => void
 }
 
 export default function DragPlaceItem({

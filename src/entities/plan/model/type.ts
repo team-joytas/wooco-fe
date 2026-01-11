@@ -1,4 +1,4 @@
-import { CoursePlanPlaceType } from '@/src/entities/place'
+import { CoursePlaceType } from '@/src/entities/place'
 
 export type PlanType = {
   id: number
@@ -7,7 +7,7 @@ export type PlanType = {
   primary_region: string
   secondary_region: string
   visit_date: string
-  places: CoursePlanPlaceType[]
+  places: CoursePlaceType[]
 }
 
 export type PlanPayloadType = {

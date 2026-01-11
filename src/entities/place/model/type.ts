@@ -45,8 +45,8 @@ export type SeoulType = {
   children?: SeoulType[]
 }
 
-export type CoursePlanPlaceType = {
-  id: number
+export type CoursePlaceType = {
+  id: string
   order: number
   name: string
   latitude: string

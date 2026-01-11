@@ -13,7 +13,7 @@ export const mockCourse = {
   places: [
     {
       order: 0,
-      id: 1,
+      id: '1',
       name: '강남김밥',
       latitude: '37.51647777507762',
       longitude: '127.04264755226313',

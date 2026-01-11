@@ -6,7 +6,7 @@ import { ActionHeader } from '@/src/widgets'
 import {
   getPlaceSearchResult,
   postPlace,
-  CoursePlanPlaceType,
+  CoursePlaceType,
   PlaceSearchType,
 } from '@/src/entities/place'
 import { Search } from 'lucide-react'
@@ -20,7 +20,7 @@ type MetaType = {
 interface SearchPlaceProps {
   region: string
   setOpenSearchPlace: (open: boolean) => void
-  setPlaces: Dispatch<SetStateAction<CoursePlanPlaceType[]>>
+  setPlaces: Dispatch<SetStateAction<CoursePlaceType[]>>
 }
 
 export function SearchPlace({
@@ -51,7 +51,7 @@ export function SearchPlace({
   const selectPlace = async (place: PlaceSearchType) => {
     setOpenSearchPlace(false)
     const placeId = await postPlace(place)
-    const placePayload: CoursePlanPlaceType = {
+    const placePayload: CoursePlaceType = {
       id: placeId.id,
       order: 0,
       name: place.place_name,

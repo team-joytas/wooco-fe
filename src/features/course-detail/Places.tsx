@@ -1,4 +1,4 @@
-import { CoursePlanPlaceType, PlaceCollapse } from '@/src/entities/place'
+import { CoursePlaceType, PlaceCollapse } from '@/src/entities/place'
 import { ActiveKakaoMap } from '@/src/shared/ui'
 import { useState } from 'react'
 
@@ -6,7 +6,7 @@ export function Places({
   places,
   username,
 }: {
-  places: CoursePlanPlaceType[]
+  places: CoursePlaceType[]
   username: string
 }) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)

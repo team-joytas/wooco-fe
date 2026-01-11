@@ -1,7 +1,7 @@
 'use client'
 
 import { CourseInputType } from '@/src/entities/course'
-import { CoursePlanPlaceType } from '@/src/entities/place'
+import { CoursePlaceType } from '@/src/entities/place'
 import { ActiveKakaoMap, HelperText } from '@/src/shared/ui'
 import { DragPlace } from '@/src/widgets'
 import { Dispatch, SetStateAction } from 'react'
@@ -15,8 +15,8 @@ export function FormPlaces({
   handleClickSearchPlace,
   showValidation,
 }: {
-  places: CoursePlanPlaceType[]
-  setPlaces: Dispatch<SetStateAction<CoursePlanPlaceType[]>>
+  places: CoursePlaceType[]
+  setPlaces: Dispatch<SetStateAction<CoursePlaceType[]>>
   handleClickSearchPlace: () => void
   showValidation: boolean
 }) {
