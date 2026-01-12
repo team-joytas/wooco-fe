@@ -9,12 +9,12 @@ import { useDeletePlan } from '@/src/entities/plan'
 import { BackButton } from '@/src/shared/ui'
 import {
   useDeleteCourse,
-  useDeleteCourseLike,
-  usePostCourseLike,
+  useUnlikeCourse,
+  useLikeCourse,
 } from '@/src/entities/course'
 import { USER_QUERY_KEY } from '@/src/entities/user/api'
 import { HeaderBase, TitleWithTagStyle, ActionDropdown } from '@/src/features'
-import { useAuth, useToast } from '@/src/shared/provider'
+import { useAuth, useToast } from '@/src/shared/providers'
 import heart_fill from '@/src/assets/icon/heart_fullfill_20.svg'
 import heart_empty from '@/src/assets/icon/heart_empty_20.svg'
 import Image from 'next/image'
@@ -40,8 +40,8 @@ export function CoursePlanHeader({
   const { show } = useToast()
   const { token } = useAuth()
 
-  const { mutate: deleteCourseLike } = useDeleteCourseLike(id)
-  const { mutate: postCourseLike } = usePostCourseLike(id)
+  const { mutate: unlikeCourse } = useUnlikeCourse(id)
+  const { mutate: likeCourse } = useLikeCourse(id)
   const { mutate: deleteCourse } = useDeleteCourse()
   const { mutate: deletePlan } = useDeletePlan()
 
@@ -60,10 +60,10 @@ export function CoursePlanHeader({
     try {
       if (isLiked) {
         setClickedLike(false)
-        deleteCourseLike(id)
+        unlikeCourse(undefined)
       } else {
         setClickedLike(true)
-        postCourseLike(id)
+        likeCourse(undefined)
       }
     } catch (error) {
       console.error(error)

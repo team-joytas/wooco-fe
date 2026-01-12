@@ -1,5 +1,5 @@
-import { CoursePlanFormLayout } from '@/src/widgets'
+import { CourseFormLayout } from '@/src/widgets'
 
 export default function Page({ params }: { params: { id: string } }) {
-  return <CoursePlanFormLayout id={params.id} type='course' level='update' />
+  return <CourseFormLayout id={params.id} level='update' />
 }

@@ -8,12 +8,12 @@ import { useQueryClient } from '@tanstack/react-query'
 import { BackButton } from '@/src/shared/ui'
 import {
   useDeleteCourse,
-  useDeleteCourseLike,
-  usePostCourseLike,
+  useUnlikeCourse,
+  useLikeCourse,
 } from '@/src/entities/course'
 import { USER_QUERY_KEY } from '@/src/entities/user/api'
 import { HeaderBase, TitleWithTagStyle, ActionDropdown } from '@/src/features'
-import { useAuth, useToast } from '@/src/shared/provider'
+import { useAuth, useToast } from '@/src/shared/providers'
 import heart_fill from '@/src/assets/icon/heart_fullfill_20.svg'
 import heart_empty from '@/src/assets/icon/heart_empty_20.svg'
 import Image from 'next/image'
@@ -37,8 +37,8 @@ export function CourseHeader({
   const { show } = useToast()
   const { token } = useAuth()
 
-  const { mutate: unlikeCourse } = useDeleteCourseLike(id)
-  const { mutate: likeCourse } = usePostCourseLike(id)
+  const { mutate: unlikeCourse } = useUnlikeCourse(id)
+  const { mutate: likeCourse } = useLikeCourse(id)
   const { mutate: deleteCourse } = useDeleteCourse()
 
   const myId = useUserStore((state) => state.user?.user_id)
@@ -56,10 +56,10 @@ export function CourseHeader({
     try {
       if (isLiked) {
         setClickedLike(false)
-        unlikeCourse(id)
+        unlikeCourse()
       } else {
         setClickedLike(true)
-        likeCourse(id)
+        likeCourse()
       }
     } catch (error) {
       console.error(error)

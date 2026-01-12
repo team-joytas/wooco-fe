@@ -48,7 +48,7 @@ export function NotificationCard({
 
   const notificationType = TYPE_MAP[type]
 
-  const { mutate: readNotification } = useReadNotification(id.toString())
+  const { mutate: readNotification } = useReadNotification()
 
   if (!notificationType) {
     return null

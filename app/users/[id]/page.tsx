@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation'
 import { Spacer } from '@/src/shared/ui'
 import { ActionHeader } from '@/src/widgets'
 import {
-  useGetMyPlaceReviews,
-  useGetUserSummary,
-  useGetUserCourses,
+  useMyPlaceReviews,
+  useUserSummary,
+  useUserCourses,
   UserProfileSection,
   UserProfileSectionSkeleton,
 } from '@/src/entities/user'
@@ -29,9 +29,9 @@ export default function Page({ params }: { params: { id: string } }) {
   const isMe = myId !== undefined && myId === id
   const [activeTab, setActiveTab] = useState<NavigationTabType>('course')
 
-  const { data: userSummary, error } = useGetUserSummary(id)
-  const { data: courses } = useGetUserCourses(id)
-  const { data: placeReviews } = useGetMyPlaceReviews(id)
+  const { data: userSummary, error } = useUserSummary(id)
+  const { data: courses } = useUserCourses(id)
+  const { data: placeReviews } = useMyPlaceReviews(id)
 
   if (error) {
     router.push('/not-found')

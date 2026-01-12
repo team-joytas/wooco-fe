@@ -13,20 +13,20 @@ import type { CoursePlaceType } from '@/src/entities/place'
 import type { CoursePayloadType } from '@/src/entities/course'
 import {
   PLAN_QUERY_KEY,
-  usePostPlan,
-  useGetPlan,
+  useCreatePlan,
+  usePlan,
   useUpdatePlan,
   PlanPayloadType,
 } from '@/src/entities/plan'
 import { CourseFormLegacy } from '@/src/features'
 import {
   COURSE_QUERY_KEY,
-  useGetCourse,
-  usePostCourse,
+  useCourse,
+  useCreateCourse,
   useUpdateCourse,
 } from '@/src/entities/course'
 import { useQueryClient } from '@tanstack/react-query'
-import { useToast } from '@/src/shared/provider'
+import { useToast } from '@/src/shared/providers'
 import useUserStore from '@/src/shared/store/userStore'
 import useRegionStore from '@/src/shared/store/regionStore'
 
@@ -96,8 +96,8 @@ export function CoursePlanFormLayout({
     formState: { isSubmitting },
   } = methods
 
-  const { data: courseData } = useGetCourse(id || '', type == 'course' && !!id)
-  const { data: planData } = useGetPlan(id || '', type == 'plan' && !!id)
+  const { data: courseData } = useCourse(id || '', type == 'course' && !!id)
+  const { data: planData } = usePlan(id || '', type == 'plan' && !!id)
   const fetchData = useMemo(() => {
     return type === LAYOUT_TYPE.course
       ? courseData
@@ -117,7 +117,8 @@ export function CoursePlanFormLayout({
       visit_date,
       places,
     } = fetchData
-    const writer = 'writer' in fetchData && fetchData.writer
+    const writer =
+      'writer' in fetchData ? (fetchData.writer as { id: string }) : null
 
     const { user } = useUserStore.getState()
     if (writer && (!user || writer.id !== user?.user_id)) {
@@ -183,8 +184,8 @@ export function CoursePlanFormLayout({
     }
   }, [level, type, isDataLoaded])
 
-  const { mutate: courseMutate } = usePostCourse()
-  const { mutate: planMutate } = usePostPlan()
+  const { mutate: courseMutate } = useCreateCourse()
+  const { mutate: planMutate } = useCreatePlan()
   const { mutate: courseUpdateMutate } = useUpdateCourse(id || '')
   const { mutate: planUpdateMutate } = useUpdatePlan(id || '')
   const mutateMap = {

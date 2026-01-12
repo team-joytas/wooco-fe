@@ -6,7 +6,7 @@ import {
   ReactQueryProvider,
   ToastProvider,
   FcmProvider,
-} from '@/src/shared/provider'
+} from '@/src/shared/providers'
 import { ConfigProvider } from 'antd'
 import { AnimatePresence } from 'framer-motion'
 

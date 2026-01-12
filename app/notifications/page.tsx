@@ -3,13 +3,13 @@
 import { ActionHeader } from '@/src/widgets'
 import { Spacer } from '@/src/shared/ui'
 import {
-  useGetNotifications,
+  useNotifications,
   NotificationCard,
 } from '@/src/entities/notification'
 import { useEffect } from 'react'
 
 export default function Page() {
-  const { data: notificationData, refetch } = useGetNotifications()
+  const { data: notificationData, refetch } = useNotifications()
 
   useEffect(() => {
     refetch()

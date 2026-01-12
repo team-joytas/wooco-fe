@@ -1,6 +1,6 @@
 'use client'
 
-import { useGetLikeCourses } from '@/src/entities/user/api'
+import { useUserLikeCourses } from '@/src/entities/user'
 import { ActionHeader, CourseListLayout } from '@/src/widgets'
 import { Spacer, SelectCategories } from '@/src/shared/ui'
 import { useEffect, useState } from 'react'
@@ -13,7 +13,7 @@ export default function Page({ params }: { params: { id: string } }) {
   const [category, setCategory] = useState<string[]>(['ALL'])
   const [order, setOrder] = useState<'RECENT' | 'POPULAR'>('RECENT')
 
-  const { data: likeCourses, isLoading } = useGetLikeCourses({
+  const { data: likeCourses, isLoading } = useUserLikeCourses({
     id,
     sort: order as 'RECENT' | 'POPULAR',
     category: category.includes('ALL') ? undefined : category[0],

@@ -6,9 +6,9 @@ import { useRouter } from 'next/navigation'
 import { Spacer, ProfileImage } from '@/src/shared/ui'
 import { CourseDetailLayout, CourseDetailLayoutSkeleton } from '@/src/widgets'
 import { formatDateToYYYYMMDD, passFromCreate } from '@/src/shared/utils/date'
-import { useGetCourse } from '@/src/entities/course'
-import { useGetComments, CommentCard } from '@/src/entities/comment'
-import { useAuth, useToast } from '@/src/shared/provider'
+import { useCourse } from '@/src/entities/course'
+import { useComments, CommentCard } from '@/src/entities/comment'
+import { useAuth, useToast } from '@/src/shared/providers'
 
 export default function Page({ params }: { params: { id: string } }) {
   const courseId = params.id
@@ -16,12 +16,12 @@ export default function Page({ params }: { params: { id: string } }) {
     data: course,
     isLoading: isCourseLoading,
     isError,
-  } = useGetCourse(courseId, true)
+  } = useCourse(courseId, true)
   const {
     data: comments,
     isLoading: isCommentLoading,
     refetch,
-  } = useGetComments(courseId)
+  } = useComments(courseId)
 
   const router = useRouter()
   const { show } = useToast()

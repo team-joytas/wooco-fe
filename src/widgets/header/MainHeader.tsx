@@ -6,7 +6,7 @@ import logo from '@/src/assets/icon/small(20)/logo.svg'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import bell from '@/src/assets/icon/medium/bell.svg'
 import { Spacer } from '@/src/shared/ui'
-import { useAuth, useToast } from '@/src/shared/provider'
+import { useAuth, useToast } from '@/src/shared/providers'
 
 export function MainHeader() {
   const path = usePathname()

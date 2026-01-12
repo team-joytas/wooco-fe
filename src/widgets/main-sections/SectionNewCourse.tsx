@@ -4,11 +4,11 @@ import Link from 'next/link'
 import { CoursePlanCard, CoursePlanCardSkeleton } from '@/src/features'
 import { Spacer } from '@/src/shared/ui'
 import type { CourseType } from '@/src/entities/course'
-import { useGetCourses } from '@/src/entities/course'
+import { useCourses } from '@/src/entities/course'
 import { useEffect } from 'react'
 
 export function SectionNewCourse() {
-  const { data: courses, isLoading } = useGetCourses({
+  const { data: courses, isLoading } = useCourses({
     sort: 'RECENT',
     limit: 4,
   })
@@ -41,7 +41,7 @@ export function SectionNewCourse() {
           ? Array.from({ length: 4 }).map((_, index) => (
               <CoursePlanCardSkeleton key={index} />
             ))
-          : courses.map((course: CourseType) => (
+          : courses?.map((course: CourseType) => (
               <CoursePlanCard key={course.id} data={course} />
             ))}
       </div>

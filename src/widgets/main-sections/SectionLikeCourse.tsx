@@ -8,13 +8,13 @@ import {
   NoLikedCourse,
   GridCard,
 } from '@/src/entities/course'
-import { useGetMyProfile, useGetLikeCourses } from '@/src/entities/user'
+import { useMyProfile, useUserLikeCourses } from '@/src/entities/user'
 import { getLoginUrl } from '@/src/entities/auth'
 import { useRouter } from 'next/navigation'
 import { ChevronRight } from 'lucide-react'
 
 export function SectionLikeCourse() {
-  const { data: user, isError } = useGetMyProfile()
+  const { data: user, isError } = useMyProfile()
 
   if (!user || isError) return <LoginLikeCourse />
 
@@ -46,7 +46,7 @@ export function SectionLikeCourse() {
 }
 
 function UserLikeCourse({ id }: { id: string }) {
-  const { data: likeCourse } = useGetLikeCourses({ id, limit: 4 })
+  const { data: likeCourse } = useUserLikeCourses({ id, limit: 4 })
 
   if (!likeCourse || likeCourse.length === 0) return <NoLikedCourse />
 

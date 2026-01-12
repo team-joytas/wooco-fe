@@ -4,13 +4,13 @@ import {
   CoursePlanDetailLayout,
   CoursePlanDetailLayoutSkeleton,
 } from '@/src/widgets'
-import { useGetPlan } from '@/src/entities/plan'
+import { usePlan } from '@/src/entities/plan'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 export default function Page({ params }: { params: { id: string } }) {
   const planId = params.id
-  const { data: plan, isLoading, isError } = useGetPlan(planId)
+  const { data: plan, isLoading, isError } = usePlan(planId)
 
   const router = useRouter()
 
@@ -27,6 +27,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
   if (isError || !plan) {
     router.push('/not-found')
+    return null
   }
 
   return <CoursePlanDetailLayout type='plan' id={planId} data={plan} />

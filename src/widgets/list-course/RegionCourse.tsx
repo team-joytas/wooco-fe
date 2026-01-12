@@ -2,12 +2,12 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { ActionHeader, CourseListLayout } from '@/src/widgets'
-import { useGetCourses } from '@/src/entities/course'
+import { useCourses } from '@/src/entities/course'
 import useRegionStore, { LikeRegion } from '@/src/shared/store/regionStore'
 import { Spacer, SelectCategories } from '@/src/shared/ui'
-import { useDeleteMyLikeRegion, usePostMyLikeRegion } from '@/src/entities/user'
+import { useRemoveLikeRegion, useAddLikeRegion } from '@/src/entities/user'
 import { SelectSort, FloatingWriteButton } from '@/src/features'
-import { useAuth, useToast } from '@/src/shared/provider'
+import { useAuth, useToast } from '@/src/shared/providers'
 
 interface RegionCourseProps {
   primary: string
@@ -48,9 +48,9 @@ export function RegionCourse({ primary, secondary }: RegionCourseProps) {
     }
   }, [])
 
-  const { mutate: postLikeMutate } = usePostMyLikeRegion()
-  const { mutate: deleteLikeMutate } = useDeleteMyLikeRegion()
-  const { data: courses, isLoading } = useGetCourses({
+  const { mutate: postLikeMutate } = useAddLikeRegion()
+  const { mutate: deleteLikeMutate } = useRemoveLikeRegion()
+  const { data: courses, isLoading } = useCourses({
     sort: order as 'RECENT' | 'POPULAR',
     primary_region: primary as string,
     secondary_region: secondary as string,
